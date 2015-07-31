@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>sportType</key>
+		<string>胸部</string>
+		<key>sportName</key>
+		<array/>
+	</dict>
+	<dict>
+		<key>sportType</key>
+		<string>背部</string>
+		<key>sportName</key>
+		<array/>
+	</dict>
+	<dict>
+		<key>sportType</key>
+		<string>肩部</string>
+		<key>sportName</key>
+		<array/>
+	</dict>
+	<dict>
+		<key>sportType</key>
+		<string>腿部</string>
+		<key>sportName</key>
+		<array/>
+	</dict>
+	<dict>
+		<key>sportType</key>
+		<string>体力</string>
+		<key>sportName</key>
+		<array/>
+	</dict>
+	<dict>
+		<key>sportType</key>
+		<string>核心</string>
+		<key>sportName</key>
+		<array/>
+	</dict>
+	<dict>
+		<key>sportType</key>
+		<string>其他</string>
+		<key>sportName</key>
+		<array/>
+	</dict>
+</array>
+</plist>

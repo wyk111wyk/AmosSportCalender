@@ -1,0 +1,736 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B06633171B6B6D7D00F87004 /* LeftMenuTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B06633161B6B6D7D00F87004 /* LeftMenuTableView.m */; };
+		B0854D6A1B6BA84B00C1B150 /* MMDrawerBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D621B6BA84B00C1B150 /* MMDrawerBarButtonItem.m */; };
+		B0854D6B1B6BA84B00C1B150 /* MMDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D651B6BA84B00C1B150 /* MMDrawerController.m */; };
+		B0854D6C1B6BA84B00C1B150 /* MMDrawerVisualState.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D671B6BA84B00C1B150 /* MMDrawerVisualState.m */; };
+		B0854D6D1B6BA84B00C1B150 /* UIViewController+MMDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D691B6BA84B00C1B150 /* UIViewController+MMDrawerController.m */; };
+		B0854D921B6BA87600C1B150 /* JTCalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D721B6BA87600C1B150 /* JTCalendarManager.m */; };
+		B0854D931B6BA87600C1B150 /* JTCalendarSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D741B6BA87600C1B150 /* JTCalendarSettings.m */; };
+		B0854D941B6BA87600C1B150 /* JTDateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D761B6BA87600C1B150 /* JTDateHelper.m */; };
+		B0854D951B6BA87600C1B150 /* JTCalendarDelegateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D791B6BA87600C1B150 /* JTCalendarDelegateManager.m */; };
+		B0854D961B6BA87600C1B150 /* JTCalendarScrollManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D7B1B6BA87600C1B150 /* JTCalendarScrollManager.m */; };
+		B0854D971B6BA87600C1B150 /* JTCalendarDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D851B6BA87600C1B150 /* JTCalendarDayView.m */; };
+		B0854D981B6BA87600C1B150 /* JTCalendarMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D871B6BA87600C1B150 /* JTCalendarMenuView.m */; };
+		B0854D991B6BA87600C1B150 /* JTCalendarPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D891B6BA87600C1B150 /* JTCalendarPageView.m */; };
+		B0854D9A1B6BA87600C1B150 /* JTCalendarWeekDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D8B1B6BA87600C1B150 /* JTCalendarWeekDayView.m */; };
+		B0854D9B1B6BA87600C1B150 /* JTCalendarWeekView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D8D1B6BA87600C1B150 /* JTCalendarWeekView.m */; };
+		B0854D9C1B6BA87600C1B150 /* JTHorizontalCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D8F1B6BA87600C1B150 /* JTHorizontalCalendarView.m */; };
+		B0854D9D1B6BA87600C1B150 /* JTVerticalCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D911B6BA87600C1B150 /* JTVerticalCalendarView.m */; };
+		B09313141B636366003EB2BD /* NewEvevtViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B09313131B636366003EB2BD /* NewEvevtViewController.m */; };
+		B099000F1B666F8300F7AB67 /* sportTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = B099000E1B666F8300F7AB67 /* sportTypes.plist */; };
+		B09900121B67266600F7AB67 /* SportTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B09900111B67266600F7AB67 /* SportTVCell.m */; };
+		B0A34E1B1B63912E00F26EE5 /* EventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A34E1A1B63912E00F26EE5 /* EventStore.m */; };
+		B0B7506B1B637ABC00BE2705 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B7506A1B637ABC00BE2705 /* Event.m */; };
+		B0FA58971B4678D400E3BE94 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FA58961B4678D400E3BE94 /* main.m */; };
+		B0FA589A1B4678D400E3BE94 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FA58991B4678D400E3BE94 /* AppDelegate.m */; };
+		B0FA589D1B4678D400E3BE94 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FA589C1B4678D400E3BE94 /* ViewController.m */; };
+		B0FA58A01B4678D400E3BE94 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0FA589E1B4678D400E3BE94 /* Main.storyboard */; };
+		B0FA58A31B4678D400E3BE94 /* AmosSportCalender.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0FA58A11B4678D400E3BE94 /* AmosSportCalender.xcdatamodeld */; };
+		B0FA58A51B4678D400E3BE94 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0FA58A41B4678D400E3BE94 /* Assets.xcassets */; };
+		B0FA58A81B4678D400E3BE94 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0FA58A61B4678D400E3BE94 /* LaunchScreen.storyboard */; };
+		B0FA58B31B4678D400E3BE94 /* AmosSportCalenderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FA58B21B4678D400E3BE94 /* AmosSportCalenderTests.m */; };
+		B0FA58BE1B4678D400E3BE94 /* AmosSportCalenderUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FA58BD1B4678D400E3BE94 /* AmosSportCalenderUITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B0FA58AF1B4678D400E3BE94 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B0FA588A1B4678D400E3BE94 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B0FA58911B4678D400E3BE94;
+			remoteInfo = AmosSportCalender;
+		};
+		B0FA58BA1B4678D400E3BE94 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B0FA588A1B4678D400E3BE94 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B0FA58911B4678D400E3BE94;
+			remoteInfo = AmosSportCalender;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B06633151B6B6D7D00F87004 /* LeftMenuTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMenuTableView.h; sourceTree = "<group>"; };
+		B06633161B6B6D7D00F87004 /* LeftMenuTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftMenuTableView.m; sourceTree = "<group>"; };
+		B0854D611B6BA84B00C1B150 /* MMDrawerBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDrawerBarButtonItem.h; sourceTree = "<group>"; };
+		B0854D621B6BA84B00C1B150 /* MMDrawerBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMDrawerBarButtonItem.m; sourceTree = "<group>"; };
+		B0854D631B6BA84B00C1B150 /* MMDrawerController+Subclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MMDrawerController+Subclass.h"; sourceTree = "<group>"; };
+		B0854D641B6BA84B00C1B150 /* MMDrawerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDrawerController.h; sourceTree = "<group>"; };
+		B0854D651B6BA84B00C1B150 /* MMDrawerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMDrawerController.m; sourceTree = "<group>"; };
+		B0854D661B6BA84B00C1B150 /* MMDrawerVisualState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDrawerVisualState.h; sourceTree = "<group>"; };
+		B0854D671B6BA84B00C1B150 /* MMDrawerVisualState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMDrawerVisualState.m; sourceTree = "<group>"; };
+		B0854D681B6BA84B00C1B150 /* UIViewController+MMDrawerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MMDrawerController.h"; sourceTree = "<group>"; };
+		B0854D691B6BA84B00C1B150 /* UIViewController+MMDrawerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MMDrawerController.m"; sourceTree = "<group>"; };
+		B0854D6F1B6BA87600C1B150 /* JTCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendar.h; sourceTree = "<group>"; };
+		B0854D701B6BA87600C1B150 /* JTCalendarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarDelegate.h; sourceTree = "<group>"; };
+		B0854D711B6BA87600C1B150 /* JTCalendarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarManager.h; sourceTree = "<group>"; };
+		B0854D721B6BA87600C1B150 /* JTCalendarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTCalendarManager.m; sourceTree = "<group>"; };
+		B0854D731B6BA87600C1B150 /* JTCalendarSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarSettings.h; sourceTree = "<group>"; };
+		B0854D741B6BA87600C1B150 /* JTCalendarSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTCalendarSettings.m; sourceTree = "<group>"; };
+		B0854D751B6BA87600C1B150 /* JTDateHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTDateHelper.h; sourceTree = "<group>"; };
+		B0854D761B6BA87600C1B150 /* JTDateHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTDateHelper.m; sourceTree = "<group>"; };
+		B0854D781B6BA87600C1B150 /* JTCalendarDelegateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarDelegateManager.h; sourceTree = "<group>"; };
+		B0854D791B6BA87600C1B150 /* JTCalendarDelegateManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTCalendarDelegateManager.m; sourceTree = "<group>"; };
+		B0854D7A1B6BA87600C1B150 /* JTCalendarScrollManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarScrollManager.h; sourceTree = "<group>"; };
+		B0854D7B1B6BA87600C1B150 /* JTCalendarScrollManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTCalendarScrollManager.m; sourceTree = "<group>"; };
+		B0854D7D1B6BA87600C1B150 /* JTCalendarDay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarDay.h; sourceTree = "<group>"; };
+		B0854D7E1B6BA87600C1B150 /* JTCalendarPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarPage.h; sourceTree = "<group>"; };
+		B0854D7F1B6BA87600C1B150 /* JTCalendarWeek.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarWeek.h; sourceTree = "<group>"; };
+		B0854D801B6BA87600C1B150 /* JTCalendarWeekDay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarWeekDay.h; sourceTree = "<group>"; };
+		B0854D811B6BA87600C1B150 /* JTContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTContent.h; sourceTree = "<group>"; };
+		B0854D821B6BA87600C1B150 /* JTMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTMenu.h; sourceTree = "<group>"; };
+		B0854D841B6BA87600C1B150 /* JTCalendarDayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarDayView.h; sourceTree = "<group>"; };
+		B0854D851B6BA87600C1B150 /* JTCalendarDayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTCalendarDayView.m; sourceTree = "<group>"; };
+		B0854D861B6BA87600C1B150 /* JTCalendarMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarMenuView.h; sourceTree = "<group>"; };
+		B0854D871B6BA87600C1B150 /* JTCalendarMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTCalendarMenuView.m; sourceTree = "<group>"; };
+		B0854D881B6BA87600C1B150 /* JTCalendarPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarPageView.h; sourceTree = "<group>"; };
+		B0854D891B6BA87600C1B150 /* JTCalendarPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTCalendarPageView.m; sourceTree = "<group>"; };
+		B0854D8A1B6BA87600C1B150 /* JTCalendarWeekDayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarWeekDayView.h; sourceTree = "<group>"; };
+		B0854D8B1B6BA87600C1B150 /* JTCalendarWeekDayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTCalendarWeekDayView.m; sourceTree = "<group>"; };
+		B0854D8C1B6BA87600C1B150 /* JTCalendarWeekView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarWeekView.h; sourceTree = "<group>"; };
+		B0854D8D1B6BA87600C1B150 /* JTCalendarWeekView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTCalendarWeekView.m; sourceTree = "<group>"; };
+		B0854D8E1B6BA87600C1B150 /* JTHorizontalCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTHorizontalCalendarView.h; sourceTree = "<group>"; };
+		B0854D8F1B6BA87600C1B150 /* JTHorizontalCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTHorizontalCalendarView.m; sourceTree = "<group>"; };
+		B0854D901B6BA87600C1B150 /* JTVerticalCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTVerticalCalendarView.h; sourceTree = "<group>"; };
+		B0854D911B6BA87600C1B150 /* JTVerticalCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTVerticalCalendarView.m; sourceTree = "<group>"; };
+		B09313121B636366003EB2BD /* NewEvevtViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewEvevtViewController.h; sourceTree = "<group>"; };
+		B09313131B636366003EB2BD /* NewEvevtViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewEvevtViewController.m; sourceTree = "<group>"; };
+		B099000E1B666F8300F7AB67 /* sportTypes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = sportTypes.plist; sourceTree = "<group>"; };
+		B09900101B67266600F7AB67 /* SportTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SportTVCell.h; sourceTree = "<group>"; };
+		B09900111B67266600F7AB67 /* SportTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SportTVCell.m; sourceTree = "<group>"; };
+		B0A34E191B63912E00F26EE5 /* EventStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EventStore.h; sourceTree = "<group>"; };
+		B0A34E1A1B63912E00F26EE5 /* EventStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventStore.m; sourceTree = "<group>"; };
+		B0B750691B637ABC00BE2705 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
+		B0B7506A1B637ABC00BE2705 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		B0FA58921B4678D400E3BE94 /* AmosSportCalender.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AmosSportCalender.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0FA58961B4678D400E3BE94 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B0FA58981B4678D400E3BE94 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		B0FA58991B4678D400E3BE94 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		B0FA589B1B4678D400E3BE94 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		B0FA589C1B4678D400E3BE94 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		B0FA589F1B4678D400E3BE94 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B0FA58A21B4678D400E3BE94 /* AmosSportCalender.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AmosSportCalender.xcdatamodel; sourceTree = "<group>"; };
+		B0FA58A41B4678D400E3BE94 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B0FA58A71B4678D400E3BE94 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B0FA58A91B4678D400E3BE94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B0FA58AE1B4678D400E3BE94 /* AmosSportCalenderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AmosSportCalenderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0FA58B21B4678D400E3BE94 /* AmosSportCalenderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AmosSportCalenderTests.m; sourceTree = "<group>"; };
+		B0FA58B41B4678D400E3BE94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B0FA58B91B4678D400E3BE94 /* AmosSportCalenderUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AmosSportCalenderUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0FA58BD1B4678D400E3BE94 /* AmosSportCalenderUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AmosSportCalenderUITests.m; sourceTree = "<group>"; };
+		B0FA58BF1B4678D400E3BE94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B0FA588F1B4678D400E3BE94 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0FA58AB1B4678D400E3BE94 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0FA58B61B4678D400E3BE94 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B0854D601B6BA84B00C1B150 /* MMDrawerController */ = {
+			isa = PBXGroup;
+			children = (
+				B0854D611B6BA84B00C1B150 /* MMDrawerBarButtonItem.h */,
+				B0854D621B6BA84B00C1B150 /* MMDrawerBarButtonItem.m */,
+				B0854D631B6BA84B00C1B150 /* MMDrawerController+Subclass.h */,
+				B0854D641B6BA84B00C1B150 /* MMDrawerController.h */,
+				B0854D651B6BA84B00C1B150 /* MMDrawerController.m */,
+				B0854D661B6BA84B00C1B150 /* MMDrawerVisualState.h */,
+				B0854D671B6BA84B00C1B150 /* MMDrawerVisualState.m */,
+				B0854D681B6BA84B00C1B150 /* UIViewController+MMDrawerController.h */,
+				B0854D691B6BA84B00C1B150 /* UIViewController+MMDrawerController.m */,
+			);
+			path = MMDrawerController;
+			sourceTree = "<group>";
+		};
+		B0854D6E1B6BA87600C1B150 /* JTCalendar */ = {
+			isa = PBXGroup;
+			children = (
+				B0854D6F1B6BA87600C1B150 /* JTCalendar.h */,
+				B0854D701B6BA87600C1B150 /* JTCalendarDelegate.h */,
+				B0854D711B6BA87600C1B150 /* JTCalendarManager.h */,
+				B0854D721B6BA87600C1B150 /* JTCalendarManager.m */,
+				B0854D731B6BA87600C1B150 /* JTCalendarSettings.h */,
+				B0854D741B6BA87600C1B150 /* JTCalendarSettings.m */,
+				B0854D751B6BA87600C1B150 /* JTDateHelper.h */,
+				B0854D761B6BA87600C1B150 /* JTDateHelper.m */,
+				B0854D771B6BA87600C1B150 /* Managers */,
+				B0854D7C1B6BA87600C1B150 /* Protocols */,
+				B0854D831B6BA87600C1B150 /* Views */,
+			);
+			path = JTCalendar;
+			sourceTree = "<group>";
+		};
+		B0854D771B6BA87600C1B150 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				B0854D781B6BA87600C1B150 /* JTCalendarDelegateManager.h */,
+				B0854D791B6BA87600C1B150 /* JTCalendarDelegateManager.m */,
+				B0854D7A1B6BA87600C1B150 /* JTCalendarScrollManager.h */,
+				B0854D7B1B6BA87600C1B150 /* JTCalendarScrollManager.m */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		B0854D7C1B6BA87600C1B150 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				B0854D7D1B6BA87600C1B150 /* JTCalendarDay.h */,
+				B0854D7E1B6BA87600C1B150 /* JTCalendarPage.h */,
+				B0854D7F1B6BA87600C1B150 /* JTCalendarWeek.h */,
+				B0854D801B6BA87600C1B150 /* JTCalendarWeekDay.h */,
+				B0854D811B6BA87600C1B150 /* JTContent.h */,
+				B0854D821B6BA87600C1B150 /* JTMenu.h */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		B0854D831B6BA87600C1B150 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B0854D841B6BA87600C1B150 /* JTCalendarDayView.h */,
+				B0854D851B6BA87600C1B150 /* JTCalendarDayView.m */,
+				B0854D861B6BA87600C1B150 /* JTCalendarMenuView.h */,
+				B0854D871B6BA87600C1B150 /* JTCalendarMenuView.m */,
+				B0854D881B6BA87600C1B150 /* JTCalendarPageView.h */,
+				B0854D891B6BA87600C1B150 /* JTCalendarPageView.m */,
+				B0854D8A1B6BA87600C1B150 /* JTCalendarWeekDayView.h */,
+				B0854D8B1B6BA87600C1B150 /* JTCalendarWeekDayView.m */,
+				B0854D8C1B6BA87600C1B150 /* JTCalendarWeekView.h */,
+				B0854D8D1B6BA87600C1B150 /* JTCalendarWeekView.m */,
+				B0854D8E1B6BA87600C1B150 /* JTHorizontalCalendarView.h */,
+				B0854D8F1B6BA87600C1B150 /* JTHorizontalCalendarView.m */,
+				B0854D901B6BA87600C1B150 /* JTVerticalCalendarView.h */,
+				B0854D911B6BA87600C1B150 /* JTVerticalCalendarView.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B0FA58891B4678D400E3BE94 = {
+			isa = PBXGroup;
+			children = (
+				B0FA58941B4678D400E3BE94 /* AmosSportCalender */,
+				B0FA58B11B4678D400E3BE94 /* AmosSportCalenderTests */,
+				B0FA58BC1B4678D400E3BE94 /* AmosSportCalenderUITests */,
+				B0FA58931B4678D400E3BE94 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B0FA58931B4678D400E3BE94 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B0FA58921B4678D400E3BE94 /* AmosSportCalender.app */,
+				B0FA58AE1B4678D400E3BE94 /* AmosSportCalenderTests.xctest */,
+				B0FA58B91B4678D400E3BE94 /* AmosSportCalenderUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B0FA58941B4678D400E3BE94 /* AmosSportCalender */ = {
+			isa = PBXGroup;
+			children = (
+				B0FA58981B4678D400E3BE94 /* AppDelegate.h */,
+				B0FA58991B4678D400E3BE94 /* AppDelegate.m */,
+				B0B750691B637ABC00BE2705 /* Event.h */,
+				B0B7506A1B637ABC00BE2705 /* Event.m */,
+				B0A34E191B63912E00F26EE5 /* EventStore.h */,
+				B0A34E1A1B63912E00F26EE5 /* EventStore.m */,
+				B0FA589B1B4678D400E3BE94 /* ViewController.h */,
+				B0FA589C1B4678D400E3BE94 /* ViewController.m */,
+				B09313121B636366003EB2BD /* NewEvevtViewController.h */,
+				B09313131B636366003EB2BD /* NewEvevtViewController.m */,
+				B09900101B67266600F7AB67 /* SportTVCell.h */,
+				B09900111B67266600F7AB67 /* SportTVCell.m */,
+				B06633151B6B6D7D00F87004 /* LeftMenuTableView.h */,
+				B06633161B6B6D7D00F87004 /* LeftMenuTableView.m */,
+				B0FA589E1B4678D400E3BE94 /* Main.storyboard */,
+				B0FA58A41B4678D400E3BE94 /* Assets.xcassets */,
+				B0FA58A61B4678D400E3BE94 /* LaunchScreen.storyboard */,
+				B0FA58A11B4678D400E3BE94 /* AmosSportCalender.xcdatamodeld */,
+				B0854D6E1B6BA87600C1B150 /* JTCalendar */,
+				B0854D601B6BA84B00C1B150 /* MMDrawerController */,
+				B0FA58951B4678D400E3BE94 /* Supporting Files */,
+			);
+			path = AmosSportCalender;
+			sourceTree = "<group>";
+		};
+		B0FA58951B4678D400E3BE94 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B0FA58A91B4678D400E3BE94 /* Info.plist */,
+				B0FA58961B4678D400E3BE94 /* main.m */,
+				B099000E1B666F8300F7AB67 /* sportTypes.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B0FA58B11B4678D400E3BE94 /* AmosSportCalenderTests */ = {
+			isa = PBXGroup;
+			children = (
+				B0FA58B21B4678D400E3BE94 /* AmosSportCalenderTests.m */,
+				B0FA58B41B4678D400E3BE94 /* Info.plist */,
+			);
+			path = AmosSportCalenderTests;
+			sourceTree = "<group>";
+		};
+		B0FA58BC1B4678D400E3BE94 /* AmosSportCalenderUITests */ = {
+			isa = PBXGroup;
+			children = (
+				B0FA58BD1B4678D400E3BE94 /* AmosSportCalenderUITests.m */,
+				B0FA58BF1B4678D400E3BE94 /* Info.plist */,
+			);
+			path = AmosSportCalenderUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B0FA58911B4678D400E3BE94 /* AmosSportCalender */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B0FA58C21B4678D400E3BE94 /* Build configuration list for PBXNativeTarget "AmosSportCalender" */;
+			buildPhases = (
+				B0FA588E1B4678D400E3BE94 /* Sources */,
+				B0FA588F1B4678D400E3BE94 /* Frameworks */,
+				B0FA58901B4678D400E3BE94 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AmosSportCalender;
+			productName = AmosSportCalender;
+			productReference = B0FA58921B4678D400E3BE94 /* AmosSportCalender.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B0FA58AD1B4678D400E3BE94 /* AmosSportCalenderTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B0FA58C51B4678D400E3BE94 /* Build configuration list for PBXNativeTarget "AmosSportCalenderTests" */;
+			buildPhases = (
+				B0FA58AA1B4678D400E3BE94 /* Sources */,
+				B0FA58AB1B4678D400E3BE94 /* Frameworks */,
+				B0FA58AC1B4678D400E3BE94 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B0FA58B01B4678D400E3BE94 /* PBXTargetDependency */,
+			);
+			name = AmosSportCalenderTests;
+			productName = AmosSportCalenderTests;
+			productReference = B0FA58AE1B4678D400E3BE94 /* AmosSportCalenderTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		B0FA58B81B4678D400E3BE94 /* AmosSportCalenderUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B0FA58C81B4678D400E3BE94 /* Build configuration list for PBXNativeTarget "AmosSportCalenderUITests" */;
+			buildPhases = (
+				B0FA58B51B4678D400E3BE94 /* Sources */,
+				B0FA58B61B4678D400E3BE94 /* Frameworks */,
+				B0FA58B71B4678D400E3BE94 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B0FA58BB1B4678D400E3BE94 /* PBXTargetDependency */,
+			);
+			name = AmosSportCalenderUITests;
+			productName = AmosSportCalenderUITests;
+			productReference = B0FA58B91B4678D400E3BE94 /* AmosSportCalenderUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B0FA588A1B4678D400E3BE94 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "Amos Wu";
+				TargetAttributes = {
+					B0FA58911B4678D400E3BE94 = {
+						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = D3FXKEY64K;
+					};
+					B0FA58AD1B4678D400E3BE94 = {
+						CreatedOnToolsVersion = 7.0;
+						TestTargetID = B0FA58911B4678D400E3BE94;
+					};
+					B0FA58B81B4678D400E3BE94 = {
+						CreatedOnToolsVersion = 7.0;
+						TestTargetID = B0FA58911B4678D400E3BE94;
+					};
+				};
+			};
+			buildConfigurationList = B0FA588D1B4678D400E3BE94 /* Build configuration list for PBXProject "AmosSportCalender" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B0FA58891B4678D400E3BE94;
+			productRefGroup = B0FA58931B4678D400E3BE94 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B0FA58911B4678D400E3BE94 /* AmosSportCalender */,
+				B0FA58AD1B4678D400E3BE94 /* AmosSportCalenderTests */,
+				B0FA58B81B4678D400E3BE94 /* AmosSportCalenderUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B0FA58901B4678D400E3BE94 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0FA58A81B4678D400E3BE94 /* LaunchScreen.storyboard in Resources */,
+				B0FA58A51B4678D400E3BE94 /* Assets.xcassets in Resources */,
+				B0FA58A01B4678D400E3BE94 /* Main.storyboard in Resources */,
+				B099000F1B666F8300F7AB67 /* sportTypes.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0FA58AC1B4678D400E3BE94 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0FA58B71B4678D400E3BE94 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B0FA588E1B4678D400E3BE94 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B06633171B6B6D7D00F87004 /* LeftMenuTableView.m in Sources */,
+				B0854D6A1B6BA84B00C1B150 /* MMDrawerBarButtonItem.m in Sources */,
+				B0854D9C1B6BA87600C1B150 /* JTHorizontalCalendarView.m in Sources */,
+				B0854D6B1B6BA84B00C1B150 /* MMDrawerController.m in Sources */,
+				B0854D9A1B6BA87600C1B150 /* JTCalendarWeekDayView.m in Sources */,
+				B0854D921B6BA87600C1B150 /* JTCalendarManager.m in Sources */,
+				B09900121B67266600F7AB67 /* SportTVCell.m in Sources */,
+				B0854D941B6BA87600C1B150 /* JTDateHelper.m in Sources */,
+				B0854D9B1B6BA87600C1B150 /* JTCalendarWeekView.m in Sources */,
+				B0FA58A31B4678D400E3BE94 /* AmosSportCalender.xcdatamodeld in Sources */,
+				B0FA589D1B4678D400E3BE94 /* ViewController.m in Sources */,
+				B0854D9D1B6BA87600C1B150 /* JTVerticalCalendarView.m in Sources */,
+				B0854D971B6BA87600C1B150 /* JTCalendarDayView.m in Sources */,
+				B0B7506B1B637ABC00BE2705 /* Event.m in Sources */,
+				B0854D951B6BA87600C1B150 /* JTCalendarDelegateManager.m in Sources */,
+				B0854D991B6BA87600C1B150 /* JTCalendarPageView.m in Sources */,
+				B0854D6C1B6BA84B00C1B150 /* MMDrawerVisualState.m in Sources */,
+				B0854D6D1B6BA84B00C1B150 /* UIViewController+MMDrawerController.m in Sources */,
+				B0854D961B6BA87600C1B150 /* JTCalendarScrollManager.m in Sources */,
+				B0854D931B6BA87600C1B150 /* JTCalendarSettings.m in Sources */,
+				B0854D981B6BA87600C1B150 /* JTCalendarMenuView.m in Sources */,
+				B09313141B636366003EB2BD /* NewEvevtViewController.m in Sources */,
+				B0FA589A1B4678D400E3BE94 /* AppDelegate.m in Sources */,
+				B0FA58971B4678D400E3BE94 /* main.m in Sources */,
+				B0A34E1B1B63912E00F26EE5 /* EventStore.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0FA58AA1B4678D400E3BE94 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0FA58B31B4678D400E3BE94 /* AmosSportCalenderTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0FA58B51B4678D400E3BE94 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0FA58BE1B4678D400E3BE94 /* AmosSportCalenderUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B0FA58B01B4678D400E3BE94 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B0FA58911B4678D400E3BE94 /* AmosSportCalender */;
+			targetProxy = B0FA58AF1B4678D400E3BE94 /* PBXContainerItemProxy */;
+		};
+		B0FA58BB1B4678D400E3BE94 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B0FA58911B4678D400E3BE94 /* AmosSportCalender */;
+			targetProxy = B0FA58BA1B4678D400E3BE94 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		B0FA589E1B4678D400E3BE94 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B0FA589F1B4678D400E3BE94 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		B0FA58A61B4678D400E3BE94 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B0FA58A71B4678D400E3BE94 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B0FA58C01B4678D400E3BE94 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		B0FA58C11B4678D400E3BE94 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B0FA58C31B4678D400E3BE94 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = AmosSportCalender/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.AKSocialLab.AmosSportCalender;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Debug;
+		};
+		B0FA58C41B4678D400E3BE94 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				INFOPLIST_FILE = AmosSportCalender/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.AKSocialLab.AmosSportCalender;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+			};
+			name = Release;
+		};
+		B0FA58C61B4678D400E3BE94 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = AmosSportCalenderTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.AKSocialLab.AmosSportCalenderTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AmosSportCalender.app/AmosSportCalender";
+			};
+			name = Debug;
+		};
+		B0FA58C71B4678D400E3BE94 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = AmosSportCalenderTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.AKSocialLab.AmosSportCalenderTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AmosSportCalender.app/AmosSportCalender";
+			};
+			name = Release;
+		};
+		B0FA58C91B4678D400E3BE94 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = AmosSportCalenderUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.AKSocialLab.AmosSportCalenderUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = AmosSportCalender;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		B0FA58CA1B4678D400E3BE94 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = AmosSportCalenderUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.AKSocialLab.AmosSportCalenderUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_TARGET_NAME = AmosSportCalender;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B0FA588D1B4678D400E3BE94 /* Build configuration list for PBXProject "AmosSportCalender" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B0FA58C01B4678D400E3BE94 /* Debug */,
+				B0FA58C11B4678D400E3BE94 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B0FA58C21B4678D400E3BE94 /* Build configuration list for PBXNativeTarget "AmosSportCalender" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B0FA58C31B4678D400E3BE94 /* Debug */,
+				B0FA58C41B4678D400E3BE94 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B0FA58C51B4678D400E3BE94 /* Build configuration list for PBXNativeTarget "AmosSportCalenderTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B0FA58C61B4678D400E3BE94 /* Debug */,
+				B0FA58C71B4678D400E3BE94 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B0FA58C81B4678D400E3BE94 /* Build configuration list for PBXNativeTarget "AmosSportCalenderUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B0FA58C91B4678D400E3BE94 /* Debug */,
+				B0FA58CA1B4678D400E3BE94 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		B0FA58A11B4678D400E3BE94 /* AmosSportCalender.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B0FA58A21B4678D400E3BE94 /* AmosSportCalender.xcdatamodel */,
+			);
+			currentVersion = B0FA58A21B4678D400E3BE94 /* AmosSportCalender.xcdatamodel */;
+			path = AmosSportCalender.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = B0FA588A1B4678D400E3BE94 /* Project object */;
+}
