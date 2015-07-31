@@ -29,6 +29,7 @@
 @property (nonatomic, strong) ViewController *vc;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *menuButton;
 
+@property (nonatomic, strong) Event *event;
 @end
 
 @implementation ViewController
@@ -127,6 +128,7 @@
         UINavigationController *nc = (UINavigationController *)segue.destinationViewController;
         NewEvevtViewController *mvc = (NewEvevtViewController *)[nc topViewController];
         
+        //初始化一遍Event *
         Event *newEvent = [[Event alloc] init];
         
         if (_selectedDate) {
@@ -375,8 +377,8 @@
 {
     SportTVCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
-    Event *event = self.oneDayEvents[indexPath.row];
-    cell.event = event;
+    self.event = self.oneDayEvents[indexPath.row];
+    cell.event = self.event;
     
     return cell;
 }
@@ -386,10 +388,12 @@
     
     SportTVCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     
-    if (cell.accessoryType == UITableViewCellAccessoryCheckmark){
-        cell.accessoryType = UITableViewCellAccessoryNone;
-    }else{
+    if (self.event.done == NO){
+        self.event.done = YES;
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }else{
+        self.event.done = NO;
+        cell.accessoryType = UITableViewCellAccessoryNone;
     }
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];

@@ -28,6 +28,11 @@
         self.rap = 6;
         self.timelast = 30;
         self.done = NO;
+        
+        //    生成一个唯一的标识（UUID），用作保存图片的key
+        NSUUID *uuid = [NSUUID new];
+        NSString *key = [uuid UUIDString];
+        self.itemKey = key;
     }
     
     [self sportEvent];

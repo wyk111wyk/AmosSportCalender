@@ -26,5 +26,6 @@ extern NSArray *sportTypes;
 @property (nonatomic) int timelast; ///<运动的持续时间
 
 @property (nonatomic) BOOL done; ///<是否完成该事件
+@property (nonatomic, copy) NSString *itemKey; ///<储存图片用的唯一编码
 
 @end
