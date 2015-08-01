@@ -6,9 +6,14 @@
 //  Copyright © 2015年 Amos Wu. All rights reserved.
 //
 
+// TODO: [something]
+// MARK: [something]
+// FIXME: [something]
+
 #import "ViewController.h"
 #import "NewEvevtViewController.h"
 #import "Event.h"
+#import "EventStore.h"
 #import "SportTVCell.h"
 #import "LeftMenuTableView.h"
 
@@ -16,16 +21,15 @@
 
 @interface ViewController ()<UITableViewDataSource, UITableViewDelegate>
 {
-    NSMutableDictionary *eventsByDate;
+    NSMutableDictionary *eventsByDate; ///<储存所有事件的Dic
     
     NSDate *_todayDate;
     NSDate *_minDate;
     NSDate *_maxDate;
-
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) NSDate* selectedDate;
-@property (nonatomic, strong) NSMutableArray *oneDayEvents;
+@property (nonatomic, strong) NSDate* selectedDate; ///<被选择的当天日期，用作key
+@property (nonatomic, strong) NSMutableArray *oneDayEvents; ///<被选择当天的事件数组Array
 @property (nonatomic, strong) ViewController *vc;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *menuButton;
 
@@ -61,31 +65,32 @@
     [_calendarManager setContentView:_calendarContentView];
     [_calendarManager setDate:_todayDate];
     
-    eventsByDate = [NSMutableDictionary new];
+    //init
+    self.selectedDate = [NSDate date];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
     [self loadTheDateEvents];
 }
 
 - (void)loadTheDateEvents
 {
+    //init
     self.oneDayEvents = [NSMutableArray array];
+    //载入key
     NSString *key = [[self dateFormatter] stringFromDate:self.selectedDate ? self.selectedDate : [NSDate date]];
     
-    if(!eventsByDate[key])
-    {
-        eventsByDate[key] = [NSMutableArray array];
-    }
+    eventsByDate = [[NSMutableDictionary alloc] initWithDictionary:[[EventStore sharedStore] allItems] copyItems:NO];
     self.oneDayEvents = eventsByDate[key];
     
     [_calendarManager reload];
     [self.tableView reloadData];
     
 }
+
+#pragma mark - click the Date
 
 - (void)calendar:(JTCalendarManager *)calendar didTouchDayView:(JTCalendarDayView *)dayView
 {
@@ -116,6 +121,7 @@
         }
     }
     
+    //重新载入一遍数据
     [self loadTheDateEvents];
     NSLog(@"Date: %@ - %ld events", mydate, [self.oneDayEvents count]);
 }
@@ -128,8 +134,11 @@
         UINavigationController *nc = (UINavigationController *)segue.destinationViewController;
         NewEvevtViewController *mvc = (NewEvevtViewController *)[nc topViewController];
         
+        Event *newEvent = [[EventStore sharedStore] createItem];
+        mvc.event = newEvent;
+        
         //初始化一遍Event *
-        Event *newEvent = [[Event alloc] init];
+//        Event *newEvent = [[Event alloc] init];
         
         if (_selectedDate) {
             mvc.date = _selectedDate;
@@ -137,16 +146,14 @@
             mvc.date = [NSDate date];
         }
         
-        mvc.event = newEvent;
-        
-        NSString *key = [[self dateFormatter] stringFromDate:_selectedDate ? _selectedDate : [NSDate date]];
-        
-        if(!eventsByDate[key])
-        {
-            eventsByDate[key] = [NSMutableArray array];
-        }
-        
-        [eventsByDate[key] addObject:newEvent];
+//        NSString *key = [[self dateFormatter] stringFromDate:_selectedDate ? _selectedDate : [NSDate date]];
+//        
+//        if(!eventsByDate[key])
+//        {
+//            eventsByDate[key] = [NSMutableArray array];
+//        }
+//        
+//        [eventsByDate[key] addObject:newEvent];
         
     }
 }
@@ -169,6 +176,7 @@
             break;
     }
 }
+
 - (IBAction)openAndCloseDrower:(UIBarButtonItem *)sender {
     
     [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
@@ -179,20 +187,21 @@
     [_calendarManager setDate:_todayDate];
 }
 
+//往下滑动week模式改为全日期模式
 - (IBAction)changeToMonthMode
 {
     if (_calendarManager.settings.weekModeEnabled) {
         [self transitionExample];
     }
 }
-
+//滑动Table改为week视图
 - (void)scrollViewWillBeginDragging:(nonnull UIScrollView *)scrollView
 {
     if (!_calendarManager.settings.weekModeEnabled) {
         [self transitionExample];
     }
 }
-
+//改变日历视图的动画
 - (void)transitionExample
 {
     _calendarManager.settings.weekModeEnabled = !_calendarManager.settings.weekModeEnabled;
@@ -268,7 +277,7 @@
         dayView.dotView.hidden = YES;
     }
 }
-
+//Menu视图属性
 - (UIView *)calendarBuildMenuItemView:(JTCalendarManager *)calendar
 {
     UILabel *label = [UILabel new];
@@ -278,11 +287,7 @@
     
     return label;
 }
-
-/*!
- * Used to customize the menuItemView.
- * Set text attribute to the name of the month by default.
- */
+//Menu视图字体
 - (void)calendar:(JTCalendarManager *)calendar prepareMenuItemView:(UILabel *)menuItemView date:(NSDate *)date
 {
     static NSDateFormatter *dateFormatter;
@@ -317,7 +322,6 @@
     view.textLabel.font = [UIFont fontWithName:@"Avenir-Light" size:13];
     
     view.circleRatio = .8;
-//    view.dotRatio = 1. / .9;
     
     return view;
 }

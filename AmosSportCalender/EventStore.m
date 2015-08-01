@@ -11,11 +11,13 @@
 
 @interface EventStore()
 
-@property (nonatomic)NSMutableArray *privateItems;
+@property (nonatomic)NSMutableDictionary *privateEvents;
+//@property (nonatomic)NSMutableArray *privateItems;
 
 @end
 
 @implementation EventStore
+
 + (instancetype)sharedStore
 {
     static EventStore *sharedStore = nil;
@@ -48,57 +50,76 @@
         
         //18.3 在启动时载入之前保存的YKItem对象
         NSString *path = [self itemArchivePath];
-        _privateItems = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+        self.privateEvents = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
         
         //如果没有读取到保存的数据，就创建新的
-        if (!_privateItems) {
-            _privateItems = [[NSMutableArray alloc] init];
+        if (!self.privateEvents) {
+            self.privateEvents = [NSMutableDictionary dictionary];
         }
-        
     }
     
     return self;
 }
 
-- (NSArray *)allItems
+- (NSDictionary *)allItems
 {
-    return [self.privateItems copy];
+    return [self.privateEvents copy];
 }
 
 - (Event *)createItem
 {
-    Event *event = [Event new];
+    Event *event = [[Event alloc] init];
     
-    [self.privateItems addObject:event];
+    return event;
+}
+
+- (Event *)createItem:(Event *)event  date:(NSDate *)date
+{
+    if (event) {
+    event.eventDate = date;
+    NSString *key = [[self dateFormatter] stringFromDate:date ? date : [NSDate date]];
+    
+    if (!self.privateEvents[key]) {
+    self.privateEvents[key] = [NSMutableArray array];
+    }
+
+    [self.privateEvents[key] addObject:event];
+    }
+    
     return event;
 }
 
 //实现删除行的方法
-- (void)removeItem:(Event *)event
+- (void)removeItem:(Event *)event date:(NSDate *)date
 {
+    NSString *key = [[self dateFormatter] stringFromDate:date ? date : [NSDate date]];
     
 //    NSString *key = event.itemKey;
 //    [[YKImageStore shareStore] deleteImageForKey:key];
     
     //removeObjectIdenticalTo:方法
-    [self.privateItems removeObjectIdenticalTo:event];
+    [self.privateEvents[key] removeObjectIdenticalTo:event];
 }
 
 //实现移动数据的方法
 - (void)moveItemAtIndex:(NSUInteger)fromIndex
                toIndex :(NSUInteger)toIndex
+                   date:(NSDate *)date
 {
+    NSString *key = [[self dateFormatter] stringFromDate:date ? date : [NSDate date]];
     if (fromIndex == toIndex) {
         return;
     }
     //得到需要移动的对象的指针，以便稍后能将其插入新的位置
-    Event *event = self.privateItems[fromIndex];
+    if ([self.privateEvents[key] isKindOfClass:[NSMutableArray class]]) {
+    Event *event = self.privateEvents[key][fromIndex];
     
     //将item从allItems数组中移除
-    [self.privateItems removeObjectAtIndex:fromIndex];
+    [self.privateEvents[key] removeObjectAtIndex:fromIndex];
     
     //根据新的索引位置，将item插回allItems数组
-    [self.privateItems insertObject:event atIndex:toIndex];
+    [self.privateEvents[key] insertObject:event atIndex:toIndex];
+    }
 }
 
 //18.2 将对象保存至Doc目录中的某个文件，以及读取
@@ -116,9 +137,17 @@
 - (BOOL)saveChanges //储存数据到本地的方法！
 {
     NSString *path = [self itemArchivePath];
-    
-    //将所有privateItems中的所有YKItem对象都保存至以上路径的文件
-    return [NSKeyedArchiver archiveRootObject:self.privateItems toFile:path];
+    return [NSKeyedArchiver archiveRootObject:self.privateEvents toFile:path];
 }
 
+- (NSDateFormatter *)dateFormatter
+{
+    static NSDateFormatter *dateFormatter;
+    if(!dateFormatter){
+        dateFormatter = [NSDateFormatter new];
+        dateFormatter.dateFormat = @"dd-MM-yyyy";
+    }
+    
+    return dateFormatter;
+}
 @end

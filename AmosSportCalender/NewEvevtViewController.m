@@ -8,6 +8,7 @@
 
 #import "NewEvevtViewController.h"
 #import "Event.h"
+#import "EventStore.h"
 
 @interface NewEvevtViewController ()<UIPickerViewDelegate,UIPickerViewDataSource,UITextFieldDelegate, UISearchBarDelegate>
 @property (nonatomic) BOOL datePickerisUp;
@@ -42,17 +43,6 @@
 #pragma mark - lifeCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
-    if (_date) {
-        
-        self.datePicker.date = _date;
-            
-        NSString *dateStr = [NSString stringWithFormat:@"%@", _date];
-        NSString *newStr = [dateStr substringToIndex:10];
-        
-        self.navigationItem.title = newStr;
-        self.dateLabel.text = newStr;
-    }
     
     //键盘属性
     self.weightTextFeild.keyboardType = UIKeyboardTypeDecimalPad;
@@ -72,7 +62,13 @@
     self.sportTypePickerView.hidden = YES;
     self.sportPickerisUp = NO;
     
-    //设置显示的属性值
+    //设置UI显示的属性值
+    self.datePicker.date = self.date;
+    NSString *dateStr = [NSString stringWithFormat:@"%@", self.date];
+    NSString *newStr = [dateStr substringToIndex:10];
+    self.navigationItem.title = newStr;
+    self.dateLabel.text = newStr;
+    
     self.eventLabel.text = self.event.sportType;
     self.sportNameLabel.text = self.event.sportName;
     self.weightTextFeild.text = [NSString stringWithFormat:@"%.1f", self.event.weight];
@@ -80,6 +76,7 @@
     self.timesFeild.text = [NSString stringWithFormat:@"%d", self.event.times];
     self.rapFeild.text = [NSString stringWithFormat:@"%d", self.event.rap];
     
+    //设置联动Picker的属性
     NSFileManager * defaultManager = [NSFileManager defaultManager];
     NSURL * documentPath = [[defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask]firstObject];
     NSString * fileContainFloder = [documentPath.path stringByAppendingPathComponent:@"sportEventData"];
@@ -100,15 +97,6 @@
 {
     [super viewWillDisappear:animated];
     
-    //保存更改后的值
-    Event *event = self.event;
-    event.sportType = self.eventLabel.text;
-    event.eventDate = self.datePicker.date;
-    event.sportName = self.sportNameLabel.text;
-    event.weight = [self.weightTextFeild.text floatValue];
-    event.timelast = [self.timelastFeild.text intValue];
-    event.times = [self.timesFeild.text intValue];
-    event.rap = [self.rapFeild.text intValue];
 }
 
 #pragma mark - Button Method
@@ -154,14 +142,24 @@
 }
 
 - (IBAction)finishAndCreateEvent:(UIBarButtonItem *)sender {
+    //保存更改后的值
+    Event *event = self.event;
+    event.sportType = self.eventLabel.text;
+    event.eventDate = self.datePicker.date;
+    event.sportName = self.sportNameLabel.text;
+    event.weight = [self.weightTextFeild.text floatValue];
+    event.timelast = [self.timelastFeild.text intValue];
+    event.times = [self.timesFeild.text intValue];
+    event.rap = [self.rapFeild.text intValue];
+    
+    [[EventStore sharedStore] createItem:event date:self.event.eventDate];
+
     [self dismissViewControllerAnimated:YES completion:^{
-        
     }];
 }
 
 - (IBAction)cancelTheEvent:(UIBarButtonItem *)sender {
     [self dismissViewControllerAnimated:YES completion:^{
-        
     }];
 }
 
