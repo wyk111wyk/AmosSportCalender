@@ -249,7 +249,6 @@
 			isa = PBXGroup;
 			children = (
 				B0FA589E1B4678D400E3BE94 /* Main.storyboard */,
-				B0FA58A41B4678D400E3BE94 /* Assets.xcassets */,
 				B0FA58A61B4678D400E3BE94 /* LaunchScreen.storyboard */,
 			);
 			name = View;
@@ -308,6 +307,7 @@
 		B0FA58951B4678D400E3BE94 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B0FA58A41B4678D400E3BE94 /* Assets.xcassets */,
 				B0FA58A91B4678D400E3BE94 /* Info.plist */,
 				B0FA58961B4678D400E3BE94 /* main.m */,
 				B099000E1B666F8300F7AB67 /* sportTypes.plist */,

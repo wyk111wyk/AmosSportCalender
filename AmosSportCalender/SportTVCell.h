@@ -15,6 +15,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *sportType; ///<类别
 @property (weak, nonatomic) IBOutlet UILabel *sportPro; ///<运动项目属性
 @property (weak, nonatomic) IBOutlet UILabel *timelastLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *donePic;
+
 @property (nonatomic, strong) Event *event;
 
 @end

@@ -30,10 +30,15 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSDate* selectedDate; ///<被选择的当天日期，用作key
 @property (nonatomic, strong) NSMutableArray *oneDayEvents; ///<被选择当天的事件数组Array
+@property (nonatomic, strong) NSMutableDictionary *doneNumbers; ///<储存完成项目数的字典
+@property (nonatomic, strong) NSNumber *doneNumber; ///<已经完成的项目数
+
 @property (nonatomic, strong) ViewController *vc;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *menuButton;
+@property (weak, nonatomic) IBOutlet UILabel *underTableLabel;
+@property (weak, nonatomic) IBOutlet UIView *addButtonView;
 
-@property (nonatomic, strong) Event *event;
+//@property (nonatomic, strong) Event *event;
 @end
 
 @implementation ViewController
@@ -53,6 +58,7 @@
     
     _tableView.delegate = self;
     _tableView.dataSource = self;
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     _calendarManager = [JTCalendarManager new];
     _calendarManager.delegate = self;
@@ -67,12 +73,18 @@
     
     //init
     self.selectedDate = [NSDate date];
+    self.doneNumbers = [NSMutableDictionary dictionary];
+    
+    //长按移动cell顺序
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureRecognized:)];
+    [self.tableView addGestureRecognizer:longPress];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self loadTheDateEvents];
+    
 }
 
 - (void)loadTheDateEvents
@@ -84,12 +96,40 @@
     
     eventsByDate = [[NSMutableDictionary alloc] initWithDictionary:[[EventStore sharedStore] allItems] copyItems:NO];
     self.oneDayEvents = eventsByDate[key];
+    [self setUnderTableLabelWithDifferentDay];
     
-    [_calendarManager reload];
     [self.tableView reloadData];
-    
 }
 
+- (void)setUnderTableLabelWithDifferentDay
+{
+    int i = 0;
+    
+    //计算这一天有多少已完成的事件
+    if (self.oneDayEvents) {
+        for (Event *event in self.oneDayEvents) {
+            if (event.done == YES) {
+                i ++;
+            }
+        }}
+    self.doneNumber = [NSNumber numberWithInt:i];
+    NSLog(@"i = %d", i);
+    
+    [_calendarManager reload];
+    
+    //设置显示的文字
+    if (self.oneDayEvents.count > 0) {
+        self.addButtonView.hidden = YES;
+        if (self.oneDayEvents.count > i) {
+            self.underTableLabel.text = [NSString stringWithFormat:@"共有%lu个运动项目，已完成%d项，还剩%lu项", (unsigned long)self.oneDayEvents.count, i, self.oneDayEvents.count - i];
+        }else if (self.oneDayEvents.count == i){
+            self.underTableLabel.text = [NSString stringWithFormat:@"今天的运动已经全部完成了，干得好！"];
+        }
+    }else{
+        self.addButtonView.hidden = NO;
+        self.underTableLabel.text = [NSString stringWithFormat:@"今天没有运动，做个计划吧！"];
+    }
+}
 #pragma mark - click the Date
 
 - (void)calendar:(JTCalendarManager *)calendar didTouchDayView:(JTCalendarDayView *)dayView
@@ -123,10 +163,14 @@
     
     //重新载入一遍数据
     [self loadTheDateEvents];
-    NSLog(@"Date: %@ - %ld events", mydate, [self.oneDayEvents count]);
+    NSLog(@"Date: %@ - %ld events", mydate, (unsigned long)[self.oneDayEvents count]);
 }
 
 #pragma mark - Buttons callback
+- (IBAction)addNewEvent:(UIButton *)sender {
+    
+    [self creatTheNewEvent];
+}
 
 - (void)prepareForSegue:(nonnull UIStoryboardSegue *)segue sender:(nullable id)sender
 {
@@ -137,26 +181,19 @@
         Event *newEvent = [[EventStore sharedStore] createItem];
         mvc.event = newEvent;
         
-        //初始化一遍Event *
-//        Event *newEvent = [[Event alloc] init];
-        
         if (_selectedDate) {
             mvc.date = _selectedDate;
         }else{
             mvc.date = [NSDate date];
         }
-        
-//        NSString *key = [[self dateFormatter] stringFromDate:_selectedDate ? _selectedDate : [NSDate date]];
-//        
-//        if(!eventsByDate[key])
-//        {
-//            eventsByDate[key] = [NSMutableArray array];
-//        }
-//        
-//        [eventsByDate[key] addObject:newEvent];
-        
     }
 }
+
+- (void)creatTheNewEvent
+{
+    [self performSegueWithIdentifier:@"newEvent" sender:self];
+}
+
 - (IBAction)segmentedControl:(UISegmentedControl *)sender {
     
     switch ([sender selectedSegmentIndex]) {
@@ -338,6 +375,8 @@
     return dateFormatter;
 }
 
+// TODO: 将所有运动都完成的那一天，改变Day的显示View
+
 - (BOOL)haveEventForDay:(NSDate *)date
 {
     NSString *key = [[self dateFormatter] stringFromDate:date];
@@ -381,8 +420,9 @@
 {
     SportTVCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
-    self.event = self.oneDayEvents[indexPath.row];
-    cell.event = self.event;
+//    NSLog(@"+ 重载cell");
+    Event *event = self.oneDayEvents[indexPath.row];
+    cell.event = event;
     
     return cell;
 }
@@ -390,17 +430,42 @@
 - (void)tableView:(nonnull UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
     
-    SportTVCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+//    SportTVCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+    Event *event = self.oneDayEvents[indexPath.row];
     
-    if (self.event.done == NO){
-        self.event.done = YES;
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    if (event.done == NO){
+        
+        event.done = YES;
+        
+        [[EventStore sharedStore] moveItemAtIndex:indexPath.row toIndex:self.oneDayEvents.count - 1 date:self.selectedDate];
+        
+        NSIndexPath *fromIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
+        NSUInteger row = [self.oneDayEvents count] - 1;
+        NSIndexPath *toIndexPath = [NSIndexPath indexPathForRow:row inSection:0];
+        
+        if (![fromIndexPath isEqual: toIndexPath]) {
+        [self.tableView moveRowAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
+        }
+        
+//        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:toIndexPath] withRowAnimation:UITableViewRowAnimationRight];
+        
+        NSLog(@"- No to Yes");
     }else{
-        self.event.done = NO;
-        cell.accessoryType = UITableViewCellAccessoryNone;
+        event.done = NO;
+        
+        [[EventStore sharedStore] moveItemAtIndex:indexPath.row toIndex:0 date:self.selectedDate];
+        
+        NSIndexPath *fromIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
+        NSIndexPath *toIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
+
+        [self.tableView moveRowAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
+
+        NSLog(@"~ Yes to No");
     }
     
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+//    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self setUnderTableLabelWithDifferentDay];
+    [self.tableView reloadData];
 }
 
 - (nullable NSString *)tableView:(nonnull UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -412,6 +477,10 @@
     }
 }
 
+- (CGFloat)tableView:(nonnull UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
+{
+    return 55;
+}
 #pragma mark - TableView的操作
 
 //这两个方法是必须的
@@ -423,6 +492,128 @@
 //实现协议规定的方法，需要向UITableView发送该消息
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        Event *event = self.oneDayEvents[indexPath.row];
+        [[EventStore sharedStore] removeItem:event date:self.selectedDate];
+        
+        //删除表格中的相应行
+        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [_calendarManager reload];
+    }
+}
+
+#pragma mark - 长按移动cell顺序
+
+- (IBAction)longPressGestureRecognized:(id)sender {
+    
+    UILongPressGestureRecognizer *longPress = (UILongPressGestureRecognizer *)sender;
+    UIGestureRecognizerState state = longPress.state;
+    
+    CGPoint location = [longPress locationInView:self.tableView];
+    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
+    
+    static UIView       *snapshot = nil;        ///< A snapshot of the row user is moving.
+    static NSIndexPath  *sourceIndexPath = nil; ///< Initial index path, where gesture begins.
+    
+    switch (state) {
+        case UIGestureRecognizerStateBegan: {
+            if (indexPath) {
+                sourceIndexPath = indexPath;
+                
+                UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+                
+                // Take a snapshot of the selected row using helper method.
+                snapshot = [self customSnapshoFromView:cell];
+                
+                // Add the snapshot as subview, centered at cell's center...
+                __block CGPoint center = cell.center;
+                snapshot.center = center;
+                snapshot.alpha = 0.0;
+                [self.tableView addSubview:snapshot];
+                [UIView animateWithDuration:0.25 animations:^{
+                    
+                    // Offset for gesture location.
+                    center.y = location.y;
+                    snapshot.center = center;
+                    snapshot.transform = CGAffineTransformMakeScale(1.05, 1.05);
+                    snapshot.alpha = 0.98;
+                    cell.alpha = 0.0;
+                    
+                } completion:^(BOOL finished) {
+                    
+                    cell.hidden = YES;
+                    
+                }];
+            }
+            break;
+        }
+            
+        case UIGestureRecognizerStateChanged: {
+            CGPoint center = snapshot.center;
+            center.y = location.y;
+            snapshot.center = center;
+            
+            // Is destination valid and is it different from source?
+            if (indexPath && ![indexPath isEqual:sourceIndexPath]) {
+                
+                // ... update data source.
+                [[EventStore sharedStore] moveItemAtIndex:indexPath.row toIndex:sourceIndexPath.row date:self.selectedDate];
+
+                // ... move the rows.
+                [self.tableView moveRowAtIndexPath:sourceIndexPath toIndexPath:indexPath];
+                
+                // ... and update source so it is in sync with UI changes.
+                sourceIndexPath = indexPath;
+            }
+            break;
+        }
+            
+        default: {
+            // Clean up.
+            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:sourceIndexPath];
+            cell.hidden = NO;
+            cell.alpha = 0.0;
+            
+            [UIView animateWithDuration:0.25 animations:^{
+                
+                snapshot.center = cell.center;
+                snapshot.transform = CGAffineTransformIdentity;
+                snapshot.alpha = 0.0;
+                cell.alpha = 1.0;
+                
+            } completion:^(BOOL finished) {
+                
+                sourceIndexPath = nil;
+                [snapshot removeFromSuperview];
+                snapshot = nil;
+                
+            }];
+            
+            break;
+        }
+    }
+}
+
+#pragma mark - Helper methods
+
+/** @brief Returns a customized snapshot of a given view. */
+- (UIView *)customSnapshoFromView:(UIView *)inputView {
+    
+    // Make an image from the input view.
+    UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, NO, 0);
+    [inputView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    // Create an image view.
+    UIView *snapshot = [[UIImageView alloc] initWithImage:image];
+    snapshot.layer.masksToBounds = NO;
+    snapshot.layer.cornerRadius = 0.0;
+    snapshot.layer.shadowOffset = CGSizeMake(-5.0, 0.0);
+    snapshot.layer.shadowRadius = 5.0;
+    snapshot.layer.shadowOpacity = 0.4;
+    
+    return snapshot;
 }
 
 @end

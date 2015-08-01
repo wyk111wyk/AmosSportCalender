@@ -256,20 +256,6 @@
     }
 }
 
-- (void)showInView:(UIView *) view
-{
-    CATransition *animation = [CATransition  animation];
-    animation.delegate = self;
-    animation.duration = 0.3;
-    animation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    animation.type = kCATransitionPush;
-    animation.subtype = kCATransitionFromTop;
-    [view setAlpha:1.0f];
-    [view.layer addAnimation:animation forKey:@"DDLocateView"];
-    
-    view.frame = CGRectMake(0, view.frame.size.height - [UIScreen mainScreen].bounds.size.height, view.frame.size.width, view.frame.size.height);
-}
-
 #pragma mark -
 #pragma mark Picker Data Source Methods
 

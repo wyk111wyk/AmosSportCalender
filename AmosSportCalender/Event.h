@@ -24,6 +24,7 @@ extern NSArray *sportTypes;
 @property (nonatomic) int times; ///<每组做多少次（12-15）
 @property (nonatomic) int rap; ///<做多少组（3-6）
 @property (nonatomic) int timelast; ///<运动的持续时间
+@property (nonatomic) int timesDone; ///<已经完成的次数
 
 @property (nonatomic) BOOL done; ///<是否完成该事件
 @property (nonatomic, copy) NSString *itemKey; ///<储存图片用的唯一编码

@@ -73,7 +73,7 @@
     return event;
 }
 
-- (Event *)createItem:(Event *)event  date:(NSDate *)date
+- (void)createItem:(Event *)event  date:(NSDate *)date
 {
     if (event) {
     event.eventDate = date;
@@ -85,8 +85,6 @@
 
     [self.privateEvents[key] addObject:event];
     }
-    
-    return event;
 }
 
 //实现删除行的方法
@@ -112,6 +110,8 @@
     }
     //得到需要移动的对象的指针，以便稍后能将其插入新的位置
     if ([self.privateEvents[key] isKindOfClass:[NSMutableArray class]]) {
+        
+        NSLog(@"m 移动数据库顺序");
     Event *event = self.privateEvents[key][fromIndex];
     
     //将item从allItems数组中移除
