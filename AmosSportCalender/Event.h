@@ -15,7 +15,7 @@ extern NSArray *sportTypes;
 
 #endif
 
-@interface Event : NSObject
+@interface Event : NSObject<NSCoding>
 
 @property (nonatomic, strong) NSDate *eventDate; ///<事件的时间
 @property (nonatomic, strong) NSString *sportName; ///<运动的名称

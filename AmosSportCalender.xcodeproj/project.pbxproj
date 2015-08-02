@@ -238,6 +238,7 @@
 			children = (
 				B0B750691B637ABC00BE2705 /* Event.h */,
 				B0B7506A1B637ABC00BE2705 /* Event.m */,
+				B0854DA81B6E063C00C1B150 /* New Group */,
 				B0A34E191B63912E00F26EE5 /* EventStore.h */,
 				B0A34E1A1B63912E00F26EE5 /* EventStore.m */,
 				B0FA58A11B4678D400E3BE94 /* AmosSportCalender.xcdatamodeld */,
@@ -267,6 +268,13 @@
 				B06633161B6B6D7D00F87004 /* LeftMenuTableView.m */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		B0854DA81B6E063C00C1B150 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "New Group";
 			sourceTree = "<group>";
 		};
 		B0FA58891B4678D400E3BE94 = {

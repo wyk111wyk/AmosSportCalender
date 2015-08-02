@@ -19,6 +19,9 @@
 @property (nonatomic, readonly) UIView *dotView;
 @property (nonatomic, readonly) UILabel *textLabel;
 
+//Amos添加
+@property (nonatomic, readonly) UIView *finishView; ///<Amos添加 当日事件全部完成后的View
+
 @property (nonatomic) CGFloat circleRatio;
 @property (nonatomic) CGFloat dotRatio;
 

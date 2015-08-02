@@ -58,6 +58,15 @@
         _dotView.hidden = YES;
     }
     
+    //Amos添加 当日事件全部完成后的View
+    {
+        _finishView = [UIView new];
+        [self addSubview:_finishView];
+        
+        _finishView.backgroundColor = [UIColor clearColor];
+        _finishView.hidden = YES;
+    }
+    
     {
         _textLabel = [UILabel new];
         [self addSubview:_textLabel];
@@ -95,6 +104,12 @@
     _dotView.frame = CGRectMake(0, 0, sizeDot, sizeDot);
     _dotView.center = CGPointMake(self.frame.size.width / 2., (self.frame.size.height / 2.) +sizeDot * 2.5);
     _dotView.layer.cornerRadius = sizeDot / 2.;
+    
+    _finishView.frame = CGRectMake(0, 0, sizeCircle, sizeCircle);
+    _finishView.center = CGPointMake(self.frame.size.width / 2., self.frame.size.height / 2.);
+    _finishView.layer.cornerRadius = sizeCircle / 2.; //设置圆角有多圆
+    _finishView.layer.borderWidth = 2.;
+    _finishView.layer.borderColor = [[UIColor clearColor] CGColor];
 }
 
 - (void)setDate:(NSDate *)date

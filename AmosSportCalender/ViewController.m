@@ -78,6 +78,7 @@
     //长按移动cell顺序
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureRecognized:)];
     [self.tableView addGestureRecognizer:longPress];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -278,6 +279,92 @@
                      }];
 }
 
+- (BOOL)haveEventForDay:(NSDate *)date
+{
+    //    NSLog(@"haveEventForDay:判断每一天是否有事件");
+    
+    NSString *key = [[self dateFormatter] stringFromDate:date];
+    
+    int i = [self.doneNumbers[key] intValue];
+    
+    if(eventsByDate[key] && [eventsByDate[key] count] > 0){
+        
+        if ([eventsByDate[key] count] > i) {
+            return YES;
+        }else if([eventsByDate[key] count] == i){
+            return NO;
+        }
+    }
+    
+    return NO;
+}
+
+- (BOOL)eventsAllDoneForDay:(NSDate *)date
+{
+    NSString *key = [[self dateFormatter] stringFromDate:date];
+    
+    int i = [self.doneNumbers[key] intValue];
+    
+    if(eventsByDate[key] && [eventsByDate[key] count] > 0){
+        
+        if ([eventsByDate[key] count] == i) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+//根据Day所有完成的运动项目中，寻找数量最多的那一项
+- (unsigned long)findTheMaxOfTypes:(NSDate *)date
+{
+    NSString *key = [[self dateFormatter] stringFromDate:date];
+    
+    NSArray *sportTypes = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sportTypes" ofType:@"plist"]];
+    NSUInteger k = sportTypes.count;
+
+    NSMutableArray *numberArray = [NSMutableArray array];
+    
+    for (int i = 0; i < k; i++) {
+        int a = 0;
+        for (Event *event in eventsByDate[key]){
+            if ([[sportTypes[i] objectForKey:@"sportType"] isEqualToString:event.sportType]) {
+                a++;
+            }
+        }
+        [numberArray addObject:[NSNumber numberWithInt:a]];
+    }
+    
+    int max = [self findMaxInArray:numberArray];
+    NSNumber *maxNumber = [NSNumber numberWithInt:max];
+    unsigned long index = 0;
+    index = [numberArray indexOfObject:maxNumber];
+    NSLog(@"最多的元素下标是: %ld", index);
+    
+    return index;
+}
+
+//设置不同完成后标记颜色的方法
+- (UIColor *)colorForDoneEventsMark:(unsigned long)index
+{
+    if (index == 0) {
+        return [UIColor colorWithRed:0.5725 green:0.3216 blue:0.0667 alpha:1];
+    }else if (index == 1){
+        return [UIColor colorWithRed:0.5725 green:0.5608 blue:0.1059 alpha:1];
+    }else if (index == 2){
+        return [UIColor colorWithRed:0.3176 green:0.5569 blue:0.0902 alpha:1];
+    }else if (index == 3){
+        return [UIColor colorWithRed:0.0824 green:0.5686 blue:0.5725 alpha:1];
+    }else if (index == 4){
+        return [UIColor colorWithRed:0.9922 green:0.5765 blue:0.1490 alpha:1];
+    }else if (index == 5){
+        return [UIColor colorWithRed:0.9922 green:0.2980 blue:0.9882 alpha:1];
+    }else if (index == 6){
+        return [UIColor colorWithRed:0.5686 green:0.9686 blue:0.1882 alpha:1];
+    }
+    
+    return [UIColor clearColor];
+}
+
 #pragma mark - CalendarManager delegate
 
 // Exemple of implementation of prepareDayView method
@@ -289,7 +376,7 @@
     // Today
     if([_calendarManager.dateHelper date:[NSDate date] isTheSameDayThan:dayView.date]){
         dayView.circleView.hidden = NO;
-        dayView.circleView.backgroundColor = [UIColor colorWithRed:0.5961 green:0.8471 blue:0.9608 alpha:1];
+        dayView.circleView.backgroundColor = [UIColor colorWithRed:0.5961 green:0.8471 blue:0.9608 alpha:0.8];
         dayView.dotView.backgroundColor = [UIColor whiteColor];
         dayView.textLabel.textColor = [UIColor whiteColor];
     }
@@ -315,9 +402,16 @@
     
     if([self haveEventForDay:dayView.date]){
         dayView.dotView.hidden = NO;
-    }
-    else{
+    }else{
         dayView.dotView.hidden = YES;
+    }
+    
+    if ([self eventsAllDoneForDay:dayView.date]) {
+        dayView.finishView.hidden = NO;
+        unsigned long index = [self findTheMaxOfTypes:dayView.date];
+        dayView.finishView.layer.borderColor = [[self colorForDoneEventsMark:index] CGColor];
+    }else{
+        dayView.finishView.hidden = YES;
     }
 }
 //Menu视图属性
@@ -360,7 +454,7 @@
 
 - (UIView<JTCalendarDay> *)calendarBuildDayView:(JTCalendarManager *)calendar
 {
-    NSLog(@"calendarBuildDayView");
+//    NSLog(@"calendarBuildDayView");
     
     JTCalendarDayView *view = [JTCalendarDayView new];
     
@@ -381,29 +475,6 @@
     }
     
     return dateFormatter;
-}
-
-// TODO: 将所有运动都完成的那一天，改变Day的显示View
-
-- (BOOL)haveEventForDay:(NSDate *)date
-{
-//    NSLog(@"haveEventForDay:判断每一天是否有事件");
-    
-    NSString *key = [[self dateFormatter] stringFromDate:date];
-    
-    int i = [self.doneNumbers[key] intValue];
-    
-    if(eventsByDate[key] && [eventsByDate[key] count] > 0){
-        
-        if ([eventsByDate[key] count] > i) {
-            return YES;
-        }else if([eventsByDate[key] count] == i){
-        return NO;
-        }
-    }
-    
-    return NO;
-    
 }
 
 #pragma mark - CalendarManager delegate - Page mangement
@@ -462,7 +533,7 @@
         
 //        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:toIndexPath] withRowAnimation:UITableViewRowAnimationRight];
         
-        NSLog(@"- No to Yes");
+//        NSLog(@"- No to Yes");
     }else{
         event.done = NO;
         
@@ -473,7 +544,7 @@
 
         [self.tableView moveRowAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
 
-        NSLog(@"~ Yes to No");
+//        NSLog(@"~ Yes to No");
     }
     
 //    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -484,11 +555,21 @@
 
 - (nullable NSString *)tableView:(nonnull UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
+    unsigned long index = [self findTheMaxOfTypes:self.selectedDate];
+    NSArray *sportTypes = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sportTypes" ofType:@"plist"]];
+    NSString *blankStr = @"";
+    
     if (section == 0) {
         NSDateFormatter *dateFormatter = [NSDateFormatter new];
         dateFormatter.dateFormat = @"yyyy-MM-dd EEEE";
         
-        return [NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:self.selectedDate ? self.selectedDate : [NSDate date]]];
+        return ([self.doneNumber intValue] > 0)?
+        [NSString stringWithFormat:@"%@ - %@",[dateFormatter stringFromDate:self.selectedDate],
+        [sportTypes[index] objectForKey:@"sportType"]?
+        [sportTypes[index] objectForKey:@"sportType"]:blankStr]
+        :
+        [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:self.selectedDate]];
+        
     }else{
         return nil;
     }
@@ -636,6 +717,20 @@
     snapshot.layer.shadowOpacity = 0.4;
     
     return snapshot;
+}
+
+#pragma mark - 求数组中最大值的方法
+
+- (int)findMaxInArray:(NSArray *)array
+{
+    int max = 0;
+    max = [array[0] intValue];
+    for (int i = 1; i < array.count; i++) {
+        if ([array[i] intValue] > max) {
+            max = [array[i] intValue];
+        }
+    }
+    return max;
 }
 
 @end
