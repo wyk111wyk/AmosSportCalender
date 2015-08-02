@@ -96,14 +96,15 @@
     
     eventsByDate = [[NSMutableDictionary alloc] initWithDictionary:[[EventStore sharedStore] allItems] copyItems:NO];
     self.oneDayEvents = eventsByDate[key];
-    [self setUnderTableLabelWithDifferentDay];
+    [self setUnderTableLabelWithDifferentDay: self.selectedDate];
     
     [self.tableView reloadData];
 }
 
-- (void)setUnderTableLabelWithDifferentDay
+- (void)setUnderTableLabelWithDifferentDay: (NSDate *)date
 {
     int i = 0;
+    NSString *key = [[self dateFormatter] stringFromDate:date];
     
     //计算这一天有多少已完成的事件
     if (self.oneDayEvents) {
@@ -112,7 +113,7 @@
                 i ++;
             }
         }}
-    self.doneNumber = [NSNumber numberWithInt:i];
+
     NSLog(@"i = %d", i);
     
     [_calendarManager reload];
@@ -129,6 +130,9 @@
         self.addButtonView.hidden = NO;
         self.underTableLabel.text = [NSString stringWithFormat:@"今天没有运动，做个计划吧！"];
     }
+    
+    self.doneNumber = [NSNumber numberWithInt:i];
+    self.doneNumbers[key] = self.doneNumber;
 }
 #pragma mark - click the Date
 
@@ -280,6 +284,8 @@
 // Used to customize the appearance of dayView
 - (void)calendar:(JTCalendarManager *)calendar prepareDayView:(JTCalendarDayView *)dayView
 {
+//    NSLog(@"prepareDayView");
+    
     // Today
     if([_calendarManager.dateHelper date:[NSDate date] isTheSameDayThan:dayView.date]){
         dayView.circleView.hidden = NO;
@@ -354,6 +360,8 @@
 
 - (UIView<JTCalendarDay> *)calendarBuildDayView:(JTCalendarManager *)calendar
 {
+    NSLog(@"calendarBuildDayView");
+    
     JTCalendarDayView *view = [JTCalendarDayView new];
     
     view.textLabel.font = [UIFont fontWithName:@"Avenir-Light" size:13];
@@ -379,15 +387,20 @@
 
 - (BOOL)haveEventForDay:(NSDate *)date
 {
+//    NSLog(@"haveEventForDay:判断每一天是否有事件");
+    
     NSString *key = [[self dateFormatter] stringFromDate:date];
     
-    if(eventsByDate[key] && [eventsByDate[key] count] > 0){
-        return YES;
-    }
+    int i = [self.doneNumbers[key] intValue];
     
-//    if([date isEqualToDate:[[self dateFormatter] dateFromString:@"24-7-2015"]]){
-//        return YES;
-//    }
+    if(eventsByDate[key] && [eventsByDate[key] count] > 0){
+        
+        if ([eventsByDate[key] count] > i) {
+            return YES;
+        }else if([eventsByDate[key] count] == i){
+        return NO;
+        }
+    }
     
     return NO;
     
@@ -464,14 +477,18 @@
     }
     
 //    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [self setUnderTableLabelWithDifferentDay];
+    [self setUnderTableLabelWithDifferentDay: self.selectedDate];
+    [_calendarManager reload];
     [self.tableView reloadData];
 }
 
 - (nullable NSString *)tableView:(nonnull UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
-        return [NSString stringWithFormat:@"%@", [[self dateFormatter] stringFromDate:self.selectedDate ? self.selectedDate : [NSDate date]]];
+        NSDateFormatter *dateFormatter = [NSDateFormatter new];
+        dateFormatter.dateFormat = @"yyyy-MM-dd EEEE";
+        
+        return [NSString stringWithFormat:@"%@", [dateFormatter stringFromDate:self.selectedDate ? self.selectedDate : [NSDate date]]];
     }else{
         return nil;
     }
@@ -499,6 +516,11 @@
         //删除表格中的相应行
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         [_calendarManager reload];
+        [self setUnderTableLabelWithDifferentDay: self.selectedDate];
+        
+        if (self.oneDayEvents.count == 0) {
+            [self loadTheDateEvents];
+        }
     }
 }
 

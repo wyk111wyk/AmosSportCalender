@@ -67,7 +67,9 @@
     NSString *dateStr = [NSString stringWithFormat:@"%@", self.date];
     NSString *newStr = [dateStr substringToIndex:10];
     self.navigationItem.title = newStr;
-    self.dateLabel.text = newStr;
+    
+    NSString *showStr = [[self dateFormatter] stringFromDate:self.date];
+    self.dateLabel.text = showStr;
     
     self.eventLabel.text = self.event.sportType;
     self.sportNameLabel.text = self.event.sportName;
@@ -87,6 +89,16 @@
     self.sportNames = [[self.sportTypes objectAtIndex:0] objectForKey:@"sportName"];
 }
 
+- (NSDateFormatter *)dateFormatter
+{
+    static NSDateFormatter *dateFormatter;
+    if(!dateFormatter){
+        dateFormatter = [NSDateFormatter new];
+        dateFormatter.dateFormat = @"yyyy-MM-dd EEEE";
+    }
+    
+    return dateFormatter;
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -101,8 +113,7 @@
 
 #pragma mark - Button Method
 - (IBAction)datePicker:(UIDatePicker *)sender {
-    NSString *dateStr = [NSString stringWithFormat:@"%@", sender.date];
-    NSString *newStr = [dateStr substringToIndex:10];
+    NSString *newStr = [[self dateFormatter] stringFromDate:sender.date];
     self.dateLabel.text = newStr;
 }
 
