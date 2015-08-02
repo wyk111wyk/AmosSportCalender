@@ -52,6 +52,17 @@
 
 #pragma mark - life cycle
 
+- (void)loadView
+{
+    [super loadView];
+    //init
+    self.selectedDate = [NSDate date];
+    self.doneNumbers = [NSMutableDictionary dictionary];
+    
+//    [self loadTheDateEvents];
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -71,35 +82,42 @@
     [_calendarManager setContentView:_calendarContentView];
     [_calendarManager setDate:_todayDate];
     
-    //init
-    self.selectedDate = [NSDate date];
-    self.doneNumbers = [NSMutableDictionary dictionary];
-    
     //长按移动cell顺序
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureRecognized:)];
     [self.tableView addGestureRecognizer:longPress];
 
+    NSLog(@"%@", NSStringFromSelector(_cmd));
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self loadTheDateEvents];
-    
+
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [_calendarManager reload];
 }
 
 - (void)loadTheDateEvents
 {
     //init
     self.oneDayEvents = [NSMutableArray array];
-    //载入key
-    NSString *key = [[self dateFormatter] stringFromDate:self.selectedDate ? self.selectedDate : [NSDate date]];
-    
     eventsByDate = [[NSMutableDictionary alloc] initWithDictionary:[[EventStore sharedStore] allItems] copyItems:NO];
+    //载入key
+    NSString *key = [[self dateFormatter] stringFromDate:self.selectedDate];
     self.oneDayEvents = eventsByDate[key];
+    
     [self setUnderTableLabelWithDifferentDay: self.selectedDate];
     
+    [_calendarManager reload];
     [self.tableView reloadData];
+    
+    NSLog(@"%@ ..........................", NSStringFromSelector(_cmd));
 }
 
 - (void)setUnderTableLabelWithDifferentDay: (NSDate *)date
@@ -108,16 +126,16 @@
     NSString *key = [[self dateFormatter] stringFromDate:date];
     
     //计算这一天有多少已完成的事件
-    if (self.oneDayEvents) {
-        for (Event *event in self.oneDayEvents) {
+    if (eventsByDate[key]) {
+        for (Event *event in eventsByDate[key]) {
             if (event.done == YES) {
                 i ++;
             }
         }}
 
-    NSLog(@"i = %d", i);
+//    NSLog(@"%@ 共有事件 k = %lu 完成事件 i = %d",date, (unsigned long)[eventsByDate[key] count], i);
     
-    [_calendarManager reload];
+//    [_calendarManager reload];
     
     //设置显示的文字
     if (self.oneDayEvents.count > 0) {
@@ -152,13 +170,13 @@
                        options:0
                     animations:^{
                         dayView.circleView.transform = CGAffineTransformIdentity;
-                        [_calendarManager reload];
+//                        [_calendarManager reload];
                     } completion:nil];
     
     // Load the previous or next page if touch a day from another month
     
-    if(![_calendarManager.dateHelper date:_calendarContentView.date isTheSameMonthThan:dayView.date]){
-        if([_calendarContentView.date compare:dayView.date] == NSOrderedAscending){
+    if(![_calendarManager.dateHelper date:_calendarContentView.date isTheSameMonthThan:mydate]){
+        if([_calendarContentView.date compare:mydate] == NSOrderedAscending){
             [_calendarContentView loadNextPageWithAnimation];
         }
         else{
@@ -204,14 +222,14 @@
     switch ([sender selectedSegmentIndex]) {
         case 0:
             NSLog(@"first click");
-            
+            [[self.view.subviews lastObject] removeFromSuperview];
             break;
             
         case 1:
             NSLog(@"second click");
             
-//            leftmenu = [[LeftMenuTableView alloc] init];
-//            [self.view addSubview:leftmenu.view];
+            leftmenu = [[LeftMenuTableView alloc] init];
+            [self.view addSubview:leftmenu.view];
             break;
             
         default:
@@ -281,20 +299,20 @@
 
 - (BOOL)haveEventForDay:(NSDate *)date
 {
-    //    NSLog(@"haveEventForDay:判断每一天是否有事件");
-    
     NSString *key = [[self dateFormatter] stringFromDate:date];
     
     int i = [self.doneNumbers[key] intValue];
     
     if(eventsByDate[key] && [eventsByDate[key] count] > 0){
         
-        if ([eventsByDate[key] count] > i) {
+        if ([eventsByDate[key] count] - i > 0) {
             return YES;
         }else if([eventsByDate[key] count] == i){
             return NO;
         }
     }
+    
+//    NSLog(@"haveEventForDay:判断-每一天是否有事件");
     
     return NO;
 }
@@ -305,12 +323,15 @@
     
     int i = [self.doneNumbers[key] intValue];
     
-    if(eventsByDate[key] && [eventsByDate[key] count] > 0){
+    if([eventsByDate[key] count] > 0){
         
         if ([eventsByDate[key] count] == i) {
             return YES;
         }
     }
+    
+//    NSLog(@"eventsAllDoneForDay:判断-是否事件全部完成");
+    
     return NO;
 }
 
@@ -337,10 +358,15 @@
     int max = [self findMaxInArray:numberArray];
     NSNumber *maxNumber = [NSNumber numberWithInt:max];
     unsigned long index = 0;
-    index = [numberArray indexOfObject:maxNumber];
-    NSLog(@"最多的元素下标是: %ld", index);
+    index = [numberArray indexOfObject:maxNumber]; //根据内容寻找下标，返回最近的值
+//    NSLog(@"最多的元素下标是: %ld", index);
     
+    if (max > 0) {
     return index;
+    }
+    
+    return sportTypes.count;
+    
 }
 
 //设置不同完成后标记颜色的方法
@@ -372,47 +398,58 @@
 - (void)calendar:(JTCalendarManager *)calendar prepareDayView:(JTCalendarDayView *)dayView
 {
 //    NSLog(@"prepareDayView");
+    NSTimeZone *localZone=[NSTimeZone localTimeZone];
+    NSInteger interval=[localZone secondsFromGMTForDate:dayView.date];
+    NSDate *mydate=[dayView.date dateByAddingTimeInterval:interval];
+    
+    [self setUnderTableLabelWithDifferentDay:mydate];
     
     // Today
-    if([_calendarManager.dateHelper date:[NSDate date] isTheSameDayThan:dayView.date]){
+    if([_calendarManager.dateHelper date:[NSDate date] isTheSameDayThan:mydate]){
         dayView.circleView.hidden = NO;
         dayView.circleView.backgroundColor = [UIColor colorWithRed:0.5961 green:0.8471 blue:0.9608 alpha:0.8];
         dayView.dotView.backgroundColor = [UIColor whiteColor];
         dayView.textLabel.textColor = [UIColor whiteColor];
+//        dayView.finishView.layer.borderColor = [[self colorForDoneEventsMark:index] CGColor];
     }
     // Selected date
-    else if(_selectedDate && [_calendarManager.dateHelper date:_selectedDate isTheSameDayThan:dayView.date]){
+    else if(_selectedDate && [_calendarManager.dateHelper date:_selectedDate isTheSameDayThan:mydate]){
         dayView.circleView.hidden = NO;
         dayView.circleView.backgroundColor = [UIColor redColor];
         dayView.dotView.backgroundColor = [UIColor whiteColor];
         dayView.textLabel.textColor = [UIColor whiteColor];
+//        dayView.finishView.layer.borderColor = [[self colorForDoneEventsMark:index] CGColor];
     }
     // Other month
-    else if(![_calendarManager.dateHelper date:_calendarContentView.date isTheSameMonthThan:dayView.date]){
+    else if(![_calendarManager.dateHelper date:_calendarContentView.date isTheSameMonthThan:mydate]){
         dayView.circleView.hidden = YES;
         dayView.dotView.backgroundColor = [UIColor redColor];
         dayView.textLabel.textColor = [UIColor lightGrayColor];
+//        dayView.finishView.layer.borderColor = [[self colorForDoneEventsMark:index] CGColor];
     }
     // Another day of the current month
     else{
         dayView.circleView.hidden = YES;
         dayView.dotView.backgroundColor = [UIColor redColor];
         dayView.textLabel.textColor = [UIColor blackColor];
+//        dayView.finishView.layer.borderColor = [[self colorForDoneEventsMark:index] CGColor];
     }
     
-    if([self haveEventForDay:dayView.date]){
+    if([self haveEventForDay:mydate]){
         dayView.dotView.hidden = NO;
     }else{
         dayView.dotView.hidden = YES;
     }
     
-    if ([self eventsAllDoneForDay:dayView.date]) {
-        dayView.finishView.hidden = NO;
-        unsigned long index = [self findTheMaxOfTypes:dayView.date];
+    if ([self eventsAllDoneForDay:mydate]) {
+        unsigned long index = [self findTheMaxOfTypes:mydate];
         dayView.finishView.layer.borderColor = [[self colorForDoneEventsMark:index] CGColor];
+        dayView.finishView.hidden = NO;
     }else{
         dayView.finishView.hidden = YES;
     }
+    
+//    NSLog(@"%@", NSStringFromSelector(_cmd));
 }
 //Menu视图属性
 - (UIView *)calendarBuildMenuItemView:(JTCalendarManager *)calendar

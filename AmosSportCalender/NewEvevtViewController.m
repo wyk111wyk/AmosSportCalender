@@ -185,7 +185,7 @@
     if (self.datePickerisUp == YES) {
         [self ViewDateAnimation:self.datePicker willUp:NO];
     }
-    if (self.datePickerisUp == YES) {
+    if (self.sportPickerisUp == YES) {
         [self ViewSportEventAnimation:self.sportTypePickerView willUp:NO];
     }
     textField.text = @"";
@@ -221,6 +221,7 @@
                              }
                          }];
     }else{
+//        view.hidden = YES;
         [UIView animateWithDuration:0.3
                               delay:0
                             options: UIViewAnimationOptionCurveEaseIn
@@ -233,6 +234,7 @@
                              if (self.datePickerisUp == !up) {
                                  self.datePickerisUp = up;
                              }
+                             view.hidden = YES;
                          }];
     }
 }
@@ -253,6 +255,7 @@
                              }
                          }];
     }else{
+//        view.hidden = YES;
         [UIView animateWithDuration:0.3
                          animations:^{
                              
@@ -263,6 +266,7 @@
                              if (self.sportPickerisUp == !up) {
                                  self.sportPickerisUp = up;
                              }
+                             view.hidden = YES;
                          }];
     }
 }

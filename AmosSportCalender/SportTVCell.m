@@ -32,6 +32,7 @@
         self.sportPro.textColor = [UIColor darkGrayColor];
         
     self.sportType.text = self.event.sportType;
+        
     if ([self.event.sportType isEqualToString:@"胸部"]) {
         self.sportType.textColor = [UIColor colorWithRed:0.5725 green:0.3216 blue:0.0667 alpha:1];
     }else if ([self.event.sportType isEqualToString:@"背部"]){
@@ -51,6 +52,7 @@
 //        NSLog(@"In cell Done");
         
         self.donePic.hidden = NO;
+        self.sportType.text = self.event.sportType;
         self.sportType.textColor = [UIColor grayColor];
         self.sportName.textColor = [UIColor grayColor];
         self.sportPro.textColor = [UIColor grayColor];
