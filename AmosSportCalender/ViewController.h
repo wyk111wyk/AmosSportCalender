@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "JTCalendar.h"
-@class LeftMenuTableView;
+@class SummaryViewController;
 
 @interface ViewController : UIViewController<JTCalendarDelegate>
 
@@ -18,7 +18,7 @@
 @property (strong, nonatomic) JTCalendarManager *calendarManager;
 
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *calendarContentViewHeight;
-@property (nonatomic, strong)LeftMenuTableView *leftmenu;
+@property (nonatomic, strong)SummaryViewController *summaryVC;
 
 @end
 

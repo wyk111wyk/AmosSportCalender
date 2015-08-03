@@ -15,7 +15,7 @@
 #import "Event.h"
 #import "EventStore.h"
 #import "SportTVCell.h"
-#import "LeftMenuTableView.h"
+#import "SummaryViewController.h"
 
 #import "UIViewController+MMDrawerController.h"
 
@@ -37,12 +37,12 @@
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *menuButton;
 @property (weak, nonatomic) IBOutlet UILabel *underTableLabel;
 @property (weak, nonatomic) IBOutlet UIButton *addEventButton;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentButton;
 
-//@property (nonatomic, strong) Event *event;
 @end
 
 @implementation ViewController
-@synthesize leftmenu;
+@synthesize summaryVC;
 
 - (void)setSelectedDate:(NSDate *)selectedDate
 {
@@ -203,7 +203,7 @@
 #pragma mark - Buttons callback
 - (IBAction)addNewEvent:(UIButton *)sender {
     
-    [self creatTheNewEvent];
+    [self performSegueWithIdentifier:@"newEvent" sender:self];
 }
 
 - (void)prepareForSegue:(nonnull UIStoryboardSegue *)segue sender:(nullable id)sender
@@ -220,12 +220,11 @@
         }else{
             mvc.date = [NSDate date];
         }
+        
+        //新建事件前把页面切回日历视图
+        self.segmentButton.selectedSegmentIndex = 0;
+        [self segmentedControl:self.segmentButton];
     }
-}
-
-- (void)creatTheNewEvent
-{
-    [self performSegueWithIdentifier:@"newEvent" sender:self];
 }
 
 - (IBAction)segmentedControl:(UISegmentedControl *)sender {
@@ -239,8 +238,8 @@
         case 1:
             NSLog(@"second click");
             
-            leftmenu = [[LeftMenuTableView alloc] init];
-            [self.view addSubview:leftmenu.view];
+            summaryVC = [[SummaryViewController alloc] init];
+            [self.view addSubview:summaryVC.view];
             break;
             
         default:
@@ -422,10 +421,9 @@
     // Today
     if([_calendarManager.dateHelper date:[NSDate date] isTheSameDayThan:mydate]){
         dayView.circleView.hidden = NO;
-        dayView.circleView.backgroundColor = [UIColor colorWithRed:0.5961 green:0.8471 blue:0.9608 alpha:0.8];
+        dayView.circleView.backgroundColor = [UIColor colorWithRed:0.5961 green:0.8471 blue:0.9608 alpha:0.7];
         dayView.dotView.backgroundColor = [UIColor whiteColor];
         dayView.textLabel.textColor = [UIColor whiteColor];
-//        dayView.finishView.layer.borderColor = [[self colorForDoneEventsMark:index] CGColor];
     }
     // Selected date
     else if(_selectedDate && [_calendarManager.dateHelper date:_selectedDate isTheSameDayThan:mydate]){
@@ -433,21 +431,19 @@
         dayView.circleView.backgroundColor = [UIColor redColor];
         dayView.dotView.backgroundColor = [UIColor whiteColor];
         dayView.textLabel.textColor = [UIColor whiteColor];
-//        dayView.finishView.layer.borderColor = [[self colorForDoneEventsMark:index] CGColor];
+        dayView.finishView.hidden = YES;
     }
     // Other month
     else if(![_calendarManager.dateHelper date:_calendarContentView.date isTheSameMonthThan:mydate]){
         dayView.circleView.hidden = YES;
         dayView.dotView.backgroundColor = [UIColor redColor];
         dayView.textLabel.textColor = [UIColor lightGrayColor];
-//        dayView.finishView.layer.borderColor = [[self colorForDoneEventsMark:index] CGColor];
     }
     // Another day of the current month
     else{
         dayView.circleView.hidden = YES;
         dayView.dotView.backgroundColor = [UIColor redColor];
         dayView.textLabel.textColor = [UIColor blackColor];
-//        dayView.finishView.layer.borderColor = [[self colorForDoneEventsMark:index] CGColor];
     }
     
     if([self haveEventForDay:mydate]){
@@ -659,6 +655,13 @@
         
         if (self.oneDayEvents.count == 0) {
             [self loadTheDateEvents];
+        }
+        
+        BOOL success = [[EventStore sharedStore] saveChanges];
+        if (success) {
+            NSLog(@"删除事件后，储存数据成功");
+        }else{
+            NSLog(@"删除事件后，储存数据失败！");
         }
     }
 }

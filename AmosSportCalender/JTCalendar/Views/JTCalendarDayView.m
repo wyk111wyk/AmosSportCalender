@@ -42,6 +42,15 @@
     _circleRatio = .85;
     _dotRatio = 1. / 9.;
     
+    //Amos添加 当日事件全部完成后的View
+    {
+        _finishView = [UIView new];
+        [self addSubview:_finishView];
+        
+        _finishView.backgroundColor = [UIColor clearColor];
+        _finishView.hidden = YES;
+    }
+    
     {
         _circleView = [UIView new];
         [self addSubview:_circleView];
@@ -56,15 +65,6 @@
         
         _dotView.backgroundColor = [UIColor redColor];
         _dotView.hidden = YES;
-    }
-    
-    //Amos添加 当日事件全部完成后的View
-    {
-        _finishView = [UIView new];
-        [self addSubview:_finishView];
-        
-        _finishView.backgroundColor = [UIColor clearColor];
-        _finishView.hidden = YES;
     }
     
     {

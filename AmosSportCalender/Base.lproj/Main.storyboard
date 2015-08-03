@@ -487,6 +487,7 @@
                         <outlet property="calendarContentViewHeight" destination="mkd-ac-x7t" id="N3z-Sz-HTB"/>
                         <outlet property="calendarMenuView" destination="Rhm-3b-ue6" id="a1N-l1-Ecr"/>
                         <outlet property="menuButton" destination="jry-ZT-5KU" id="kzF-pm-mPI"/>
+                        <outlet property="segmentButton" destination="LsA-Li-80g" id="6wS-Mb-ZXT"/>
                         <outlet property="tableView" destination="hA1-yq-HCw" id="yvn-bS-B81"/>
                         <outlet property="underTableLabel" destination="bIs-GA-883" id="Lx5-ND-fkH"/>
                     </connections>
@@ -511,15 +512,14 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <color key="sectionIndexBackgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellReuseId" textLabel="fhZ-UT-E8B" style="IBUITableViewCellStyleDefault" id="FC9-da-mia">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CellReuseId" textLabel="L7L-JL-TMY" style="IBUITableViewCellStyleDefault" id="FC9-da-mia">
                                 <rect key="frame" x="0.0" y="113.5" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FC9-da-mia" id="qEC-eW-1lM">
                                     <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="运动日历" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fhZ-UT-E8B">
-                                            <rect key="frame" x="15" y="0.0" width="570" height="43.5"/>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="L7L-JL-TMY">
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -545,7 +545,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OOQ-Ay-zeN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2109" y="254.25"/>
+            <point key="canvasLocation" x="1233" y="245.25"/>
         </scene>
         <!--New Evevt View Controller-->
         <scene sceneID="cDO-c3-AFI">
@@ -1338,7 +1338,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="irJ-G1-H3p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2919" y="-867"/>
+            <point key="canvasLocation" x="2871" y="-438.75"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="yMt-5z-xRy">
@@ -1384,7 +1384,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Gkv-kQ-KlV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2109" y="-866.25"/>
+            <point key="canvasLocation" x="2061" y="-438"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="jbJ-56-Mur">
@@ -1403,7 +1403,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bW6-hx-Qur" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1233" y="254.25"/>
+            <point key="canvasLocation" x="411" y="245.25"/>
         </scene>
     </scenes>
     <resources>

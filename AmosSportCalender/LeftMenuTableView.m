@@ -20,17 +20,11 @@ static NSString * const YKMunuViewControllerCellReuseId = @"CellReuseId";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    CGRect frame = [UIScreen mainScreen].applicationFrame;
-    self.tableView = [[UITableView alloc] initWithFrame:frame style:UITableViewStyleGrouped];
-    
-    self.group1 = [[NSArray alloc] initWithObjects:@"运动日历", @"数据简报", @"类型管理", nil];
+
+    self.group1 = [[NSArray alloc] initWithObjects:@"运动日历", @"数据总结", @"类型管理", nil];
     self.group2 = [[NSArray alloc] initWithObjects:@"设置", @"关于", nil];
     
     self.tableView.allowsSelection = YES;
-    self.tableView.delegate = self;
-    self.tableView.dataSource = self;
-    
-    [self.tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:YKMunuViewControllerCellReuseId];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -43,10 +37,30 @@ static NSString * const YKMunuViewControllerCellReuseId = @"CellReuseId";
     // Dispose of any resources that can be recreated.
 }
 
+// 更改状态栏样式
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleDefault;
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
+}
+
+- (CGFloat)tableView:(nonnull UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    switch (section) {
+        case 0:
+            return 20.;
+            break;
+        case 1:
+            return 10.;
+            break;
+        default:
+            return 0;
+            break;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
