@@ -21,7 +21,15 @@
 //    NSLog(@"载入cell数据");
     
     self.sportName.text = self.event.sportName;
+    
+    if (self.event.weight == 0 && self.event.times > 0) {
+        self.sportPro.text = [NSString stringWithFormat:@"%d组 x %d次", self.event.rap, self.event.times];
+    }else if (self.event.times == 0 && self.event.rap == 0){
+        self.sportPro.text = @"Go！Go！Go！";
+    }else{
     self.sportPro.text = [NSString stringWithFormat:@"%d组 x %d次   %.1fkg", self.event.rap, self.event.times, self.event.weight];
+    }
+    
     self.timelastLabel.text = [NSString stringWithFormat:@"%d", self.event.timelast];
     
     if (self.event.done == NO) {

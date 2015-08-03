@@ -36,7 +36,7 @@
 @property (nonatomic, strong) ViewController *vc;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *menuButton;
 @property (weak, nonatomic) IBOutlet UILabel *underTableLabel;
-@property (weak, nonatomic) IBOutlet UIView *addButtonView;
+@property (weak, nonatomic) IBOutlet UIButton *addEventButton;
 
 //@property (nonatomic, strong) Event *event;
 @end
@@ -55,9 +55,6 @@
 - (void)loadView
 {
     [super loadView];
-    //init
-    self.selectedDate = [NSDate date];
-    self.doneNumbers = [NSMutableDictionary dictionary];
     
 //    [self loadTheDateEvents];
     NSLog(@"%@", NSStringFromSelector(_cmd));
@@ -86,6 +83,10 @@
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureRecognized:)];
     [self.tableView addGestureRecognizer:longPress];
 
+    //init
+    self.selectedDate = [NSDate date];
+    self.doneNumbers = [NSMutableDictionary dictionary];
+    
     NSLog(@"%@", NSStringFromSelector(_cmd));
 }
 
@@ -101,6 +102,8 @@
 {
     [super viewDidAppear:animated];
     [_calendarManager reload];
+    
+    NSLog(@"%@", NSStringFromSelector(_cmd));
 }
 
 - (void)loadTheDateEvents
@@ -117,13 +120,15 @@
     [_calendarManager reload];
     [self.tableView reloadData];
     
-    NSLog(@"%@ ..........................", NSStringFromSelector(_cmd));
+    NSLog(@"%@", NSStringFromSelector(_cmd));
 }
 
+//计算某一天已经完成的事件的数目
 - (void)setUnderTableLabelWithDifferentDay: (NSDate *)date
 {
     int i = 0;
     NSString *key = [[self dateFormatter] stringFromDate:date];
+//    self.oneDayEvents = eventsByDate[key];
     
     //计算这一天有多少已完成的事件
     if (eventsByDate[key]) {
@@ -135,23 +140,27 @@
 
 //    NSLog(@"%@ 共有事件 k = %lu 完成事件 i = %d",date, (unsigned long)[eventsByDate[key] count], i);
     
-//    [_calendarManager reload];
+    NSNumber *tempNum = [NSNumber numberWithInt:i];
+    self.doneNumbers[key] = tempNum;
+}
+
+- (void)setTableViewHeadTitle: (NSDate *)date{
+    
+    NSString *key = [[self dateFormatter] stringFromDate:date];
+    self.doneNumber = self.doneNumbers[key];
     
     //设置显示的文字
     if (self.oneDayEvents.count > 0) {
-        self.addButtonView.hidden = YES;
-        if (self.oneDayEvents.count > i) {
-            self.underTableLabel.text = [NSString stringWithFormat:@"共有%lu个运动项目，已完成%d项，还剩%lu项", (unsigned long)self.oneDayEvents.count, i, self.oneDayEvents.count - i];
-        }else if (self.oneDayEvents.count == i){
+        self.addEventButton.hidden = YES;
+        if (self.oneDayEvents.count > [self.doneNumber intValue]) {
+            self.underTableLabel.text = [NSString stringWithFormat:@"共有%lu个运动项目，已完成%d项，还剩%lu项", (unsigned long)self.oneDayEvents.count, [self.doneNumber intValue], self.oneDayEvents.count - [self.doneNumber intValue]];
+        }else if (self.oneDayEvents.count == [self.doneNumber intValue]){
             self.underTableLabel.text = [NSString stringWithFormat:@"今天的运动已经全部完成了，干得好！"];
         }
     }else{
-        self.addButtonView.hidden = NO;
+        self.addEventButton.hidden = NO;
         self.underTableLabel.text = [NSString stringWithFormat:@"今天没有运动，做个计划吧！"];
     }
-    
-    self.doneNumber = [NSNumber numberWithInt:i];
-    self.doneNumbers[key] = self.doneNumber;
 }
 #pragma mark - click the Date
 
@@ -186,7 +195,9 @@
     
     //重新载入一遍数据
     [self loadTheDateEvents];
-    NSLog(@"Date: %@ - %ld events", mydate, (unsigned long)[self.oneDayEvents count]);
+    [self setUnderTableLabelWithDifferentDay: self.selectedDate];
+    [self.tableView reloadData];
+    NSLog(@"点击了Date: %@ - %ld events, %@ done", mydate, (unsigned long)[self.oneDayEvents count], self.doneNumber);
 }
 
 #pragma mark - Buttons callback
@@ -252,6 +263,7 @@
 {
     if (_calendarManager.settings.weekModeEnabled) {
         [self transitionExample];
+        [_calendarManager reload];
     }
 }
 //滑动Table改为week视图
@@ -259,6 +271,7 @@
 {
     if (!_calendarManager.settings.weekModeEnabled) {
         [self transitionExample];
+        [_calendarManager reload];
     }
 }
 //改变日历视图的动画
@@ -338,6 +351,8 @@
 //根据Day所有完成的运动项目中，寻找数量最多的那一项
 - (unsigned long)findTheMaxOfTypes:(NSDate *)date
 {
+//    NSLog(@"%@", NSStringFromSelector(_cmd));
+    
     NSString *key = [[self dateFormatter] stringFromDate:date];
     
     NSArray *sportTypes = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sportTypes" ofType:@"plist"]];
@@ -585,13 +600,19 @@
     }
     
 //    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self loadTheDateEvents];
+    
     [self setUnderTableLabelWithDifferentDay: self.selectedDate];
-    [_calendarManager reload];
     [self.tableView reloadData];
 }
 
 - (nullable NSString *)tableView:(nonnull UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
+    
+    //设置underLabel的文字内容
+    [self setTableViewHeadTitle:self.selectedDate];
+    
     unsigned long index = [self findTheMaxOfTypes:self.selectedDate];
     NSArray *sportTypes = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sportTypes" ofType:@"plist"]];
     NSString *blankStr = @"";

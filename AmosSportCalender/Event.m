@@ -23,10 +23,10 @@
         self.sportType = @"胸部";
         self.sportName = @"平板卧推";
         
-        self.weight = 120;
+        self.weight = 50;
         self.times = 15;
-        self.rap = 6;
-        self.timelast = 30;
+        self.rap = 3;
+        self.timelast = 15;
         self.done = NO;
         
         //    生成一个唯一的标识（UUID），用作保存图片的key

@@ -104,6 +104,8 @@
                toIndex :(NSUInteger)toIndex
                    date:(NSDate *)date
 {
+    NSLog(@"m 移动数据库顺序");
+    
     NSString *key = [[self dateFormatter] stringFromDate:date ? date : [NSDate date]];
     if (fromIndex == toIndex) {
         return;
@@ -111,7 +113,6 @@
     //得到需要移动的对象的指针，以便稍后能将其插入新的位置
     if ([self.privateEvents[key] isKindOfClass:[NSMutableArray class]]) {
         
-        NSLog(@"m 移动数据库顺序");
     Event *event = self.privateEvents[key][fromIndex];
     
     //将item从allItems数组中移除

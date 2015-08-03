@@ -46,9 +46,9 @@ NSArray *sportTypes;
     
     BOOL success = [[EventStore sharedStore] saveChanges];
     if (success) {
-        NSLog(@"所有的event数据都持久化了");
+        NSLog(@"退出程序后,进行了数据本地储存");
     }else{
-        NSLog(@"持久化数据失败！");
+        NSLog(@"退出程序后的储存失败！");
     }
 }
 
