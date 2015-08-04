@@ -26,6 +26,7 @@
 		B0854D9D1B6BA87600C1B150 /* JTVerticalCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D911B6BA87600C1B150 /* JTVerticalCalendarView.m */; };
 		B08875E01B6F9AF3008DF5D4 /* SummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08875DE1B6F9AF3008DF5D4 /* SummaryViewController.m */; };
 		B08875E11B6F9AF3008DF5D4 /* SummaryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B08875DF1B6F9AF3008DF5D4 /* SummaryViewController.xib */; };
+		B08875E41B70B484008DF5D4 /* SummaryTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B08875E31B70B484008DF5D4 /* SummaryTableView.m */; };
 		B09313141B636366003EB2BD /* NewEvevtViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B09313131B636366003EB2BD /* NewEvevtViewController.m */; };
 		B099000F1B666F8300F7AB67 /* sportTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = B099000E1B666F8300F7AB67 /* sportTypes.plist */; };
 		B09900121B67266600F7AB67 /* SportTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B09900111B67266600F7AB67 /* SportTVCell.m */; };
@@ -106,6 +107,8 @@
 		B08875DD1B6F9AF3008DF5D4 /* SummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SummaryViewController.h; sourceTree = "<group>"; };
 		B08875DE1B6F9AF3008DF5D4 /* SummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SummaryViewController.m; sourceTree = "<group>"; };
 		B08875DF1B6F9AF3008DF5D4 /* SummaryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SummaryViewController.xib; sourceTree = "<group>"; };
+		B08875E21B70B484008DF5D4 /* SummaryTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SummaryTableView.h; sourceTree = "<group>"; };
+		B08875E31B70B484008DF5D4 /* SummaryTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SummaryTableView.m; sourceTree = "<group>"; };
 		B09313121B636366003EB2BD /* NewEvevtViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewEvevtViewController.h; sourceTree = "<group>"; };
 		B09313131B636366003EB2BD /* NewEvevtViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewEvevtViewController.m; sourceTree = "<group>"; };
 		B099000E1B666F8300F7AB67 /* sportTypes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = sportTypes.plist; sourceTree = "<group>"; };
@@ -267,12 +270,14 @@
 				B0FA589C1B4678D400E3BE94 /* ViewController.m */,
 				B08875DD1B6F9AF3008DF5D4 /* SummaryViewController.h */,
 				B08875DE1B6F9AF3008DF5D4 /* SummaryViewController.m */,
+				B08875E21B70B484008DF5D4 /* SummaryTableView.h */,
+				B08875E31B70B484008DF5D4 /* SummaryTableView.m */,
 				B09313121B636366003EB2BD /* NewEvevtViewController.h */,
 				B09313131B636366003EB2BD /* NewEvevtViewController.m */,
-				B09900101B67266600F7AB67 /* SportTVCell.h */,
-				B09900111B67266600F7AB67 /* SportTVCell.m */,
 				B06633151B6B6D7D00F87004 /* LeftMenuTableView.h */,
 				B06633161B6B6D7D00F87004 /* LeftMenuTableView.m */,
+				B09900101B67266600F7AB67 /* SportTVCell.h */,
+				B09900111B67266600F7AB67 /* SportTVCell.m */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -476,6 +481,7 @@
 			files = (
 				B06633171B6B6D7D00F87004 /* LeftMenuTableView.m in Sources */,
 				B0854D6A1B6BA84B00C1B150 /* MMDrawerBarButtonItem.m in Sources */,
+				B08875E41B70B484008DF5D4 /* SummaryTableView.m in Sources */,
 				B0854D9C1B6BA87600C1B150 /* JTHorizontalCalendarView.m in Sources */,
 				B0854D6B1B6BA84B00C1B150 /* MMDrawerController.m in Sources */,
 				B0854D9A1B6BA87600C1B150 /* JTCalendarWeekDayView.m in Sources */,

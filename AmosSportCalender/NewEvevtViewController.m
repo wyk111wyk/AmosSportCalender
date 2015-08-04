@@ -26,8 +26,11 @@
 @property (strong, nonatomic) UIPickerView *sportPicker;
 @property (strong, nonatomic) UISearchBar *sportSearchBar;
 @property (weak, nonatomic) IBOutlet UISwitch *swithButton;
+@property (weak, nonatomic) IBOutlet UISwitch *doneSwitchButton;
 @property (weak, nonatomic) IBOutlet UISlider *weightSlider;
 @property (weak, nonatomic) IBOutlet UISlider *timelastSlider;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *finishBarButtonItem;
+@property (weak, nonatomic) IBOutlet UILabel *weightUnitLabel;
 
 //View
 @property (weak, nonatomic) IBOutlet UIView *outsideView; ///<边框和背景View
@@ -36,6 +39,7 @@
 @property (weak, nonatomic) IBOutlet UIToolbar *toolBar;
 @property (weak, nonatomic) IBOutlet UILabel *rapLabel;
 @property (weak, nonatomic) IBOutlet UILabel *weightLabel;
+@property (weak, nonatomic) IBOutlet UILabel *doneLabel;
 
 @end
 
@@ -49,11 +53,21 @@
 #pragma mark - lifeCycle
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //UIView初始化
-    self.outsideView.layer.borderWidth = 1.;
-    self.outsideView.layer.borderColor = [[UIColor colorWithWhite:0.7 alpha:0.7] CGColor];
+
+    //UIView的初始化
     self.outsideView.layer.cornerRadius = 8;
+    self.outsideView.backgroundColor = [UIColor whiteColor];
     self.seprateView.backgroundColor = [UIColor colorWithWhite:0.7 alpha:0.5];
+    if (!self.event.done) {
+        //关
+        self.doneLabel.textColor = [UIColor lightGrayColor];
+        self.outsideView.layer.borderWidth = 1.;
+        self.outsideView.layer.borderColor = [[UIColor colorWithWhite:0.7 alpha:0.7] CGColor];
+    }else if (self.event.done){
+        //开
+        self.outsideView.layer.borderWidth = 1.5;
+        self.outsideView.layer.borderColor = [[UIColor colorWithRed:0.2000 green:0.6235 blue:0.9882 alpha:1] CGColor];
+    }
     
     //datePick初始化
     self.datePicker = [[UIDatePicker alloc] initWithFrame:CGRectZero];
@@ -72,6 +86,7 @@
     NSString * fileContainFloder = [documentPath.path stringByAppendingPathComponent:@"sportEventData"];
     NSString * fileSavePath = [fileContainFloder stringByAppendingPathComponent:@"chestArray.plist"];
     NSArray * array = [NSArray arrayWithContentsOfFile:fileSavePath];
+    
     self.sportTypes = array;
     self.sportNames = [[self.sportTypes objectAtIndex:0] objectForKey:@"sportName"];
     
@@ -90,7 +105,7 @@
     self.sportNameTextField.tintColor = [UIColor clearColor];
     
     self.sportSearchBar.returnKeyType = UIReturnKeySearch;
-    self.sportSearchBar.placeholder = @"请输入具体项目的名称";
+    self.sportSearchBar.placeholder = @"搜索或新建具体项目的名称";
     
     //设置UI显示的属性值
     NSString *dateStr = [NSString stringWithFormat:@"%@", self.date];
@@ -110,7 +125,18 @@
     self.weightSlider.value = self.event.weight;
     self.weightSlider.continuous = YES;
     self.timelastSlider.value = self.event.timelast;
-
+    self.doneSwitchButton.on = self.event.done;
+    
+    //重量的UI显示
+    if ([self.weightTextFeild.text isEqualToString:@"220"]) {
+        self.weightTextFeild.textColor = [UIColor clearColor];
+        self.weightUnitLabel.text = @"自重";
+        self.weightUnitLabel.textAlignment = NSTextAlignmentLeft;
+    }else{
+        self.weightTextFeild.textColor = [UIColor blackColor];
+        self.weightUnitLabel.text = @"Kg";
+        self.weightUnitLabel.textAlignment = NSTextAlignmentRight;
+    }
 }
 
 - (NSDateFormatter *)dateFormatter
@@ -145,8 +171,33 @@
     NSString *newStr = [[self dateFormatter] stringFromDate:self.datePicker.date];
     self.dateTextField.text = newStr;
 }
+
+- (IBAction)isDoneOrNot:(UISwitch *)sender {
+    
+    if (!self.doneSwitchButton.isOn) {
+        //关
+        self.doneLabel.textColor = [UIColor lightGrayColor];
+        self.outsideView.layer.borderWidth = 1.;
+        self.outsideView.layer.borderColor = [[UIColor colorWithWhite:0.7 alpha:0.7] CGColor];
+    }else{
+        //开
+        self.doneLabel.textColor = [UIColor blackColor];
+        self.outsideView.layer.borderWidth = 1.5;
+        self.outsideView.layer.borderColor = [[UIColor colorWithRed:0.2000 green:0.6235 blue:0.9882 alpha:1] CGColor];
+//        [[self.outsideView layer] setShadowOffset:CGSizeMake(2, 2)]; // 阴影的范围
+//        [[self.outsideView layer] setShadowRadius:2];                // 阴影扩散的范围控制
+//        [[self.outsideView layer] setShadowOpacity:1];               // 阴影透明度
+//        [[self.outsideView layer] setShadowColor:[UIColor colorWithWhite:0.2 alpha:0.65].CGColor]; // 阴影的颜色
+    }
+}
+
 - (IBAction)NotHaveRapAndTimes:(UISwitch *)sender {
     if (!self.swithButton.isOn){
+        //关
+        [self weightChangeValue:self.weightSlider];
+        self.weightUnitLabel.text = @"Kg";
+        self.weightUnitLabel.textAlignment = NSTextAlignmentRight;
+        
         self.timesFeild.text = @"0";
         self.timesFeild.textColor = [UIColor lightGrayColor];
         self.timesFeild.enabled = NO;
@@ -164,6 +215,7 @@
         self.rapLabel.textColor = [UIColor lightGrayColor];
         self.weightLabel.textColor = [UIColor lightGrayColor];
     }else{
+        //开
         self.timesFeild.textColor = [UIColor blackColor];
         self.timesFeild.enabled = YES;
         self.timesFeild.text = [NSString stringWithFormat:@"%i", self.event.times];
@@ -180,6 +232,8 @@
         
         self.rapLabel.textColor = [UIColor darkGrayColor];
         self.weightLabel.textColor = [UIColor darkGrayColor];
+        
+        [self weightChangeValue:self.weightSlider];
     }
     
 }
@@ -187,6 +241,16 @@
     int i = roundf(sender.value);
     if (i % 5 == 0) {
     self.weightTextFeild.text = [NSString stringWithFormat:@"%i",i];
+    }
+    
+    if ([self.weightTextFeild.text isEqualToString:@"220"]) {
+        self.weightTextFeild.textColor = [UIColor clearColor];
+        self.weightUnitLabel.text = @"自重";
+        self.weightUnitLabel.textAlignment = NSTextAlignmentLeft;
+    }else{
+        self.weightTextFeild.textColor = [UIColor blackColor];
+        self.weightUnitLabel.text = @"Kg";
+        self.weightUnitLabel.textAlignment = NSTextAlignmentRight;
     }
     
     Event *event = self.event;
@@ -206,9 +270,12 @@
     event.timelast = [self.timelastFeild.text intValue];
     event.times = [self.timesFeild.text intValue];
     event.rap = [self.rapFeild.text intValue];
+    event.done = self.doneSwitchButton.on;
     
+    if (self.createNewEvent){
     [[EventStore sharedStore] createItem:event date:self.event.eventDate];
-
+    }
+    
     [self dismissViewControllerAnimated:YES completion:^{
         BOOL success = [[EventStore sharedStore] saveChanges];
         if (success) {
@@ -217,6 +284,13 @@
             NSLog(@"新建事件后，储存数据失败！");
         }
     }];
+}
+- (IBAction)finishThisEventAndCreateAnotherEvent:(UIBarButtonItem *)sender {
+    [self finishAndCreateEvent:self.finishBarButtonItem];
+
+    if (self.creatEventBlock) {
+        self.creatEventBlock();
+    }
 }
 
 - (IBAction)cancelTheEvent:(UIBarButtonItem *)sender {
@@ -229,8 +303,38 @@
     [self.view endEditing:YES];
 }
 
-
 #pragma mark - Textfield Delegate
+- (IBAction)sportTypeAndNameText:(UITextField *)sender {
+    
+    NSString *componentStr1 = self.sportNameTextField.text;
+    
+    unsigned long index = 0;
+    int row1 = 9999;
+    int row2 = 0;
+    
+    //搜索方法
+    for (int i = 0; i < self.sportTypes.count; i++){
+        NSArray *tepArray =[[self.sportTypes objectAtIndex:i] objectForKey:@"sportName"];
+        if ([tepArray containsObject:componentStr1]){
+            index = [tepArray indexOfObject:componentStr1];
+            row1 = i;
+            row2 = (int)index;
+            break;
+        }
+    }
+    
+    if (row1 == 9999) {
+        
+    }else{
+        NSLog(@"row1 = %i, row2 = %i", row1, row2);
+        
+        [self.sportPicker selectRow:(NSInteger)row1 inComponent:0 animated:YES];
+        self.sportNames = [[self.sportTypes objectAtIndex:row1] objectForKey:@"sportName"];
+        [self.sportPicker reloadComponent:1];
+        [self.sportPicker selectRow:(NSInteger)row2 inComponent:1 animated:YES];
+    }
+}
+
 - (BOOL)textFieldShouldBeginEditing:(nonnull UITextField *)textField
 {
     textField.text = @"";

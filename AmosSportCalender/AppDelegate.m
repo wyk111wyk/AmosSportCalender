@@ -12,7 +12,6 @@
 #import "EventStore.h"
 
 @interface AppDelegate ()
-
 @end
 
 NSArray *sportTypes;
@@ -21,6 +20,8 @@ NSArray *sportTypes;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    //NND, 用不了，自己造轮子！！！！！以后再来对付你！！！！
     UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     
     MMDrawerController *drawer = [[MMDrawerController alloc] initWithCenterViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"nav"] leftDrawerViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"menunav"]];
@@ -32,6 +33,7 @@ NSArray *sportTypes;
     
     self.window.rootViewController = drawer;
     [self.window makeKeyAndVisible];
+    
     return YES;
 }
 

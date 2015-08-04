@@ -7,6 +7,10 @@
 //
 
 #import "LeftMenuTableView.h"
+#import "SummaryTableView.h"
+#import "SummaryViewController.h"
+#import "UIViewController+MMDrawerController.h"
+#import "LeftMenuTableView.h"
 
 static NSString * const YKMunuViewControllerCellReuseId = @"CellReuseId";
 @interface LeftMenuTableView ()
@@ -14,6 +18,7 @@ static NSString * const YKMunuViewControllerCellReuseId = @"CellReuseId";
 @property (nonatomic, strong)NSArray *group1;
 @property (nonatomic, strong)NSArray *group2;
 
+@property (nonatomic, weak)LeftMenuTableView *menuTable;
 @end
 
 @implementation LeftMenuTableView
@@ -22,7 +27,7 @@ static NSString * const YKMunuViewControllerCellReuseId = @"CellReuseId";
     [super viewDidLoad];
 
     self.group1 = [[NSArray alloc] initWithObjects:@"运动日历", @"数据总结", @"类型管理", nil];
-    self.group2 = [[NSArray alloc] initWithObjects:@"设置", @"关于", nil];
+    self.group2 = [[NSArray alloc] initWithObjects:@"设置", @"反馈", @"关于", nil];
     
     self.tableView.allowsSelection = YES;
 }
@@ -78,7 +83,7 @@ static NSString * const YKMunuViewControllerCellReuseId = @"CellReuseId";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:YKMunuViewControllerCellReuseId forIndexPath:indexPath];
     
     switch (indexPath.section) {
@@ -93,10 +98,49 @@ static NSString * const YKMunuViewControllerCellReuseId = @"CellReuseId";
     }
     
     cell.backgroundColor = [UIColor whiteColor];
-    cell.textLabel.highlightedTextColor = [UIColor colorWithRed:0.0000 green:0.4784 blue:1.0000 alpha:1];
+    cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+    cell.selectedBackgroundView.backgroundColor = [UIColor colorWithWhite:0.3 alpha:0.6];
+    
+    cell.textLabel.highlightedTextColor = [UIColor whiteColor];
     
     return cell;
+}
+
+- (void)tableView:(nonnull UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
+{
+    UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     
+    switch (indexPath.section) {
+            
+        case 0:
+            if (indexPath.row == 0.0){
+                NSLog(@"click section = %li row = %li", (long)indexPath.section, (long)indexPath.row);
+                
+                [self.mm_drawerController setCenterViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"nav"] withCloseAnimation:YES completion:nil];
+                
+            }else if (indexPath.row == 1.0){
+                NSLog(@"click section = %li row = %li", (long)indexPath.section, (long)indexPath.row);
+                
+                [self.mm_drawerController setCenterViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"summaryTableNav"] withCloseAnimation:YES completion:nil];
+                
+            }else if (indexPath.row == 2.0){
+                NSLog(@"click section = %li row = %li", (long)indexPath.section, (long)indexPath.row);
+            }
+            break;
+        case 1:
+            if (indexPath.row == 0.0){
+                NSLog(@"click section = %li row = %li", (long)indexPath.section, (long)indexPath.row);
+            }else if (indexPath.row == 1.0){
+                NSLog(@"click section = %li row = %li", (long)indexPath.section, (long)indexPath.row);
+            }else if (indexPath.row == 2.0){
+                NSLog(@"click section = %li row = %li", (long)indexPath.section, (long)indexPath.row);
+            }
+            break;
+        default:
+            break;
+    }
+    
+    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
 }
 
 @end

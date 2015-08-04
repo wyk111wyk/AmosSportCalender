@@ -11,7 +11,6 @@
 @interface SummaryViewController ()
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (strong, nonatomic) IBOutlet UIView *view1;
-
 @end
 
 @implementation SummaryViewController

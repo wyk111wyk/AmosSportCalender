@@ -24,6 +24,8 @@
     
     if (self.event.weight == 0 && self.event.times > 0) {
         self.sportPro.text = [NSString stringWithFormat:@"%d组 x %d次", self.event.rap, self.event.times];
+    }else if (self.event.weight == 220 && self.event.times > 0){
+        self.sportPro.text = [NSString stringWithFormat:@"%d组 x %d次  自身重量", self.event.rap, self.event.times];
     }else if (self.event.times == 0 && self.event.rap == 0){
         self.sportPro.text = @"Go！Go！Go！";
     }else{

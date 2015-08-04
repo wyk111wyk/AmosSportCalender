@@ -16,6 +16,7 @@
 #import "EventStore.h"
 #import "SportTVCell.h"
 #import "SummaryViewController.h"
+#import "LeftMenuTableView.h"
 
 #import "UIViewController+MMDrawerController.h"
 
@@ -28,16 +29,19 @@
     NSDate *_maxDate;
 }
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *menuButton;
+@property (weak, nonatomic) IBOutlet UILabel *underTableLabel;
+@property (weak, nonatomic) IBOutlet UIButton *addEventButton;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentButton;
+
 @property (nonatomic, strong) NSDate* selectedDate; ///<被选择的当天日期，用作key
 @property (nonatomic, strong) NSMutableArray *oneDayEvents; ///<被选择当天的事件数组Array
 @property (nonatomic, strong) NSMutableDictionary *doneNumbers; ///<储存完成项目数的字典
 @property (nonatomic, strong) NSNumber *doneNumber; ///<已经完成的项目数
 
 @property (nonatomic, strong) ViewController *vc;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *menuButton;
-@property (weak, nonatomic) IBOutlet UILabel *underTableLabel;
-@property (weak, nonatomic) IBOutlet UIButton *addEventButton;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentButton;
+@property (strong, nonatomic) Event *tempEvent; ///<专程用来在更改数据时临时存放的
+@property (nonatomic, weak) LeftMenuTableView *menuTable;
 
 @end
 
@@ -56,7 +60,6 @@
 {
     [super loadView];
     
-//    [self loadTheDateEvents];
     NSLog(@"%@", NSStringFromSelector(_cmd));
 }
 
@@ -94,6 +97,7 @@
 {
     [super viewWillAppear:animated];
     [self loadTheDateEvents];
+    self.tempEvent = nil;
 
     NSLog(@"%@", NSStringFromSelector(_cmd));
 }
@@ -202,18 +206,20 @@
 
 #pragma mark - Buttons callback
 - (IBAction)addNewEvent:(UIButton *)sender {
-    
+
     [self performSegueWithIdentifier:@"newEvent" sender:self];
 }
 
 - (void)prepareForSegue:(nonnull UIStoryboardSegue *)segue sender:(nullable id)sender
 {
+    NSLog(@"%@", NSStringFromSelector(_cmd));
     if ([segue.identifier isEqualToString:@"newEvent"]) {
         UINavigationController *nc = (UINavigationController *)segue.destinationViewController;
         NewEvevtViewController *mvc = (NewEvevtViewController *)[nc topViewController];
         
         Event *newEvent = [[EventStore sharedStore] createItem];
-        mvc.event = newEvent;
+        mvc.event = self.tempEvent? self.tempEvent : newEvent;
+        mvc.createNewEvent = self.tempEvent ? NO : YES;
         
         if (_selectedDate) {
             mvc.date = _selectedDate;
@@ -221,10 +227,18 @@
             mvc.date = [NSDate date];
         }
         
+        mvc.creatEventBlock = ^(){
+            NSLog(@"Hello World, I am Amos' first Block");
+            [self performSegueWithIdentifier:@"newEvent" sender:self];
+        };
+        
         //新建事件前把页面切回日历视图
+        if (self.segmentButton.selectedSegmentIndex == 1) {
         self.segmentButton.selectedSegmentIndex = 0;
         [self segmentedControl:self.segmentButton];
+        }
     }
+    
 }
 
 - (IBAction)segmentedControl:(UISegmentedControl *)sender {
@@ -552,7 +566,7 @@
 {
     SportTVCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
-//    NSLog(@"+ 重载cell");
+    NSLog(@"+ 重载cell");
     Event *event = self.oneDayEvents[indexPath.row];
     cell.event = event;
     
@@ -604,7 +618,7 @@
 
 - (nullable NSString *)tableView:(nonnull UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    NSLog(@"%@", NSStringFromSelector(_cmd));
+//    NSLog(@"%@", NSStringFromSelector(_cmd));
     
     //设置underLabel的文字内容
     [self setTableViewHeadTitle:self.selectedDate];
@@ -644,28 +658,48 @@
 //实现协议规定的方法，需要向UITableView发送该消息
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        Event *event = self.oneDayEvents[indexPath.row];
-        [[EventStore sharedStore] removeItem:event date:self.selectedDate];
-        
-        //删除表格中的相应行
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        [_calendarManager reload];
-        [self setUnderTableLabelWithDifferentDay: self.selectedDate];
-        
-        if (self.oneDayEvents.count == 0) {
-            [self loadTheDateEvents];
-        }
-        
-        BOOL success = [[EventStore sharedStore] saveChanges];
-        if (success) {
-            NSLog(@"删除事件后，储存数据成功");
-        }else{
-            NSLog(@"删除事件后，储存数据失败！");
-        }
-    }
 }
 
+//设置滑动后出现的选项
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    UITableViewRowAction *deleteAction = [UITableViewRowAction
+       rowActionWithStyle:UITableViewRowActionStyleDestructive
+       title:@"删除"
+       handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+         Event *event = self.oneDayEvents[indexPath.row];
+         [[EventStore sharedStore] removeItem:event date:self.selectedDate];
+         
+         //删除表格中的相应行
+         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+         [_calendarManager reload];
+         [self setUnderTableLabelWithDifferentDay: self.selectedDate];
+         
+         if (self.oneDayEvents.count == 0) {
+             [self loadTheDateEvents];
+         }
+         
+         BOOL success = [[EventStore sharedStore] saveChanges];
+         if (success) {
+             NSLog(@"删除事件后，储存数据成功");
+         }else{
+             NSLog(@"删除事件后，储存数据失败！");
+         }
+     }];
+    
+    UITableViewRowAction *editAction = [UITableViewRowAction
+      rowActionWithStyle:UITableViewRowActionStyleNormal
+      title:@"修改"
+      handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+          self.tempEvent = self.oneDayEvents[indexPath.row];
+          
+          [self performSegueWithIdentifier:@"newEvent" sender:self];
+          [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
+      }];
+    editAction.backgroundColor = [UIColor colorWithRed:0.0000 green:0.4784 blue:1.0000 alpha:1];
+    
+    return @[deleteAction, editAction]; //与实际显示的顺序相反
+}
 #pragma mark - 长按移动cell顺序
 
 - (IBAction)longPressGestureRecognized:(id)sender {
