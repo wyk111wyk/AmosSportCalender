@@ -6,12 +6,17 @@
 //  Copyright © 2015年 Amos Wu. All rights reserved.
 //
 
+#import "EventStore.h"
 #import "SummaryTableView.h"
+#import "SummaryTVCell.h"
 #import "UIViewController+MMDrawerController.h"
 
 static NSString * const YKSummaryCellReuseId = @"summaryCell";
 
 @interface SummaryTableView ()
+
+@property (nonatomic, strong)NSMutableDictionary *eventsByDate;
+@property (nonatomic, strong)NSArray *sortedArray;
 
 @end
 
@@ -19,12 +24,70 @@ static NSString * const YKSummaryCellReuseId = @"summaryCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    //初始化数据
+    self.eventsByDate = [[NSMutableDictionary alloc] initWithDictionary:[[EventStore sharedStore] allItems] copyItems:NO];
+    
+    self.sortedArray = [NSArray array];
+    NSMutableArray *tempArray = [NSMutableArray array];
+    NSMutableArray *tempEventArray = [NSMutableArray array];
+    
+    tempArray = [[self.eventsByDate allKeys] copy];
+    
+    NSEnumerator * enumeratorKey = [self.eventsByDate keyEnumerator];
+    for (NSObject *object in enumeratorKey) {
+        NSLog(@"遍历KEY的值: %@",object);
+        [tempArray addObject:object];
+    }
+    
+    //对日期进行排序
+//    NSArray *result = [tempArray sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+//        
+//        NSLog(@"%@ ~ %@", obj1, obj2);
+//        
+//        return [obj2 compare:obj1];
+//    }];
+
+//    NSSortDescriptor *firstDescriptor = [[NSSortDescriptor alloc] initWithKey:@"eventDate" ascending:YES];
+//    
+//    NSArray *sortDescriptors = [NSArray arrayWithObjects:firstDescriptor, nil];
+//    
+//    NSArray *sortedArray = [tempArray sortedArrayUsingDescriptors:sortDescriptors];
+//    
+    NSEnumerator * enumeratorValue = [self.eventsByDate objectEnumerator];
+    for (NSObject *object in enumeratorValue) {
+        NSLog(@"遍历Value的值: %@",object);
+        [tempEventArray addObject:object];
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
+- (NSDateFormatter *)dateFormatter
+{
+    static NSDateFormatter *dateFormatter;
+    if(!dateFormatter){
+        dateFormatter = [NSDateFormatter new];
+        dateFormatter.dateFormat = @"dd-MM-yyyy";
+    }
+    
+    return dateFormatter;
+}
+
+- (NSDateFormatter *)dateFormatterDisplay
+{
+    static NSDateFormatter *dateFormatterDisplay;
+    if(!dateFormatterDisplay){
+        dateFormatterDisplay = [NSDateFormatter new];
+        dateFormatterDisplay.dateFormat = @"yyyy年mm月dd日 EEEE";
+    }
+    
+    return dateFormatterDisplay;
+}
 #pragma mark - Buttons
 
 - (IBAction)OpenAndCloseMenu:(UIBarButtonItem *)sender {
@@ -49,7 +112,7 @@ static NSString * const YKSummaryCellReuseId = @"summaryCell";
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:YKSummaryCellReuseId forIndexPath:indexPath];
+    SummaryTVCell *cell = [tableView dequeueReusableCellWithIdentifier:YKSummaryCellReuseId forIndexPath:indexPath];
     
     return cell;
 }

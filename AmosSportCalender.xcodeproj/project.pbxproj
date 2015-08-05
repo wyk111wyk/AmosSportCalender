@@ -27,6 +27,8 @@
 		B08875E01B6F9AF3008DF5D4 /* SummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B08875DE1B6F9AF3008DF5D4 /* SummaryViewController.m */; };
 		B08875E11B6F9AF3008DF5D4 /* SummaryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B08875DF1B6F9AF3008DF5D4 /* SummaryViewController.xib */; };
 		B08875E41B70B484008DF5D4 /* SummaryTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B08875E31B70B484008DF5D4 /* SummaryTableView.m */; };
+		B08875EE1B711F14008DF5D4 /* SummaryTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B08875ED1B711F14008DF5D4 /* SummaryTVCell.m */; };
+		B08875F11B71AD2B008DF5D4 /* DSC00146.png in Resources */ = {isa = PBXBuildFile; fileRef = B08875F01B71AD2B008DF5D4 /* DSC00146.png */; };
 		B09313141B636366003EB2BD /* NewEvevtViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B09313131B636366003EB2BD /* NewEvevtViewController.m */; };
 		B099000F1B666F8300F7AB67 /* sportTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = B099000E1B666F8300F7AB67 /* sportTypes.plist */; };
 		B09900121B67266600F7AB67 /* SportTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B09900111B67266600F7AB67 /* SportTVCell.m */; };
@@ -109,6 +111,9 @@
 		B08875DF1B6F9AF3008DF5D4 /* SummaryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SummaryViewController.xib; sourceTree = "<group>"; };
 		B08875E21B70B484008DF5D4 /* SummaryTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SummaryTableView.h; sourceTree = "<group>"; };
 		B08875E31B70B484008DF5D4 /* SummaryTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SummaryTableView.m; sourceTree = "<group>"; };
+		B08875EC1B711F14008DF5D4 /* SummaryTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SummaryTVCell.h; sourceTree = "<group>"; };
+		B08875ED1B711F14008DF5D4 /* SummaryTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SummaryTVCell.m; sourceTree = "<group>"; };
+		B08875F01B71AD2B008DF5D4 /* DSC00146.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DSC00146.png; sourceTree = "<group>"; };
 		B09313121B636366003EB2BD /* NewEvevtViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewEvevtViewController.h; sourceTree = "<group>"; };
 		B09313131B636366003EB2BD /* NewEvevtViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewEvevtViewController.m; sourceTree = "<group>"; };
 		B099000E1B666F8300F7AB67 /* sportTypes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = sportTypes.plist; sourceTree = "<group>"; };
@@ -270,16 +275,34 @@
 				B0FA589C1B4678D400E3BE94 /* ViewController.m */,
 				B08875DD1B6F9AF3008DF5D4 /* SummaryViewController.h */,
 				B08875DE1B6F9AF3008DF5D4 /* SummaryViewController.m */,
-				B08875E21B70B484008DF5D4 /* SummaryTableView.h */,
-				B08875E31B70B484008DF5D4 /* SummaryTableView.m */,
 				B09313121B636366003EB2BD /* NewEvevtViewController.h */,
 				B09313131B636366003EB2BD /* NewEvevtViewController.m */,
-				B06633151B6B6D7D00F87004 /* LeftMenuTableView.h */,
-				B06633161B6B6D7D00F87004 /* LeftMenuTableView.m */,
-				B09900101B67266600F7AB67 /* SportTVCell.h */,
-				B09900111B67266600F7AB67 /* SportTVCell.m */,
+				B08875EB1B711EE3008DF5D4 /* TableView */,
+				B08875EF1B711F19008DF5D4 /* Cell */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		B08875EB1B711EE3008DF5D4 /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				B08875E21B70B484008DF5D4 /* SummaryTableView.h */,
+				B08875E31B70B484008DF5D4 /* SummaryTableView.m */,
+				B06633151B6B6D7D00F87004 /* LeftMenuTableView.h */,
+				B06633161B6B6D7D00F87004 /* LeftMenuTableView.m */,
+			);
+			name = TableView;
+			sourceTree = "<group>";
+		};
+		B08875EF1B711F19008DF5D4 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				B09900101B67266600F7AB67 /* SportTVCell.h */,
+				B09900111B67266600F7AB67 /* SportTVCell.m */,
+				B08875EC1B711F14008DF5D4 /* SummaryTVCell.h */,
+				B08875ED1B711F14008DF5D4 /* SummaryTVCell.m */,
+			);
+			name = Cell;
 			sourceTree = "<group>";
 		};
 		B0FA58891B4678D400E3BE94 = {
@@ -321,6 +344,7 @@
 			isa = PBXGroup;
 			children = (
 				B0FA58A41B4678D400E3BE94 /* Assets.xcassets */,
+				B08875F01B71AD2B008DF5D4 /* DSC00146.png */,
 				B0FA58A91B4678D400E3BE94 /* Info.plist */,
 				B0FA58961B4678D400E3BE94 /* main.m */,
 				B099000E1B666F8300F7AB67 /* sportTypes.plist */,
@@ -454,6 +478,7 @@
 				B0FA58A51B4678D400E3BE94 /* Assets.xcassets in Resources */,
 				B0FA58A01B4678D400E3BE94 /* Main.storyboard in Resources */,
 				B099000F1B666F8300F7AB67 /* sportTypes.plist in Resources */,
+				B08875F11B71AD2B008DF5D4 /* DSC00146.png in Resources */,
 				B08875E11B6F9AF3008DF5D4 /* SummaryViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -501,6 +526,7 @@
 				B0854D961B6BA87600C1B150 /* JTCalendarScrollManager.m in Sources */,
 				B0854D931B6BA87600C1B150 /* JTCalendarSettings.m in Sources */,
 				B0854D981B6BA87600C1B150 /* JTCalendarMenuView.m in Sources */,
+				B08875EE1B711F14008DF5D4 /* SummaryTVCell.m in Sources */,
 				B09313141B636366003EB2BD /* NewEvevtViewController.m in Sources */,
 				B0FA589A1B4678D400E3BE94 /* AppDelegate.m in Sources */,
 				B08875E01B6F9AF3008DF5D4 /* SummaryViewController.m in Sources */,
