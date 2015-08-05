@@ -413,7 +413,7 @@
     }else if (index == 5){
         return [UIColor colorWithRed:0.9922 green:0.2980 blue:0.9882 alpha:1];
     }else if (index == 6){
-        return [UIColor colorWithRed:0.5686 green:0.9686 blue:0.1882 alpha:1];
+        return [UIColor colorWithRed:0.6078 green:0.9255 blue:0.2980 alpha:1];
     }
     
     return [UIColor clearColor];
@@ -616,9 +616,20 @@
     [self.tableView reloadData];
 }
 
-- (nullable NSString *)tableView:(nonnull UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+- (nullable UIView *)tableView:(nonnull UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-//    NSLog(@"%@", NSStringFromSelector(_cmd));
+    //初始化自定义View
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 22)];
+    [headerView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
+    headerView.backgroundColor = [UIColor colorWithRed:0.9686 green:0.9686 blue:0.9686 alpha:1];
+
+    //设置Header的字体
+    UILabel *headText = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 22)];
+    headText.textColor = [UIColor darkGrayColor];
+    [headText setFont:[UIFont fontWithName:@"Arial" size:14]];
+    headText.text = @"text";
+    [headText sizeToFit];
+    [headerView addSubview:headText];
     
     //设置underLabel的文字内容
     [self setTableViewHeadTitle:self.selectedDate];
@@ -631,16 +642,20 @@
         NSDateFormatter *dateFormatter = [NSDateFormatter new];
         dateFormatter.dateFormat = @"yyyy-MM-dd EEEE";
         
-        return ([self.doneNumber intValue] > 0)?
+        headText.text = ([self.doneNumber intValue] > 0)
+        ?
         [NSString stringWithFormat:@"%@ - %@",[dateFormatter stringFromDate:self.selectedDate],
-        [sportTypes[index] objectForKey:@"sportType"]?
-        [sportTypes[index] objectForKey:@"sportType"]:blankStr]
+         [sportTypes[index] objectForKey:@"sportType"]?
+         [sportTypes[index] objectForKey:@"sportType"]:blankStr]
         :
         [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:self.selectedDate]];
         
-    }else{
-        return nil;
+        [headText sizeToFit];
+        headText.center = headerView.center;
+        
+        return headerView;
     }
+    return headerView;
 }
 
 - (CGFloat)tableView:(nonnull UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath

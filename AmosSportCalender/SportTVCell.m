@@ -56,7 +56,7 @@
     }else if ([self.event.sportType isEqualToString:@"核心"]){
         self.sportType.textColor = [UIColor colorWithRed:0.9922 green:0.2980 blue:0.9882 alpha:1];
     }else if ([self.event.sportType isEqualToString:@"其他"]){
-        self.sportType.textColor = [UIColor colorWithRed:0.5686 green:0.9686 blue:0.1882 alpha:1];
+        self.sportType.textColor = [UIColor colorWithRed:0.6078 green:0.9255 blue:0.2980 alpha:1];
     }
     }else{
 //        NSLog(@"In cell Done");

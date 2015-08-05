@@ -26,7 +26,7 @@ static NSString * const YKMunuViewControllerCellReuseId = @"CellReuseId";
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    self.group1 = [[NSArray alloc] initWithObjects:@"运动日历", @"数据总结", @"类型管理", nil];
+    self.group1 = [[NSArray alloc] initWithObjects:@"运动日历", @"数据列表", @"类型管理", nil];
     self.group2 = [[NSArray alloc] initWithObjects:@"设置", @"反馈", @"关于", nil];
     
     self.tableView.allowsSelection = YES;

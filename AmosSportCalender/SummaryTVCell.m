@@ -10,17 +10,6 @@
 
 @interface SummaryTVCell()
 
-//Label
-@property (weak, nonatomic) IBOutlet UILabel *dateNumberLabel;
-@property (weak, nonatomic) IBOutlet UILabel *weekNumberLabel;
-@property (weak, nonatomic) IBOutlet UILabel *sportTypeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *sportNameLabel;
-@property (weak, nonatomic) IBOutlet UILabel *timelastLabel;
-
-//view
-@property (weak, nonatomic) IBOutlet UIView *separatorView;
-@property (weak, nonatomic) IBOutlet UIView *bottomLineView;
-
 @end
 
 @implementation SummaryTVCell
