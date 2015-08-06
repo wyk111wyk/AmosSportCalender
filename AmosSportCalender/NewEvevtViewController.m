@@ -80,11 +80,12 @@
     self.sportPicker.delegate = self;
     self.sportSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, 44.)];
     self.sportSearchBar.delegate = self;
+    
     //设置sportPicker的属性
     NSFileManager * defaultManager = [NSFileManager defaultManager];
     NSURL * documentPath = [[defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask]firstObject];
     NSString * fileContainFloder = [documentPath.path stringByAppendingPathComponent:@"sportEventData"];
-    NSString * fileSavePath = [fileContainFloder stringByAppendingPathComponent:@"chestArray.plist"];
+    NSString * fileSavePath = [fileContainFloder stringByAppendingPathComponent:@"sportTypeArray.plist"];
     NSArray * array = [NSArray arrayWithContentsOfFile:fileSavePath];
     
     self.sportTypes = array;

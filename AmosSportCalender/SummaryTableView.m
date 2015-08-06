@@ -18,6 +18,7 @@ static NSString * const YKSummaryCellReuseId = @"summaryCell";
 
 @property (nonatomic, strong)NSMutableDictionary *eventsByDate;
 @property (nonatomic, strong)NSArray *sortedKeyArray;
+@property (weak, nonatomic) IBOutlet UILabel *underTableLabel;
 
 @end
 
@@ -68,13 +69,11 @@ static NSString * const YKSummaryCellReuseId = @"summaryCell";
     
     self.sortedKeyArray = [newTempArray copy];
     
-    //另一种排序方法
-//    NSArray *result = [tempArray sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
-//        
-//        NSLog(@"%@ ~ %@", obj1, obj2);
-//        
-//        return [obj2 compare:obj1];
-//    }];
+    if (self.sortedKeyArray.count == 0){
+        self.underTableLabel.text = @"还没有任何运动记录，赶快开始运动吧！";
+    }else if (self.sortedKeyArray.count > 0){
+        self.underTableLabel.text = [NSString stringWithFormat:@"总计运动天数：%lu天", (unsigned long)self.sortedKeyArray.count];
+    }
 
 }
 
@@ -175,7 +174,7 @@ static NSString * const YKSummaryCellReuseId = @"summaryCell";
             if (event.done == NO) {
                 cell.doneImageView.hidden = YES;
             } else if (event.done == YES){
-                cell.backgroundColor = [UIColor colorWithWhite:0.88 alpha:0.5];
+                cell.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.6];
             }
         }
     }

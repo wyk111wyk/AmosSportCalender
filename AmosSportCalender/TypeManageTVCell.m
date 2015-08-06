@@ -1,22 +1,18 @@
 //
-//  SummaryTVCell.m
+//  TypeManageTVCell.m
 //  AmosSportCalender
 //
-//  Created by Amos Wu on 15/8/5.
+//  Created by Amos Wu on 15/8/6.
 //  Copyright © 2015年 Amos Wu. All rights reserved.
 //
 
-#import "SummaryTVCell.h"
+#import "TypeManageTVCell.h"
 
-@interface SummaryTVCell()
-
-@end
-
-@implementation SummaryTVCell
+@implementation TypeManageTVCell
 
 - (void)awakeFromNib {
     // Initialization code
-    self.bottomLineView.backgroundColor = [UIColor colorWithRed:0.7843 green:0.7804 blue:0.8000 alpha:0.9];
+//    self.bottomLineView.backgroundColor = [UIColor colorWithRed:0.7843 green:0.7804 blue:0.8000 alpha:0.9];
 
 }
 

@@ -19,6 +19,8 @@ static NSString * const YKMunuViewControllerCellReuseId = @"CellReuseId";
 @property (nonatomic, strong)NSArray *group2;
 
 @property (nonatomic, weak)LeftMenuTableView *menuTable;
+
+@property (nonatomic, strong)NSIndexPath *selectedIndex;
 @end
 
 @implementation LeftMenuTableView
@@ -30,11 +32,18 @@ static NSString * const YKMunuViewControllerCellReuseId = @"CellReuseId";
     self.group2 = [[NSArray alloc] initWithObjects:@"设置", @"反馈", @"关于", nil];
     
     self.tableView.allowsSelection = YES;
+    
+    self.selectedIndex = [NSIndexPath indexPathForRow:0 inSection:0];
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    
+    [self.tableView selectRowAtIndexPath:self.selectedIndex animated:NO scrollPosition:UITableViewScrollPositionNone];
+    NSLog(@"indexPath: %@", self.selectedIndex);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -99,7 +108,7 @@ static NSString * const YKMunuViewControllerCellReuseId = @"CellReuseId";
     
     cell.backgroundColor = [UIColor whiteColor];
     cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
-    cell.selectedBackgroundView.backgroundColor = [UIColor colorWithWhite:0.3 alpha:0.6];
+    cell.selectedBackgroundView.backgroundColor = [UIColor colorWithWhite:0.4 alpha:0.6];
     
     cell.textLabel.highlightedTextColor = [UIColor whiteColor];
     
@@ -109,6 +118,8 @@ static NSString * const YKMunuViewControllerCellReuseId = @"CellReuseId";
 - (void)tableView:(nonnull UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
     UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    
+    self.selectedIndex = indexPath;
     
     switch (indexPath.section) {
             
@@ -125,6 +136,8 @@ static NSString * const YKMunuViewControllerCellReuseId = @"CellReuseId";
                 
             }else if (indexPath.row == 2.0){
                 NSLog(@"click section = %li row = %li", (long)indexPath.section, (long)indexPath.row);
+                
+                [self.mm_drawerController setCenterViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"typeManageNav"] withCloseAnimation:YES completion:nil];
             }
             break;
         case 1:

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B02AF0021B733BC20028E988 /* NameManageTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B02AF0011B733BC20028E988 /* NameManageTableView.m */; };
 		B06633171B6B6D7D00F87004 /* LeftMenuTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B06633161B6B6D7D00F87004 /* LeftMenuTableView.m */; };
 		B0854D6A1B6BA84B00C1B150 /* MMDrawerBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D621B6BA84B00C1B150 /* MMDrawerBarButtonItem.m */; };
 		B0854D6B1B6BA84B00C1B150 /* MMDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D651B6BA84B00C1B150 /* MMDrawerController.m */; };
@@ -30,10 +31,13 @@
 		B08875EE1B711F14008DF5D4 /* SummaryTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B08875ED1B711F14008DF5D4 /* SummaryTVCell.m */; };
 		B08875F11B71AD2B008DF5D4 /* DSC00146.png in Resources */ = {isa = PBXBuildFile; fileRef = B08875F01B71AD2B008DF5D4 /* DSC00146.png */; };
 		B09313141B636366003EB2BD /* NewEvevtViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B09313131B636366003EB2BD /* NewEvevtViewController.m */; };
+		B09429931B73356E00B9A503 /* TypeManageTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B09429921B73356E00B9A503 /* TypeManageTableView.m */; };
+		B09429961B73358A00B9A503 /* TypeManageTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B09429951B73358A00B9A503 /* TypeManageTVCell.m */; };
 		B099000F1B666F8300F7AB67 /* sportTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = B099000E1B666F8300F7AB67 /* sportTypes.plist */; };
 		B09900121B67266600F7AB67 /* SportTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B09900111B67266600F7AB67 /* SportTVCell.m */; };
 		B0A34E1B1B63912E00F26EE5 /* EventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A34E1A1B63912E00F26EE5 /* EventStore.m */; };
 		B0B7506B1B637ABC00BE2705 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B7506A1B637ABC00BE2705 /* Event.m */; };
+		B0C9ED601B737A6A00056B32 /* NameManageTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C9ED5F1B737A6A00056B32 /* NameManageTVCell.m */; };
 		B0FA58971B4678D400E3BE94 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FA58961B4678D400E3BE94 /* main.m */; };
 		B0FA589A1B4678D400E3BE94 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FA58991B4678D400E3BE94 /* AppDelegate.m */; };
 		B0FA589D1B4678D400E3BE94 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FA589C1B4678D400E3BE94 /* ViewController.m */; };
@@ -63,6 +67,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B02AF0001B733BC20028E988 /* NameManageTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NameManageTableView.h; sourceTree = "<group>"; };
+		B02AF0011B733BC20028E988 /* NameManageTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NameManageTableView.m; sourceTree = "<group>"; };
 		B06633151B6B6D7D00F87004 /* LeftMenuTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftMenuTableView.h; sourceTree = "<group>"; };
 		B06633161B6B6D7D00F87004 /* LeftMenuTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftMenuTableView.m; sourceTree = "<group>"; };
 		B0854D611B6BA84B00C1B150 /* MMDrawerBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDrawerBarButtonItem.h; sourceTree = "<group>"; };
@@ -116,6 +122,10 @@
 		B08875F01B71AD2B008DF5D4 /* DSC00146.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DSC00146.png; sourceTree = "<group>"; };
 		B09313121B636366003EB2BD /* NewEvevtViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewEvevtViewController.h; sourceTree = "<group>"; };
 		B09313131B636366003EB2BD /* NewEvevtViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewEvevtViewController.m; sourceTree = "<group>"; };
+		B09429911B73356E00B9A503 /* TypeManageTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TypeManageTableView.h; sourceTree = "<group>"; };
+		B09429921B73356E00B9A503 /* TypeManageTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TypeManageTableView.m; sourceTree = "<group>"; };
+		B09429941B73358A00B9A503 /* TypeManageTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TypeManageTVCell.h; sourceTree = "<group>"; };
+		B09429951B73358A00B9A503 /* TypeManageTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TypeManageTVCell.m; sourceTree = "<group>"; };
 		B099000E1B666F8300F7AB67 /* sportTypes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = sportTypes.plist; sourceTree = "<group>"; };
 		B09900101B67266600F7AB67 /* SportTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SportTVCell.h; sourceTree = "<group>"; };
 		B09900111B67266600F7AB67 /* SportTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SportTVCell.m; sourceTree = "<group>"; };
@@ -123,6 +133,8 @@
 		B0A34E1A1B63912E00F26EE5 /* EventStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventStore.m; sourceTree = "<group>"; };
 		B0B750691B637ABC00BE2705 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		B0B7506A1B637ABC00BE2705 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		B0C9ED5E1B737A6A00056B32 /* NameManageTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NameManageTVCell.h; sourceTree = "<group>"; };
+		B0C9ED5F1B737A6A00056B32 /* NameManageTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NameManageTVCell.m; sourceTree = "<group>"; };
 		B0FA58921B4678D400E3BE94 /* AmosSportCalender.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AmosSportCalender.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0FA58961B4678D400E3BE94 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B0FA58981B4678D400E3BE94 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -288,6 +300,10 @@
 			children = (
 				B08875E21B70B484008DF5D4 /* SummaryTableView.h */,
 				B08875E31B70B484008DF5D4 /* SummaryTableView.m */,
+				B09429911B73356E00B9A503 /* TypeManageTableView.h */,
+				B09429921B73356E00B9A503 /* TypeManageTableView.m */,
+				B02AF0001B733BC20028E988 /* NameManageTableView.h */,
+				B02AF0011B733BC20028E988 /* NameManageTableView.m */,
 				B06633151B6B6D7D00F87004 /* LeftMenuTableView.h */,
 				B06633161B6B6D7D00F87004 /* LeftMenuTableView.m */,
 			);
@@ -301,6 +317,10 @@
 				B09900111B67266600F7AB67 /* SportTVCell.m */,
 				B08875EC1B711F14008DF5D4 /* SummaryTVCell.h */,
 				B08875ED1B711F14008DF5D4 /* SummaryTVCell.m */,
+				B09429941B73358A00B9A503 /* TypeManageTVCell.h */,
+				B09429951B73358A00B9A503 /* TypeManageTVCell.m */,
+				B0C9ED5E1B737A6A00056B32 /* NameManageTVCell.h */,
+				B0C9ED5F1B737A6A00056B32 /* NameManageTVCell.m */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -505,6 +525,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B06633171B6B6D7D00F87004 /* LeftMenuTableView.m in Sources */,
+				B0C9ED601B737A6A00056B32 /* NameManageTVCell.m in Sources */,
 				B0854D6A1B6BA84B00C1B150 /* MMDrawerBarButtonItem.m in Sources */,
 				B08875E41B70B484008DF5D4 /* SummaryTableView.m in Sources */,
 				B0854D9C1B6BA87600C1B150 /* JTHorizontalCalendarView.m in Sources */,
@@ -520,11 +541,14 @@
 				B0854D971B6BA87600C1B150 /* JTCalendarDayView.m in Sources */,
 				B0B7506B1B637ABC00BE2705 /* Event.m in Sources */,
 				B0854D951B6BA87600C1B150 /* JTCalendarDelegateManager.m in Sources */,
+				B02AF0021B733BC20028E988 /* NameManageTableView.m in Sources */,
 				B0854D991B6BA87600C1B150 /* JTCalendarPageView.m in Sources */,
 				B0854D6C1B6BA84B00C1B150 /* MMDrawerVisualState.m in Sources */,
 				B0854D6D1B6BA84B00C1B150 /* UIViewController+MMDrawerController.m in Sources */,
 				B0854D961B6BA87600C1B150 /* JTCalendarScrollManager.m in Sources */,
+				B09429961B73358A00B9A503 /* TypeManageTVCell.m in Sources */,
 				B0854D931B6BA87600C1B150 /* JTCalendarSettings.m in Sources */,
+				B09429931B73356E00B9A503 /* TypeManageTableView.m in Sources */,
 				B0854D981B6BA87600C1B150 /* JTCalendarMenuView.m in Sources */,
 				B08875EE1B711F14008DF5D4 /* SummaryTVCell.m in Sources */,
 				B09313141B636366003EB2BD /* NewEvevtViewController.m in Sources */,
