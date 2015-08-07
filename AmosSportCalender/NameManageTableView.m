@@ -18,6 +18,7 @@ static NSString* const typeManageCellReuseId = @"sportNameManageCell";
 @property (nonatomic, strong)NSString *editedText;
 @property (nonatomic, strong)UIBarButtonItem *rightButton;
 
+
 @property (nonatomic ,strong)NameManageTVCell *cell;
 
 @end
@@ -56,7 +57,7 @@ static NSString* const typeManageCellReuseId = @"sportNameManageCell";
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
     [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"请输入新建运动名称";
+        textField.placeholder = @"请在此输入运动名称";
     }];
     
     [alert addAction:[UIAlertAction actionWithTitle:@"确认"
@@ -75,11 +76,6 @@ static NSString* const typeManageCellReuseId = @"sportNameManageCell";
                                             }]];
     
     [self presentViewController:alert animated:YES completion:nil];
-}
-
-- (void)UIAlertController: (UIAlertController *)alert
-{
-    NSLog(@"click background");
 }
 
 #pragma mark - textfield

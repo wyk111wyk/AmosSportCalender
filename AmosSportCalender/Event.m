@@ -23,7 +23,7 @@
         self.sportType = @"胸部";
         self.sportName = @"平板卧推";
         
-        self.weight = 50;
+        self.weight = 30;
         self.times = 15;
         self.rap = 3;
         self.timelast = 15;

@@ -16,6 +16,7 @@
 typedef void (^myBlock)();
 
 @property (nonatomic, copy) myBlock creatEventBlock; //为了不释放，使用copy
+@property (nonatomic, copy) NSString *(^textPassBlock)();
 
 @property (nonatomic, strong)NSDate *date; ///<事件创建的日期
 @property (nonatomic, strong)Event *event; ///<新建事件时的事件属性

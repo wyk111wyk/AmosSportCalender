@@ -171,6 +171,7 @@ static NSString * const YKSummaryCellReuseId = @"summaryCell";
             cell.sportNameLabel.text = event.sportName;
             cell.timelastLabel.text =[NSString stringWithFormat:@"%i分钟", event.timelast];
             cell.sportAttributeLabel.text = [self setSportAttributeText:event.times weight:event.weight rap:event.rap];
+            [cell.sportAttributeLabel sizeToFit];
             if (event.done == NO) {
                 cell.doneImageView.hidden = YES;
             } else if (event.done == YES){

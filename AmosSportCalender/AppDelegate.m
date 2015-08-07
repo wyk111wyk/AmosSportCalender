@@ -55,9 +55,13 @@ NSArray *sportTypes;
     {   // 假如该文件夹不存在，直接新建一个
         
         [defaultManager createDirectoryAtPath:fileContainFloder withIntermediateDirectories:YES attributes:nil error:nil];
-
-        //设置创建的文件的目录和名字
-        NSString * fileSavePath = [fileContainFloder stringByAppendingPathComponent:@"sportTypeArray.plist"];
+    }
+    
+    //设置创建的文件的目录和名字
+    NSString * fileSavePath = [fileContainFloder stringByAppendingPathComponent:@"sportTypeArray.plist"];
+    
+    BOOL isDic1 = NO;
+    if (![defaultManager fileExistsAtPath:fileSavePath isDirectory:&isDic1]) {
         
         NSArray *sportTypes = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sportTypes" ofType:@"plist"]];
         
