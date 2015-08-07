@@ -97,7 +97,10 @@
     
     //removeObjectIdenticalTo:方法
     [self.privateEvents[key] removeObjectIdenticalTo:event];
+    
+    if ([self.privateEvents[key] count] == 0) {
     [self.privateEvents removeObjectForKey:key];
+    }
 }
 
 //实现移动数据的方法

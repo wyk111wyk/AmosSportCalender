@@ -27,6 +27,7 @@
         self.times = 15;
         self.rap = 3;
         self.timelast = 15;
+        
         self.done = NO;
         
         //    生成一个唯一的标识（UUID），用作保存图片的key

@@ -163,18 +163,23 @@ static NSString * const YKSummaryCellReuseId = @"summaryCell";
     
     for (int i = 0; i < self.sortedKeyArray.count; i++) {
         if (indexPath.section == i) {
-            Event *event = [self.eventsByDate[self.sortedKeyArray[i]] objectAtIndex:indexPath.row];
             
+            Event *event = [self.eventsByDate[self.sortedKeyArray[i]] objectAtIndex:indexPath.row];
+            //Type Label
             cell.sportTypeLabel.text = [event.sportType substringToIndex:1];
             cell.sportTypeLabel.textColor = [self colorForsportType:event.sportType];
             [cell.sportTypeLabel sizeToFit];
+            
             cell.sportNameLabel.text = event.sportName;
             cell.timelastLabel.text =[NSString stringWithFormat:@"%i分钟", event.timelast];
             cell.sportAttributeLabel.text = [self setSportAttributeText:event.times weight:event.weight rap:event.rap];
             [cell.sportAttributeLabel sizeToFit];
+            
             if (event.done == NO) {
                 cell.doneImageView.hidden = YES;
+                cell.backgroundColor = [UIColor whiteColor];
             } else if (event.done == YES){
+                cell.doneImageView.hidden = NO;
                 cell.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.6];
             }
         }

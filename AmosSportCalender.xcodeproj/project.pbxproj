@@ -37,6 +37,8 @@
 		B09900121B67266600F7AB67 /* SportTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B09900111B67266600F7AB67 /* SportTVCell.m */; };
 		B0A34E1B1B63912E00F26EE5 /* EventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B0A34E1A1B63912E00F26EE5 /* EventStore.m */; };
 		B0B7506B1B637ABC00BE2705 /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B7506A1B637ABC00BE2705 /* Event.m */; };
+		B0B973671B74808F0008640E /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B973651B74808F0008640E /* EventKit.framework */; };
+		B0B973681B74808F0008640E /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B973661B74808F0008640E /* EventKitUI.framework */; };
 		B0C9ED601B737A6A00056B32 /* NameManageTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C9ED5F1B737A6A00056B32 /* NameManageTVCell.m */; };
 		B0FA58971B4678D400E3BE94 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FA58961B4678D400E3BE94 /* main.m */; };
 		B0FA589A1B4678D400E3BE94 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FA58991B4678D400E3BE94 /* AppDelegate.m */; };
@@ -133,6 +135,9 @@
 		B0A34E1A1B63912E00F26EE5 /* EventStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EventStore.m; sourceTree = "<group>"; };
 		B0B750691B637ABC00BE2705 /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Event.h; sourceTree = "<group>"; };
 		B0B7506A1B637ABC00BE2705 /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Event.m; sourceTree = "<group>"; };
+		B0B973641B747CFF0008640E /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		B0B973651B74808F0008640E /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		B0B973661B74808F0008640E /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		B0C9ED5E1B737A6A00056B32 /* NameManageTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NameManageTVCell.h; sourceTree = "<group>"; };
 		B0C9ED5F1B737A6A00056B32 /* NameManageTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NameManageTVCell.m; sourceTree = "<group>"; };
 		B0FA58921B4678D400E3BE94 /* AmosSportCalender.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AmosSportCalender.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -159,6 +164,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B0B973671B74808F0008640E /* EventKit.framework in Frameworks */,
+				B0B973681B74808F0008640E /* EventKitUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,6 +335,8 @@
 		B0FA58891B4678D400E3BE94 = {
 			isa = PBXGroup;
 			children = (
+				B0B973651B74808F0008640E /* EventKit.framework */,
+				B0B973661B74808F0008640E /* EventKitUI.framework */,
 				B0FA58941B4678D400E3BE94 /* AmosSportCalender */,
 				B0FA58B11B4678D400E3BE94 /* AmosSportCalenderTests */,
 				B0FA58BC1B4678D400E3BE94 /* AmosSportCalenderUITests */,
@@ -368,6 +377,7 @@
 				B0FA58A91B4678D400E3BE94 /* Info.plist */,
 				B0FA58961B4678D400E3BE94 /* main.m */,
 				B099000E1B666F8300F7AB67 /* sportTypes.plist */,
+				B0B973641B747CFF0008640E /* PrefixHeader.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -646,7 +656,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -683,7 +693,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -696,8 +706,9 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				INFOPLIST_FILE = AmosSportCalender/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AKSocialLab.AmosSportCalender;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -712,7 +723,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = AmosSportCalender/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AKSocialLab.AmosSportCalender;
 				PRODUCT_NAME = "$(TARGET_NAME)";

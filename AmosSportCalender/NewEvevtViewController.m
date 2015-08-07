@@ -6,6 +6,9 @@
 //  Copyright © 2015年 Amos Wu. All rights reserved.
 //
 
+#import <EventKit/EventKit.h>
+#import <EventKitUI/EventKitUI.h>
+
 #import "NewEvevtViewController.h"
 #import "Event.h"
 #import "EventStore.h"
@@ -29,7 +32,7 @@
 @property (strong, nonatomic) UITextField *searchBarType;
 
 //Utility
-@property (strong, nonatomic) UIDatePicker *datePicker;
+@property (strong, nonatomic) IBOutlet UIDatePicker *datePicker;
 @property (strong, nonatomic) UIPickerView *sportPicker;
 @property (strong, nonatomic) UIPickerView *sportTypePicker;
 @property (strong, nonatomic) UISearchBar *sportSearchBar;
@@ -48,6 +51,11 @@
 @property (weak, nonatomic) IBOutlet UILabel *rapLabel;
 @property (weak, nonatomic) IBOutlet UILabel *weightLabel;
 @property (weak, nonatomic) IBOutlet UILabel *doneLabel;
+
+// EKEventStore instance associated with the current Calendar application
+@property (nonatomic, strong) EKEventStore *eventStore;
+@property (nonatomic, strong) EKEvent *ekevent;
+@property (nonatomic, strong) NSString *idf;
 
 @end
 
@@ -78,8 +86,15 @@
     }
     
     //datePick初始化
+    NSString *minDate = @"1990-01-01";
+    NSString *maxDate = @"2030-01-01";
+    NSDateFormatter *limtedDateFormatter = [NSDateFormatter new];
+    limtedDateFormatter.dateFormat = @"yyyy-MM-dd";
+    
     self.datePicker = [[UIDatePicker alloc] initWithFrame:CGRectZero];
     self.datePicker.datePickerMode = UIDatePickerModeDate;
+    self.datePicker.minimumDate = [limtedDateFormatter dateFromString:minDate];
+    self.datePicker.maximumDate = [limtedDateFormatter dateFromString:maxDate];
     [self.datePicker setDate:self.date animated:YES];
     [self.datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
     
@@ -178,7 +193,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Button Method
+#pragma mark - Utility Button Method
 -(void)dateChanged:(id)sender{
     NSString *newStr = [[self dateFormatter] stringFromDate:self.datePicker.date];
     NSString *compareStr = [[self dateFormatter] stringFromDate:[NSDate date]];
@@ -275,6 +290,8 @@
     self.timelastFeild.text = [NSString stringWithFormat:@"%i", (int)roundf(sender.value)];
 }
 
+#pragma mark - NavBar Button Method
+
 - (IBAction)finishAndCreateEvent:(UIBarButtonItem *)sender {
     //保存更改后的值
     Event *event = self.event;
@@ -316,6 +333,13 @@
 - (IBAction)backgroundTapped:(id)sender
 {
     [self.view endEditing:YES];
+}
+
+- (IBAction)cameraButtonClick:(UIBarButtonItem *)sender {
+    [self alertForCameraButton];
+}
+
+- (IBAction)calendarButtonClick:(UIBarButtonItem *)sender {
 }
 
 #pragma mark - Textfield Delegate
@@ -372,13 +396,13 @@
     int weight = [self.weightTextFeild.text intValue];
     if (weight > 220) {
         weight = 220;
-        [self actionAlert];
+        [self alertForOverLimit];
     }
     
     int time = [self.timelastFeild.text intValue];
     if (time > 90) {
         time = 90;
-        [self actionAlert];
+        [self alertForOverLimit];
     }
         
     self.weightTextFeild.text = [NSString stringWithFormat:@"%i", weight];
@@ -389,14 +413,14 @@
     int times = [self.timesFeild.text intValue];
     if (times > 99) {
         times = 99;
-        [self actionAlert];
+        [self alertForOverLimit];
     }
     self.timesFeild.text = [NSString stringWithFormat:@"%i", times];
     
     int rap = [self.rapFeild.text intValue];
     if (rap > 99) {
         rap = 99;
-        [self actionAlert];
+        [self alertForOverLimit];
     }
     self.rapFeild.text = [NSString stringWithFormat:@"%i", rap];
         
@@ -416,18 +440,6 @@
     [textField resignFirstResponder];
     
     return YES;
-}
-
-- (void)actionAlert
-{
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"不好意思"
-                                                               message:@"你设的值超出了作者的运动极限，所以本软件懒得支持"
-                                                        preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"(ˑˆᴗˆˑ)"
-                                              style:UIAlertActionStyleCancel
-                                            handler:^(UIAlertAction * action) {}]];
-    
-    [self presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark - Picker Data Source Methods
@@ -572,7 +584,21 @@
     }
 }
 
-#pragma mark - data Method
+#pragma mark - alert Method
+
+- (void)alertForOverLimit
+{
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"不好意思"
+                                                                   message:@"你设的值超出了作者的运动极限，所以本软件懒得支持"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"(ˑˆᴗˆˑ)"
+                                              style:UIAlertActionStyleCancel
+                                            handler:^(UIAlertAction * action) {}]];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 - (void)actionAlertForNotSearchResult: (NSString *)searchResult
 {
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"新建"
@@ -633,6 +659,30 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
+- (void)alertForCameraButton
+{
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"添加照片"
+                                                                   message:@"放一张运动时候的英姿吧:-D"
+                                                            preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消"
+                                              style:UIAlertActionStyleCancel
+                                            handler:^(UIAlertAction * action) {
+                                            }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"从图库选取"
+                                              style:UIAlertActionStyleDefault
+                                            handler:^(UIAlertAction * action) {
+                                            }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"用相机拍摄"
+                                              style:UIAlertActionStyleDefault
+                                            handler:^(UIAlertAction * action) {
+                                            }]];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+#pragma mark - data sources
+
 - (void)getSportPickerData{
     //设置sportPicker的属性
     NSFileManager * defaultManager = [NSFileManager defaultManager];
@@ -687,4 +737,5 @@
     }
     return res;
 }
+
 @end

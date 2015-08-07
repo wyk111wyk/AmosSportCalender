@@ -10,6 +10,9 @@
 // MARK: [something]
 // FIXME: [something]
 
+#import <EventKit/EventKit.h>
+#import <EventKitUI/EventKitUI.h>
+
 #import "ViewController.h"
 #import "NewEvevtViewController.h"
 #import "Event.h"
@@ -20,7 +23,7 @@
 
 #import "UIViewController+MMDrawerController.h"
 
-@interface ViewController ()<UITableViewDataSource, UITableViewDelegate>
+@interface ViewController ()<UITableViewDataSource, UITableViewDelegate, EKEventEditViewDelegate>
 {
     NSMutableDictionary *eventsByDate; ///<储存所有事件的Dic
     
@@ -33,6 +36,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *underTableLabel;
 @property (weak, nonatomic) IBOutlet UIButton *addEventButton;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *segmentButton;
+@property (weak, nonatomic) IBOutlet UIButton *addToCalendarButton;
 
 @property (nonatomic, strong) NSDate* selectedDate; ///<被选择的当天日期，用作key
 @property (nonatomic, strong) NSMutableArray *oneDayEvents; ///<被选择当天的事件数组Array
@@ -42,6 +46,11 @@
 @property (nonatomic, strong) ViewController *vc;
 @property (strong, nonatomic) Event *tempEvent; ///<专程用来在更改数据时临时存放的
 @property (nonatomic, weak) LeftMenuTableView *menuTable;
+
+// EKEventStore instance associated with the current Calendar application
+@property (nonatomic, strong) EKEventStore *eventStore;
+@property (nonatomic, strong) EKEvent *ekevent;
+@property (nonatomic, strong) NSString *idf;
 
 @end
 
@@ -132,7 +141,6 @@
 {
     int i = 0;
     NSString *key = [[self dateFormatter] stringFromDate:date];
-//    self.oneDayEvents = eventsByDate[key];
     
     //计算这一天有多少已完成的事件
     if (eventsByDate[key]) {
@@ -156,13 +164,30 @@
     //设置显示的文字
     if (self.oneDayEvents.count > 0) {
         self.addEventButton.hidden = YES;
+        //设置添加日程的Button
+        if (_calendarManager.settings.weekModeEnabled) {
+            self.addToCalendarButton.hidden = NO;
+        }else{
+            self.addToCalendarButton.hidden = YES;
+        }
         if (self.oneDayEvents.count > [self.doneNumber intValue]) {
             self.underTableLabel.text = [NSString stringWithFormat:@"共有%lu个运动项目，已完成%d项，还剩%lu项", (unsigned long)self.oneDayEvents.count, [self.doneNumber intValue], self.oneDayEvents.count - [self.doneNumber intValue]];
+            if (_calendarManager.settings.weekModeEnabled) {
+                self.addToCalendarButton.hidden = NO;
+            }else{
+                self.addToCalendarButton.hidden = YES;
+            }
         }else if (self.oneDayEvents.count == [self.doneNumber intValue]){
             self.underTableLabel.text = [NSString stringWithFormat:@"今天的运动已经全部完成了，干得好！"];
+            self.addToCalendarButton.hidden = YES;
         }
     }else{
-        self.addEventButton.hidden = NO;
+        if (_calendarManager.settings.weekModeEnabled) {
+            self.addToCalendarButton.hidden = NO;
+        }else{
+            self.addToCalendarButton.hidden = YES;
+        }
+        self.addToCalendarButton.hidden = YES;
         self.underTableLabel.text = [NSString stringWithFormat:@"今天没有运动，做个计划吧！"];
     }
 }
@@ -220,11 +245,12 @@
         Event *newEvent = [[EventStore sharedStore] createItem];
         mvc.event = self.tempEvent? self.tempEvent : newEvent;
         mvc.createNewEvent = self.tempEvent ? NO : YES;
+        mvc.date = _selectedDate;
         
-        if (_selectedDate) {
-            mvc.date = _selectedDate;
-        }else{
-            mvc.date = [NSDate date];
+        if (mvc.createNewEvent) {
+            if ([_selectedDate compare:[NSDate date]] == NSOrderedAscending) {
+                mvc.event.done = YES;
+            }
         }
         
         mvc.creatEventBlock = ^(){
@@ -277,6 +303,7 @@
     if (_calendarManager.settings.weekModeEnabled) {
         [self transitionExample];
         [_calendarManager reload];
+        [self setTableViewHeadTitle:_selectedDate];
     }
 }
 //滑动Table改为week视图
@@ -285,6 +312,7 @@
     if (!_calendarManager.settings.weekModeEnabled) {
         [self transitionExample];
         [_calendarManager reload];
+        [self setTableViewHeadTitle:_selectedDate];
     }
 }
 //改变日历视图的动画
@@ -417,6 +445,10 @@
     }
     
     return [UIColor clearColor];
+}
+
+- (IBAction)addToCalendar:(UIButton *)sender {
+    [self checkEventStoreAccessForCalendar];
 }
 
 #pragma mark - CalendarManager delegate
@@ -689,7 +721,8 @@
          [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
          [_calendarManager reload];
          [self setUnderTableLabelWithDifferentDay: self.selectedDate];
-         
+         [self setTableViewHeadTitle:self.selectedDate];
+           
          if (self.oneDayEvents.count == 0) {
              [self loadTheDateEvents];
          }
@@ -841,6 +874,143 @@
         }
     }
     return max;
+}
+
+
+#pragma mark - 申请日历事件的权限
+
+// Check the authorization status of our application for Calendar
+-(void)checkEventStoreAccessForCalendar
+{
+    self.eventStore = [[EKEventStore alloc] init];
+    
+    if ([self.eventStore respondsToSelector:@selector(requestAccessToEntityType:completion:)])
+    {
+        // the selector is available, so we must be on iOS 6 or newer
+        [self.eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (error)
+                {
+                    NSLog(@"请求许可错误");
+                }
+                else if (!granted)
+                {
+                    NSLog(@"被用户拒绝");
+                }
+                else
+                {
+                    [self accessGrantedForCalendar:self.eventStore];
+                }
+            });
+        }];
+    }
+}
+
+#pragma mark - 创建日历事件的方法
+
+-(void)accessGrantedForCalendar:(EKEventStore *)eventStore
+{
+    self.ekevent  = [EKEvent eventWithEventStore:self.eventStore];
+    
+    //设置创建日历的内容
+    
+    //设置事件标题
+    unsigned long index = [self findTheMaxOfTypes:self.selectedDate];
+    NSArray *sportTypes = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sportTypes" ofType:@"plist"]];
+    NSString *blankStr = @"";
+    self.ekevent.title = [NSString stringWithFormat:@"进行：%@锻炼",
+          [sportTypes[index] objectForKey:@"sportType"]?
+          [sportTypes[index] objectForKey:@"sportType"]:blankStr];  //事件标题
+    
+    //设置事件内容
+    NSString *initStr = [NSString stringWithFormat:@"锻炼内容：\n"];
+    NSMutableString *notesStr = [[NSMutableString alloc] initWithString:initStr];
+    
+    for (Event *event in self.oneDayEvents){
+        
+        NSString *tempAttribute;
+        if (event.weight == 0 && event.times > 0) {
+            tempAttribute = [NSString stringWithFormat:@"%d组 x %d次", event.rap, event.times];
+        }else if (event.weight == 220 && event.times > 0){
+            tempAttribute = [NSString stringWithFormat:@"%d组 x %d次  自身重量", event.rap, event.times];
+        }else if (event.times == 0 && event.rap == 0){
+            tempAttribute = [NSString stringWithFormat:@"%d分钟", event.timelast];
+        }else{
+            tempAttribute = [NSString stringWithFormat:@"%d组 x %d次   %.1fkg", event.rap, event.times, event.weight];
+        }
+        [notesStr appendFormat:@"%@ （%@）\n", event.sportName, tempAttribute];
+        
+    }
+    self.ekevent.notes     = notesStr; //事件内容
+    
+    //设置事件链接
+    self.ekevent.URL = [NSURL URLWithString:@"openurlAmosSportCalendar://"];
+   
+    //设置时间和日期
+    NSDateFormatter* inputFormatter = [NSDateFormatter new];
+    [inputFormatter setDateFormat:@"YYYY-MM-dd"];
+    [inputFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"Asia/Shanghai"]];
+    NSDateFormatter *outFormatter = [NSDateFormatter new];
+    [outFormatter setDateFormat:@"YYYY-MM-dd-H-mm"];
+    
+    NSString *tempDateStr = [inputFormatter stringFromDate:_selectedDate];
+    NSMutableString *tempDateMuStr = [[NSMutableString alloc] initWithString:tempDateStr];
+    NSMutableString *tempDateMuStr1 = [[NSMutableString alloc] initWithString:tempDateStr];
+    [tempDateMuStr appendString:@"-15-30"];
+    NSDate *startDate = [outFormatter dateFromString:tempDateMuStr];
+    [tempDateMuStr1 appendString:@"-17-00"];
+    NSDate *endDate = [outFormatter dateFromString:tempDateMuStr1];
+    
+    self.ekevent.startDate = startDate;
+    self.ekevent.endDate   = endDate;
+    self.ekevent.allDay = NO;
+    
+    //添加提醒
+    [self.ekevent addAlarm:[EKAlarm alarmWithRelativeOffset:60.0f * -60.0f * 1]];  //1小时前提醒
+    //    [event addAlarm:[EKAlarm alarmWithRelativeOffset:60.0f * -15.0f]];  //15分钟前提醒
+    
+    EKEventEditViewController *addController = [[EKEventEditViewController alloc] init];
+    
+    addController.event = self.ekevent;
+    addController.eventStore = self.eventStore;
+    addController.editViewDelegate = self;
+    [self presentViewController:addController animated:YES completion:nil];
+}
+
+#pragma mark EKEventEditViewDelegate
+
+// 编辑日历事件页面中按钮的事件
+- (void)eventEditViewController:(EKEventEditViewController *)controller
+          didCompleteWithAction:(EKEventEditViewAction)action
+{
+    // Dismiss the modal view controller
+    [self dismissViewControllerAnimated:YES completion:^
+     {
+         if (action == EKEventEditViewActionCanceled)
+         {
+         }else if (action == EKEventEditViewActionSaved)
+         {
+             NSLog(@"事件创建成功");
+         }else if (action == EKEventEditViewActionDeleted)
+         {
+         }
+     }];
+}
+
+//删除一个日历事件
+- (void)deleteTheEvent
+{
+    EKEvent *eventToRemove = [self.eventStore eventWithIdentifier:self.idf];
+    
+    if ([eventToRemove.eventIdentifier length] > 0) {
+        NSError* error = nil;
+        [self.eventStore removeEvent:eventToRemove span:EKSpanThisEvent error:&error];
+        if (error) {
+            NSLog(@"%@",error);
+        }else {
+            NSLog(@"将一个日历事件删除");
+        }
+    }
 }
 
 @end

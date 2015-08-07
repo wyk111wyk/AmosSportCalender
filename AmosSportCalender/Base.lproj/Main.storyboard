@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8164.2" systemVersion="15A226f" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="lvU-hC-ooB">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8164.2" systemVersion="15A235d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="lvU-hC-ooB">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8135.1"/>
@@ -391,6 +391,30 @@
                                     <action selector="addNewEvent:" destination="vCv-Qu-HeV" eventType="touchUpInside" id="fKe-4S-r1P"/>
                                 </connections>
                             </button>
+                            <button hidden="YES" opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ml2-8W-MK6">
+                                <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                <animations/>
+                                <color key="backgroundColor" red="0.10980392156862745" green="0.44705882352941179" blue="0.99215686274509807" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="lXf-qI-S07"/>
+                                </constraints>
+                                <state key="normal" title="添加到日程">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="lXf-qI-S07"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="lXf-qI-S07"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="addToCalendar:" destination="vCv-Qu-HeV" eventType="touchUpInside" id="Db4-Ey-gLN"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -400,11 +424,15 @@
                             <constraint firstItem="hA1-yq-HCw" firstAttribute="leading" secondItem="5J1-li-9my" secondAttribute="leading" id="ACL-nq-GYD"/>
                             <constraint firstItem="wqn-AP-d8q" firstAttribute="top" secondItem="hA1-yq-HCw" secondAttribute="bottom" id="EnQ-m7-LHf"/>
                             <constraint firstItem="Rhm-3b-ue6" firstAttribute="leading" secondItem="5J1-li-9my" secondAttribute="leading" id="Fo9-RD-vjc"/>
+                            <constraint firstAttribute="trailing" secondItem="Ml2-8W-MK6" secondAttribute="trailing" id="Fus-mz-M8D"/>
                             <constraint firstAttribute="trailing" secondItem="Rhm-3b-ue6" secondAttribute="trailing" id="Gl7-Fi-BrE"/>
                             <constraint firstItem="Rhm-3b-ue6" firstAttribute="top" secondItem="07F-Od-qZu" secondAttribute="bottom" id="H9c-DE-pVO"/>
                             <constraint firstAttribute="trailing" secondItem="hA1-yq-HCw" secondAttribute="trailing" id="JHe-RF-GYJ"/>
+                            <constraint firstItem="wqn-AP-d8q" firstAttribute="top" secondItem="Ml2-8W-MK6" secondAttribute="bottom" id="KVa-m9-RJK"/>
                             <constraint firstItem="URL-5k-Owk" firstAttribute="top" secondItem="NDY-sV-4rM" secondAttribute="bottom" constant="55" id="MX8-by-T3F"/>
+                            <constraint firstItem="Ml2-8W-MK6" firstAttribute="leading" secondItem="5J1-li-9my" secondAttribute="leading" id="cK5-8X-VMA"/>
                             <constraint firstItem="hA1-yq-HCw" firstAttribute="centerX" secondItem="5J1-li-9my" secondAttribute="centerX" id="fko-ku-wjl"/>
+                            <constraint firstItem="Ml2-8W-MK6" firstAttribute="centerX" secondItem="5J1-li-9my" secondAttribute="centerX" id="hev-g2-DWN"/>
                             <constraint firstItem="NDY-sV-4rM" firstAttribute="top" secondItem="Rhm-3b-ue6" secondAttribute="bottom" id="pKP-1P-Uwf"/>
                             <constraint firstAttribute="trailing" secondItem="NDY-sV-4rM" secondAttribute="trailing" id="x9O-87-N23"/>
                             <constraint firstItem="NDY-sV-4rM" firstAttribute="leading" secondItem="5J1-li-9my" secondAttribute="leading" id="xEl-fD-zIU"/>
@@ -412,29 +440,39 @@
                         <variation key="default">
                             <mask key="subviews">
                                 <exclude reference="URL-5k-Owk"/>
+                                <exclude reference="Ml2-8W-MK6"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="5DA-Pg-s5t"/>
-                                <exclude reference="MX8-by-T3F"/>
                                 <exclude reference="4VI-7L-5A2"/>
                                 <exclude reference="ACL-nq-GYD"/>
                                 <exclude reference="JHe-RF-GYJ"/>
                                 <exclude reference="fko-ku-wjl"/>
+                                <exclude reference="5DA-Pg-s5t"/>
+                                <exclude reference="MX8-by-T3F"/>
+                                <exclude reference="Fus-mz-M8D"/>
+                                <exclude reference="cK5-8X-VMA"/>
+                                <exclude reference="hev-g2-DWN"/>
                                 <exclude reference="EnQ-m7-LHf"/>
+                                <exclude reference="KVa-m9-RJK"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
                             <mask key="subviews">
                                 <include reference="URL-5k-Owk"/>
+                                <include reference="Ml2-8W-MK6"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="5DA-Pg-s5t"/>
-                                <include reference="MX8-by-T3F"/>
                                 <include reference="4VI-7L-5A2"/>
                                 <include reference="ACL-nq-GYD"/>
                                 <include reference="JHe-RF-GYJ"/>
                                 <include reference="fko-ku-wjl"/>
+                                <include reference="5DA-Pg-s5t"/>
+                                <include reference="MX8-by-T3F"/>
+                                <include reference="Fus-mz-M8D"/>
+                                <include reference="cK5-8X-VMA"/>
+                                <exclude reference="hev-g2-DWN"/>
                                 <include reference="EnQ-m7-LHf"/>
+                                <include reference="KVa-m9-RJK"/>
                             </mask>
                         </variation>
                     </view>
@@ -474,6 +512,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="addEventButton" destination="URL-5k-Owk" id="Wi6-z2-c4p"/>
+                        <outlet property="addToCalendarButton" destination="Ml2-8W-MK6" id="z8J-Vn-hyL"/>
                         <outlet property="calendarContentView" destination="NDY-sV-4rM" id="kWv-qq-8zU"/>
                         <outlet property="calendarContentViewHeight" destination="mkd-ac-x7t" id="N3z-Sz-HTB"/>
                         <outlet property="calendarMenuView" destination="Rhm-3b-ue6" id="a1N-l1-Ecr"/>
@@ -539,7 +578,7 @@
             </objects>
             <point key="canvasLocation" x="1003.5" y="364.5"/>
         </scene>
-        <!--数据总结-->
+        <!--完成列表-->
         <scene sceneID="mhg-AB-sBn">
             <objects>
                 <tableViewController storyboardIdentifier="summaryTable" id="TfW-t7-BYt" customClass="SummaryTableView" sceneMemberID="viewController">
@@ -824,7 +863,7 @@
                             <outlet property="delegate" destination="TfW-t7-BYt" id="U2k-HS-hnl"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="数据总结" id="75F-tQ-8pY">
+                    <navigationItem key="navigationItem" title="完成列表" id="75F-tQ-8pY">
                         <barButtonItem key="leftBarButtonItem" image="menuIcon" id="CHM-BE-Sve">
                             <inset key="imageInsets" minX="5" minY="0.0" maxX="-5" maxY="0.0"/>
                             <connections>
@@ -975,7 +1014,7 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="    1. 点击更改名称  2. 长按移动顺序  3. 左划进行删除" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="FVr-iz-Ytb">
-                            <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                            <rect key="frame" x="0.0" y="130" width="600" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <animations/>
                             <color key="backgroundColor" red="0.92549019607843142" green="0.92549019607843142" blue="0.92549019607843142" alpha="1" colorSpace="calibratedRGB"/>
@@ -985,10 +1024,10 @@
                         </label>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="sportNameManageCell" rowHeight="44" id="JUi-VS-OpT" customClass="NameManageTVCell">
-                                <rect key="frame" x="0.0" y="86" width="600" height="50"/>
+                                <rect key="frame" x="0.0" y="86" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="JUi-VS-OpT" id="eBf-uG-EDp">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="49.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vOW-Sf-Gf8" userLabel="BottonLine">
@@ -1794,7 +1833,11 @@
                                     <constraint firstAttribute="height" constant="44" id="ece-Pu-TJV"/>
                                 </constraints>
                                 <items>
-                                    <barButtonItem systemItem="camera" id="oFJ-pR-Ec2"/>
+                                    <barButtonItem systemItem="camera" id="oFJ-pR-Ec2">
+                                        <connections>
+                                            <action selector="cameraButtonClick:" destination="WTf-Hi-5yk" id="HnY-rb-IPI"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                                 <variation key="default">
                                     <mask key="constraints">
@@ -1830,17 +1873,17 @@
                                 <exclude reference="uxQ-ld-uSg"/>
                             </mask>
                             <mask key="constraints">
-                                <exclude reference="ecQ-88-iyN"/>
-                                <exclude reference="GTn-Kc-dX0"/>
-                                <exclude reference="Icm-XG-j7q"/>
-                                <exclude reference="Su9-nj-5dc"/>
+                                <exclude reference="1gN-Fh-N2o"/>
+                                <exclude reference="5DD-Xb-P0y"/>
+                                <exclude reference="8I1-V0-Ees"/>
                                 <exclude reference="HER-R4-kWA"/>
                                 <exclude reference="JUq-qA-J6I"/>
                                 <exclude reference="W6E-Kd-pMA"/>
                                 <exclude reference="hzn-NN-KTZ"/>
-                                <exclude reference="1gN-Fh-N2o"/>
-                                <exclude reference="5DD-Xb-P0y"/>
-                                <exclude reference="8I1-V0-Ees"/>
+                                <exclude reference="GTn-Kc-dX0"/>
+                                <exclude reference="Icm-XG-j7q"/>
+                                <exclude reference="Su9-nj-5dc"/>
+                                <exclude reference="ecQ-88-iyN"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=regular-widthClass=compact">
@@ -1850,17 +1893,17 @@
                                 <include reference="uxQ-ld-uSg"/>
                             </mask>
                             <mask key="constraints">
-                                <include reference="ecQ-88-iyN"/>
-                                <include reference="GTn-Kc-dX0"/>
-                                <include reference="Icm-XG-j7q"/>
-                                <include reference="Su9-nj-5dc"/>
+                                <include reference="1gN-Fh-N2o"/>
+                                <include reference="5DD-Xb-P0y"/>
+                                <include reference="8I1-V0-Ees"/>
                                 <include reference="HER-R4-kWA"/>
                                 <include reference="JUq-qA-J6I"/>
                                 <include reference="W6E-Kd-pMA"/>
                                 <include reference="hzn-NN-KTZ"/>
-                                <include reference="1gN-Fh-N2o"/>
-                                <include reference="5DD-Xb-P0y"/>
-                                <include reference="8I1-V0-Ees"/>
+                                <include reference="GTn-Kc-dX0"/>
+                                <include reference="Icm-XG-j7q"/>
+                                <include reference="Su9-nj-5dc"/>
+                                <include reference="ecQ-88-iyN"/>
                             </mask>
                         </variation>
                         <connections>
