@@ -16,7 +16,7 @@ static NSString* const typeManageCellReuseId = @"sportNameManageCell";
 @property (nonatomic, strong)NSMutableArray *sportNameTemps;
 @property (nonatomic)unsigned long index;
 @property (nonatomic, strong)NSString *editedText;
-@property (nonatomic, strong)UIBarButtonItem *rightButton;
+@property (nonatomic, strong)NSArray *buttonArray;
 
 
 @property (nonatomic ,strong)NameManageTVCell *cell;
@@ -31,8 +31,11 @@ static NSString* const typeManageCellReuseId = @"sportNameManageCell";
     self.tableView.allowsSelection = NO;
     self.sportNameTemps = [[NSMutableArray alloc] initWithArray:self.sportNames];
     
-//    self.rightButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"plus"] style:UIBarButtonItemStylePlain target:self action:@selector(addNewSportName:)];
-//    self.navigationItem.rightBarButtonItem = self.rightButton;
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"plus"] style:UIBarButtonItemStylePlain target:self action:@selector(addNewSportName)];
+    UIBarButtonItem *sortButton = [[UIBarButtonItem alloc] initWithTitle:@"排序" style:UIBarButtonItemStylePlain target:self action:@selector(sortTheOrder)];
+    self.buttonArray = [[NSArray alloc] initWithObjects:addButton, sortButton, nil];
+    
+    self.navigationItem.rightBarButtonItems = self.buttonArray;
     self.navigationItem.title = [NSString stringWithFormat: @"%@ - 编辑", self.sportType];
     
     //长按移动cell顺序
@@ -45,12 +48,12 @@ static NSString* const typeManageCellReuseId = @"sportNameManageCell";
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)addNewSportName:(UIBarButtonItem *)sender {
+- (IBAction)addNewSportName {
     
     [self actionAlert];
 }
 
-- (IBAction)sortTheOrder:(UIBarButtonItem *)sender {
+- (IBAction)sortTheOrder {
     
     [self alertForSort];
 }
@@ -127,6 +130,8 @@ static NSString* const typeManageCellReuseId = @"sportNameManageCell";
     self.index = [self.sportNames indexOfObject:textField.text];
 //    NSLog(@"contain index is %lu", self.index);
     
+    self.navigationItem.rightBarButtonItems = nil;
+    
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(changeTheName)];
     self.navigationItem.rightBarButtonItem = doneButton;
     
@@ -146,7 +151,7 @@ static NSString* const typeManageCellReuseId = @"sportNameManageCell";
     [self.sportNameTemps replaceObjectAtIndex:self.index withObject:textField.text];
     
     [textField resignFirstResponder];
-    self.navigationItem.rightBarButtonItem = self.rightButton;
+    self.navigationItem.rightBarButtonItems = self.buttonArray;
     
     [self saveTheDate];
     return YES;
@@ -157,7 +162,7 @@ static NSString* const typeManageCellReuseId = @"sportNameManageCell";
 //    NSLog(@"click done, text is %@", self.editedText);
     
     [self.view endEditing:YES];
-    self.navigationItem.rightBarButtonItem = self.rightButton;
+    self.navigationItem.rightBarButtonItems = self.buttonArray;
     [self.sportNameTemps replaceObjectAtIndex:self.index withObject:self.editedText];
     
     [self saveTheDate];

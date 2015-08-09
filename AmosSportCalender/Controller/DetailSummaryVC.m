@@ -88,8 +88,6 @@ static NSString * const YKSummaryCellReuseId = @"summaryNewTVCell";
             self.avegSpaceLabel.text = @"0";
         }
         
-        //图片设置
-        self.imageView.image = [UIImage imageNamed:self.sportTypeStr];
         //BelowTableViewLabel
         self.belowTableViewLabel.text = @"继续努力吧！";
     }else{
@@ -99,7 +97,14 @@ static NSString * const YKSummaryCellReuseId = @"summaryNewTVCell";
         self.avegSpaceLabel.text = @"0";
         self.belowTableViewLabel.text = @"还没有该项运动类型的任何记录";
     }
+    
+    //图片设置
+    self.imageView.image = [UIImage imageNamed:self.sportTypeStr];
+}
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
 }
 
 - (void)didReceiveMemoryWarning {

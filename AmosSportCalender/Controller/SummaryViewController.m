@@ -406,7 +406,8 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     NSString *typeStr = [NSString stringWithFormat:@"%@", cellInfoDic[@"type"]];
     
     detailVC.eventsByDateForTable = self.eventsDetailByType[typeStr];
-    detailVC.sportTypeStr = self.sortedTypeArray[indexPath.row][@"type"];
+    NSDictionary *dic = self.sortedTypeArray[indexPath.row];
+    detailVC.sportTypeStr = [dic valueForKey:@"type"];
     
     
     nav.modalTransitionStyle = UIModalTransitionStylePartialCurl; //改变模态视图出现的动画

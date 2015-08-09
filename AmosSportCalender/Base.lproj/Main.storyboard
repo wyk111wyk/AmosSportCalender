@@ -632,20 +632,7 @@
                             <outlet property="delegate" destination="94W-fR-U84" id="CQo-pR-opA"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="YVt-GP-zFZ">
-                        <rightBarButtonItems>
-                            <barButtonItem image="plus" id="yeq-6p-Etc">
-                                <connections>
-                                    <action selector="addNewSportName:" destination="94W-fR-U84" id="MgM-7y-zCv"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem title="排序" id="MQm-MN-qox">
-                                <connections>
-                                    <action selector="sortTheOrder:" destination="94W-fR-U84" id="xoE-Ft-tde"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" id="YVt-GP-zFZ"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wiW-dY-Evu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
