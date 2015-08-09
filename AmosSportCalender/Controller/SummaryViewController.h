@@ -7,7 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "XYPieChart.h"
 
 @interface SummaryViewController : UIViewController
+
+@property (nonatomic, strong)NSMutableDictionary *eventsMostByDate;
+@property (nonatomic)CGFloat screenWidth;
+@property (nonatomic)CGFloat screenHight;
 
 @end

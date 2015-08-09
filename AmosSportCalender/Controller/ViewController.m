@@ -31,6 +31,10 @@
     NSDate *_minDate;
     NSDate *_maxDate;
 }
+@property (strong, nonatomic)NSMutableDictionary *eventsMostByDate;
+@property (strong, nonatomic)NSMutableArray *sportTypes;
+@property (strong, nonatomic)NSArray *homeStrLists;
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *menuButton;
 @property (weak, nonatomic) IBOutlet UILabel *underTableLabel;
@@ -69,12 +73,15 @@
 {
     [super loadView];
     
-    NSLog(@"%@", NSStringFromSelector(_cmd));
+//    NSLog(@"%@", NSStringFromSelector(_cmd));
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //主页无计划时TableView上显示的文字
+    self.homeStrLists = [[NSArray alloc] initWithObjects:@"努力画满每一天的圈圈吧！", @"今天没有运动，做个计划吧！", @"每日的计划可以同步到系统日历里去哦", @"为过去创建的运动计划默认已完成",nil];
     
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -99,7 +106,13 @@
     self.selectedDate = [NSDate date];
     self.doneNumbers = [NSMutableDictionary dictionary];
     
-    NSLog(@"%@", NSStringFromSelector(_cmd));
+    //给运动项目赋值
+    NSArray * array = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sportTypes" ofType:@"plist"]];
+    self.sportTypes = [NSMutableArray array];
+    for (int i = 0; i < array.count; i++){
+        self.sportTypes[i] = [[array objectAtIndex:i] objectForKey:@"sportType"];
+    }
+//    NSLog(@"%@", NSStringFromSelector(_cmd));
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -108,7 +121,7 @@
     [self loadTheDateEvents];
     self.tempEvent = nil;
 
-    NSLog(@"%@", NSStringFromSelector(_cmd));
+//    NSLog(@"%@", NSStringFromSelector(_cmd));
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -116,12 +129,12 @@
     [super viewDidAppear:animated];
     [_calendarManager reload];
     
-    NSLog(@"%@", NSStringFromSelector(_cmd));
+//    NSLog(@"%@", NSStringFromSelector(_cmd));
 }
 
 - (void)loadTheDateEvents
 {
-    //init
+    //从数据库载入所有数据
     self.oneDayEvents = [NSMutableArray array];
     eventsByDate = [[NSMutableDictionary alloc] initWithDictionary:[[EventStore sharedStore] allItems] copyItems:NO];
     //载入key
@@ -133,7 +146,7 @@
     [_calendarManager reload];
     [self.tableView reloadData];
     
-    NSLog(@"%@", NSStringFromSelector(_cmd));
+//    NSLog(@"%@", NSStringFromSelector(_cmd));
 }
 
 //计算某一天已经完成的事件的数目
@@ -183,12 +196,13 @@
         }
     }else{
         if (_calendarManager.settings.weekModeEnabled) {
-            self.addToCalendarButton.hidden = NO;
+            self.addToCalendarButton.hidden = YES;
         }else{
             self.addToCalendarButton.hidden = YES;
         }
-        self.addToCalendarButton.hidden = YES;
-        self.underTableLabel.text = [NSString stringWithFormat:@"今天没有运动，做个计划吧！"];
+        self.addEventButton.hidden = NO;
+        int i = arc4random() % self.homeStrLists.count;
+        self.underTableLabel.text = self.homeStrLists[i];
     }
 }
 #pragma mark - click the Date
@@ -237,7 +251,7 @@
 
 - (void)prepareForSegue:(nonnull UIStoryboardSegue *)segue sender:(nullable id)sender
 {
-    NSLog(@"%@", NSStringFromSelector(_cmd));
+//    NSLog(@"%@", NSStringFromSelector(_cmd));
     if ([segue.identifier isEqualToString:@"newEvent"]) {
         UINavigationController *nc = (UINavigationController *)segue.destinationViewController;
         NewEvevtViewController *mvc = (NewEvevtViewController *)[nc topViewController];
@@ -247,8 +261,10 @@
         mvc.createNewEvent = self.tempEvent ? NO : YES;
         mvc.date = _selectedDate;
         
+        NSString *showStr = [[self dateFormatter] stringFromDate:self.selectedDate];
+        NSString *compareStr = [[self dateFormatter] stringFromDate:[NSDate date]];
         if (mvc.createNewEvent) {
-            if ([_selectedDate compare:[NSDate date]] == NSOrderedAscending) {
+            if ([_selectedDate compare:[NSDate date]] == NSOrderedAscending && ![showStr isEqualToString:compareStr]) {
                 mvc.event.done = YES;
             }
         }
@@ -273,12 +289,19 @@
         case 0:
             NSLog(@"first click");
             [[self.view.subviews lastObject] removeFromSuperview];
+            self.addEventButton.enabled = YES;
+            [self setTableViewHeadTitle:self.selectedDate];
             break;
             
         case 1:
             NSLog(@"second click");
             
             summaryVC = [[SummaryViewController alloc] init];
+            summaryVC.eventsMostByDate = self.eventsMostByDate;
+            summaryVC.screenWidth = [UIScreen mainScreen].bounds.size.width;
+            summaryVC.screenHight = [UIScreen mainScreen].bounds.size.height;
+            
+            self.addEventButton.enabled = NO;
             [self.view addSubview:summaryVC.view];
             break;
             
@@ -294,6 +317,11 @@
 
 - (IBAction)didGoTodayTouch
 {
+    //新建事件前把页面切回日历视图
+    if (self.segmentButton.selectedSegmentIndex == 1) {
+        self.segmentButton.selectedSegmentIndex = 0;
+        [self segmentedControl:self.segmentButton];
+    }
     [_calendarManager setDate:_todayDate];
 }
 
@@ -498,12 +526,21 @@
         dayView.dotView.hidden = YES;
     }
     
+    unsigned long index = [self findTheMaxOfTypes:mydate];
+    
     if ([self eventsAllDoneForDay:mydate]) {
-        unsigned long index = [self findTheMaxOfTypes:mydate];
         dayView.finishView.layer.borderColor = [[self colorForDoneEventsMark:index] CGColor];
         dayView.finishView.hidden = NO;
     }else{
         dayView.finishView.hidden = YES;
+    }
+    
+    if (!self.eventsMostByDate) {
+        self.eventsMostByDate = [NSMutableDictionary dictionary];
+    }
+    NSString *key = [[self dateFormatter] stringFromDate:mydate];
+    if (eventsByDate[key]) {
+    self.eventsMostByDate[key] = self.sportTypes[index];
     }
     
 //    NSLog(@"%@", NSStringFromSelector(_cmd));
@@ -598,7 +635,7 @@
 {
     SportTVCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
     
-    NSLog(@"+ 重载cell");
+//    NSLog(@"+ 重载cell");
     Event *event = self.oneDayEvents[indexPath.row];
     cell.event = event;
     
@@ -641,11 +678,16 @@
 //        NSLog(@"~ Yes to No");
     }
     
-//    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self loadTheDateEvents];
-    
     [self setUnderTableLabelWithDifferentDay: self.selectedDate];
     [self.tableView reloadData];
+    
+    BOOL success = [[EventStore sharedStore] saveChanges];
+    if (success) {
+        NSLog(@"完成事件后，储存数据成功");
+    }else{
+        NSLog(@"完成事件后，储存数据失败！");
+    }
 }
 
 - (nullable UIView *)tableView:(nonnull UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -716,17 +758,17 @@
        handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
          Event *event = self.oneDayEvents[indexPath.row];
          [[EventStore sharedStore] removeItem:event date:self.selectedDate];
-         
          //删除表格中的相应行
          [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+           
+           if (self.oneDayEvents.count == 0) {
+               [self loadTheDateEvents];
+           }
+           
          [_calendarManager reload];
          [self setUnderTableLabelWithDifferentDay: self.selectedDate];
          [self setTableViewHeadTitle:self.selectedDate];
            
-         if (self.oneDayEvents.count == 0) {
-             [self loadTheDateEvents];
-         }
-         
          BOOL success = [[EventStore sharedStore] saveChanges];
          if (success) {
              NSLog(@"删除事件后，储存数据成功");

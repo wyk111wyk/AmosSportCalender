@@ -45,7 +45,6 @@ static NSString * const YKSummaryCellReuseId = @"summaryCell";
 //        [tempArray addObject:object];
 //    }
     
-    
     for (NSString *str in tempArray){
         NSMutableDictionary *tempDic = [NSMutableDictionary dictionary];
         tempDic[@"year"] = [str substringWithRange:NSMakeRange(6, 4)];
@@ -74,6 +73,9 @@ static NSString * const YKSummaryCellReuseId = @"summaryCell";
     }else if (self.sortedKeyArray.count > 0){
         self.underTableLabel.text = [NSString stringWithFormat:@"总计运动天数：%lu天", (unsigned long)self.sortedKeyArray.count];
     }
+    
+    //设置标题
+    self.navigationItem.title = [NSString stringWithFormat:@"完成列表（共计：%lu天）", (unsigned long)self.sortedKeyArray.count];
 
 }
 
@@ -192,19 +194,19 @@ static NSString * const YKSummaryCellReuseId = @"summaryCell";
 - (UIColor *)colorForsportType:(NSString *)sportType
 {
     if ([sportType isEqualToString:@"胸部"]) {
-        return [UIColor colorWithRed:0.5725 green:0.3216 blue:0.0667 alpha:0.8];
+        return [UIColor colorWithRed:0.5725 green:0.3216 blue:0.0667 alpha:0.7];
     }else if ([sportType isEqualToString:@"背部"]){
-        return [UIColor colorWithRed:0.5725 green:0.5608 blue:0.1059 alpha:0.8];
+        return [UIColor colorWithRed:0.5725 green:0.5608 blue:0.1059 alpha:0.7];
     }else if ([sportType isEqualToString:@"肩部"]){
-        return [UIColor colorWithRed:0.3176 green:0.5569 blue:0.0902 alpha:0.8];
+        return [UIColor colorWithRed:0.3176 green:0.5569 blue:0.0902 alpha:0.7];
     }else if ([sportType isEqualToString:@"腿部"]){
-        return [UIColor colorWithRed:0.0824 green:0.5686 blue:0.5725 alpha:0.8];
+        return [UIColor colorWithRed:0.0824 green:0.5686 blue:0.5725 alpha:0.7];
     }else if ([sportType isEqualToString:@"体力"]){
-        return [UIColor colorWithRed:0.9922 green:0.5765 blue:0.1490 alpha:0.8];
+        return [UIColor colorWithRed:0.9922 green:0.5765 blue:0.1490 alpha:0.7];
     }else if ([sportType isEqualToString:@"核心"]){
-        return [UIColor colorWithRed:0.9922 green:0.2980 blue:0.9882 alpha:0.8];
+        return [UIColor colorWithRed:0.9922 green:0.2980 blue:0.9882 alpha:0.7];
     }else if ([sportType isEqualToString:@"其他"]){
-        return [UIColor colorWithRed:0.6078 green:0.9255 blue:0.2980 alpha:0.8];
+        return [UIColor colorWithRed:0.6078 green:0.9255 blue:0.2980 alpha:0.7];
     }
     
     return [UIColor darkGrayColor];

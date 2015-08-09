@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8164.2" systemVersion="15A215h" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8173.3" systemVersion="15A244d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" initialViewController="01J-lp-oVM">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8135.1"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8142"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -15,22 +15,22 @@
                         <viewControllerLayoutGuide type="bottom" id="xb3-aO-Qok"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="DSC00146.png" translatesAutoresizingMaskIntoConstraints="NO" id="isB-4w-nsC">
-                                <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <animations/>
                             </imageView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  Copyright © 2015年 Amos Wu. All rights reserved." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="obG-Y5-kRd">
-                                <rect key="frame" x="20" y="559" width="560" height="21"/>
+                                <rect key="frame" x="20" y="626" width="335" height="20.5"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="运动，健康，快乐" textAlignment="center" lineBreakMode="middleTruncation" baselineAdjustment="alignBaselines" minimumFontSize="18" translatesAutoresizingMaskIntoConstraints="NO" id="GJd-Yh-RWb">
-                                <rect key="frame" x="20" y="180" width="560" height="43"/>
+                                <rect key="frame" x="52" y="85" width="271" height="43"/>
                                 <animations/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="36"/>
@@ -41,9 +41,7 @@
                         <animations/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="GJd-Yh-RWb" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="50" id="0VJ-X9-heL">
-                                <variation key="heightClass=regular-widthClass=compact" constant="36"/>
-                            </constraint>
+                            <constraint firstItem="GJd-Yh-RWb" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leadingMargin" constant="36" id="0VJ-X9-heL"/>
                             <constraint firstItem="isB-4w-nsC" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="1Tg-wg-ifI"/>
                             <constraint firstAttribute="centerX" secondItem="obG-Y5-kRd" secondAttribute="centerX" id="5cz-MP-9tL"/>
                             <constraint firstAttribute="trailing" secondItem="isB-4w-nsC" secondAttribute="trailing" id="BTA-md-Lre"/>
@@ -52,43 +50,14 @@
                             <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="isB-4w-nsC" secondAttribute="bottom" id="Zj2-qb-Vto"/>
                             <constraint firstItem="isB-4w-nsC" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="gMA-NU-Cl2"/>
                             <constraint firstItem="GJd-Yh-RWb" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="65" id="hTT-ZQ-ysz"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="GJd-Yh-RWb" secondAttribute="trailing" constant="40" id="jqc-Ng-5SZ">
-                                <variation key="heightClass=regular-widthClass=compact" constant="36"/>
-                            </constraint>
+                            <constraint firstAttribute="trailingMargin" secondItem="GJd-Yh-RWb" secondAttribute="trailing" constant="36" id="jqc-Ng-5SZ"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="isB-4w-nsC"/>
-                            </mask>
-                            <mask key="constraints">
-                                <exclude reference="1Tg-wg-ifI"/>
-                                <exclude reference="BTA-md-Lre"/>
-                                <exclude reference="gMA-NU-Cl2"/>
-                                <exclude reference="0VJ-X9-heL"/>
-                                <exclude reference="hTT-ZQ-ysz"/>
-                                <exclude reference="jqc-Ng-5SZ"/>
-                                <exclude reference="Zj2-qb-Vto"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=regular-widthClass=compact">
-                            <mask key="subviews">
-                                <include reference="isB-4w-nsC"/>
-                            </mask>
-                            <mask key="constraints">
-                                <include reference="1Tg-wg-ifI"/>
-                                <include reference="BTA-md-Lre"/>
-                                <include reference="gMA-NU-Cl2"/>
-                                <include reference="0VJ-X9-heL"/>
-                                <include reference="hTT-ZQ-ysz"/>
-                                <include reference="jqc-Ng-5SZ"/>
-                                <include reference="Zj2-qb-Vto"/>
-                            </mask>
-                        </variation>
                     </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iYj-Kq-Ea1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="163.5" y="340.5"/>
+            <point key="canvasLocation" x="87.200000000000003" y="322.33999999999997"/>
         </scene>
     </scenes>
     <resources>

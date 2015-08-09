@@ -67,12 +67,12 @@ NSArray *sportTypes;
         
         NSMutableArray *MuSportTypes = [NSMutableArray array];
         
-        NSArray *chestArray = @[@"平板卧推", @"上斜卧推", @"哑铃飞鸟", @"哑铃卧推", @"俯卧撑"];
-        NSArray *backArray = @[@"引体向上", @"俯身划船", @"坐姿下拉", @"杠铃划船", @"器械划船"];
+        NSArray *chestArray = @[@"平板卧推", @"上斜卧推", @"飞鸟（器械）", @"飞鸟（哑铃）", @"哑铃卧推", @"俯卧撑"];
+        NSArray *backArray = @[@"引体向上", @"划船（哑铃）",@"划船（器械）", @"坐姿下拉", @"杠铃划船"];
         NSArray *shoulderArray = @[@"哑铃前平举", @"杠铃直立划船", @"哑铃侧弯举", @"杠铃上推", @"俯身哑铃弯举"];
-        NSArray *legArray = @[@"杠铃深蹲", @"杠铃箭步蹲", @"哑铃箭步蹲", @"罗汉蹲", @"坐姿提踵"];
+        NSArray *legArray = @[@"杠铃深蹲", @"箭步蹲（杠铃）", @"箭步蹲（哑铃）", @"罗汉蹲", @"坐姿提踵"];
         NSArray *staminaArray = @[@"跑步", @"椭圆机", @"游泳", @"登山机", @"HIIT"];
-        NSArray *coreArray = @[@"卷腹", @"山羊挺身", @"杠铃硬拉", @"单腿硬拉", @"杠铃高翻+深蹲", @"平板支撑"];
+        NSArray *coreArray = @[@"卷腹（V字）",@"卷腹（健身球）", @"羚羊挺身", @"硬拉（杠铃）", @"硬拉（单腿）",@"杠铃高翻", @"杠铃高翻（+深蹲）", @"平板支撑"];
         NSArray *otherArray = @[@"TRX", @"爬楼梯", @"其他运动"];
         
         NSArray *sportNames0 = [NSArray array];

@@ -8,6 +8,7 @@
 
 #import "EventStore.h"
 #import "Event.h"
+#import "ImageStore.h"
 
 @interface EventStore()
 
@@ -92,8 +93,9 @@
 {
     NSString *key = [[self dateFormatter] stringFromDate:date ? date : [NSDate date]];
     
-//    NSString *key = event.itemKey;
-//    [[YKImageStore shareStore] deleteImageForKey:key];
+    //删除图片
+    NSString *key1 = event.itemKey;
+    [[ImageStore shareStore] deleteImageForKey:key1];
     
     //removeObjectIdenticalTo:方法
     [self.privateEvents[key] removeObjectIdenticalTo:event];

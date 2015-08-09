@@ -12,13 +12,15 @@
 #import "NewEvevtViewController.h"
 #import "Event.h"
 #import "EventStore.h"
+#import "ImageStore.h"
 
-@interface NewEvevtViewController ()<UIPickerViewDelegate,UIPickerViewDataSource,UITextFieldDelegate, UISearchBarDelegate>
-
+@interface NewEvevtViewController ()<UIPickerViewDelegate,UIPickerViewDataSource,UITextFieldDelegate, UISearchBarDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 
 //Data
 @property (strong, nonatomic)NSMutableArray *sportNameTemps;
 @property (nonatomic) NSInteger indexRow;
+@property (strong, nonatomic) NSArray *numberArray; ///<numberPicker的数据
+@property (strong, nonatomic) NSString *selectedNumber; ///<numberPicker点选后的值
 
 //TextField
 @property (weak, nonatomic) IBOutlet UITextField *dateTextField;
@@ -32,9 +34,11 @@
 @property (strong, nonatomic) UITextField *searchBarType;
 
 //Utility
-@property (strong, nonatomic) IBOutlet UIDatePicker *datePicker;
+@property (strong, nonatomic) UIDatePicker *datePicker;
 @property (strong, nonatomic) UIPickerView *sportPicker;
 @property (strong, nonatomic) UIPickerView *sportTypePicker;
+@property (strong, nonatomic) UIPickerView *numberPicker;
+
 @property (strong, nonatomic) UISearchBar *sportSearchBar;
 @property (weak, nonatomic) IBOutlet UISwitch *swithButton;
 @property (weak, nonatomic) IBOutlet UISwitch *doneSwitchButton;
@@ -98,24 +102,39 @@
     [self.datePicker setDate:self.date animated:YES];
     [self.datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
     
-    //sportPick初始化
+    //sportPicker初始化
     self.sportPicker = [[UIPickerView alloc] initWithFrame:CGRectZero];
     self.sportPicker.delegate = self;
     self.sportSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, 44.)];
     self.sportSearchBar.delegate = self;
+    [self getSportPickerData];
     
     //sportTypePicker初始化
     self.sportTypePicker = [[UIPickerView alloc] initWithFrame:CGRectZero];
     self.sportTypePicker.delegate = self;
+
+    //numberPicker初始化
+    self.numberPicker = [[UIPickerView alloc] initWithFrame:CGRectZero];
+    self.numberPicker.delegate = self;
     
-    //设置sportPicker的属性
-    [self getSportPickerData];
+    NSMutableArray *tempNumberArray = [NSMutableArray array];
+    for (int i = 0; i < 5000; i = i+99) {
+        for (int k = 0; k < 100; k++) {
+            [tempNumberArray addObject:[NSString stringWithFormat:@"%i", k]];
+        }
+    }
+    self.numberArray = tempNumberArray.copy;
     
     //键盘属性
-    self.weightTextFeild.keyboardType = UIKeyboardTypeNumberPad;
-    self.timelastFeild.keyboardType = UIKeyboardTypeNumberPad;
-    self.timesFeild.keyboardType = UIKeyboardTypeNumberPad;
-    self.rapFeild.keyboardType = UIKeyboardTypeNumberPad;
+    self.weightTextFeild.tintColor = [UIColor clearColor];
+    self.weightTextFeild.inputView = self.numberPicker;
+    self.timelastFeild.tintColor = [UIColor clearColor];
+    self.timelastFeild.inputView = self.numberPicker;
+    self.timesFeild.tintColor = [UIColor clearColor];
+    self.timesFeild.inputView = self.numberPicker;
+    self.rapFeild.tintColor = [UIColor clearColor];
+    self.rapFeild.inputView = self.numberPicker;
+    
     self.dateTextField.inputView = self.datePicker;
     self.dateTextField.tintColor = [UIColor clearColor];
     self.sportTypeTextField.inputView = self.sportPicker;
@@ -153,6 +172,11 @@
     self.weightSlider.continuous = YES;
     self.timelastSlider.value = self.event.timelast;
     self.doneSwitchButton.on = self.event.done;
+    
+    //图片显示
+    NSString *itemKey = self.event.itemKey;
+    UIImage *imageToDisplay = [[ImageStore shareStore] imageForKey:itemKey];
+    if (imageToDisplay) {    self.imageView.image = imageToDisplay;};
     
     //重量的UI显示
     if ([self.weightTextFeild.text isEqualToString:@"220"]) {
@@ -344,7 +368,7 @@
 
 #pragma mark - Textfield Delegate
 - (IBAction)sportTypeAndNameText:(UITextField *)sender {
-    
+
     NSString *componentStr1 = self.sportNameTextField.text;
     
     unsigned long index = 0;
@@ -378,8 +402,12 @@
 {
     if (textField == self.searchBarType) {
         textField.textColor = [UIColor colorWithRed:0.0000 green:0.4784 blue:1.0000 alpha:0.8];
+    }else if(textField == self.timelastFeild || textField == self.weightTextFeild || textField == self.rapFeild || textField == self.timesFeild){
+        textField.textColor = [UIColor colorWithRed:0.0000 green:0.4784 blue:1.0000 alpha:0.8];
+        int i = [textField.text intValue];
+        [self.numberPicker selectRow:(5100/2 - 50 + i) inComponent:0 animated:NO];
     }else{
-    textField.text = @"";
+        textField.textColor = [UIColor colorWithRed:0.0000 green:0.4784 blue:1.0000 alpha:0.8];
     }
     return YES;
 }
@@ -389,50 +417,54 @@
 
     if (textField == self.searchBarType) {
         textField.textColor = [UIColor blackColor];
-    }else{
-    
-    if ([self ifEnterNumber:textField.text]) {
+    }else if(textField == self.timelastFeild || textField == self.weightTextFeild || textField == self.rapFeild || textField == self.timesFeild){
+            textField.textColor = [UIColor blackColor];
+            if ([self ifEnterNumber:textField.text]) {
 
-    int weight = [self.weightTextFeild.text intValue];
-    if (weight > 220) {
-        weight = 220;
-        [self alertForOverLimit];
-    }
-    
-    int time = [self.timelastFeild.text intValue];
-    if (time > 90) {
-        time = 90;
-        [self alertForOverLimit];
-    }
-        
-    self.weightTextFeild.text = [NSString stringWithFormat:@"%i", weight];
-    self.weightSlider.value = weight;
-    self.timelastFeild.text = [NSString stringWithFormat:@"%i", time];
-    self.timelastSlider.value = time;
-    
-    int times = [self.timesFeild.text intValue];
-    if (times > 99) {
-        times = 99;
-        [self alertForOverLimit];
-    }
-    self.timesFeild.text = [NSString stringWithFormat:@"%i", times];
-    
-    int rap = [self.rapFeild.text intValue];
-    if (rap > 99) {
-        rap = 99;
-        [self alertForOverLimit];
-    }
-    self.rapFeild.text = [NSString stringWithFormat:@"%i", rap];
-        
-    Event *event = self.event;
-    event.timelast = [self.timelastFeild.text intValue];
-    event.times = [self.timesFeild.text intValue];
-    event.rap = [self.rapFeild.text intValue];
-    event.weight = [self.weightTextFeild.text floatValue];
+            int weight = [self.weightTextFeild.text intValue];
+            if (weight > 220) {
+                weight = 220;
+                [self alertForOverLimit];
+            }
+            
+            int time = [self.timelastFeild.text intValue];
+            if (time > 90) {
+                time = 90;
+                [self alertForOverLimit];
+            }
+                
+            self.weightTextFeild.text = [NSString stringWithFormat:@"%i", weight];
+            self.weightSlider.value = weight;
+            self.timelastFeild.text = [NSString stringWithFormat:@"%i", time];
+            self.timelastSlider.value = time;
+            
+            int times = [self.timesFeild.text intValue];
+            if (times > 99) {
+                times = 99;
+                [self alertForOverLimit];
+            }
+            self.timesFeild.text = [NSString stringWithFormat:@"%i", times];
+            
+            int rap = [self.rapFeild.text intValue];
+            if (rap > 99) {
+                rap = 99;
+                [self alertForOverLimit];
+            }
+            self.rapFeild.text = [NSString stringWithFormat:@"%i", rap];
+                
+            Event *event = self.event;
+            event.timelast = [self.timelastFeild.text intValue];
+            event.times = [self.timesFeild.text intValue];
+            event.rap = [self.rapFeild.text intValue];
+            event.weight = [self.weightTextFeild.text floatValue];
+        }else{
+            textField.textColor = [UIColor blackColor];
+            textField.text = @"";
+            [self alertForOnlyNumber];
+        }
     }else{
-        textField.text = @"";
-        [self alertForOnlyNumber];
-    }}
+        textField.textColor = [UIColor blackColor];
+    }
 }
 
 - (BOOL)textFieldShouldReturn:(nonnull UITextField *)textField
@@ -448,6 +480,10 @@
     
     if (pickerView == self.sportPicker) {
         return 2;
+    }else if(pickerView == self.sportTypePicker){
+        return 1;
+    }else if (pickerView == self.numberPicker){
+        return 1;
     }else{
         return 1;
     }
@@ -466,8 +502,12 @@
         default:
             return 0;
             break;
-    }}else{
+    }}else if(pickerView == self.sportTypePicker){
         return [self.sportTypes count];
+    }else if(pickerView == self.numberPicker){
+        return 5100;
+    }else{
+        return 1;
     }
         
 }
@@ -485,8 +525,10 @@
             default:
                 return nil;
                 break;
-        }}else{
+        }}else if(pickerView == self.sportTypePicker){
             return [[self.sportTypes objectAtIndex:row] objectForKey:@"sportType"];
+        }else{
+            return [self.numberArray objectAtIndex:row];
         }
 }
 
@@ -509,19 +551,33 @@
             break;
     }
         //如果选择了体力类别，则关闭组数等选项
-    if ([self.sportTypeTextField.text isEqualToString:@"体力"]) {
-        [self.swithButton setOn:NO animated:YES];
-        [self NotHaveRapAndTimes:self.swithButton];
-    }else if (![self.sportTypeTextField.text isEqualToString:@"体力"]){
-        [self.swithButton setOn:YES animated:YES];
-        [self NotHaveRapAndTimes:self.swithButton];
-    }}else{
-        
+        if ([self.sportTypeTextField.text isEqualToString:@"体力"]) {
+            [self.swithButton setOn:NO animated:YES];
+            [self NotHaveRapAndTimes:self.swithButton];
+        }else if (![self.sportTypeTextField.text isEqualToString:@"体力"]){
+            [self.swithButton setOn:YES animated:YES];
+            [self NotHaveRapAndTimes:self.swithButton];
+        }
+    }else if(pickerView == self.sportTypePicker){
         self.indexRow = row;
         self.searchBarType.text = [[self.sportTypes objectAtIndex:row] objectForKey:@"sportType"];
-        
         self.sportNameTemps = [[self.sportTypes objectAtIndex:row] objectForKey:@"sportName"];
         
+    }else{
+        self.selectedNumber = self.numberArray[row];
+        
+        if ([self.timelastFeild isFirstResponder]) {
+            self.timelastFeild.text = self.numberArray[row];
+            self.timelastSlider.value = [self.numberArray[row] floatValue];
+        }else if([self.timesFeild isFirstResponder]){
+            self.timesFeild.text = self.numberArray[row];
+        }else if ([self.rapFeild isFirstResponder]){
+            self.rapFeild.text = self.numberArray[row];
+        }else if ([self.weightTextFeild isFirstResponder]){
+            self.weightTextFeild.text = self.numberArray[row];
+            self.weightSlider.value = [self.numberArray[row] floatValue];
+        }
+
     }
 }
 
@@ -672,13 +728,81 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"从图库选取"
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction * action) {
+                                                [self chooseTheImage];
                                             }]];
     [alert addAction:[UIAlertAction actionWithTitle:@"用相机拍摄"
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction * action) {
+                                                [self takePicture];
                                             }]];
     
     [self presentViewController:alert animated:YES completion:nil];
+}
+
+//11.1 添加照片的方法
+- (IBAction)takePicture
+{
+    UIImagePickerController *imagePicker = [UIImagePickerController new];
+    
+    //如果设备支持相机，则使用拍照；不然就让用户从相册中挑选
+    if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera])
+    {
+        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+        //11.12 添加摄像功能
+        NSArray *availableTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
+        imagePicker.mediaTypes = availableTypes;
+        imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+    } else {
+        imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    }
+
+    imagePicker.allowsEditing = YES;
+    imagePicker.delegate = self;
+    
+    [self presentViewController:imagePicker animated:YES completion:nil];
+}
+
+- (IBAction)chooseTheImage
+{
+    UIImagePickerController *imagePicker = [UIImagePickerController new];
+    
+    imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    
+    imagePicker.allowsEditing = YES;
+    imagePicker.delegate = self;
+    
+    [self presentViewController:imagePicker animated:YES completion:nil];
+}
+
+//11.2 保存照片
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
+{
+    //通过info字典获取选择的照片
+    UIImage *image = info[UIImagePickerControllerOriginalImage];
+    
+    //19.2 添加缩略图
+//    [self.item setThumbnailFromImage:image];
+    
+    //    11.5 根据itemKey的键，将照片存入YKImageStore对象
+    [[ImageStore shareStore] setImage:image forKey:self.event.itemKey];
+    
+    //    将照片放入UIImageView对象
+    self.imageView.image = image;
+
+    //    关闭UIImagePicjerController对象
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+    //    11.12 获取包含视频的目录
+    NSURL *mediaURL = info[UIImagePickerControllerMediaURL];
+    
+    //将文件移至其他目录
+    //检查设备是否支持视频功能
+    if (UIVideoAtPathIsCompatibleWithSavedPhotosAlbum([mediaURL path])) {
+        //将视频存入相册
+        UISaveVideoAtPathToSavedPhotosAlbum([mediaURL path], nil, nil, nil);
+        //删除临时目录下的视频
+        [[NSFileManager defaultManager] removeItemAtPath:[mediaURL path] error:nil];
+    }
 }
 
 #pragma mark - data sources

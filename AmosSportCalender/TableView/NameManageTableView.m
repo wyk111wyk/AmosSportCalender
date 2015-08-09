@@ -31,8 +31,8 @@ static NSString* const typeManageCellReuseId = @"sportNameManageCell";
     self.tableView.allowsSelection = NO;
     self.sportNameTemps = [[NSMutableArray alloc] initWithArray:self.sportNames];
     
-    self.rightButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"plus"] style:UIBarButtonItemStylePlain target:self action:@selector(addNewSportName:)];
-    self.navigationItem.rightBarButtonItem = self.rightButton;
+//    self.rightButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"plus"] style:UIBarButtonItemStylePlain target:self action:@selector(addNewSportName:)];
+//    self.navigationItem.rightBarButtonItem = self.rightButton;
     self.navigationItem.title = [NSString stringWithFormat: @"%@ - 编辑", self.sportType];
     
     //长按移动cell顺序
@@ -50,6 +50,12 @@ static NSString* const typeManageCellReuseId = @"sportNameManageCell";
     [self actionAlert];
 }
 
+- (IBAction)sortTheOrder:(UIBarButtonItem *)sender {
+    
+    [self alertForSort];
+}
+
+
 - (void)actionAlert
 {
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"新建"
@@ -59,12 +65,22 @@ static NSString* const typeManageCellReuseId = @"sportNameManageCell";
     [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
         textField.placeholder = @"请在此输入运动名称";
     }];
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = @"选填补充信息";
+    }];
     
     [alert addAction:[UIAlertAction actionWithTitle:@"确认"
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction * action) {
     UITextField *sportNameField = alert.textFields[0];
-    [self.sportNameTemps addObject:sportNameField.text];
+    UITextField *addtionalField = alert.textFields[1];
+    NSString *str;
+    if (![addtionalField.text isEqualToString:@""]) {
+    str = [NSString stringWithFormat:@"%@（%@）", sportNameField.text, addtionalField.text];
+    }else{
+        str = [NSString stringWithFormat:@"%@", sportNameField.text];
+    }
+    [self.sportNameTemps addObject:str];
     [self.tableView reloadData];
     [self saveTheDate];
                                             }]];
@@ -78,6 +94,31 @@ static NSString* const typeManageCellReuseId = @"sportNameManageCell";
     [self presentViewController:alert animated:YES completion:nil];
 }
 
+- (void)alertForSort
+{
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"重新排序"
+                                                                   message:@""
+                                                            preferredStyle:UIAlertControllerStyleActionSheet];
+    [alert addAction:[UIAlertAction actionWithTitle:@"按A~Z进行排序"
+                                              style:UIAlertActionStyleDefault
+                                            handler:^(UIAlertAction * action) {
+        NSArray *result = [self.sportNameTemps sortedArrayUsingComparator:^NSComparisonResult(id obj1, id obj2) {
+//            NSLog(@"%@ ~ %@", obj1, obj2);
+            return [obj1 compare:obj2];
+        }];
+        self.sportNameTemps = [[NSMutableArray alloc] initWithArray:result];
+        [self.tableView reloadData];
+        [self saveTheDate];
+                                                }]];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消"
+                                              style:UIAlertActionStyleCancel
+                                            handler:^(UIAlertAction * action) {
+                                                
+                                            }]];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
 #pragma mark - textfield
 
 - (void)textFieldDidBeginEditing:(nonnull UITextField *)textField
@@ -88,11 +129,14 @@ static NSString* const typeManageCellReuseId = @"sportNameManageCell";
     
     UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(changeTheName)];
     self.navigationItem.rightBarButtonItem = doneButton;
+    
+    textField.textColor = [UIColor colorWithRed:0.0000 green:0.4784 blue:1.0000 alpha:0.6];
 }
 
 - (void)textFieldDidEndEditing:(nonnull UITextField *)textField
 {
     self.editedText = textField.text;
+    textField.textColor = [UIColor blackColor];
     
 //    NSLog(@"After end editing, now text is %@", textField.text);
 }
@@ -118,7 +162,6 @@ static NSString* const typeManageCellReuseId = @"sportNameManageCell";
     
     [self saveTheDate];
 }
-
 
 #pragma mark - Table view data source
 

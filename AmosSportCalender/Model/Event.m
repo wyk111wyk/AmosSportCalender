@@ -20,14 +20,23 @@
     
     if (self) {
         
+        //测试时使用的代码
+//        NSArray * array = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sportTypes" ofType:@"plist"]];
+//        NSMutableArray *sportTypes = [NSMutableArray array];
+//        for (int i = 0; i < array.count; i++){
+//            sportTypes[i] = [[array objectAtIndex:i] objectForKey:@"sportType"];
+//        }
+//        int index = arc4random() % sportTypes.count;
+//        self.sportType = sportTypes[index];
+        //测试代码结束
+        
         self.sportType = @"胸部";
         self.sportName = @"平板卧推";
         
         self.weight = 30;
-        self.times = 15;
+        self.times = 10;
         self.rap = 3;
         self.timelast = 15;
-        
         self.done = NO;
         
         //    生成一个唯一的标识（UUID），用作保存图片的key

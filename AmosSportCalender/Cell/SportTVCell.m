@@ -21,6 +21,7 @@
 //    NSLog(@"载入cell数据");
     
     self.sportName.text = self.event.sportName;
+    [self.sportName sizeToFit];
     
     if (self.event.weight == 0 && self.event.times > 0) {
         self.sportPro.text = [NSString stringWithFormat:@"%d组 x %d次", self.event.rap, self.event.times];

@@ -115,7 +115,7 @@ static NSString* const typeManageCellReuseId = @"typeManageCell";
 //    NSLog(@"%@", NSStringFromSelector(_cmd));
 }
 
-#pragma mark - 判断cell显示内容的方法
+#pragma mark - 判断cell文字颜色的方法
 - (UIColor *)colorForsportType:(NSString *)sportType
 {
     if ([sportType isEqualToString:@"胸部"]) {
