@@ -89,6 +89,18 @@
         self.outsideView.layer.borderColor = [[UIColor colorWithRed:0.2000 green:0.6235 blue:0.9882 alpha:1] CGColor];
     }
     
+    UIBarButtonItem *addOneMoreButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"plusOneMore"] style:UIBarButtonItemStylePlain target:self action:@selector(createOneMoreEvent:)];
+    UIBarButtonItem *createNewButton = [[UIBarButtonItem alloc] initWithTitle:@"新建" style:UIBarButtonItemStylePlain target:self action:@selector(finishAndCreateEvent:)];
+    UIBarButtonItem *editEventButton = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(finishAndCreateEvent:)];
+    
+    if (self.createNewEvent) {
+        NSArray *createButtons = [[NSArray alloc] initWithObjects:createNewButton, addOneMoreButton, nil];
+        self.navigationItem.rightBarButtonItems = createButtons;
+    }else{
+        NSArray *editButtons = [[NSArray alloc] initWithObjects:editEventButton, addOneMoreButton, nil];
+        self.navigationItem.rightBarButtonItems = editButtons;
+    }
+    
     //datePick初始化
     NSString *minDate = @"1990-01-01";
     NSString *maxDate = @"2030-01-01";
@@ -175,8 +187,10 @@
     
     //图片显示
     NSString *itemKey = self.event.itemKey;
+    if ([[ImageStore shareStore] imageForKey:itemKey]) {
     UIImage *imageToDisplay = [[ImageStore shareStore] imageForKey:itemKey];
-    if (imageToDisplay) {    self.imageView.image = imageToDisplay;};
+    if (imageToDisplay) {self.imageView.image = imageToDisplay;};
+    }
     
     //重量的UI显示
     if ([self.weightTextFeild.text isEqualToString:@"220"]) {
@@ -328,6 +342,7 @@
     event.rap = [self.rapFeild.text intValue];
     event.done = self.doneSwitchButton.on;
     
+    //假如是新建的事项，进行数据库新建
     if (self.createNewEvent){
     [[EventStore sharedStore] createItem:event date:self.event.eventDate];
     }
@@ -341,7 +356,7 @@
         }
     }];
 }
-- (IBAction)finishThisEventAndCreateAnotherEvent:(UIBarButtonItem *)sender {
+- (IBAction)createOneMoreEvent:(UIBarButtonItem *)sender {
     [self finishAndCreateEvent:self.finishBarButtonItem];
 
     if (self.creatEventBlock) {
@@ -778,10 +793,7 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     //通过info字典获取选择的照片
-    UIImage *image = info[UIImagePickerControllerOriginalImage];
-    
-    //19.2 添加缩略图
-//    [self.item setThumbnailFromImage:image];
+    UIImage *image = [self setThumbnailFromImage:info[UIImagePickerControllerOriginalImage]];
     
     //    11.5 根据itemKey的键，将照片存入YKImageStore对象
     [[ImageStore shareStore] setImage:image forKey:self.event.itemKey];
@@ -862,4 +874,43 @@
     return res;
 }
 
+//生成缩略图
+- (UIImage *)setThumbnailFromImage:(UIImage *)image
+{
+    CGSize origImageSize = image.size;
+    
+    //缩略图的大小
+    CGRect newRect = CGRectMake(0, 0, 400, 350);
+    
+    //确定缩放倍数并保持 宽高比例 不变
+    float ratio = MAX(newRect.size.width / origImageSize.width, newRect.size.height / origImageSize.height);
+    
+    //根据当前设备的屏幕scaling factor创建透明的位图上下文
+    UIGraphicsBeginImageContextWithOptions(newRect.size, NO, 0.0);
+    
+    //创建表示圆角矩形的UIBezierPath对象
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:newRect
+                                                    cornerRadius:5.0];
+    
+    //根据UIBezierPath对象裁剪图形上下文
+    [path addClip];
+    
+    //让图片在缩略图绘制的范围内居中
+    CGRect projectRect;
+    projectRect.size.width = ratio * origImageSize.width;
+    projectRect.size.height = ratio * origImageSize.height;
+    projectRect.origin.x = (newRect.size.width - projectRect.size.width) / 2.0;
+    projectRect.origin.y = (newRect.size.height - projectRect.size.height) / 2.0;
+    
+    //在上下文中绘制图片
+    [image drawInRect:projectRect];
+    
+    //通过图形上下文得到UIImage对象，并赋给thumbnail属性
+    UIImage *smallImage = UIGraphicsGetImageFromCurrentImageContext();
+
+    //清理图形上下文
+    UIGraphicsEndPDFContext();
+    
+    return smallImage;
+}
 @end

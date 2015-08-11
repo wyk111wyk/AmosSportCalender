@@ -21,6 +21,7 @@
 
 //声明一个新的方法，用于删除行
 - (void)removeItem:(Event *)event date:(NSDate *)date;
+- (void)removeAllItem;
 
 //声明一个方法，用于移动行
 - (void)moveItemAtIndex:(NSUInteger)fromIndex

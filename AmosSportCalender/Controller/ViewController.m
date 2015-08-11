@@ -20,6 +20,7 @@
 #import "SportTVCell.h"
 #import "SummaryViewController.h"
 #import "LeftMenuTableView.h"
+#import "SettingStore.h"
 
 #import "UIViewController+MMDrawerController.h"
 
@@ -86,6 +87,8 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    
+    [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModePanningNavigationBar];
     
     _calendarManager = [JTCalendarManager new];
     _calendarManager.delegate = self;
@@ -173,6 +176,7 @@
     
     NSString *key = [[self dateFormatter] stringFromDate:date];
     self.doneNumber = self.doneNumbers[key];
+    SettingStore *setting = [SettingStore sharedSetting];
     
     //设置显示的文字
     if (self.oneDayEvents.count > 0) {
@@ -184,14 +188,23 @@
             self.addToCalendarButton.hidden = YES;
         }
         if (self.oneDayEvents.count > [self.doneNumber intValue]) {
-            self.underTableLabel.text = [NSString stringWithFormat:@"共有%lu个运动项目，已完成%d项，还剩%lu项", (unsigned long)self.oneDayEvents.count, [self.doneNumber intValue], self.oneDayEvents.count - [self.doneNumber intValue]];
+            
+            if (setting.name.length > 0){
+            self.underTableLabel.text = [NSString stringWithFormat:@"%@，共有%lu个项目，已完成%d项，还剩%lu项", setting.name, (unsigned long)self.oneDayEvents.count, [self.doneNumber intValue], self.oneDayEvents.count - [self.doneNumber intValue]];
+            }else{
+                self.underTableLabel.text = [NSString stringWithFormat:@"共有%lu个项目，已完成%d项，还剩%lu项",(unsigned long)self.oneDayEvents.count, [self.doneNumber intValue], self.oneDayEvents.count - [self.doneNumber intValue]];
+            }
             if (_calendarManager.settings.weekModeEnabled) {
                 self.addToCalendarButton.hidden = NO;
             }else{
                 self.addToCalendarButton.hidden = YES;
             }
         }else if (self.oneDayEvents.count == [self.doneNumber intValue]){
-            self.underTableLabel.text = [NSString stringWithFormat:@"今天的运动已经全部完成了，干得好！"];
+            if (setting.name.length > 0) {
+                self.underTableLabel.text = [NSString stringWithFormat:@"今天的运动已经全部完成，%@，干得好！", setting.name];
+            }else{
+                self.underTableLabel.text = [NSString stringWithFormat:@"今天的运动已经全部完成，干得好！"];
+            }
             self.addToCalendarButton.hidden = YES;
         }
     }else{
@@ -263,6 +276,8 @@
         
         NSString *showStr = [[self dateFormatter] stringFromDate:self.selectedDate];
         NSString *compareStr = [[self dateFormatter] stringFromDate:[NSDate date]];
+        
+        //假如新建事项，过去的日子默认完成
         if (mvc.createNewEvent) {
             if ([_selectedDate compare:[NSDate date]] == NSOrderedAscending && ![showStr isEqualToString:compareStr]) {
                 mvc.event.done = YES;
@@ -752,6 +767,7 @@
 //设置滑动后出现的选项
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    //删除的方法
     UITableViewRowAction *deleteAction = [UITableViewRowAction
        rowActionWithStyle:UITableViewRowActionStyleDestructive
        title:@"删除"
@@ -777,6 +793,7 @@
          }
      }];
     
+    //修改内容的方法
     UITableViewRowAction *editAction = [UITableViewRowAction
       rowActionWithStyle:UITableViewRowActionStyleNormal
       title:@"修改"

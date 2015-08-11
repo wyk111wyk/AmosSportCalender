@@ -9,6 +9,7 @@
 #import "DetailSummaryVC.h"
 #import "SummaryNewTVCell.h"
 #import "Event.h"
+#import "SettingStore.h"
 
 static NSString * const YKSummaryCellReuseId = @"summaryNewTVCell";
 
@@ -99,7 +100,13 @@ static NSString * const YKSummaryCellReuseId = @"summaryNewTVCell";
     }
     
     //图片设置
-    self.imageView.image = [UIImage imageNamed:self.sportTypeStr];
+    SettingStore *setting = [SettingStore sharedSetting];
+    if (setting.sportTypeImageMale) {
+        self.imageView.image = [UIImage imageNamed:self.sportTypeStr];
+    }else{
+        NSString *femaleImage = [NSString stringWithFormat:@"女%@", _sportTypeStr];
+        self.imageView.image = [UIImage imageNamed:femaleImage];
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated

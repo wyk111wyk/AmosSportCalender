@@ -28,7 +28,7 @@ NSArray *sportTypes;
     MMDrawerController *drawer = [[MMDrawerController alloc] initWithCenterViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"nav"] leftDrawerViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"menunav"]];
     
     [drawer setShowsShadow:YES];
-    [drawer setMaximumLeftDrawerWidth:130.0];
+    [drawer setMaximumLeftDrawerWidth:160.0];
     [drawer setOpenDrawerGestureModeMask:MMOpenDrawerGestureModePanningNavigationBar];
     [drawer setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
     
@@ -65,74 +65,7 @@ NSArray *sportTypes;
         
         NSArray *sportTypes = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sportTypes" ofType:@"plist"]];
         
-        NSMutableArray *MuSportTypes = [NSMutableArray array];
-        
-        NSArray *chestArray = @[@"平板卧推", @"上斜卧推", @"飞鸟（器械）", @"飞鸟（哑铃）", @"哑铃卧推", @"俯卧撑"];
-        NSArray *backArray = @[@"引体向上", @"划船（哑铃）",@"划船（器械）", @"坐姿下拉", @"杠铃划船"];
-        NSArray *shoulderArray = @[@"哑铃前平举", @"杠铃直立划船", @"哑铃侧弯举", @"杠铃上推", @"俯身哑铃弯举"];
-        NSArray *legArray = @[@"杠铃深蹲", @"箭步蹲（杠铃）", @"箭步蹲（哑铃）", @"罗汉蹲", @"坐姿提踵"];
-        NSArray *staminaArray = @[@"跑步", @"椭圆机", @"游泳", @"登山机", @"HIIT"];
-        NSArray *coreArray = @[@"卷腹（V字）",@"卷腹（健身球）", @"羚羊挺身", @"硬拉（杠铃）", @"硬拉（单腿）",@"杠铃高翻", @"杠铃高翻（+深蹲）", @"平板支撑"];
-        NSArray *otherArray = @[@"TRX", @"爬楼梯", @"其他运动"];
-        
-        NSArray *sportNames0 = [NSArray array];
-        //生成一个可变数组，用于编辑该项运动的包含运动名称
-        NSMutableArray *chestMuArray = [[NSMutableArray alloc] initWithArray:chestArray];
-        sportNames0 = [chestMuArray copy];
-        NSMutableDictionary *dic0 = [NSMutableDictionary dictionary];
-        [dic0 setObject:[sportTypes[0] objectForKey:@"sportType"] forKey:@"sportType"];
-        [dic0 setObject:sportNames0 forKey:@"sportName"];
-        [MuSportTypes addObject:dic0];
-        
-        NSArray *sportNames1 = [NSArray array];
-        NSMutableArray *backMuArray = [[NSMutableArray alloc] initWithArray:backArray];
-        sportNames1 = [backMuArray copy];
-        NSMutableDictionary *dic1 = [NSMutableDictionary dictionary];
-        [dic1 setObject:[sportTypes[1] objectForKey:@"sportType"] forKey:@"sportType"];
-        [dic1 setObject:sportNames1 forKey:@"sportName"];
-        [MuSportTypes addObject:dic1];
-        
-        NSArray *sportNames2 = [NSArray array];
-        NSMutableArray *shoulderMuArray = [[NSMutableArray alloc] initWithArray:shoulderArray];
-        sportNames2 = [shoulderMuArray copy];
-        NSMutableDictionary *dic2 = [NSMutableDictionary dictionary];
-        [dic2 setObject:[sportTypes[2] objectForKey:@"sportType"] forKey:@"sportType"];
-        [dic2 setObject:sportNames2 forKey:@"sportName"];
-        [MuSportTypes addObject:dic2];
-        
-        NSArray *sportNames3 = [NSArray array];
-        NSMutableArray *legMuArray = [[NSMutableArray alloc] initWithArray:legArray];
-        sportNames3 = [legMuArray copy];
-        NSMutableDictionary *dic3 = [NSMutableDictionary dictionary];
-        [dic3 setObject:[sportTypes[3] objectForKey:@"sportType"] forKey:@"sportType"];
-        [dic3 setObject:sportNames3 forKey:@"sportName"];
-        [MuSportTypes addObject:dic3];
-        
-        NSArray *sportNames4 = [NSArray array];
-        NSMutableArray *staminaMuArray = [[NSMutableArray alloc] initWithArray:staminaArray];
-        sportNames4 = [staminaMuArray copy];
-        NSMutableDictionary *dic4 = [NSMutableDictionary dictionary];
-        [dic4 setObject:[sportTypes[4] objectForKey:@"sportType"] forKey:@"sportType"];
-        [dic4 setObject:sportNames4 forKey:@"sportName"];
-        [MuSportTypes addObject:dic4];
-        
-        NSArray *sportNames5 = [NSArray array];
-        NSMutableArray *coreMuArray = [[NSMutableArray alloc] initWithArray:coreArray];
-        sportNames5 = [coreMuArray copy];
-        NSMutableDictionary *dic5 = [NSMutableDictionary dictionary];
-        [dic5 setObject:[sportTypes[5] objectForKey:@"sportType"] forKey:@"sportType"];
-        [dic5 setObject:sportNames5 forKey:@"sportName"];
-        [MuSportTypes addObject:dic5];
-        
-        NSArray *sportNames6 = [NSArray array];
-        NSMutableArray *otherMuArray = [[NSMutableArray alloc] initWithArray:otherArray];
-        sportNames6 = [otherMuArray copy];
-        NSMutableDictionary *dic6 = [NSMutableDictionary dictionary];
-        [dic6 setObject:[sportTypes[6] objectForKey:@"sportType"] forKey:@"sportType"];
-        [dic6 setObject:sportNames6 forKey:@"sportName"];
-        [MuSportTypes addObject:dic6];
-        
-        BOOL successWrited = [MuSportTypes writeToFile:fileSavePath atomically:YES];
+        BOOL successWrited = [sportTypes writeToFile:fileSavePath atomically:YES];
         
         if (successWrited) {
             NSLog(@"已写入plist数据！");

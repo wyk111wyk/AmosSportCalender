@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B0723E541B786D2D00F8A63E /* SettingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0723E531B786D2D00F8A63E /* SettingTableView.m */; };
+		B0723E5A1B78913A00F8A63E /* SettingStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B0723E591B78913A00F8A63E /* SettingStore.m */; };
+		B0723E5C1B79002900F8A63E /* sportTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0723E5B1B79002900F8A63E /* sportTypes.plist */; };
 		B0854D6A1B6BA84B00C1B150 /* MMDrawerBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D621B6BA84B00C1B150 /* MMDrawerBarButtonItem.m */; };
 		B0854D6B1B6BA84B00C1B150 /* MMDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D651B6BA84B00C1B150 /* MMDrawerController.m */; };
 		B0854D6C1B6BA84B00C1B150 /* MMDrawerVisualState.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D671B6BA84B00C1B150 /* MMDrawerVisualState.m */; };
@@ -28,7 +31,6 @@
 		B087E02E1B7716E8003D90B6 /* DetailSummaryVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B087E02C1B7716E8003D90B6 /* DetailSummaryVC.xib */; };
 		B08875E11B6F9AF3008DF5D4 /* SummaryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B08875DF1B6F9AF3008DF5D4 /* SummaryViewController.xib */; };
 		B08875F11B71AD2B008DF5D4 /* DSC00146.png in Resources */ = {isa = PBXBuildFile; fileRef = B08875F01B71AD2B008DF5D4 /* DSC00146.png */; };
-		B099000F1B666F8300F7AB67 /* sportTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = B099000E1B666F8300F7AB67 /* sportTypes.plist */; };
 		B0B973671B74808F0008640E /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B973651B74808F0008640E /* EventKit.framework */; };
 		B0B973681B74808F0008640E /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B973661B74808F0008640E /* EventKitUI.framework */; };
 		B0B9736D1B74DCF50008640E /* summaryTypeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0B9736B1B74DCF50008640E /* summaryTypeCell.xib */; };
@@ -78,6 +80,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B0723E521B786D2D00F8A63E /* SettingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTableView.h; sourceTree = "<group>"; };
+		B0723E531B786D2D00F8A63E /* SettingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTableView.m; sourceTree = "<group>"; };
+		B0723E581B78913A00F8A63E /* SettingStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingStore.h; path = Model/SettingStore.h; sourceTree = "<group>"; };
+		B0723E591B78913A00F8A63E /* SettingStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingStore.m; path = Model/SettingStore.m; sourceTree = "<group>"; };
+		B0723E5B1B79002900F8A63E /* sportTypes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = sportTypes.plist; sourceTree = "<group>"; };
 		B0854D611B6BA84B00C1B150 /* MMDrawerBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDrawerBarButtonItem.h; sourceTree = "<group>"; };
 		B0854D621B6BA84B00C1B150 /* MMDrawerBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMDrawerBarButtonItem.m; sourceTree = "<group>"; };
 		B0854D631B6BA84B00C1B150 /* MMDrawerController+Subclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MMDrawerController+Subclass.h"; sourceTree = "<group>"; };
@@ -125,7 +132,6 @@
 		B087E02C1B7716E8003D90B6 /* DetailSummaryVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailSummaryVC.xib; sourceTree = "<group>"; };
 		B08875DF1B6F9AF3008DF5D4 /* SummaryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SummaryViewController.xib; sourceTree = "<group>"; };
 		B08875F01B71AD2B008DF5D4 /* DSC00146.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DSC00146.png; sourceTree = "<group>"; };
-		B099000E1B666F8300F7AB67 /* sportTypes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = sportTypes.plist; sourceTree = "<group>"; };
 		B0B973641B747CFF0008640E /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		B0B973651B74808F0008640E /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		B0B973661B74808F0008640E /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
@@ -298,6 +304,8 @@
 				B0C101001B77984300E4204B /* EventStore.m */,
 				B0C100FA1B77982200E4204B /* ImageStore.h */,
 				B0C100FB1B77982200E4204B /* ImageStore.m */,
+				B0723E581B78913A00F8A63E /* SettingStore.h */,
+				B0723E591B78913A00F8A63E /* SettingStore.m */,
 				B0FA58A11B4678D400E3BE94 /* AmosSportCalender.xcdatamodeld */,
 			);
 			name = Model;
@@ -353,6 +361,8 @@
 				B0C101161B7798F600E4204B /* TypeManageTableView.m */,
 				B0C101111B7798F600E4204B /* NameManageTableView.h */,
 				B0C101121B7798F600E4204B /* NameManageTableView.m */,
+				B0723E521B786D2D00F8A63E /* SettingTableView.h */,
+				B0723E531B786D2D00F8A63E /* SettingTableView.m */,
 			);
 			name = TableView;
 			sourceTree = "<group>";
@@ -422,7 +432,7 @@
 				B08875F01B71AD2B008DF5D4 /* DSC00146.png */,
 				B0FA58A91B4678D400E3BE94 /* Info.plist */,
 				B0FA58961B4678D400E3BE94 /* main.m */,
-				B099000E1B666F8300F7AB67 /* sportTypes.plist */,
+				B0723E5B1B79002900F8A63E /* sportTypes.plist */,
 				B0B973641B747CFF0008640E /* PrefixHeader.pch */,
 			);
 			name = "Supporting Files";
@@ -555,10 +565,10 @@
 				B0B9736D1B74DCF50008640E /* summaryTypeCell.xib in Resources */,
 				B0FA58A51B4678D400E3BE94 /* Assets.xcassets in Resources */,
 				B0FA58A01B4678D400E3BE94 /* Main.storyboard in Resources */,
-				B099000F1B666F8300F7AB67 /* sportTypes.plist in Resources */,
 				B08875F11B71AD2B008DF5D4 /* DSC00146.png in Resources */,
 				B087E02E1B7716E8003D90B6 /* DetailSummaryVC.xib in Resources */,
 				B08875E11B6F9AF3008DF5D4 /* SummaryViewController.xib in Resources */,
+				B0723E5C1B79002900F8A63E /* sportTypes.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -587,6 +597,7 @@
 				B0C1012A1B77993800E4204B /* SummaryTVCell.m in Sources */,
 				B0854D6A1B6BA84B00C1B150 /* MMDrawerBarButtonItem.m in Sources */,
 				B0C1010C1B7798C000E4204B /* NewEvevtViewController.m in Sources */,
+				B0723E5A1B78913A00F8A63E /* SettingStore.m in Sources */,
 				B0C101181B7798F600E4204B /* NameManageTableView.m in Sources */,
 				B0C100FC1B77982200E4204B /* ImageStore.m in Sources */,
 				B0854D9C1B6BA87600C1B150 /* JTHorizontalCalendarView.m in Sources */,
@@ -613,6 +624,7 @@
 				B0854D961B6BA87600C1B150 /* JTCalendarScrollManager.m in Sources */,
 				B0C101281B77993800E4204B /* SportTVCell.m in Sources */,
 				B0854D931B6BA87600C1B150 /* JTCalendarSettings.m in Sources */,
+				B0723E541B786D2D00F8A63E /* SettingTableView.m in Sources */,
 				B0854D981B6BA87600C1B150 /* JTCalendarMenuView.m in Sources */,
 				B0C101021B77984300E4204B /* EventStore.m in Sources */,
 				B0C1012B1B77993800E4204B /* summaryTypeCell.m in Sources */,

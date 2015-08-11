@@ -105,6 +105,11 @@
     }
 }
 
+- (void)removeAllItem
+{
+    [self.privateEvents removeAllObjects];
+}
+
 //实现移动数据的方法
 - (void)moveItemAtIndex:(NSUInteger)fromIndex
                toIndex :(NSUInteger)toIndex

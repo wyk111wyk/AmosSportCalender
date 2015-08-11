@@ -8,6 +8,7 @@
 
 #import "NameManageTableView.h"
 #import "NameManageTVCell.h"
+#import "UIViewController+MMDrawerController.h"
 
 static NSString* const typeManageCellReuseId = @"sportNameManageCell";
 
@@ -27,6 +28,8 @@ static NSString* const typeManageCellReuseId = @"sportNameManageCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
     
     self.tableView.allowsSelection = NO;
     self.sportNameTemps = [[NSMutableArray alloc] initWithArray:self.sportNames];
@@ -202,22 +205,40 @@ static NSString* const typeManageCellReuseId = @"sportNameManageCell";
 }
 
 //默认为删除模式
-- (UITableViewCellEditingStyle)tableView:(nonnull UITableView *)tableView editingStyleForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
-{
-    return UITableViewCellEditingStyleDelete;
-}
+//- (UITableViewCellEditingStyle)tableView:(nonnull UITableView *)tableView editingStyleForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
+//{
+//    return UITableViewCellEditingStyleDelete;
+//}
 
 //当点击”Delete”按钮或者”加号”按钮时，发送实际执行的代码
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [self.sportNameTemps removeObjectAtIndex:indexPath.row];
-        
-        //删除表格中的相应行
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-        
-        [self saveTheDate];
-    }
+//    if (editingStyle == UITableViewCellEditingStyleDelete) {
+//        [self.sportNameTemps removeObjectAtIndex:indexPath.row];
+//        
+//        //删除表格中的相应行
+//        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+//        
+//        [self saveTheDate];
+//    }
+}
+
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    //删除的方法
+    UITableViewRowAction *deleteAction = [UITableViewRowAction
+                                          rowActionWithStyle:UITableViewRowActionStyleDestructive
+                                          title:@"删除"
+                                          handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+          [self.sportNameTemps removeObjectAtIndex:indexPath.row];
+          
+          //删除表格中的相应行
+          [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+          
+          [self saveTheDate];
+                                          }];
+
+    return @[deleteAction]; //与实际显示的顺序相反
 }
 
 - (void)moveItemAtIndex:(NSUInteger)fromIndex

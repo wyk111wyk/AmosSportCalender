@@ -32,6 +32,8 @@ static NSString* const typeManageCellReuseId = @"typeManageCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+    
     NSFileManager * defaultManager = [NSFileManager defaultManager];
     NSURL * documentPath = [[defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask]firstObject];
     NSString * fileContainFloder = [documentPath.path stringByAppendingPathComponent:@"sportEventData"];

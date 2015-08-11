@@ -9,13 +9,6 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-#ifndef L04_UIGlobal_h
-#define L04_UIGlobal_h
-
-extern NSArray *sportTypes;
-
-#endif
-
 @interface Event : NSObject<NSCoding>
 
 @property (nonatomic, strong) NSDate *eventDate; ///<事件的时间

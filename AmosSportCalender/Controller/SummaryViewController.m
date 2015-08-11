@@ -12,7 +12,7 @@
 #import "EventStore.h"
 #import "Event.h"
 #import "DetailSummaryVC.h"
-
+#import "SettingStore.h"
 static NSString * const summaryCellReuseId = @"summaryTypeCell";
 
 @interface SummaryViewController ()<UITableViewDataSource, UITableViewDelegate, XYPieChartDelegate, XYPieChartDataSource>
@@ -149,7 +149,7 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
         timelastMin = timelastMin + tempTimelast;
     }
     float timelastHour = (float)timelastMin / 60.;
-    self.theWholeTime.text = [NSString stringWithFormat:@"%.1f", timelastHour];
+    self.theWholeTime.text = [NSString stringWithFormat:@"%.0f", timelastHour];
     //1-3平均每次多少时间
     if (self.eventsByDate.count > 0) {
         float avegTimeMin = (float)timelastMin / self.eventsByDate.count;
@@ -173,11 +173,20 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     [self.aveTimesAWeek sizeToFit];
     
     //2-1图片
+    SettingStore *setting = [SettingStore sharedSetting];
+    
     if (self.sortedTypeArray.count > 0) {
     NSString *mostTypeStr = [self.sortedTypeArray[0] valueForKey:@"type"];
     NSString *leastTypeStr = [[self.sortedTypeArray lastObject] valueForKey:@"type"];
-    self.mostTypeImageView.image = [UIImage imageNamed:mostTypeStr];
-    self.leastTypeImageView.image = [UIImage imageNamed:leastTypeStr];
+        if (setting.sportTypeImageMale) {
+            self.mostTypeImageView.image = [UIImage imageNamed:mostTypeStr];
+            self.leastTypeImageView.image = [UIImage imageNamed:leastTypeStr];
+        }else{
+            NSString *femaleImageMost = [NSString stringWithFormat:@"女%@", mostTypeStr];
+            NSString *femaleImageLeast = [NSString stringWithFormat:@"女%@", leastTypeStr];
+            self.mostTypeImageView.image = [UIImage imageNamed:femaleImageMost];
+            self.leastTypeImageView.image = [UIImage imageNamed:femaleImageLeast];
+        }
     };
     
 }
