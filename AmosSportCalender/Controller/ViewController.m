@@ -21,8 +21,10 @@
 #import "SummaryViewController.h"
 #import "LeftMenuTableView.h"
 #import "SettingStore.h"
-
+#import "SettingTableView.h"
 #import "UIViewController+MMDrawerController.h"
+
+#define IS_IOS8 ([[UIDevice currentDevice].systemVersion doubleValue] >= 8.0)
 
 @interface ViewController ()<UITableViewDataSource, UITableViewDelegate, EKEventEditViewDelegate>
 {
@@ -57,6 +59,8 @@
 @property (nonatomic, strong) EKEvent *ekevent;
 @property (nonatomic, strong) NSString *idf;
 
+@property (nonatomic) NSInteger applicationIconBadgeNumber;
+
 @end
 
 @implementation ViewController
@@ -83,6 +87,11 @@
     
     //主页无计划时TableView上显示的文字
     self.homeStrLists = [[NSArray alloc] initWithObjects:@"努力画满每一天的圈圈吧！", @"今天没有运动，做个计划吧！", @"每日的计划可以同步到系统日历里去哦", @"为过去创建的运动计划默认已完成",nil];
+    
+    if (IS_IOS8) {
+    UIUserNotificationSettings *setting=[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert categories:nil];
+    [[UIApplication sharedApplication] registerUserNotificationSettings:setting];
+    }
     
     _tableView.delegate = self;
     _tableView.dataSource = self;
@@ -115,6 +124,13 @@
     for (int i = 0; i < array.count; i++){
         self.sportTypes[i] = [[array objectAtIndex:i] objectForKey:@"sportType"];
     }
+    
+//    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+//    [nc addObserver:self
+//           selector:@selector(messageTest)
+//               name:@"iconMessage"
+//             object:nil];
+    
 //    NSLog(@"%@", NSStringFromSelector(_cmd));
 }
 
@@ -123,7 +139,7 @@
     [super viewWillAppear:animated];
     [self loadTheDateEvents];
     self.tempEvent = nil;
-
+    
 //    NSLog(@"%@", NSStringFromSelector(_cmd));
 }
 
@@ -133,6 +149,12 @@
     [_calendarManager reload];
     
 //    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)dealloc
+{
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc removeObserver:self];
 }
 
 - (void)loadTheDateEvents
@@ -145,10 +167,9 @@
     self.oneDayEvents = eventsByDate[key];
     
     [self setUnderTableLabelWithDifferentDay: self.selectedDate];
-    
     [_calendarManager reload];
     [self.tableView reloadData];
-    
+
 //    NSLog(@"%@", NSStringFromSelector(_cmd));
 }
 
@@ -170,6 +191,17 @@
     
     NSNumber *tempNum = [NSNumber numberWithInt:i];
     self.doneNumbers[key] = tempNum;
+    
+    SettingStore *setting = [SettingStore sharedSetting];
+    if (setting.iconBadgeNumber) {
+    //设置桌面的数字角标
+    NSString *todayKey = [[self dateFormatter] stringFromDate:[NSDate date]];
+    if ([key isEqualToString:todayKey] && eventsByDate && _doneNumbers){
+        _applicationIconBadgeNumber = [eventsByDate[todayKey] count] - [_doneNumbers[todayKey] integerValue];
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:_applicationIconBadgeNumber];
+    }}else{
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    }
 }
 
 - (void)setTableViewHeadTitle: (NSDate *)date{

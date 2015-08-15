@@ -14,6 +14,7 @@ static NSString *const kGenderKey = @"gender";
 static NSString *const kiCloudKey = @"iCloud";
 static NSString *const kpassWordOfFingerprintKey = @"passWordOfFingerprint";
 static NSString *const ksportTypeImageMaleKey = @"sportTypeImageMale";
+static NSString *const kIconBadgeNumber = @"IconBadgeNumber";
 
 @interface SettingStore()
 
@@ -48,7 +49,8 @@ static NSString *const ksportTypeImageMaleKey = @"sportTypeImageMale";
                                           kGenderKey: @(""),
                                           kiCloudKey: @NO,
                                           kpassWordOfFingerprintKey: @NO,
-                                          ksportTypeImageMaleKey: @YES}];
+                                          ksportTypeImageMaleKey: @YES,
+                                          kIconBadgeNumber: @YES}];
         
         _name = [_userDefaults stringForKey:kNameKey];
         _age = [_userDefaults stringForKey:kAgeKey];
@@ -56,6 +58,7 @@ static NSString *const ksportTypeImageMaleKey = @"sportTypeImageMale";
         _iCloud = [_userDefaults boolForKey:kiCloudKey];
         _passWordOfFingerprint = [_userDefaults boolForKey:kpassWordOfFingerprintKey];
         _sportTypeImageMale = [_userDefaults boolForKey:ksportTypeImageMaleKey];
+        _iconBadgeNumber = [_userDefaults boolForKey:kIconBadgeNumber];
     }
     return self;
 }
@@ -95,6 +98,12 @@ static NSString *const ksportTypeImageMaleKey = @"sportTypeImageMale";
 {
     _sportTypeImageMale = sportTypeImageMale;
     [self.userDefaults setBool:sportTypeImageMale forKey:ksportTypeImageMaleKey];
+}
+
+- (void)setIconBadgeNumber:(BOOL)iconBadgeNumber
+{
+    _iconBadgeNumber = iconBadgeNumber;
+    [self.userDefaults setBool:iconBadgeNumber forKey:kIconBadgeNumber];
 }
 
 @end

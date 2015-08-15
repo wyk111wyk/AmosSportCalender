@@ -15,6 +15,8 @@ static NSString * const YKSummaryCellReuseId = @"summaryNewTVCell";
 
 @interface DetailSummaryVC ()<UITableViewDataSource, UITableViewDelegate>
 
+
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dateArray;
 @property (nonatomic, strong) NSMutableArray *eventArray;
@@ -30,6 +32,7 @@ static NSString * const YKSummaryCellReuseId = @"summaryNewTVCell";
     self.navigationItem.rightBarButtonItem = rightButton;
     self.navigationItem.title = @"项目详情";
     
+    //设置BackgroundView的属性
     self.backgroundView.layer.cornerRadius = 7;
     
     UINib *nib = [UINib nibWithNibName:YKSummaryCellReuseId bundle:nil];
@@ -98,6 +101,15 @@ static NSString * const YKSummaryCellReuseId = @"summaryNewTVCell";
         self.avegSpaceLabel.text = @"0";
         self.belowTableViewLabel.text = @"还没有该项运动类型的任何记录";
     }
+    
+    if ([UIScreen mainScreen].bounds.size.width == 320) {
+        UIFont *font = [UIFont systemFontOfSize:22];
+        [_avegTime setFont:font];
+        [_avegSpaceLabel setFont:font];
+    }
+    
+    [_avegSpaceLabel sizeToFit];
+    [_avegTime sizeToFit];
     
     //图片设置
     SettingStore *setting = [SettingStore sharedSetting];

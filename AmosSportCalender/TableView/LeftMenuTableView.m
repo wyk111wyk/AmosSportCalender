@@ -10,7 +10,6 @@
 #import "SummaryTableView.h"
 #import "SummaryViewController.h"
 #import "UIViewController+MMDrawerController.h"
-#import "LeftMenuTableView.h"
 
 static NSString * const YKMunuViewControllerCellReuseId = @"CellReuseId";
 @interface LeftMenuTableView ()
@@ -190,6 +189,8 @@ static NSString * const YKMunuViewControllerCellReuseId = @"CellReuseId";
                 [self.mm_drawerController setCenterViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"settingNav"] withCloseAnimation:YES completion:nil];
             }else if (indexPath.row == 1.0){
                 NSLog(@"click section = %li row = %li", (long)indexPath.section, (long)indexPath.row);
+                
+                [self.mm_drawerController setCenterViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"feedbackNav"] withCloseAnimation:YES completion:nil];
             }else if (indexPath.row == 2.0){
                 NSLog(@"click section = %li row = %li", (long)indexPath.section, (long)indexPath.row);
             }

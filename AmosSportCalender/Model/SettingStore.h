@@ -19,5 +19,6 @@
 @property (nonatomic)BOOL iCloud;
 @property (nonatomic)BOOL passWordOfFingerprint;
 @property (nonatomic)BOOL sportTypeImageMale;
+@property (nonatomic)BOOL iconBadgeNumber;
 
 @end

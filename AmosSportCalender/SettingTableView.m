@@ -10,6 +10,7 @@
 #import "SettingTableView.h"
 #import "SettingStore.h"
 #import "UIViewController+MMDrawerController.h"
+#import "ViewController.h"
 
 @interface SettingTableView ()<UITextFieldDelegate, UIPickerViewDelegate,UIPickerViewDataSource>
 
@@ -20,11 +21,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *iCloudLabel;
 @property (weak, nonatomic) IBOutlet UILabel *passwordLabel;
 @property (weak, nonatomic) IBOutlet UILabel *imageTypeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *iconBadgeNumberLabel;
+
 @property (weak, nonatomic) IBOutlet UISegmentedControl *imageTypeSegment;
-
-
 @property (weak, nonatomic) IBOutlet UISwitch *iCloudSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *passwordSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *iconBadgeNumberSwitch;
 
 @property (strong, nonatomic) UIPickerView *agePicker;
 @property (strong, nonatomic) UIPickerView *genderPicker;
@@ -75,10 +77,24 @@
     
     _iCloudSwitch.on = setting.iCloud;
     _passwordSwitch.on = setting.passWordOfFingerprint;
+    
+    _iconBadgeNumberSwitch.on = setting.iconBadgeNumber;
+    
     if (setting.sportTypeImageMale) {
         _imageTypeSegment.selectedSegmentIndex = 0;
     }else{
         _imageTypeSegment.selectedSegmentIndex = 1;
+    }
+    
+    [self setLabelStatus:setting];
+}
+
+- (void)setLabelStatus: (SettingStore *)setting
+{
+    if (setting.iconBadgeNumber) {
+        _iconBadgeNumberLabel.textColor = [UIColor blackColor];
+    }else{
+        _iconBadgeNumberLabel.textColor = [UIColor lightGrayColor];
     }
 }
 
@@ -93,6 +109,21 @@
     }];
 }
 
+- (IBAction)changeSwitchView:(UISwitch *)sender {
+    SettingStore *setting = [SettingStore sharedSetting];
+    if (sender == _iconBadgeNumberSwitch) {
+        if (_iconBadgeNumberSwitch.on) {
+            setting.iconBadgeNumber = YES;
+        }else{
+            setting.iconBadgeNumber = NO;
+        }
+    }
+    
+    [self setLabelStatus:setting];
+    
+    [self postMessage];
+}
+
 - (IBAction)switchValueChange:(UISegmentedControl *)sender {
     SettingStore *setting = [SettingStore sharedSetting];
     if (_imageTypeSegment.selectedSegmentIndex == 0) {
@@ -102,12 +133,24 @@
     }
 }
 
+-(void)postMessage{
+    
+    [[NSNotificationCenter
+      defaultCenter] postNotificationName:@"iconMessage" object:@"This is start!"];
+    NSLog(@"注册信息应该要传进去了");
+}
+
 #pragma mark - TextField
 
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     textField.textColor = [UIColor colorWithRed:0.0000 green:0.4784 blue:1.0000 alpha:0.6];
     self.navigationItem.rightBarButtonItem = self.finishButton;
+    
+    if (textField == _ageTextField) {
+        int i = [textField.text intValue];
+        [self.agePicker selectRow:(5100/2 - 50 + i) inComponent:0 animated:NO];
+    }
     
     return YES;
 }

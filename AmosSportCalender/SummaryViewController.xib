@@ -396,6 +396,7 @@
                     </constraints>
                     <variation key="default">
                         <mask key="constraints">
+                            <exclude reference="c89-ds-2cE"/>
                             <exclude reference="wPd-kX-5tQ"/>
                         </mask>
                     </variation>
@@ -462,13 +463,14 @@
             <point key="canvasLocation" x="760.5" y="-98"/>
         </view>
         <view contentMode="scaleToFill" id="KtI-al-x2i">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="324"/>
+            <rect key="frame" x="0.0" y="0.0" width="375" height="337"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="L1c-2f-kQF">
-                    <rect key="frame" x="8" y="0.0" width="359" height="316"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" style="plain" separatorStyle="default" rowHeight="47" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="L1c-2f-kQF">
+                    <rect key="frame" x="8" y="0.0" width="359" height="329"/>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <connections>
                         <outlet property="dataSource" destination="-1" id="prf-ED-de2"/>
                         <outlet property="delegate" destination="-1" id="kod-Gg-NMu"/>
@@ -485,7 +487,7 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="761" y="220.5"/>
+            <point key="canvasLocation" x="760.5" y="222.5"/>
         </view>
     </objects>
     <resources>
