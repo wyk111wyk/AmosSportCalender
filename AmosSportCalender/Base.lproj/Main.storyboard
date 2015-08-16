@@ -957,6 +957,28 @@
             </objects>
             <point key="canvasLocation" x="2764" y="345.06"/>
         </scene>
+        <!--关于-->
+        <scene sceneID="Ag4-W6-8OK">
+            <objects>
+                <viewController id="0Lf-Rh-llU" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="M1r-0E-ZD4"/>
+                        <viewControllerLayoutGuide type="bottom" id="kPI-Uk-46H"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6IM-SI-ADN">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <animations/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="关于" id="zYt-cH-mxi">
+                        <barButtonItem key="leftBarButtonItem" image="menuIcon" id="HNO-Db-Ryx"/>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IYP-ap-tHM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2592.5" y="1179.5"/>
+        </scene>
         <!--New Evevt View Controller-->
         <scene sceneID="cDO-c3-AFI">
             <objects>
@@ -1507,7 +1529,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="现有功能改善" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ySG-dj-fdO">
-                                        <rect key="frame" x="53" y="40.5" width="105" height="20.5"/>
+                                        <rect key="frame" x="53" y="40" width="105" height="20.5"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="105" id="C3P-xF-PMo"/>
@@ -1527,7 +1549,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="其他反馈" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Mt-9m-gs4">
-                                        <rect key="frame" x="243" y="40.5" width="68" height="20.5"/>
+                                        <rect key="frame" x="243" y="40" width="68" height="20.5"/>
                                         <animations/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -1552,11 +1574,11 @@
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="uncheck" translatesAutoresizingMaskIntoConstraints="NO" id="7mW-7J-nXe">
-                                        <rect key="frame" x="30" y="41.5" width="19" height="19"/>
+                                        <rect key="frame" x="30" y="41" width="19" height="19"/>
                                         <animations/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wqD-0Z-zdI">
-                                        <rect key="frame" x="30" y="41.5" width="128" height="20"/>
+                                        <rect key="frame" x="30" y="41" width="128" height="20"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="0eb-Wv-wyY"/>
@@ -1566,11 +1588,11 @@
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="uncheck" translatesAutoresizingMaskIntoConstraints="NO" id="SuS-pc-27P">
-                                        <rect key="frame" x="220" y="41.5" width="19" height="19"/>
+                                        <rect key="frame" x="220" y="41" width="19" height="19"/>
                                         <animations/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EK2-f8-czI">
-                                        <rect key="frame" x="220" y="40.5" width="91" height="20"/>
+                                        <rect key="frame" x="220" y="40" width="91" height="20"/>
                                         <animations/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="20" id="5mR-vF-1oR"/>
@@ -1654,9 +1676,17 @@
                                 </connections>
                             </textView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0GM-mG-ogp">
-                                <rect key="frame" x="8" y="398.5" width="359" height="260.5"/>
+                                <rect key="frame" x="8" y="398" width="359" height="260.5"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <label key="tableFooterView" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="还没有足够数目的反馈记录，有什么想法赶快发给我吧~" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Aov-XL-hEP">
+                                    <rect key="frame" x="0.0" y="0.0" width="359" height="33"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <animations/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                    <color key="textColor" red="0.71651112362051284" green="0.71651112362051284" blue="0.71651112362051284" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                                 <connections>
                                     <outlet property="dataSource" destination="zWi-TJ-Loi" id="WnP-ny-pKO"/>
                                     <outlet property="delegate" destination="zWi-TJ-Loi" id="i5w-hb-tjw"/>
@@ -1691,14 +1721,14 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="oTU-Pk-wwd"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
                                 <connections>
                                     <outlet property="delegate" destination="zWi-TJ-Loi" id="8a8-Pr-W2G"/>
                                 </connections>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="优先解决最靠前的问题" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vbi-py-HHb">
-                                <rect key="frame" x="102.5" y="377" width="170" height="13.5"/>
+                                <rect key="frame" x="102" y="377" width="170" height="13.5"/>
                                 <animations/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="170" id="dXT-QZ-vPv"/>
@@ -1792,6 +1822,26 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="l56-y5-AIN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="34.5" y="1173.5"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="JMd-Cr-kDU">
+            <objects>
+                <navigationController storyboardIdentifier="aboutNav" automaticallyAdjustsScrollViewInsets="NO" id="96U-2J-Abz" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ea4-l7-xg3">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="0Lf-Rh-llU" kind="relationship" relationship="rootViewController" id="KJM-Yp-7zk"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AuQ-16-Le7" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2083" y="1180"/>
         </scene>
     </scenes>
     <resources>

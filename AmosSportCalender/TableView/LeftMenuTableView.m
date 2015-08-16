@@ -193,6 +193,7 @@ static NSString * const YKMunuViewControllerCellReuseId = @"CellReuseId";
                 [self.mm_drawerController setCenterViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"feedbackNav"] withCloseAnimation:YES completion:nil];
             }else if (indexPath.row == 2.0){
                 NSLog(@"click section = %li row = %li", (long)indexPath.section, (long)indexPath.row);
+                [self.mm_drawerController setCenterViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"aboutNav"] withCloseAnimation:YES completion:nil];
             }
             break;
         default:

@@ -21,6 +21,8 @@ NSArray *sportTypes;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    [application setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    
     [self createAllSportTypeArray];
     
     UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];

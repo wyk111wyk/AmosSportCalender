@@ -31,7 +31,6 @@
 		B087E0291B76FFF2003D90B6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B087E0281B76FFF2003D90B6 /* QuartzCore.framework */; };
 		B087E02E1B7716E8003D90B6 /* DetailSummaryVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B087E02C1B7716E8003D90B6 /* DetailSummaryVC.xib */; };
 		B08875E11B6F9AF3008DF5D4 /* SummaryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B08875DF1B6F9AF3008DF5D4 /* SummaryViewController.xib */; };
-		B08875F11B71AD2B008DF5D4 /* DSC00146.png in Resources */ = {isa = PBXBuildFile; fileRef = B08875F01B71AD2B008DF5D4 /* DSC00146.png */; };
 		B0B973671B74808F0008640E /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B973651B74808F0008640E /* EventKit.framework */; };
 		B0B973681B74808F0008640E /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B973661B74808F0008640E /* EventKitUI.framework */; };
 		B0B9736D1B74DCF50008640E /* summaryTypeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0B9736B1B74DCF50008640E /* summaryTypeCell.xib */; };
@@ -56,12 +55,12 @@
 		B0DC6BE51B7F079F009DFA5A /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DC6BE41B7F079F009DFA5A /* FeedbackViewController.m */; };
 		B0DC6BE91B7F2970009DFA5A /* FeedbackTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DC6BE71B7F2970009DFA5A /* FeedbackTVCell.m */; };
 		B0DC6BEA1B7F2970009DFA5A /* FeedbackTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0DC6BE81B7F2970009DFA5A /* FeedbackTVCell.xib */; };
+		B0E144D61B80F6BB00934377 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E144D51B80F6BB00934377 /* Launch Screen.storyboard */; };
 		B0FA58971B4678D400E3BE94 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FA58961B4678D400E3BE94 /* main.m */; };
 		B0FA589A1B4678D400E3BE94 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FA58991B4678D400E3BE94 /* AppDelegate.m */; };
 		B0FA58A01B4678D400E3BE94 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0FA589E1B4678D400E3BE94 /* Main.storyboard */; };
 		B0FA58A31B4678D400E3BE94 /* AmosSportCalender.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0FA58A11B4678D400E3BE94 /* AmosSportCalender.xcdatamodeld */; };
 		B0FA58A51B4678D400E3BE94 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0FA58A41B4678D400E3BE94 /* Assets.xcassets */; };
-		B0FA58A81B4678D400E3BE94 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0FA58A61B4678D400E3BE94 /* LaunchScreen.storyboard */; };
 		B0FA58B31B4678D400E3BE94 /* AmosSportCalenderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FA58B21B4678D400E3BE94 /* AmosSportCalenderTests.m */; };
 		B0FA58BE1B4678D400E3BE94 /* AmosSportCalenderUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FA58BD1B4678D400E3BE94 /* AmosSportCalenderUITests.m */; };
 /* End PBXBuildFile section */
@@ -136,7 +135,6 @@
 		B087E0281B76FFF2003D90B6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		B087E02C1B7716E8003D90B6 /* DetailSummaryVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailSummaryVC.xib; sourceTree = "<group>"; };
 		B08875DF1B6F9AF3008DF5D4 /* SummaryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SummaryViewController.xib; sourceTree = "<group>"; };
-		B08875F01B71AD2B008DF5D4 /* DSC00146.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = DSC00146.png; sourceTree = "<group>"; };
 		B0B973641B747CFF0008640E /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		B0B973651B74808F0008640E /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		B0B973661B74808F0008640E /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
@@ -181,6 +179,7 @@
 		B0DC6BE61B7F2970009DFA5A /* FeedbackTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedbackTVCell.h; path = Cell/FeedbackTVCell.h; sourceTree = "<group>"; };
 		B0DC6BE71B7F2970009DFA5A /* FeedbackTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedbackTVCell.m; path = Cell/FeedbackTVCell.m; sourceTree = "<group>"; };
 		B0DC6BE81B7F2970009DFA5A /* FeedbackTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FeedbackTVCell.xib; path = Cell/FeedbackTVCell.xib; sourceTree = "<group>"; };
+		B0E144D51B80F6BB00934377 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		B0FA58921B4678D400E3BE94 /* AmosSportCalender.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AmosSportCalender.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0FA58961B4678D400E3BE94 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B0FA58981B4678D400E3BE94 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -188,7 +187,6 @@
 		B0FA589F1B4678D400E3BE94 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B0FA58A21B4678D400E3BE94 /* AmosSportCalender.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AmosSportCalender.xcdatamodel; sourceTree = "<group>"; };
 		B0FA58A41B4678D400E3BE94 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		B0FA58A71B4678D400E3BE94 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B0FA58A91B4678D400E3BE94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0FA58AE1B4678D400E3BE94 /* AmosSportCalenderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AmosSportCalenderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0FA58B21B4678D400E3BE94 /* AmosSportCalenderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AmosSportCalenderTests.m; sourceTree = "<group>"; };
@@ -331,7 +329,7 @@
 				B0B9736B1B74DCF50008640E /* summaryTypeCell.xib */,
 				B0C100F81B772A0700E4204B /* summaryNewTVCell.xib */,
 				B0DC6BE81B7F2970009DFA5A /* FeedbackTVCell.xib */,
-				B0FA58A61B4678D400E3BE94 /* LaunchScreen.storyboard */,
+				B0E144D51B80F6BB00934377 /* Launch Screen.storyboard */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -446,7 +444,6 @@
 			isa = PBXGroup;
 			children = (
 				B0FA58A41B4678D400E3BE94 /* Assets.xcassets */,
-				B08875F01B71AD2B008DF5D4 /* DSC00146.png */,
 				B0FA58A91B4678D400E3BE94 /* Info.plist */,
 				B0FA58961B4678D400E3BE94 /* main.m */,
 				B0723E5B1B79002900F8A63E /* sportTypes.plist */,
@@ -578,12 +575,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0DC6BEA1B7F2970009DFA5A /* FeedbackTVCell.xib in Resources */,
-				B0FA58A81B4678D400E3BE94 /* LaunchScreen.storyboard in Resources */,
 				B0C100F91B772A0700E4204B /* summaryNewTVCell.xib in Resources */,
 				B0B9736D1B74DCF50008640E /* summaryTypeCell.xib in Resources */,
+				B0E144D61B80F6BB00934377 /* Launch Screen.storyboard in Resources */,
 				B0FA58A51B4678D400E3BE94 /* Assets.xcassets in Resources */,
 				B0FA58A01B4678D400E3BE94 /* Main.storyboard in Resources */,
-				B08875F11B71AD2B008DF5D4 /* DSC00146.png in Resources */,
 				B087E02E1B7716E8003D90B6 /* DetailSummaryVC.xib in Resources */,
 				B08875E11B6F9AF3008DF5D4 /* SummaryViewController.xib in Resources */,
 				B0723E5C1B79002900F8A63E /* sportTypes.plist in Resources */,
@@ -693,14 +689,6 @@
 				B0FA589F1B4678D400E3BE94 /* Base */,
 			);
 			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		B0FA58A61B4678D400E3BE94 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B0FA58A71B4678D400E3BE94 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

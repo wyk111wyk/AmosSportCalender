@@ -85,6 +85,9 @@
 {
     [super viewDidLoad];
     
+    //开机画面的显示时间
+    [NSThread sleepForTimeInterval:1.8];
+    
     //主页无计划时TableView上显示的文字
     self.homeStrLists = [[NSArray alloc] initWithObjects:@"努力画满每一天的圈圈吧！", @"今天没有运动，做个计划吧！", @"每日的计划可以同步到系统日历里去哦", @"为过去创建的运动计划默认已完成",nil];
     
