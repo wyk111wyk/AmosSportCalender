@@ -35,6 +35,7 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
 @property (weak, nonatomic) IBOutlet UILabel *theWholeTime;
 @property (weak, nonatomic) IBOutlet UILabel *aveTimesAWeek;
 @property (weak, nonatomic) IBOutlet UILabel *aveTime;
+@property (weak, nonatomic) IBOutlet UILabel *percentageLabel;
 
 @property (nonatomic, strong)NSMutableDictionary *eventsByDate;
 @property (nonatomic, strong)NSArray *sortedKeyArray;
@@ -46,15 +47,22 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
 
 @implementation SummaryViewController
 
-#pragma mark - 代码执行部分
+@synthesize percentageLabel = _percentageLabel;
+
 #pragma mark - LifeCycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //View的初始化
-    CGFloat contentHight;
+    //TableView初始化
+    UINib *nib = [UINib nibWithNibName:summaryCellReuseId bundle:nil];
+    [self.tableView registerNib:nib forCellReuseIdentifier:summaryCellReuseId];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.isDay = YES;
     
+    //View的初始化
+    self.view.backgroundColor = [UIColor colorWithRed:0.9529 green:0.9529 blue:0.9529 alpha:1];
     self.scrollView.frame = CGRectMake(0, 64, self.screenWidth, self.screenHight);
     
     self.view1.frame = CGRectMake(0, 0, self.screenWidth, 167);
@@ -65,10 +73,17 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     else if (self.screenWidth == 414)
     { self.view2.frame = CGRectMake(0, self.view1.frame.size.height, self.screenWidth, 167.5); }
     
-    self.tableView.frame = CGRectMake(0, 0, self.tableView.bounds.size.width, self.tableView.bounds.size.height);
-    self.view3.frame = CGRectMake(0, self.view1.frame.size.height + self.view2.frame.size.height, self.screenWidth, 337);
+    self.tableView.frame = CGRectMake(0, 0, self.tableView.bounds.size.width, 376);
+    self.view3.frame = CGRectMake(0, self.view1.frame.size.height + self.view2.frame.size.height, self.screenWidth, 384);
     
-    contentHight = self.view1.frame.size.height + self.view2.frame.size.height + self.view3.frame.size.height;
+    NSLog(@"tableview: %g, view3: %g", self.tableView.frame.size.height, _view3.frame.size.height);
+    
+    CGFloat contentHight;
+    if (self.screenWidth == 320) { contentHight = 824; }
+    else if (self.screenWidth == 375) { contentHight = 773; }
+    else if (self.screenWidth == 414) { contentHight = 720; }
+    
+//    = self.view1.frame.size.height + self.view2.frame.size.height + self.view3.frame.size.height;
     self.scrollView.contentSize = CGSizeMake(self.screenWidth, contentHight);
     self.scrollView.bounces = YES;
     self.scrollView.showsVerticalScrollIndicator = YES;
@@ -78,13 +93,16 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     [self.scrollView addSubview:self.view2];
     [self.scrollView addSubview:self.view3];
     
+    NSLog(@"1 screenWidth is %g, screen hight %g, contentHight is %g", self.screenWidth, self.screenHight, contentHight);
+    
     //图表View的初始化
     self.pieChartView.delegate = self;
     [self.pieChartView setDataSource:self];
+    
      //optional
     [self.pieChartView setStartPieAngle:M_PI_2];
     [self.pieChartView setAnimationSpeed:0.8];
-    [self.pieChartView setLabelFont:[UIFont fontWithName:@"DBLCDTempBlack" size:10]];
+    [self.pieChartView setLabelFont:[UIFont fontWithName:@"ArialMT" size:11]];
     [self.pieChartView setLabelRadius:50];
     [self.pieChartView setShowPercentage:NO];
     [self.pieChartView setPieBackgroundColor:[UIColor colorWithWhite:0.95 alpha:1]];
@@ -112,12 +130,8 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
 //    [[self.tableView layer] setShadowOpacity:1];               // 阴影透明度
 //    [[self.tableView layer] setShadowColor:[UIColor colorWithWhite:0.2 alpha:0.45].CGColor]; // 阴影的颜色
     
-    //TableView初始化
-    UINib *nib = [UINib nibWithNibName:summaryCellReuseId bundle:nil];
-    [self.tableView registerNib:nib forCellReuseIdentifier:summaryCellReuseId];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = [UIColor clearColor];
-    self.isDay = YES;
+    [self.percentageLabel.layer setCornerRadius:22];
+    [self.percentageLabel setText:@"100%"];
     
     //初始化数据
     self.eventsByDate = [[NSMutableDictionary alloc] initWithDictionary:[[EventStore sharedStore] allItems] copyItems:NO];
@@ -210,8 +224,12 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     self.scrollView.frame = CGRectMake(0, 64, self.screenWidth, self.screenHight);
     [super viewWillAppear:animated];
     
-//    NSLog(@"2 screenWidth is %g, [mainscreen] is %g, screen hight %g, [mainscreen] hight %g", self.screenWidth, [UIScreen mainScreen].bounds.size.width, self.screenHight, [UIScreen mainScreen].bounds.size.height);
+    if (_contentHight) {
+    self.scrollView.contentSize = CGSizeMake(self.screenWidth, _contentHight);
+    NSLog(@"2 screenWidth is %g, screen hight %g, contentHight is %g", self.screenWidth, self.screenHight, _contentHight);
+    }
     
+    _contentHight = self.view1.frame.size.height + self.view2.frame.size.height + self.view3.frame.size.height;
     [self.pieChartView reloadData];
 }
 
@@ -468,19 +486,23 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
 #pragma mark - XYPieChart Delegate
 - (void)pieChart:(XYPieChart *)pieChart willSelectSliceAtIndex:(NSUInteger)index
 {
-    NSLog(@"will select slice at index %lu",index);
+//    NSLog(@"will select slice at index %lu",index);
+    NSDictionary *cellInfoDic = self.sortedTypeArray[index];
+    float f = [cellInfoDic[@"number"] floatValue] / (float)self.eventsByDate.count;
+    self.percentageLabel.text = [NSString stringWithFormat:@"%.1f%%", f*100];
 }
 - (void)pieChart:(XYPieChart *)pieChart willDeselectSliceAtIndex:(NSUInteger)index
 {
-    NSLog(@"will deselect slice at index %lu",index);
+//    NSLog(@"will deselect slice at index %lu",index);
+    self.percentageLabel.text = @"100%";
 }
 - (void)pieChart:(XYPieChart *)pieChart didDeselectSliceAtIndex:(NSUInteger)index
 {
-    NSLog(@"did deselect slice at index %lu",index);
+//    NSLog(@"did deselect slice at index %lu",index);
 }
 - (void)pieChart:(XYPieChart *)pieChart didSelectSliceAtIndex:(NSUInteger)index
 {
-    NSLog(@"did select slice at index %lu",index);
+//    NSLog(@"did select slice at index %lu",index);
 }
 
 #pragma mark - 判断cell文字颜色的方法
@@ -498,6 +520,8 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
         return [UIColor colorWithRed:0.9922 green:0.5765 blue:0.1490 alpha:0.8];
     }else if ([sportType isEqualToString:@"核心"]){
         return [UIColor colorWithRed:0.9922 green:0.2980 blue:0.9882 alpha:0.8];
+    }else if ([sportType isEqualToString:@"手臂"]){
+        return [UIColor colorWithRed:0.3647 green:0.4314 blue:0.9373 alpha:0.8];
     }else if ([sportType isEqualToString:@"其他"]){
         return [UIColor colorWithRed:0.6078 green:0.9255 blue:0.2980 alpha:0.8];
     }

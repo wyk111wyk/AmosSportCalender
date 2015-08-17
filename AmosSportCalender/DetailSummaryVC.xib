@@ -239,7 +239,7 @@
                 </tableView>
             </subviews>
             <animations/>
-            <color key="backgroundColor" red="0.90917939290000005" green="0.90917939290000005" blue="0.90917939290000005" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.94060968140000001" green="0.94060968140000001" blue="0.94060968140000001" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="q6F-FU-Tre" secondAttribute="trailing" constant="8" id="08I-VC-Maf"/>
                 <constraint firstAttribute="trailing" secondItem="UHt-UA-VnO" secondAttribute="trailing" constant="8" id="2bh-rd-heb"/>

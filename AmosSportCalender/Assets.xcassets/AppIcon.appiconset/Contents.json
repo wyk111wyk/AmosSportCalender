@@ -27,13 +27,13 @@
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "Amos运动日记Icon120.png",
+      "filename" : "Icon-60@2x.png",
       "scale" : "2x"
     },
     {
       "size" : "60x60",
       "idiom" : "iphone",
-      "filename" : "Amos运动日记Icon180.png",
+      "filename" : "Icon-60@3x.png",
       "scale" : "3x"
     }
   ],

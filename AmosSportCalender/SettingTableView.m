@@ -121,7 +121,7 @@
     
     [self setLabelStatus:setting];
     
-    [self postMessage];
+     [[NSNotificationCenter defaultCenter] postNotificationName:@"iconMessage" object:nil];
 }
 
 - (IBAction)switchValueChange:(UISegmentedControl *)sender {
@@ -131,13 +131,6 @@
     }else if(_imageTypeSegment.selectedSegmentIndex == 1){
         setting.sportTypeImageMale = NO;
     }
-}
-
--(void)postMessage{
-    
-    [[NSNotificationCenter
-      defaultCenter] postNotificationName:@"iconMessage" object:@"This is start!"];
-    NSLog(@"注册信息应该要传进去了");
 }
 
 #pragma mark - TextField

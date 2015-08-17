@@ -56,6 +56,7 @@ static NSString *const cellID = @"feedbackcell";
     [self.tableView registerNib:nib forCellReuseIdentifier:cellID];
     _tableView.rowHeight = 50;
     _tableView.allowsSelection = NO;
+    _tableView.backgroundColor = [UIColor clearColor];
     
     _sendButton.enabled = NO;
     
@@ -96,7 +97,7 @@ static NSString *const cellID = @"feedbackcell";
     
     Class mailClass = (NSClassFromString(@"MFMailComposeViewController"));
     if (!mailClass) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"发送邮件"
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"无法发送"
                                                          message:@"当前系统版本不支持应用内发送邮件功能，您可以使用mailto方法代替"
                                                         delegate:self
                                                cancelButtonTitle:@"好的"
@@ -106,8 +107,8 @@ static NSString *const cellID = @"feedbackcell";
         return;
     }
     if (![mailClass canSendMail]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"发送邮件"
-                                                         message:@"用户还没有设置邮件账户"
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"无法发送"
+                                                         message:@"您还没有设置邮件账户"
                                                         delegate:self
                                                cancelButtonTitle:@"好的"
                                                otherButtonTitles: nil];
@@ -245,13 +246,17 @@ static NSString *const cellID = @"feedbackcell";
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 0;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     FeedbackTVCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellID];
     
+    cell.clickToVoteBlock = ^(){
+        NSLog(@"点赞还是反对");
+        [self alertForVote];
+    };
     return cell;
 }
 
@@ -278,6 +283,28 @@ static NSString *const cellID = @"feedbackcell";
             break;
     }
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)alertForVote
+{
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"反馈：麻烦把xxx这个图标做的稍微大一点"
+                                                                   message:@""
+                                                            preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消"
+                                              style:UIAlertActionStyleCancel
+                                            handler:^(UIAlertAction * action) {
+                                            }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"△ 赞同，需优先解决"
+                                              style:UIAlertActionStyleDestructive
+                                            handler:^(UIAlertAction * action) {
+                                            }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"▽ 反对，没什么必要"
+                                              style:UIAlertActionStyleDefault
+                                            handler:^(UIAlertAction * action) {
+                                            }]];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 @end

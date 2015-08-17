@@ -52,6 +52,9 @@ static NSString* const typeManageCellReuseId = @"typeManageCell";
 - (IBAction)openAndCloseDrawer:(UIBarButtonItem *)sender {
     [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
 }
+- (IBAction)saveToDefault:(UIButton *)sender {
+    [self alertForSave];
+}
 
 #pragma mark - Table view data source
 
@@ -61,14 +64,14 @@ static NSString* const typeManageCellReuseId = @"typeManageCell";
 
 - (nullable UIView *)tableView:(nonnull UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 22)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 30)];
     [headerView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
     headerView.backgroundColor = [UIColor clearColor];
     
     UILabel *headText = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 22)];
     headText.textColor = [UIColor darkGrayColor];
-    [headText setFont:[UIFont fontWithName:@"Arial" size:13]];
-    headText.text = @"点击项目以编辑包含的运动种类，类型暂时无法编辑";
+    [headText setFont:[UIFont fontWithName:@"Arial" size:12]];
+    headText.text = @"点击项目以编辑运动种类，类型暂时无法编辑";
     [headText sizeToFit];
     headText.center = headerView.center;
     [headerView addSubview:headText];
@@ -132,6 +135,8 @@ static NSString* const typeManageCellReuseId = @"typeManageCell";
         return [UIColor colorWithRed:0.9922 green:0.5765 blue:0.1490 alpha:0.8];
     }else if ([sportType isEqualToString:@"核心"]){
         return [UIColor colorWithRed:0.9922 green:0.2980 blue:0.9882 alpha:0.8];
+    }else if ([sportType isEqualToString:@"手臂"]){
+        return [UIColor colorWithRed:0.3647 green:0.4314 blue:0.9373 alpha:0.8];
     }else if ([sportType isEqualToString:@"其他"]){
         return [UIColor colorWithRed:0.6078 green:0.9255 blue:0.2980 alpha:0.8];
     }
@@ -139,4 +144,49 @@ static NSString* const typeManageCellReuseId = @"typeManageCell";
     return [UIColor darkGrayColor];
 }
 
+- (void)alertForSave
+{
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@""
+                                                                   message:@"点击确定后系统默认将被替换，以后将还原到此次储存的数据。"
+                                                            preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消"
+                                              style:UIAlertActionStyleCancel
+                                            handler:^(UIAlertAction * action) {
+                                            }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"保存"
+                                              style:UIAlertActionStyleDestructive
+                                            handler:^(UIAlertAction * action) {
+                                                [self saveTheDate];
+                                                [self alertForSuccess];
+                                            }]];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)alertForSuccess
+{
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"系统默认已被替换"
+                                                                   message:@""
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"确定"
+                                              style:UIAlertActionStyleCancel
+                                            handler:^(UIAlertAction * action) {
+                                            }]];
+
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)saveTheDate
+{
+    BOOL successWrited = [self.sportTypes writeToFile:[[NSBundle mainBundle] pathForResource:@"sportTypes" ofType:@"plist"] atomically:YES];
+    
+    if (successWrited) {
+        NSLog(@"已重置默认运动项目plist数据！");
+    }else{
+        NSLog(@"重置失败！");
+    }
+}
 @end

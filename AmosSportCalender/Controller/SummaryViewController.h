@@ -16,5 +16,6 @@
 @property (nonatomic, strong)NSMutableDictionary *eventsMostByDate;
 @property (nonatomic)CGFloat screenWidth;
 @property (nonatomic)CGFloat screenHight;
+@property (nonatomic)CGFloat contentHight;
 
 @end

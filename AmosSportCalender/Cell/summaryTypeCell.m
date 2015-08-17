@@ -29,6 +29,8 @@
         self.backgroundColor = [UIColor colorWithRed:0.9922 green:0.5765 blue:0.1490 alpha:0.7];
     }else if ([self.typeLabel.text isEqualToString:@"核心"]){
         self.backgroundColor = [UIColor colorWithRed:0.9922 green:0.2980 blue:0.9882 alpha:0.7];
+    }else if ([self.typeLabel.text isEqualToString:@"手臂"]){
+        self.backgroundColor = [UIColor colorWithRed:0.3647 green:0.4314 blue:0.9373 alpha:0.7];
     }else if ([self.typeLabel.text isEqualToString:@"其他"]){
         self.backgroundColor = [UIColor colorWithRed:0.6078 green:0.9255 blue:0.2980 alpha:0.7];
     }

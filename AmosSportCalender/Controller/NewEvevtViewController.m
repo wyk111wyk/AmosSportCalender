@@ -754,6 +754,7 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
+#pragma mark - Camera
 //11.1 添加照片的方法
 - (IBAction)takePicture
 {

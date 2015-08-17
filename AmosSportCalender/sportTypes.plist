@@ -8,11 +8,15 @@
 			<string>卧推（平板杠铃）</string>
 			<string>卧推（上斜杠铃）</string>
 			<string>卧推（下斜杠铃）</string>
+			<string>卧推（杠铃窄握）</string>
 			<string>卧推（平板哑铃）</string>
 			<string>卧推（上斜哑铃）</string>
 			<string>卧推（下斜哑铃）</string>
 			<string>飞鸟（器械）</string>
 			<string>飞鸟（哑铃）</string>
+			<string>飞鸟（龙门架）</string>
+			<string>器械夹胸</string>
+			<string>双杆臂屈伸</string>
 			<string>俯卧撑</string>
 		</array>
 		<key>sportType</key>
@@ -21,11 +25,14 @@
 	<dict>
 		<key>sportName</key>
 		<array>
-			<string>引体向上</string>
+			<string>引体向上（宽握）</string>
+			<string>引体向上（反握）</string>
 			<string>划船（哑铃）</string>
+			<string>划船（杠铃）</string>
 			<string>划船（器械）</string>
+			<string>哑铃提拉</string>
+			<string>龙门架下压</string>
 			<string>坐姿下拉</string>
-			<string>杠铃划船</string>
 		</array>
 		<key>sportType</key>
 		<string>背部</string>
@@ -33,11 +40,20 @@
 	<dict>
 		<key>sportName</key>
 		<array>
-			<string>哑铃前平举</string>
-			<string>杠铃直立划船</string>
-			<string>哑铃侧弯举</string>
-			<string>杠铃上推</string>
-			<string>俯身哑铃弯举</string>
+			<string>前平举（哑铃）</string>
+			<string>前平举（杠铃）</string>
+			<string>直立划船提拉（哑铃）</string>
+			<string>直立划船提拉（杠铃）</string>
+			<string>颈前推（杠铃）</string>
+			<string>颈前推（史密斯机）</string>
+			<string>颈后推（杠铃）</string>
+			<string>颈后推（史密斯机）</string>
+			<string>肩上推</string>
+			<string>侧平举</string>
+			<string>俯身飞鸟（哑铃）</string>
+			<string>绳索下斜飞鸟（龙门架）</string>
+			<string>上斜绳索侧拉</string>
+			<string>反向夹胸（器械）</string>
 		</array>
 		<key>sportType</key>
 		<string>肩部</string>
@@ -45,11 +61,15 @@
 	<dict>
 		<key>sportName</key>
 		<array>
-			<string>杠铃深蹲</string>
+			<string>深蹲（杠铃）</string>
+			<string>深蹲（哈克）</string>
+			<string>倒蹬</string>
 			<string>箭步蹲（杠铃）</string>
 			<string>箭步蹲（哑铃）</string>
 			<string>罗汉蹲</string>
 			<string>坐姿提踵</string>
+			<string>腿平举（器械）</string>
+			<string>俯卧腿弯举（器械）</string>
 		</array>
 		<key>sportType</key>
 		<string>腿部</string>
@@ -57,11 +77,13 @@
 	<dict>
 		<key>sportName</key>
 		<array>
-			<string>跑步</string>
+			<string>跑步（跑步机）</string>
+			<string>跑步（室外）</string>
 			<string>椭圆机</string>
 			<string>游泳</string>
 			<string>登山机</string>
 			<string>HIIT</string>
+			<string>动物爬行</string>
 		</array>
 		<key>sportType</key>
 		<string>体力</string>
@@ -69,9 +91,14 @@
 	<dict>
 		<key>sportName</key>
 		<array>
-			<string>卷腹（V字）</string>
+			<string>卷腹（V字/二头起）</string>
 			<string>卷腹（健身球）</string>
+			<string>卷腹（罗马椅）</string>
+			<string>坐姿转体</string>
+			<string>站姿转体</string>
 			<string>羚羊挺身</string>
+			<string>举腿（高空垂悬）</string>
+			<string>举腿（仰卧）</string>
 			<string>硬拉（杠铃）</string>
 			<string>硬拉（单腿）</string>
 			<string>杠铃高翻</string>
@@ -80,6 +107,24 @@
 		</array>
 		<key>sportType</key>
 		<string>核心</string>
+	</dict>
+	<dict>
+		<key>sportName</key>
+		<array>
+			<string>杠铃弯举</string>
+			<string>托臂绳索弯举</string>
+			<string>坐姿垂式弯举</string>
+			<string>绳索上拉</string>
+			<string>21响礼炮</string>
+			<string>杠铃窄卧推</string>
+			<string>仰卧臂屈伸</string>
+			<string>俯身哑铃臂屈伸</string>
+			<string>绳索颈后拉</string>
+			<string>绳索下拉（龙门架）</string>
+			<string>侧身耳旁绳索侧拉</string>
+		</array>
+		<key>sportType</key>
+		<string>手臂</string>
 	</dict>
 	<dict>
 		<key>sportName</key>

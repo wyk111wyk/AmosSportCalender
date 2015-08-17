@@ -22,7 +22,9 @@
 
 - (IBAction)clickToZan:(UIButton *)sender {
     
-    NSLog(@"点了一个赞");
+    if (self.clickToVoteBlock) {
+    self.clickToVoteBlock();
+    }
 }
 
 @end

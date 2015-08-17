@@ -403,7 +403,9 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
             [layer setFillColor:[self backgroundColor].CGColor];
             [layer setDelegate:nil];
             [layer setZPosition:0];
-            CATextLayer *textLayer = [[layer sublayers] objectAtIndex:0];
+            CATextLayer *textLayer = [CATextLayer layer];
+            [layer addSublayer:textLayer];
+//            [[layer sublayers] objectAtIndex:0];
             [textLayer setHidden:YES];
         }
         
@@ -642,7 +644,7 @@ static CGPathRef CGPathCreateArc(CGPoint center, CGFloat radius, CGFloat startAn
     }
     CGSize size = [@"0" sizeWithFont:self.labelFont];
     [CATransaction setDisableActions:YES];
-    [textLayer setFrame:CGRectMake(0, 0, size.width, size.height)];
+    [textLayer setFrame:CGRectMake(0, 0, size.width, size.height*2)];
     [textLayer setPosition:CGPointMake(_pieCenter.x + (_labelRadius * cos(0)), _pieCenter.y + (_labelRadius * sin(0)))];
     [CATransaction setDisableActions:NO];
     [pieLayer addSublayer:textLayer];

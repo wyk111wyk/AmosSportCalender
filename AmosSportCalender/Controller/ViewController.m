@@ -74,19 +74,9 @@
 
 #pragma mark - life cycle
 
-- (void)loadView
-{
-    [super loadView];
-    
-//    NSLog(@"%@", NSStringFromSelector(_cmd));
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    //开机画面的显示时间
-    [NSThread sleepForTimeInterval:1.8];
     
     //主页无计划时TableView上显示的文字
     self.homeStrLists = [[NSArray alloc] initWithObjects:@"努力画满每一天的圈圈吧！", @"今天没有运动，做个计划吧！", @"每日的计划可以同步到系统日历里去哦", @"为过去创建的运动计划默认已完成",nil];
@@ -127,13 +117,8 @@
     for (int i = 0; i < array.count; i++){
         self.sportTypes[i] = [[array objectAtIndex:i] objectForKey:@"sportType"];
     }
-    
-//    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-//    [nc addObserver:self
-//           selector:@selector(messageTest)
-//               name:@"iconMessage"
-//             object:nil];
-    
+
+//    [self createMinAndMaxDate];
 //    NSLog(@"%@", NSStringFromSelector(_cmd));
 }
 
@@ -143,6 +128,11 @@
     [self loadTheDateEvents];
     self.tempEvent = nil;
     
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc addObserver:self
+           selector:@selector(setUnderTableLabelWithDifferentDay:)
+               name:@"iconMessage"
+             object:nil];
 //    NSLog(@"%@", NSStringFromSelector(_cmd));
 }
 
@@ -190,7 +180,7 @@
             }
         }}
 
-//    NSLog(@"%@ 共有事件 k = %lu 完成事件 i = %d",date, (unsigned long)[eventsByDate[key] count], i);
+    NSLog(@"%@ 共有事件 k = %lu 完成事件 i = %d",date, (unsigned long)[eventsByDate[key] count], i);
     
     NSNumber *tempNum = [NSNumber numberWithInt:i];
     self.doneNumbers[key] = tempNum;
@@ -519,6 +509,8 @@
     }else if (index == 5){
         return [UIColor colorWithRed:0.9922 green:0.2980 blue:0.9882 alpha:1];
     }else if (index == 6){
+        return [UIColor colorWithRed:0.3647 green:0.4314 blue:0.9373 alpha:1];
+    }else if (index == 7){
         return [UIColor colorWithRed:0.6078 green:0.9255 blue:0.2980 alpha:1];
     }
     
@@ -530,6 +522,17 @@
 }
 
 #pragma mark - CalendarManager delegate
+
+- (void)createMinAndMaxDate
+{
+    _todayDate = [NSDate date];
+    
+    // Min date will be 2 month before today
+    _minDate = [_calendarManager.dateHelper addToDate:_todayDate months:-2];
+    
+    // Max date will be 2 month after today
+    _maxDate = [_calendarManager.dateHelper addToDate:_todayDate months:2];
+}
 
 // Exemple of implementation of prepareDayView method
 // Used to customize the appearance of dayView
@@ -1077,6 +1080,7 @@
 - (void)eventEditViewController:(EKEventEditViewController *)controller
           didCompleteWithAction:(EKEventEditViewAction)action
 {
+    
     // Dismiss the modal view controller
     [self dismissViewControllerAnimated:YES completion:^
      {

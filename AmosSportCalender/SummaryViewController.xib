@@ -12,6 +12,7 @@
                 <outlet property="hLineView" destination="WrH-3C-VmK" id="6aA-ES-yW3"/>
                 <outlet property="leastTypeImageView" destination="C5f-wO-NBL" id="M9F-Li-ig6"/>
                 <outlet property="mostTypeImageView" destination="aG8-YE-nMc" id="aVf-Lf-rgq"/>
+                <outlet property="percentageLabel" destination="rNF-Zc-25k" id="UAD-pn-ntG"/>
                 <outlet property="pieChartView" destination="g75-TY-Agv" id="qfc-cm-mAm"/>
                 <outlet property="scrollView" destination="G13-md-gv0" id="Lk9-gq-Ayd"/>
                 <outlet property="shadoView1" destination="XLG-Z5-z1C" id="KuO-17-bih"/>
@@ -35,14 +36,14 @@
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G13-md-gv0">
                     <rect key="frame" x="0.0" y="64" width="600" height="672"/>
                     <animations/>
-                    <color key="backgroundColor" red="0.90917939291101058" green="0.90917939291101058" blue="0.90917939291101058" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.94060968140000001" green="0.94060968140000001" blue="0.94060968140000001" alpha="1" colorSpace="calibratedRGB"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="r7q-3G-5Bx"/>
                     </connections>
                 </scrollView>
             </subviews>
             <animations/>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="0.94060968140000001" green="0.94060968140000001" blue="0.94060968140000001" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="G13-md-gv0" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="64" id="M3g-zW-yUO"/>
                 <constraint firstAttribute="trailing" secondItem="G13-md-gv0" secondAttribute="trailing" id="Qnc-aR-UmM"/>
@@ -280,18 +281,34 @@
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g75-TY-Agv" userLabel="Pie Chart" customClass="XYPieChart">
                             <rect key="frame" x="0.0" y="0.0" width="151" height="151"/>
+                            <subviews>
+                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="37.1%" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="11" translatesAutoresizingMaskIntoConstraints="NO" id="rNF-Zc-25k">
+                                    <rect key="frame" x="53" y="54" width="44" height="44"/>
+                                    <animations/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="44" id="2MU-XI-ndf"/>
+                                        <constraint firstAttribute="height" constant="44" id="TEX-yR-Txg"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
+                                    <color key="textColor" red="0.0" green="0.56429483979999995" blue="0.52211750599999995" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
                             <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="151" id="CGD-aM-mSK"/>
                                 <constraint firstAttribute="width" constant="151" id="DGh-3r-kQ0"/>
+                                <constraint firstItem="rNF-Zc-25k" firstAttribute="centerY" secondItem="g75-TY-Agv" secondAttribute="centerY" id="HJs-pr-P0r"/>
+                                <constraint firstItem="rNF-Zc-25k" firstAttribute="centerX" secondItem="g75-TY-Agv" secondAttribute="centerX" id="aik-3b-Vk1"/>
                             </constraints>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FoG-ft-Yp6">
                             <rect key="frame" x="223" y="21" width="46" height="117"/>
                             <subviews>
                                 <view alpha="0.69999999999999996" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="um8-vC-gMG" userLabel="VLine">
-                                    <rect key="frame" x="22" y="1.5" width="1" height="115.5"/>
+                                    <rect key="frame" x="22" y="1" width="1" height="115.5"/>
                                     <animations/>
                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
@@ -337,7 +354,7 @@
                 </view>
             </subviews>
             <animations/>
-            <color key="backgroundColor" red="0.90917939290000005" green="0.90917939290000005" blue="0.90917939290000005" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.94060968140000001" green="0.94060968140000001" blue="0.94060968140000001" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="XLG-Z5-z1C" secondAttribute="trailing" constant="8" id="4so-ns-Kg2"/>
                 <constraint firstItem="XLG-Z5-z1C" firstAttribute="leading" secondItem="JNa-m3-jBU" secondAttribute="leading" constant="8" id="NNh-yr-LfT"/>
@@ -447,7 +464,7 @@
                 </view>
             </subviews>
             <animations/>
-            <color key="backgroundColor" red="0.90917939290000005" green="0.90917939290000005" blue="0.90917939290000005" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.94060968140000001" green="0.94060968140000001" blue="0.94060968140000001" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="r73-11-Tnf" firstAttribute="top" secondItem="M90-8j-bvN" secondAttribute="top" id="6gA-JT-Zh8"/>
                 <constraint firstItem="GlG-Qp-qfa" firstAttribute="leading" secondItem="r73-11-Tnf" secondAttribute="trailing" constant="8" id="ACF-lS-3Sw"/>
@@ -478,7 +495,7 @@
                 </tableView>
             </subviews>
             <animations/>
-            <color key="backgroundColor" red="0.90917939290000005" green="0.90917939290000005" blue="0.90917939290000005" alpha="1" colorSpace="calibratedRGB"/>
+            <color key="backgroundColor" red="0.94060968140000001" green="0.94060968140000001" blue="0.94060968140000001" alpha="1" colorSpace="calibratedRGB"/>
             <constraints>
                 <constraint firstItem="L1c-2f-kQF" firstAttribute="leading" secondItem="KtI-al-x2i" secondAttribute="leading" constant="8" id="E00-IG-A9I"/>
                 <constraint firstAttribute="bottom" secondItem="L1c-2f-kQF" secondAttribute="bottom" constant="8" id="NHI-mN-Bxe"/>
@@ -487,7 +504,7 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="760.5" y="222.5"/>
+            <point key="canvasLocation" x="760.5" y="219.5"/>
         </view>
     </objects>
     <resources>

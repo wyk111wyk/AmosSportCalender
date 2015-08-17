@@ -32,6 +32,7 @@ static NSString* const typeManageCellReuseId = @"sportNameManageCell";
     [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
     
     self.tableView.allowsSelection = NO;
+    self.tableView.editing = YES;
     self.sportNameTemps = [[NSMutableArray alloc] initWithArray:self.sportNames];
     
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"plus"] style:UIBarButtonItemStylePlain target:self action:@selector(addNewSportName)];
@@ -42,8 +43,8 @@ static NSString* const typeManageCellReuseId = @"sportNameManageCell";
     self.navigationItem.title = [NSString stringWithFormat: @"%@ - 编辑", self.sportType];
     
     //长按移动cell顺序
-    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureRecognized:)];
-    [self.tableView addGestureRecognizer:longPress];
+//    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureRecognized:)];
+//    [self.tableView addGestureRecognizer:longPress];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -130,7 +131,7 @@ static NSString* const typeManageCellReuseId = @"sportNameManageCell";
 - (void)textFieldDidBeginEditing:(nonnull UITextField *)textField
 {
 //    NSLog(@"contain is %@", textField.text);
-    self.index = [self.sportNames indexOfObject:textField.text];
+    self.index = [self.sportNameTemps indexOfObject:textField.text];
 //    NSLog(@"contain index is %lu", self.index);
     
     self.navigationItem.rightBarButtonItems = nil;
@@ -204,23 +205,9 @@ static NSString* const typeManageCellReuseId = @"sportNameManageCell";
     [self.tableView setEditing:editing animated:animated];
 }
 
-//默认为删除模式
-//- (UITableViewCellEditingStyle)tableView:(nonnull UITableView *)tableView editingStyleForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
-//{
-//    return UITableViewCellEditingStyleDelete;
-//}
-
 //当点击”Delete”按钮或者”加号”按钮时，发送实际执行的代码
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    if (editingStyle == UITableViewCellEditingStyleDelete) {
-//        [self.sportNameTemps removeObjectAtIndex:indexPath.row];
-//        
-//        //删除表格中的相应行
-//        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-//        
-//        [self saveTheDate];
-//    }
 }
 
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -239,6 +226,12 @@ static NSString* const typeManageCellReuseId = @"sportNameManageCell";
                                           }];
 
     return @[deleteAction]; //与实际显示的顺序相反
+}
+
+//移动行方法
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
+{
+    [self moveItemAtIndex:sourceIndexPath.row toIndex:destinationIndexPath.row];
 }
 
 - (void)moveItemAtIndex:(NSUInteger)fromIndex
