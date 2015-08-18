@@ -31,7 +31,7 @@
         //测试代码结束
         
         self.sportType = @"胸部";
-        self.sportName = @"平板卧推";
+        self.sportName = @"卧推（上斜杠铃）";
         
         self.weight = 30;
         self.times = 10;

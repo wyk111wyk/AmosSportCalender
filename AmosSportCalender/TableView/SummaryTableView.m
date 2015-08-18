@@ -19,6 +19,11 @@ static NSString * const YKSummaryCellReuseId = @"summaryCell";
 @property (nonatomic, strong)NSMutableDictionary *eventsByDate;
 @property (nonatomic, strong)NSArray *sortedKeyArray;
 @property (weak, nonatomic) IBOutlet UILabel *underTableLabel;
+@property (strong, nonatomic)UIDatePicker *datePicker;
+@property (strong, nonatomic)UITextField *searchTextField;
+@property (strong, nonatomic)NSString *searchStr;
+
+@property (nonatomic) NSInteger indexRow;
 
 @end
 
@@ -30,6 +35,19 @@ static NSString * const YKSummaryCellReuseId = @"summaryCell";
     self.tableView.allowsSelection = NO;
     
     [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+    
+    //datePick初始化
+    NSString *minDate = @"1990-01-01";
+    NSString *maxDate = @"2030-01-01";
+    NSDateFormatter *limtedDateFormatter = [NSDateFormatter new];
+    limtedDateFormatter.dateFormat = @"yyyy-MM-dd";
+    
+    self.datePicker = [[UIDatePicker alloc] initWithFrame:CGRectZero];
+    self.datePicker.datePickerMode = UIDatePickerModeDate;
+    self.datePicker.minimumDate = [limtedDateFormatter dateFromString:minDate];
+    self.datePicker.maximumDate = [limtedDateFormatter dateFromString:maxDate];
+    [self.datePicker setDate:[NSDate date] animated:YES];
+    [self.datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
     
     //初始化数据
     self.eventsByDate = [[NSMutableDictionary alloc] initWithDictionary:[[EventStore sharedStore] allItems] copyItems:NO];
@@ -113,6 +131,16 @@ static NSString * const YKSummaryCellReuseId = @"summaryCell";
     [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
 }
 
+-(void)dateChanged:(id)sender{
+    
+    self.searchStr = [[self dateFormatter] stringFromDate:self.datePicker.date];
+    self.searchTextField.text = [[self dateFormatterDisplay] stringFromDate:self.datePicker.date];;
+}
+
+- (IBAction)searchOneDate:(UIBarButtonItem *)sender {
+    
+    [self alertForSearch];
+}
 
 #pragma mark - Table view data source
 
@@ -138,10 +166,10 @@ static NSString * const YKSummaryCellReuseId = @"summaryCell";
 {
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 22)];
     [headerView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
-    headerView.backgroundColor = [UIColor colorWithRed:0.9686 green:0.9686 blue:0.9686 alpha:1];
+    headerView.backgroundColor = [UIColor colorWithWhite:0.45 alpha:0.55];
 
     UILabel *headText = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 22)];
-    headText.textColor = [UIColor darkGrayColor];
+    headText.textColor = [UIColor whiteColor];
     [headText setFont:[UIFont fontWithName:@"Arial" size:14]];
     headText.text = @"text";
     [headText sizeToFit];
@@ -227,6 +255,61 @@ static NSString * const YKSummaryCellReuseId = @"summaryCell";
     }else{
         return [NSString stringWithFormat:@"%d组 x %d次   %.1fkg", rap, times, weight];
     }
+}
+
+- (void)alertForSearch
+{
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"定位到指定日期"
+                                                                   message:@""
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    NSString *dateStr = [[self dateFormatterDisplay] stringFromDate:[NSDate date]];
+    self.datePicker.date = [NSDate date];
+    
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.text = dateStr;
+        textField.tintColor = [UIColor clearColor];
+        textField.inputView = self.datePicker;
+        [textField becomeFirstResponder];
+    }];
+    
+    self.searchTextField = alert.textFields[0];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"搜索"
+                                              style:UIAlertActionStyleDefault
+                                            handler:^(UIAlertAction * action) {
+        if (![self.sortedKeyArray containsObject:self.searchStr]) {
+            [self alertForNoResult];
+        }else{
+            _indexRow = [self.sortedKeyArray indexOfObject:self.searchStr];
+            
+            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:_indexRow];
+            [[self tableView] scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        }
+                                                
+                                            }]];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消"
+                                              style:UIAlertActionStyleCancel
+                                            handler:^(UIAlertAction * action) {
+                                                
+                                            }]];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)alertForNoResult
+{
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"不好意思"
+                                                                   message:@"这一天您没有做任何运动"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"确定"
+                                              style:UIAlertActionStyleCancel
+                                            handler:^(UIAlertAction * action) {
+                                                
+                                            }]];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 @end

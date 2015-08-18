@@ -10,6 +10,7 @@
 #import "MMDrawerController.h"
 #import "ViewController.h"
 #import "EventStore.h"
+#import "SettingStore.h"
 
 @interface AppDelegate ()
 @end
@@ -20,8 +21,10 @@ NSArray *sportTypes;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
+    //重绘状态栏
     [application setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    //取消所有通知
+    [[UIApplication sharedApplication] cancelAllLocalNotifications];
     
     [self createAllSportTypeArray];
     
@@ -86,8 +89,25 @@ NSArray *sportTypes;
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+
+    SettingStore *setting = [SettingStore sharedSetting];
+    
+    //注册五天不使用的本地通知
+    UILocalNotification *localNotification = UILocalNotification.new;
+    
+    localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:5*24*60*60];
+    localNotification.timeZone = [NSTimeZone defaultTimeZone];
+    
+    int i = arc4random() % 100;
+    NSString *str = [NSString stringWithFormat:@"%@，又五天没有运动了，恭喜您又长了1.%i斤肉~", setting.name, i];
+    localNotification.alertBody = str;
+    localNotification.alertAction = NSLocalizedString(@"立即开始计划运动吧！", nil);
+    localNotification.soundName= UILocalNotificationDefaultSoundName;
+    
+    // 设定通知的userInfo，用来标识该通知
+    
+    [application scheduleLocalNotification:localNotification];
+    
     
     BOOL success = [[EventStore sharedStore] saveChanges];
     if (success) {

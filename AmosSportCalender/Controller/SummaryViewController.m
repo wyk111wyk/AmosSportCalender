@@ -139,6 +139,10 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     NSMutableArray *tempArray = [NSMutableArray array]; //所有key的Array
     tempArray = [[self.eventsByDate allKeys] copy];
     
+    if (self.eventsByDate.count == 0){
+        self.percentageLabel.text = @"0%";
+    }
+    
     //进行日期排序
     self.sortedKeyArray = [self sortKeyFromDate:tempArray]; //所有日期排序后生成的新key
     self.sortedTypeArray = [self sortEventsFromMostToLeast:self.eventsMostByDate];
@@ -175,13 +179,19 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     
     //1-4平均每周几次
     if (self.eventsByDate.count > 0){
+        
     NSDate *firstDate = [[self dateFormatter] dateFromString:[self.sortedKeyArray lastObject]];
     NSDate *lastDate = [[self dateFormatter] dateFromString:self.sortedKeyArray[0]];
-    NSTimeInterval betweenTime=[lastDate timeIntervalSinceDate:firstDate];
-    float betweenDays=((int)betweenTime)/(3600*24); //记录第一天和最后一天的间隔时间，单位：天
+    NSTimeInterval betweenTime = [lastDate timeIntervalSinceDate:firstDate];
+    float betweenDays = ((int)betweenTime)/(3600*24); //记录第一天和最后一天的间隔时间，单位：天
     float avegTimesAWeek = self.eventsByDate.count / (betweenDays/7.);
-    self.aveTimesAWeek.text = [NSString stringWithFormat:@"%.1f", avegTimesAWeek];
         
+        if (betweenDays < 8) {
+            self.aveTimesAWeek.text = [NSString stringWithFormat:@"%lu", self.eventsByDate.count];
+        }else{
+            self.aveTimesAWeek.text = [NSString stringWithFormat:@"%.1f", avegTimesAWeek];
+        }
+    
     }else{self.aveTimesAWeek.text = @"0";}
     
     //iphone5的话字体缩小

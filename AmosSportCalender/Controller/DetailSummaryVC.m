@@ -15,8 +15,6 @@ static NSString * const YKSummaryCellReuseId = @"summaryNewTVCell";
 
 @interface DetailSummaryVC ()<UITableViewDataSource, UITableViewDelegate>
 
-
-
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *dateArray;
 @property (nonatomic, strong) NSMutableArray *eventArray;
@@ -34,6 +32,10 @@ static NSString * const YKSummaryCellReuseId = @"summaryNewTVCell";
     
     //设置BackgroundView的属性
     self.backgroundView.layer.cornerRadius = 7;
+    [[self.backgroundView layer] setShadowOffset:CGSizeMake(1, 1)]; // 阴影的范围
+    [[self.backgroundView layer] setShadowRadius:2];                // 阴影扩散的范围控制
+    [[self.backgroundView layer] setShadowOpacity:1];               // 阴影透明度
+    [[self.backgroundView layer] setShadowColor:[UIColor colorWithWhite:0.2 alpha:0.55].CGColor]; // 阴影的颜色
     
     UINib *nib = [UINib nibWithNibName:YKSummaryCellReuseId bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:YKSummaryCellReuseId];
@@ -165,10 +167,10 @@ static NSString * const YKSummaryCellReuseId = @"summaryNewTVCell";
 {
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 22)];
     [headerView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
-    headerView.backgroundColor = [UIColor colorWithRed:0.9686 green:0.9686 blue:0.9686 alpha:1];
+    headerView.backgroundColor = [UIColor colorWithWhite:0.45 alpha:0.55];;
     
     UILabel *headText = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 22)];
-    headText.textColor = [UIColor darkGrayColor];
+    headText.textColor = [UIColor whiteColor];
     [headText setFont:[UIFont fontWithName:@"Arial" size:14]];
     headText.text = @"text";
     [headText sizeToFit];

@@ -180,7 +180,7 @@
             }
         }}
 
-    NSLog(@"%@ 共有事件 k = %lu 完成事件 i = %d",date, (unsigned long)[eventsByDate[key] count], i);
+//    NSLog(@"%@ 共有事件 k = %lu 完成事件 i = %d",date, (unsigned long)[eventsByDate[key] count], i);
     
     NSNumber *tempNum = [NSNumber numberWithInt:i];
     self.doneNumbers[key] = tempNum;
@@ -746,13 +746,13 @@
 - (nullable UIView *)tableView:(nonnull UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     //初始化自定义View
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 22)];
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 20)];
     [headerView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
-    headerView.backgroundColor = [UIColor colorWithRed:0.9686 green:0.9686 blue:0.9686 alpha:1];
+    headerView.backgroundColor = [UIColor colorWithWhite:0.45 alpha:0.6];
 
     //设置Header的字体
     UILabel *headText = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 22)];
-    headText.textColor = [UIColor darkGrayColor];
+    headText.textColor = [UIColor whiteColor];
     [headText setFont:[UIFont fontWithName:@"Arial" size:14]];
     headText.text = @"text";
     [headText sizeToFit];

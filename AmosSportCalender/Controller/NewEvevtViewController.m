@@ -40,6 +40,9 @@
 @property (strong, nonatomic) UIPickerView *numberPicker;
 
 @property (strong, nonatomic) UISearchBar *sportSearchBar;
+@property (nonatomic, strong) UISearchController *searchController;
+@property (strong, nonatomic) UITableViewController *searchTVC;
+
 @property (weak, nonatomic) IBOutlet UISwitch *swithButton;
 @property (weak, nonatomic) IBOutlet UISwitch *doneSwitchButton;
 @property (weak, nonatomic) IBOutlet UISlider *weightSlider;
@@ -117,9 +120,23 @@
     //sportPicker初始化
     self.sportPicker = [[UIPickerView alloc] initWithFrame:CGRectZero];
     self.sportPicker.delegate = self;
+    
     self.sportSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, 44.)];
     self.sportSearchBar.delegate = self;
+    [self.sportSearchBar sizeToFit];
+    self.sportSearchBar.returnKeyType = UIReturnKeySearch;
+    self.sportSearchBar.placeholder = @"搜索或者新建运动项目";
     [self getSportPickerData];
+//    
+//    self.searchTVC = [[UITableViewController alloc]initWithStyle:UITableViewStylePlain];
+//    _searchTVC.tableView.dataSource = self;
+//    _searchTVC.tableView.delegate = self;
+//    
+//    self.searchController = [[UISearchController alloc] initWithSearchResultsController:_searchTVC];
+//    self.searchController.searchResultsUpdater = self;
+//    self.searchController.delegate = self;
+//    [self.searchController.searchBar sizeToFit];
+//    [self presentViewController:self.searchController animated:YES completion:nil];
     
     //sportTypePicker初始化
     self.sportTypePicker = [[UIPickerView alloc] initWithFrame:CGRectZero];
@@ -155,9 +172,6 @@
     self.sportNameTextField.inputView = self.sportPicker;
     self.sportNameTextField.inputAccessoryView = self.sportSearchBar;
     self.sportNameTextField.tintColor = [UIColor clearColor];
-    
-    self.sportSearchBar.returnKeyType = UIReturnKeySearch;
-    self.sportSearchBar.placeholder = @"输入搜索内容、前缀或新建项目名称";
     
     //设置UI显示的属性值
     NSString *dateStr = [NSString stringWithFormat:@"%@", self.date];
