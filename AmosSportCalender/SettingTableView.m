@@ -6,6 +6,8 @@
 //  Copyright © 2015年 Amos Wu. All rights reserved.
 //
 
+#import <PgySDK/PgyManager.h>
+
 #import "EventStore.h"
 #import "SettingTableView.h"
 #import "SettingStore.h"
@@ -253,9 +255,11 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
             
             break;
         case 2:
-            if (indexPath.row == 0.0){
-                [self alertForResetSportType];
+            if (indexPath.row == 0) {
+                [[PgyManager sharedPgyManager] checkUpdateWithDelegete:self selector:@selector(updateMethod:)];
             }else if (indexPath.row == 1.0){
+                [self alertForResetSportType];
+            }else if (indexPath.row == 2.0){
                 [self alertForClearAllData];
             }
             break;
@@ -266,6 +270,10 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+- (void)updateMethod:sender
+{
+    [[PgyManager sharedPgyManager] checkUpdate];
+}
 #pragma mark - alert Method
 
 - (void)alertForClearAllData

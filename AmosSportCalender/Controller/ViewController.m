@@ -12,10 +12,10 @@
 
 #import <EventKit/EventKit.h>
 #import <EventKitUI/EventKitUI.h>
-#import "DMPasscode.h"
+#import <PgySDK/PgyManager.h>
 #import <LocalAuthentication/LocalAuthentication.h>
 #import <Security/Security.h>
-
+#import "DMPasscode.h"
 #import "ViewController.h"
 #import "NewEvevtViewController.h"
 #import "Event.h"
@@ -95,6 +95,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    //测试版检查更新
+    [[PgyManager sharedPgyManager] checkUpdate];
     
     //主页无计划时TableView上显示的文字
     self.homeStrLists = [[NSArray alloc] initWithObjects:@"努力画满每一天的圈圈吧！", @"今天没有运动，做个计划吧！", @"每日的计划可以同步到系统日历里去哦", @"为过去创建的运动计划默认已完成",nil];

@@ -5,6 +5,7 @@
 //  Created by Amos Wu on 15/7/3.
 //  Copyright © 2015年 Amos Wu. All rights reserved.
 //
+#import <PgySDK/PgyManager.h>
 
 #import "AppDelegate.h"
 #import "MMDrawerController.h"
@@ -12,6 +13,8 @@
 #import "EventStore.h"
 #import "SettingStore.h"
 #import "DMPasscode.h"
+
+#define PGY_APP_ID @"1694170a8f87c44a10201ef6c8831931"
 
 @interface AppDelegate ()
 @end
@@ -22,7 +25,11 @@ NSArray *sportTypes;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    NSLog(@"application didFinishLaunchingWithOptions");
+//    NSLog(@"application didFinishLaunchingWithOptions");
+    
+    [[PgyManager sharedPgyManager] startManagerWithAppId:PGY_APP_ID];
+    [[PgyManager sharedPgyManager] setEnableFeedback:NO];
+    [[PgyManager sharedPgyManager] setEnableDebugLog:YES];
     
     //重绘状态栏
     [application setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
@@ -88,7 +95,7 @@ NSArray *sportTypes;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
-    NSLog(@"applicationWillResignActive");
+//    NSLog(@"applicationWillResignActive");
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 }

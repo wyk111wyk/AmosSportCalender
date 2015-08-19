@@ -32,6 +32,14 @@
 		B087E0291B76FFF2003D90B6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B087E0281B76FFF2003D90B6 /* QuartzCore.framework */; };
 		B087E02E1B7716E8003D90B6 /* DetailSummaryVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B087E02C1B7716E8003D90B6 /* DetailSummaryVC.xib */; };
 		B08875E11B6F9AF3008DF5D4 /* SummaryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B08875DF1B6F9AF3008DF5D4 /* SummaryViewController.xib */; };
+		B09DB27F1B849EBE007458C1 /* PgySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09DB27E1B849EBE007458C1 /* PgySDK.framework */; };
+		B09DB2811B84A396007458C1 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09DB2801B84A396007458C1 /* CoreTelephony.framework */; };
+		B09DB2831B84A3A2007458C1 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09DB2821B84A3A2007458C1 /* OpenGLES.framework */; };
+		B09DB2851B84A3AD007458C1 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09DB2841B84A3AD007458C1 /* SceneKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		B09DB2871B84A3B8007458C1 /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09DB2861B84A3B8007458C1 /* CoreMotion.framework */; };
+		B09DB2891B84A3C2007458C1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09DB2881B84A3C2007458C1 /* AudioToolbox.framework */; };
+		B09DB28B1B84A3CD007458C1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09DB28A1B84A3CD007458C1 /* AVFoundation.framework */; };
+		B09DB28D1B84A3D9007458C1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09DB28C1B84A3D9007458C1 /* SystemConfiguration.framework */; };
 		B0B548421B843F2400D42B33 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B548411B843F2400D42B33 /* Security.framework */; };
 		B0B548441B843F2A00D42B33 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B548431B843F2A00D42B33 /* LocalAuthentication.framework */; };
 		B0B548541B84443700D42B33 /* DMKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B548481B84443700D42B33 /* DMKeychain.m */; };
@@ -151,6 +159,14 @@
 		B087E0281B76FFF2003D90B6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		B087E02C1B7716E8003D90B6 /* DetailSummaryVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailSummaryVC.xib; sourceTree = "<group>"; };
 		B08875DF1B6F9AF3008DF5D4 /* SummaryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SummaryViewController.xib; sourceTree = "<group>"; };
+		B09DB27E1B849EBE007458C1 /* PgySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PgySDK.framework; path = AmosSportCalender/PgySDK.framework; sourceTree = "<group>"; };
+		B09DB2801B84A396007458C1 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		B09DB2821B84A3A2007458C1 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		B09DB2841B84A3AD007458C1 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
+		B09DB2861B84A3B8007458C1 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		B09DB2881B84A3C2007458C1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		B09DB28A1B84A3CD007458C1 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		B09DB28C1B84A3D9007458C1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		B0B548411B843F2400D42B33 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		B0B548431B843F2A00D42B33 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		B0B548471B84443700D42B33 /* DMKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMKeychain.h; sourceTree = "<group>"; };
@@ -241,12 +257,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B09DB28D1B84A3D9007458C1 /* SystemConfiguration.framework in Frameworks */,
+				B09DB28B1B84A3CD007458C1 /* AVFoundation.framework in Frameworks */,
+				B09DB2891B84A3C2007458C1 /* AudioToolbox.framework in Frameworks */,
+				B09DB2871B84A3B8007458C1 /* CoreMotion.framework in Frameworks */,
+				B09DB2851B84A3AD007458C1 /* SceneKit.framework in Frameworks */,
+				B09DB2831B84A3A2007458C1 /* OpenGLES.framework in Frameworks */,
+				B09DB2811B84A396007458C1 /* CoreTelephony.framework in Frameworks */,
 				B0B548441B843F2A00D42B33 /* LocalAuthentication.framework in Frameworks */,
 				B0B548421B843F2400D42B33 /* Security.framework in Frameworks */,
 				B06594C31B7F62E100ACFD66 /* MessageUI.framework in Frameworks */,
 				B087E0291B76FFF2003D90B6 /* QuartzCore.framework in Frameworks */,
 				B0B973671B74808F0008640E /* EventKit.framework in Frameworks */,
 				B0B973681B74808F0008640E /* EventKitUI.framework in Frameworks */,
+				B09DB27F1B849EBE007458C1 /* PgySDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -446,15 +470,31 @@
 			name = Cell;
 			sourceTree = "<group>";
 		};
+		B09DB28E1B84A3E5007458C1 /* PGY */ = {
+			isa = PBXGroup;
+			children = (
+				B09DB28C1B84A3D9007458C1 /* SystemConfiguration.framework */,
+				B09DB28A1B84A3CD007458C1 /* AVFoundation.framework */,
+				B09DB2881B84A3C2007458C1 /* AudioToolbox.framework */,
+				B09DB2861B84A3B8007458C1 /* CoreMotion.framework */,
+				B09DB2841B84A3AD007458C1 /* SceneKit.framework */,
+				B09DB2821B84A3A2007458C1 /* OpenGLES.framework */,
+				B09DB2801B84A396007458C1 /* CoreTelephony.framework */,
+			);
+			name = PGY;
+			sourceTree = "<group>";
+		};
 		B0B548401B843EF300D42B33 /* FrameWork */ = {
 			isa = PBXGroup;
 			children = (
+				B09DB28E1B84A3E5007458C1 /* PGY */,
 				B0B548431B843F2A00D42B33 /* LocalAuthentication.framework */,
 				B0B548411B843F2400D42B33 /* Security.framework */,
 				B06594C21B7F62E100ACFD66 /* MessageUI.framework */,
 				B087E0281B76FFF2003D90B6 /* QuartzCore.framework */,
 				B0B973651B74808F0008640E /* EventKit.framework */,
 				B0B973661B74808F0008640E /* EventKitUI.framework */,
+				B09DB27E1B849EBE007458C1 /* PgySDK.framework */,
 			);
 			name = FrameWork;
 			sourceTree = "<group>";
@@ -908,6 +948,10 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: yuke wu (D3FXKEY64K)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: yuke wu (D3FXKEY64K)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AmosSportCalender",
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				INFOPLIST_FILE = AmosSportCalender/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -926,6 +970,10 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: yuke wu (D3FXKEY64K)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: yuke wu (D3FXKEY64K)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/AmosSportCalender",
+				);
 				INFOPLIST_FILE = AmosSportCalender/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
