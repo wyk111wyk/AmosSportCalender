@@ -90,6 +90,14 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
         _imageTypeSegment.selectedSegmentIndex = 1;
     }
     
+    if ([DMPasscode isPasscodeSet]) {
+        _passwordLabel.textColor = [UIColor blackColor];
+        _passwordSwitch.on = YES;
+    }else{
+        _passwordLabel.textColor = [UIColor lightGrayColor];
+        _passwordSwitch.on = NO;
+    }
+    
     [self setLabelStatus:setting];
 }
 
@@ -130,11 +138,17 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
             [DMPasscode setupPasscodeInViewController:self completion:^(BOOL success, NSError *error) {
                 if (success) {
                     setting.passWordOfFingerprint = YES;
+                }else{
+                    [_passwordSwitch setOn:NO animated:YES];
+                    _passwordLabel.textColor = [UIColor lightGrayColor];
                 }
             }];
+            _passwordLabel.textColor = [UIColor blackColor];
+            
             
         }else{
             [DMPasscode removePasscode];
+            _passwordLabel.textColor = [UIColor lightGrayColor];
         }
     }
     
