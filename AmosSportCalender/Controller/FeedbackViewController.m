@@ -122,13 +122,8 @@ static NSString *const cellID = @"feedbackcell";
     //设置标题等
     NSString *titleTemp = @"无内容";
     NSString *containTemp = @"无内容";
-    if (_titleStr.length > 0) {
-        titleTemp = [NSString stringWithFormat:@"ASC-%@-%@", _typeStr, _titleStr];
-    }
-    
-    if (_containStr.length >0) {
-        containTemp = [NSString stringWithFormat:@"%@-%@\n%@", _typeStr, _titleStr, _containStr];
-    }
+    titleTemp = [NSString stringWithFormat:@"ASC-%@-%@", _typeStr, _titleStr];
+    containTemp = [NSString stringWithFormat:@"%@-%@\n%@", _typeStr, _titleStr, _containStr];
     
     [mc setSubject:titleTemp];
     [mc setToRecipients:[NSArray arrayWithObject:@"wyk111wyk@icloud.com"]];
@@ -215,6 +210,7 @@ static NSString *const cellID = @"feedbackcell";
         if (textField.text.length > 0) {
             _sendButton.enabled = YES;
         }
+        
     }else if(textField == _emailTextField){
         
     }
@@ -230,13 +226,21 @@ static NSString *const cellID = @"feedbackcell";
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
+    if (textView.text.length > 5) {
+    NSString *compStr = [textView.text substringToIndex:5];
+    
+    if ([compStr isEqualToString:@"请在此输入"]) {
     textView.text = @"";
+    }}
+    
+    _sendButton.enabled = NO;
     textView.textColor = [UIColor blackColor];
 }
 
 - (void)textViewDidEndEditing:(UITextView *)textView
 {
     _containStr = textView.text;
+    
     if (textView.text.length > 0) {
         _sendButton.enabled = YES;
     }

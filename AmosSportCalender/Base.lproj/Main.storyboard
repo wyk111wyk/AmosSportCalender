@@ -468,66 +468,39 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="功能设置" id="zdi-Qa-zIh">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="lUr-E0-SsW">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="ccc-NC-PlV">
                                         <rect key="frame" x="0.0" y="295.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lUr-E0-SsW" id="llF-XV-bd9">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ccc-NC-PlV" id="FKp-sh-gNO">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="TGX-ye-TAN">
-                                                    <rect key="frame" x="303" y="6" width="51" height="31"/>
-                                                    <animations/>
-                                                </switch>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="开启iCloud" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nbw-ne-Kqf">
-                                                    <rect key="frame" x="22" y="12" width="78.5" height="19.5"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="启用Touch ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YcS-BT-7uK">
+                                                    <rect key="frame" x="22" y="12" width="96.5" height="19.5"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="liK-F3-dKn">
+                                                    <rect key="frame" x="303" y="6" width="51" height="31"/>
+                                                    <animations/>
+                                                    <connections>
+                                                        <action selector="changeSwitchView:" destination="lBI-rL-J1K" eventType="valueChanged" id="gaq-QX-xKy"/>
+                                                    </connections>
+                                                </switch>
                                             </subviews>
                                             <animations/>
                                             <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="TGX-ye-TAN" secondAttribute="trailing" constant="15" id="Byu-wj-M9O"/>
-                                                <constraint firstItem="nbw-ne-Kqf" firstAttribute="centerY" secondItem="llF-XV-bd9" secondAttribute="centerY" id="C5G-Yy-Uhf"/>
-                                                <constraint firstItem="nbw-ne-Kqf" firstAttribute="leading" secondItem="llF-XV-bd9" secondAttribute="leading" constant="22" id="FtA-y6-fHp"/>
-                                                <constraint firstItem="TGX-ye-TAN" firstAttribute="centerY" secondItem="llF-XV-bd9" secondAttribute="centerY" id="Wu2-q6-kax"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                        <animations/>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="zkH-nc-PIz">
-                                        <rect key="frame" x="0.0" y="339.5" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zkH-nc-PIz" id="uvf-kR-IdG">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="tv2-0m-tvW">
-                                                    <rect key="frame" x="303" y="6" width="51" height="31"/>
-                                                    <animations/>
-                                                </switch>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="使用指纹密码开启" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yB9-YM-wKQ">
-                                                    <rect key="frame" x="22" y="12" width="128" height="19.5"/>
-                                                    <animations/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <animations/>
-                                            <constraints>
-                                                <constraint firstAttribute="trailingMargin" secondItem="tv2-0m-tvW" secondAttribute="trailing" constant="15" id="4wj-6c-xQC"/>
-                                                <constraint firstItem="tv2-0m-tvW" firstAttribute="centerY" secondItem="uvf-kR-IdG" secondAttribute="centerY" id="6jM-e6-pJc"/>
-                                                <constraint firstItem="yB9-YM-wKQ" firstAttribute="leading" secondItem="uvf-kR-IdG" secondAttribute="leading" constant="22" id="EXM-Sx-qKF"/>
-                                                <constraint firstItem="yB9-YM-wKQ" firstAttribute="centerY" secondItem="uvf-kR-IdG" secondAttribute="centerY" id="bNp-rB-Zpe"/>
+                                                <constraint firstItem="liK-F3-dKn" firstAttribute="centerY" secondItem="FKp-sh-gNO" secondAttribute="centerY" id="1Kp-Y0-PGX"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="liK-F3-dKn" secondAttribute="trailing" constant="15" id="1Mo-aV-g04"/>
+                                                <constraint firstItem="YcS-BT-7uK" firstAttribute="leading" secondItem="FKp-sh-gNO" secondAttribute="leading" constant="22" id="btY-6d-aCn"/>
+                                                <constraint firstItem="YcS-BT-7uK" firstAttribute="centerY" secondItem="FKp-sh-gNO" secondAttribute="centerY" id="hqs-if-dyd"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <animations/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="6Nk-jo-1er">
-                                        <rect key="frame" x="0.0" y="383.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="339.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6Nk-jo-1er" id="Kz3-gH-o6T">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -558,7 +531,7 @@
                                         <animations/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" id="6k4-gY-Eoi">
-                                        <rect key="frame" x="0.0" y="427.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="383.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6k4-gY-Eoi" id="jcQ-C7-jqG">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -597,7 +570,7 @@
                             <tableViewSection headerTitle="数据管理" id="OKR-yF-Wd9">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="Snp-tl-m0o" style="IBUITableViewCellStyleDefault" id="SQX-TJ-TI8">
-                                        <rect key="frame" x="0.0" y="521.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="477.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="SQX-TJ-TI8" id="Wyc-eo-hoB">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -617,7 +590,7 @@
                                         <animations/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="QGH-1A-Uvv" style="IBUITableViewCellStyleDefault" id="46Q-PS-h0v">
-                                        <rect key="frame" x="0.0" y="565.5" width="375" height="44"/>
+                                        <rect key="frame" x="0.0" y="521.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="46Q-PS-h0v" id="xip-Bh-Fo6">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -655,15 +628,13 @@
                     <connections>
                         <outlet property="ageTextField" destination="xnl-4C-dPa" id="h32-KE-wAE"/>
                         <outlet property="genderTextField" destination="41S-VF-nRk" id="b9u-ki-Ock"/>
-                        <outlet property="iCloudLabel" destination="nbw-ne-Kqf" id="ujU-Oo-mwF"/>
-                        <outlet property="iCloudSwitch" destination="TGX-ye-TAN" id="C4L-Mg-4Jk"/>
                         <outlet property="iconBadgeNumberLabel" destination="xjP-VV-UrC" id="rnr-c5-mXR"/>
                         <outlet property="iconBadgeNumberSwitch" destination="bqb-tf-qaF" id="9Q6-yf-Z8y"/>
                         <outlet property="imageTypeLabel" destination="ZEm-cF-RG1" id="Rdz-1H-Nav"/>
                         <outlet property="imageTypeSegment" destination="6Fq-cs-UB0" id="qZ1-xw-HEL"/>
                         <outlet property="nameTextField" destination="B0L-Vw-kYT" id="e0B-ig-2VJ"/>
-                        <outlet property="passwordLabel" destination="yB9-YM-wKQ" id="V25-ZY-imN"/>
-                        <outlet property="passwordSwitch" destination="tv2-0m-tvW" id="1vX-SI-kNu"/>
+                        <outlet property="passwordLabel" destination="YcS-BT-7uK" id="4qE-b5-ve4"/>
+                        <outlet property="passwordSwitch" destination="liK-F3-dKn" id="sw2-jP-x5N"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zbh-ja-Zit" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1010,9 +981,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="L53-kD-ujF">
-                                <rect key="frame" x="0.0" y="372.5" width="375" height="240.5"/>
+                                <rect key="frame" x="0.0" y="372" width="375" height="240.5"/>
                                 <animations/>
-                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="aboutcell" textLabel="TWe-aA-ecF" style="IBUITableViewCellStyleDefault" id="qfp-v2-csF">
@@ -1027,7 +998,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -1043,7 +1014,7 @@
                                 </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XI4-QL-M4R">
-                                <rect key="frame" x="20" y="263.5" width="335" height="109"/>
+                                <rect key="frame" x="20" y="263" width="335" height="109"/>
                                 <animations/>
                                 <string key="text">欢迎使用Amos运动日记！
 
@@ -1051,11 +1022,11 @@
 
 所以欢迎大家在使用后给我反馈和心得，包括交流运动的经验等。（左转点“反馈”）</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amos Sport Diary  V 1.0" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UMG-Bv-EW9">
-                                <rect key="frame" x="97.5" y="220" width="180.5" height="20.5"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Amos Sport Diary  V 1.0.3" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UMG-Bv-EW9">
+                                <rect key="frame" x="90.5" y="220" width="194.5" height="20.5"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -1493,6 +1464,62 @@
             </objects>
             <point key="canvasLocation" x="1784.5" y="-415.5"/>
         </scene>
+        <!--TouchID View Controller-->
+        <scene sceneID="ZKz-o7-8hM">
+            <objects>
+                <viewController storyboardIdentifier="touchid" id="rlj-t8-aif" customClass="TouchIDViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ba6-o9-GX6"/>
+                        <viewControllerLayoutGuide type="bottom" id="R3T-AE-Szc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="sc8-qU-Vfn">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9nt-tF-NyL">
+                                <rect key="frame" x="112" y="258" width="150" height="150"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="150" id="Gi7-jy-xbj"/>
+                                    <constraint firstAttribute="width" constant="150" id="Ntl-39-V9x"/>
+                                </constraints>
+                                <state key="normal" image="Touch_ID_Blue200"/>
+                                <connections>
+                                    <action selector="TouchIDButtonClick:" destination="rlj-t8-aif" eventType="touchUpInside" id="OyX-I7-gqu"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hfg-C2-Od4">
+                                <rect key="frame" x="117" y="159.5" width="140" height="33.5"/>
+                                <animations/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="lessThanOrEqual" constant="220" id="aMZ-U7-Y3k"/>
+                                </constraints>
+                                <string key="text">你好！
+请使用指纹进行解锁。</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="0.43529411759999997" green="0.4431372549" blue="0.47450980390000003" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <animations/>
+                        <color key="backgroundColor" red="0.94060968140000001" green="0.94060968140000001" blue="0.94060968140000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="9nt-tF-NyL" firstAttribute="top" secondItem="Hfg-C2-Od4" secondAttribute="bottom" constant="65" id="Aaf-Pv-jom"/>
+                            <constraint firstItem="9nt-tF-NyL" firstAttribute="centerY" secondItem="sc8-qU-Vfn" secondAttribute="centerY" id="dQP-RF-3fF"/>
+                            <constraint firstItem="Hfg-C2-Od4" firstAttribute="centerX" secondItem="sc8-qU-Vfn" secondAttribute="centerX" id="g0Q-Gm-qTn"/>
+                            <constraint firstItem="9nt-tF-NyL" firstAttribute="centerX" secondItem="sc8-qU-Vfn" secondAttribute="centerX" id="guS-Ky-lyp"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                    <connections>
+                        <outlet property="helloLabel" destination="Hfg-C2-Od4" id="g8x-my-5oS"/>
+                        <outlet property="touchIDButton" destination="9nt-tF-NyL" id="bfb-YX-07m"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Zs0-Tk-4mp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2294.5" y="-415.5"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="yMt-5z-xRy">
             <objects>
@@ -1785,14 +1812,14 @@
                                 <string key="text">请在此输入反馈的具体内容。
 文明用语，客观描述问题，提高沟通效率。
 一起让软件更好的改善我们的运动生活。</string>
-                                <color key="textColor" red="0.82009686084871802" green="0.82009686084871802" blue="0.82009686084871802" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" enablesReturnKeyAutomatically="YES"/>
                                 <connections>
                                     <outlet property="delegate" destination="zWi-TJ-Loi" id="vES-Ua-Ihu"/>
                                 </connections>
                             </textView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0GM-mG-ogp">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0GM-mG-ogp">
                                 <rect key="frame" x="8" y="407" width="359" height="251.5"/>
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1978,6 +2005,7 @@
         <image name="Amos运动日记Icon" width="150" height="150"/>
         <image name="DonePic" width="350" height="180"/>
         <image name="DonePicHorizontal" width="350" height="180"/>
+        <image name="Touch_ID_Blue200" width="200" height="200"/>
         <image name="add1" width="512" height="512"/>
         <image name="check" width="20" height="20"/>
         <image name="menuIcon" width="24" height="24"/>

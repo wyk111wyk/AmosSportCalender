@@ -1,0 +1,1042 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B025CF471B84599000FB1A22 /* TouchIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B025CF461B84599000FB1A22 /* TouchIDViewController.m */; };
+		B06594C31B7F62E100ACFD66 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B06594C21B7F62E100ACFD66 /* MessageUI.framework */; };
+		B0723E541B786D2D00F8A63E /* SettingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0723E531B786D2D00F8A63E /* SettingTableView.m */; };
+		B0723E5A1B78913A00F8A63E /* SettingStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B0723E591B78913A00F8A63E /* SettingStore.m */; };
+		B0723E5C1B79002900F8A63E /* sportTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0723E5B1B79002900F8A63E /* sportTypes.plist */; };
+		B0854D6A1B6BA84B00C1B150 /* MMDrawerBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D621B6BA84B00C1B150 /* MMDrawerBarButtonItem.m */; };
+		B0854D6B1B6BA84B00C1B150 /* MMDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D651B6BA84B00C1B150 /* MMDrawerController.m */; };
+		B0854D6C1B6BA84B00C1B150 /* MMDrawerVisualState.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D671B6BA84B00C1B150 /* MMDrawerVisualState.m */; };
+		B0854D6D1B6BA84B00C1B150 /* UIViewController+MMDrawerController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D691B6BA84B00C1B150 /* UIViewController+MMDrawerController.m */; };
+		B0854D921B6BA87600C1B150 /* JTCalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D721B6BA87600C1B150 /* JTCalendarManager.m */; };
+		B0854D931B6BA87600C1B150 /* JTCalendarSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D741B6BA87600C1B150 /* JTCalendarSettings.m */; };
+		B0854D941B6BA87600C1B150 /* JTDateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D761B6BA87600C1B150 /* JTDateHelper.m */; };
+		B0854D951B6BA87600C1B150 /* JTCalendarDelegateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D791B6BA87600C1B150 /* JTCalendarDelegateManager.m */; };
+		B0854D961B6BA87600C1B150 /* JTCalendarScrollManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D7B1B6BA87600C1B150 /* JTCalendarScrollManager.m */; };
+		B0854D971B6BA87600C1B150 /* JTCalendarDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D851B6BA87600C1B150 /* JTCalendarDayView.m */; };
+		B0854D981B6BA87600C1B150 /* JTCalendarMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D871B6BA87600C1B150 /* JTCalendarMenuView.m */; };
+		B0854D991B6BA87600C1B150 /* JTCalendarPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D891B6BA87600C1B150 /* JTCalendarPageView.m */; };
+		B0854D9A1B6BA87600C1B150 /* JTCalendarWeekDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D8B1B6BA87600C1B150 /* JTCalendarWeekDayView.m */; };
+		B0854D9B1B6BA87600C1B150 /* JTCalendarWeekView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D8D1B6BA87600C1B150 /* JTCalendarWeekView.m */; };
+		B0854D9C1B6BA87600C1B150 /* JTHorizontalCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D8F1B6BA87600C1B150 /* JTHorizontalCalendarView.m */; };
+		B0854D9D1B6BA87600C1B150 /* JTVerticalCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D911B6BA87600C1B150 /* JTVerticalCalendarView.m */; };
+		B087E0271B76F92B003D90B6 /* XYPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = B087E0261B76F92B003D90B6 /* XYPieChart.m */; };
+		B087E0291B76FFF2003D90B6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B087E0281B76FFF2003D90B6 /* QuartzCore.framework */; };
+		B087E02E1B7716E8003D90B6 /* DetailSummaryVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B087E02C1B7716E8003D90B6 /* DetailSummaryVC.xib */; };
+		B08875E11B6F9AF3008DF5D4 /* SummaryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B08875DF1B6F9AF3008DF5D4 /* SummaryViewController.xib */; };
+		B0B548421B843F2400D42B33 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B548411B843F2400D42B33 /* Security.framework */; };
+		B0B548441B843F2A00D42B33 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B548431B843F2A00D42B33 /* LocalAuthentication.framework */; };
+		B0B548541B84443700D42B33 /* DMKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B548481B84443700D42B33 /* DMKeychain.m */; };
+		B0B548551B84443700D42B33 /* DMPasscode.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B5484A1B84443700D42B33 /* DMPasscode.m */; };
+		B0B548561B84443700D42B33 /* DMPasscodeConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B5484C1B84443700D42B33 /* DMPasscodeConfig.m */; };
+		B0B548571B84443700D42B33 /* DMPasscodeInternalField.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B5484E1B84443700D42B33 /* DMPasscodeInternalField.m */; };
+		B0B548581B84443700D42B33 /* DMPasscodeInternalNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B548501B84443700D42B33 /* DMPasscodeInternalNavigationController.m */; };
+		B0B548591B84443700D42B33 /* DMPasscodeInternalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B548521B84443700D42B33 /* DMPasscodeInternalViewController.m */; };
+		B0B973671B74808F0008640E /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B973651B74808F0008640E /* EventKit.framework */; };
+		B0B973681B74808F0008640E /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B973661B74808F0008640E /* EventKitUI.framework */; };
+		B0B9736D1B74DCF50008640E /* summaryTypeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0B9736B1B74DCF50008640E /* summaryTypeCell.xib */; };
+		B0C100F91B772A0700E4204B /* summaryNewTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0C100F81B772A0700E4204B /* summaryNewTVCell.xib */; };
+		B0C100FC1B77982200E4204B /* ImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C100FB1B77982200E4204B /* ImageStore.m */; };
+		B0C101011B77984300E4204B /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C100FE1B77984300E4204B /* Event.m */; };
+		B0C101021B77984300E4204B /* EventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C101001B77984300E4204B /* EventStore.m */; };
+		B0C1010B1B7798C000E4204B /* DetailSummaryVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C101041B7798C000E4204B /* DetailSummaryVC.m */; };
+		B0C1010C1B7798C000E4204B /* NewEvevtViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C101061B7798C000E4204B /* NewEvevtViewController.m */; };
+		B0C1010D1B7798C000E4204B /* SummaryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C101081B7798C000E4204B /* SummaryViewController.m */; };
+		B0C1010E1B7798C000E4204B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C1010A1B7798C000E4204B /* ViewController.m */; };
+		B0C101171B7798F600E4204B /* LeftMenuTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C101101B7798F600E4204B /* LeftMenuTableView.m */; };
+		B0C101181B7798F600E4204B /* NameManageTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C101121B7798F600E4204B /* NameManageTableView.m */; };
+		B0C101191B7798F600E4204B /* SummaryTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C101141B7798F600E4204B /* SummaryTableView.m */; };
+		B0C1011A1B7798F600E4204B /* TypeManageTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C101161B7798F600E4204B /* TypeManageTableView.m */; };
+		B0C101271B77993800E4204B /* NameManageTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C1011C1B77993800E4204B /* NameManageTVCell.m */; };
+		B0C101281B77993800E4204B /* SportTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C1011E1B77993800E4204B /* SportTVCell.m */; };
+		B0C101291B77993800E4204B /* SummaryNewTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C101201B77993800E4204B /* SummaryNewTVCell.m */; };
+		B0C1012A1B77993800E4204B /* SummaryTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C101221B77993800E4204B /* SummaryTVCell.m */; };
+		B0C1012B1B77993800E4204B /* summaryTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C101241B77993800E4204B /* summaryTypeCell.m */; };
+		B0C1012C1B77993800E4204B /* TypeManageTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C101261B77993800E4204B /* TypeManageTVCell.m */; };
+		B0DC6BE51B7F079F009DFA5A /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DC6BE41B7F079F009DFA5A /* FeedbackViewController.m */; };
+		B0DC6BE91B7F2970009DFA5A /* FeedbackTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DC6BE71B7F2970009DFA5A /* FeedbackTVCell.m */; };
+		B0DC6BEA1B7F2970009DFA5A /* FeedbackTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0DC6BE81B7F2970009DFA5A /* FeedbackTVCell.xib */; };
+		B0E144D61B80F6BB00934377 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0E144D51B80F6BB00934377 /* Launch Screen.storyboard */; };
+		B0E144D91B81BD6000934377 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E144D81B81BD6000934377 /* AboutViewController.m */; };
+		B0E144F01B81C58700934377 /* TOActivityChrome.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E144E61B81C58700934377 /* TOActivityChrome.m */; };
+		B0E144F11B81C58700934377 /* TOActivitySafari.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E144E81B81C58700934377 /* TOActivitySafari.m */; };
+		B0E144F21B81C58700934377 /* TOWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E144EA1B81C58700934377 /* TOWebViewController.m */; };
+		B0E144F31B81C58700934377 /* UIImage+TOWebViewControllerIcons.m in Sources */ = {isa = PBXBuildFile; fileRef = B0E144EC1B81C58700934377 /* UIImage+TOWebViewControllerIcons.m */; };
+		B0FA58971B4678D400E3BE94 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FA58961B4678D400E3BE94 /* main.m */; };
+		B0FA589A1B4678D400E3BE94 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FA58991B4678D400E3BE94 /* AppDelegate.m */; };
+		B0FA58A01B4678D400E3BE94 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0FA589E1B4678D400E3BE94 /* Main.storyboard */; };
+		B0FA58A31B4678D400E3BE94 /* AmosSportCalender.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0FA58A11B4678D400E3BE94 /* AmosSportCalender.xcdatamodeld */; };
+		B0FA58A51B4678D400E3BE94 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0FA58A41B4678D400E3BE94 /* Assets.xcassets */; };
+		B0FA58B31B4678D400E3BE94 /* AmosSportCalenderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FA58B21B4678D400E3BE94 /* AmosSportCalenderTests.m */; };
+		B0FA58BE1B4678D400E3BE94 /* AmosSportCalenderUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FA58BD1B4678D400E3BE94 /* AmosSportCalenderUITests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B0FA58AF1B4678D400E3BE94 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B0FA588A1B4678D400E3BE94 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B0FA58911B4678D400E3BE94;
+			remoteInfo = AmosSportCalender;
+		};
+		B0FA58BA1B4678D400E3BE94 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B0FA588A1B4678D400E3BE94 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B0FA58911B4678D400E3BE94;
+			remoteInfo = AmosSportCalender;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B025CF451B84599000FB1A22 /* TouchIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TouchIDViewController.h; path = Controller/TouchIDViewController.h; sourceTree = "<group>"; };
+		B025CF461B84599000FB1A22 /* TouchIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TouchIDViewController.m; path = Controller/TouchIDViewController.m; sourceTree = "<group>"; };
+		B06594C21B7F62E100ACFD66 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		B0723E521B786D2D00F8A63E /* SettingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTableView.h; sourceTree = "<group>"; };
+		B0723E531B786D2D00F8A63E /* SettingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTableView.m; sourceTree = "<group>"; };
+		B0723E581B78913A00F8A63E /* SettingStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingStore.h; path = Model/SettingStore.h; sourceTree = "<group>"; };
+		B0723E591B78913A00F8A63E /* SettingStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingStore.m; path = Model/SettingStore.m; sourceTree = "<group>"; };
+		B0723E5B1B79002900F8A63E /* sportTypes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = sportTypes.plist; sourceTree = "<group>"; };
+		B0854D611B6BA84B00C1B150 /* MMDrawerBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDrawerBarButtonItem.h; sourceTree = "<group>"; };
+		B0854D621B6BA84B00C1B150 /* MMDrawerBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMDrawerBarButtonItem.m; sourceTree = "<group>"; };
+		B0854D631B6BA84B00C1B150 /* MMDrawerController+Subclass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MMDrawerController+Subclass.h"; sourceTree = "<group>"; };
+		B0854D641B6BA84B00C1B150 /* MMDrawerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDrawerController.h; sourceTree = "<group>"; };
+		B0854D651B6BA84B00C1B150 /* MMDrawerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMDrawerController.m; sourceTree = "<group>"; };
+		B0854D661B6BA84B00C1B150 /* MMDrawerVisualState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MMDrawerVisualState.h; sourceTree = "<group>"; };
+		B0854D671B6BA84B00C1B150 /* MMDrawerVisualState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MMDrawerVisualState.m; sourceTree = "<group>"; };
+		B0854D681B6BA84B00C1B150 /* UIViewController+MMDrawerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MMDrawerController.h"; sourceTree = "<group>"; };
+		B0854D691B6BA84B00C1B150 /* UIViewController+MMDrawerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MMDrawerController.m"; sourceTree = "<group>"; };
+		B0854D6F1B6BA87600C1B150 /* JTCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendar.h; sourceTree = "<group>"; };
+		B0854D701B6BA87600C1B150 /* JTCalendarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarDelegate.h; sourceTree = "<group>"; };
+		B0854D711B6BA87600C1B150 /* JTCalendarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarManager.h; sourceTree = "<group>"; };
+		B0854D721B6BA87600C1B150 /* JTCalendarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTCalendarManager.m; sourceTree = "<group>"; };
+		B0854D731B6BA87600C1B150 /* JTCalendarSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarSettings.h; sourceTree = "<group>"; };
+		B0854D741B6BA87600C1B150 /* JTCalendarSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTCalendarSettings.m; sourceTree = "<group>"; };
+		B0854D751B6BA87600C1B150 /* JTDateHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTDateHelper.h; sourceTree = "<group>"; };
+		B0854D761B6BA87600C1B150 /* JTDateHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTDateHelper.m; sourceTree = "<group>"; };
+		B0854D781B6BA87600C1B150 /* JTCalendarDelegateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarDelegateManager.h; sourceTree = "<group>"; };
+		B0854D791B6BA87600C1B150 /* JTCalendarDelegateManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTCalendarDelegateManager.m; sourceTree = "<group>"; };
+		B0854D7A1B6BA87600C1B150 /* JTCalendarScrollManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarScrollManager.h; sourceTree = "<group>"; };
+		B0854D7B1B6BA87600C1B150 /* JTCalendarScrollManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTCalendarScrollManager.m; sourceTree = "<group>"; };
+		B0854D7D1B6BA87600C1B150 /* JTCalendarDay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarDay.h; sourceTree = "<group>"; };
+		B0854D7E1B6BA87600C1B150 /* JTCalendarPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarPage.h; sourceTree = "<group>"; };
+		B0854D7F1B6BA87600C1B150 /* JTCalendarWeek.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarWeek.h; sourceTree = "<group>"; };
+		B0854D801B6BA87600C1B150 /* JTCalendarWeekDay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarWeekDay.h; sourceTree = "<group>"; };
+		B0854D811B6BA87600C1B150 /* JTContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTContent.h; sourceTree = "<group>"; };
+		B0854D821B6BA87600C1B150 /* JTMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTMenu.h; sourceTree = "<group>"; };
+		B0854D841B6BA87600C1B150 /* JTCalendarDayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarDayView.h; sourceTree = "<group>"; };
+		B0854D851B6BA87600C1B150 /* JTCalendarDayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTCalendarDayView.m; sourceTree = "<group>"; };
+		B0854D861B6BA87600C1B150 /* JTCalendarMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarMenuView.h; sourceTree = "<group>"; };
+		B0854D871B6BA87600C1B150 /* JTCalendarMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTCalendarMenuView.m; sourceTree = "<group>"; };
+		B0854D881B6BA87600C1B150 /* JTCalendarPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarPageView.h; sourceTree = "<group>"; };
+		B0854D891B6BA87600C1B150 /* JTCalendarPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTCalendarPageView.m; sourceTree = "<group>"; };
+		B0854D8A1B6BA87600C1B150 /* JTCalendarWeekDayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarWeekDayView.h; sourceTree = "<group>"; };
+		B0854D8B1B6BA87600C1B150 /* JTCalendarWeekDayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTCalendarWeekDayView.m; sourceTree = "<group>"; };
+		B0854D8C1B6BA87600C1B150 /* JTCalendarWeekView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarWeekView.h; sourceTree = "<group>"; };
+		B0854D8D1B6BA87600C1B150 /* JTCalendarWeekView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTCalendarWeekView.m; sourceTree = "<group>"; };
+		B0854D8E1B6BA87600C1B150 /* JTHorizontalCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTHorizontalCalendarView.h; sourceTree = "<group>"; };
+		B0854D8F1B6BA87600C1B150 /* JTHorizontalCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTHorizontalCalendarView.m; sourceTree = "<group>"; };
+		B0854D901B6BA87600C1B150 /* JTVerticalCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTVerticalCalendarView.h; sourceTree = "<group>"; };
+		B0854D911B6BA87600C1B150 /* JTVerticalCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTVerticalCalendarView.m; sourceTree = "<group>"; };
+		B087E0251B76F92B003D90B6 /* XYPieChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYPieChart.h; sourceTree = "<group>"; };
+		B087E0261B76F92B003D90B6 /* XYPieChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYPieChart.m; sourceTree = "<group>"; };
+		B087E0281B76FFF2003D90B6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		B087E02C1B7716E8003D90B6 /* DetailSummaryVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailSummaryVC.xib; sourceTree = "<group>"; };
+		B08875DF1B6F9AF3008DF5D4 /* SummaryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SummaryViewController.xib; sourceTree = "<group>"; };
+		B0B548411B843F2400D42B33 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		B0B548431B843F2A00D42B33 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
+		B0B548471B84443700D42B33 /* DMKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMKeychain.h; sourceTree = "<group>"; };
+		B0B548481B84443700D42B33 /* DMKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMKeychain.m; sourceTree = "<group>"; };
+		B0B548491B84443700D42B33 /* DMPasscode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMPasscode.h; sourceTree = "<group>"; };
+		B0B5484A1B84443700D42B33 /* DMPasscode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMPasscode.m; sourceTree = "<group>"; };
+		B0B5484B1B84443700D42B33 /* DMPasscodeConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMPasscodeConfig.h; sourceTree = "<group>"; };
+		B0B5484C1B84443700D42B33 /* DMPasscodeConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMPasscodeConfig.m; sourceTree = "<group>"; };
+		B0B5484D1B84443700D42B33 /* DMPasscodeInternalField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMPasscodeInternalField.h; sourceTree = "<group>"; };
+		B0B5484E1B84443700D42B33 /* DMPasscodeInternalField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMPasscodeInternalField.m; sourceTree = "<group>"; };
+		B0B5484F1B84443700D42B33 /* DMPasscodeInternalNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMPasscodeInternalNavigationController.h; sourceTree = "<group>"; };
+		B0B548501B84443700D42B33 /* DMPasscodeInternalNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMPasscodeInternalNavigationController.m; sourceTree = "<group>"; };
+		B0B548511B84443700D42B33 /* DMPasscodeInternalViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMPasscodeInternalViewController.h; sourceTree = "<group>"; };
+		B0B548521B84443700D42B33 /* DMPasscodeInternalViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMPasscodeInternalViewController.m; sourceTree = "<group>"; };
+		B0B973641B747CFF0008640E /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
+		B0B973651B74808F0008640E /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		B0B973661B74808F0008640E /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
+		B0B9736B1B74DCF50008640E /* summaryTypeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = summaryTypeCell.xib; sourceTree = "<group>"; };
+		B0C100F81B772A0700E4204B /* summaryNewTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = summaryNewTVCell.xib; sourceTree = "<group>"; };
+		B0C100FA1B77982200E4204B /* ImageStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageStore.h; path = Model/ImageStore.h; sourceTree = "<group>"; };
+		B0C100FB1B77982200E4204B /* ImageStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageStore.m; path = Model/ImageStore.m; sourceTree = "<group>"; };
+		B0C100FD1B77984300E4204B /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Event.h; path = Model/Event.h; sourceTree = "<group>"; };
+		B0C100FE1B77984300E4204B /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Event.m; path = Model/Event.m; sourceTree = "<group>"; };
+		B0C100FF1B77984300E4204B /* EventStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EventStore.h; path = Model/EventStore.h; sourceTree = "<group>"; };
+		B0C101001B77984300E4204B /* EventStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = EventStore.m; path = Model/EventStore.m; sourceTree = "<group>"; };
+		B0C101031B7798C000E4204B /* DetailSummaryVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DetailSummaryVC.h; path = Controller/DetailSummaryVC.h; sourceTree = "<group>"; };
+		B0C101041B7798C000E4204B /* DetailSummaryVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DetailSummaryVC.m; path = Controller/DetailSummaryVC.m; sourceTree = "<group>"; };
+		B0C101051B7798C000E4204B /* NewEvevtViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewEvevtViewController.h; path = Controller/NewEvevtViewController.h; sourceTree = "<group>"; };
+		B0C101061B7798C000E4204B /* NewEvevtViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewEvevtViewController.m; path = Controller/NewEvevtViewController.m; sourceTree = "<group>"; };
+		B0C101071B7798C000E4204B /* SummaryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SummaryViewController.h; path = Controller/SummaryViewController.h; sourceTree = "<group>"; };
+		B0C101081B7798C000E4204B /* SummaryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SummaryViewController.m; path = Controller/SummaryViewController.m; sourceTree = "<group>"; };
+		B0C101091B7798C000E4204B /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ViewController.h; path = Controller/ViewController.h; sourceTree = "<group>"; };
+		B0C1010A1B7798C000E4204B /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ViewController.m; path = Controller/ViewController.m; sourceTree = "<group>"; };
+		B0C1010F1B7798F600E4204B /* LeftMenuTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeftMenuTableView.h; path = TableView/LeftMenuTableView.h; sourceTree = "<group>"; };
+		B0C101101B7798F600E4204B /* LeftMenuTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LeftMenuTableView.m; path = TableView/LeftMenuTableView.m; sourceTree = "<group>"; };
+		B0C101111B7798F600E4204B /* NameManageTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NameManageTableView.h; path = TableView/NameManageTableView.h; sourceTree = "<group>"; };
+		B0C101121B7798F600E4204B /* NameManageTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NameManageTableView.m; path = TableView/NameManageTableView.m; sourceTree = "<group>"; };
+		B0C101131B7798F600E4204B /* SummaryTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SummaryTableView.h; path = TableView/SummaryTableView.h; sourceTree = "<group>"; };
+		B0C101141B7798F600E4204B /* SummaryTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SummaryTableView.m; path = TableView/SummaryTableView.m; sourceTree = "<group>"; };
+		B0C101151B7798F600E4204B /* TypeManageTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TypeManageTableView.h; path = TableView/TypeManageTableView.h; sourceTree = "<group>"; };
+		B0C101161B7798F600E4204B /* TypeManageTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TypeManageTableView.m; path = TableView/TypeManageTableView.m; sourceTree = "<group>"; };
+		B0C1011B1B77993800E4204B /* NameManageTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NameManageTVCell.h; path = Cell/NameManageTVCell.h; sourceTree = "<group>"; };
+		B0C1011C1B77993800E4204B /* NameManageTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NameManageTVCell.m; path = Cell/NameManageTVCell.m; sourceTree = "<group>"; };
+		B0C1011D1B77993800E4204B /* SportTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SportTVCell.h; path = Cell/SportTVCell.h; sourceTree = "<group>"; };
+		B0C1011E1B77993800E4204B /* SportTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SportTVCell.m; path = Cell/SportTVCell.m; sourceTree = "<group>"; };
+		B0C1011F1B77993800E4204B /* SummaryNewTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SummaryNewTVCell.h; path = Cell/SummaryNewTVCell.h; sourceTree = "<group>"; };
+		B0C101201B77993800E4204B /* SummaryNewTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SummaryNewTVCell.m; path = Cell/SummaryNewTVCell.m; sourceTree = "<group>"; };
+		B0C101211B77993800E4204B /* SummaryTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SummaryTVCell.h; path = Cell/SummaryTVCell.h; sourceTree = "<group>"; };
+		B0C101221B77993800E4204B /* SummaryTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SummaryTVCell.m; path = Cell/SummaryTVCell.m; sourceTree = "<group>"; };
+		B0C101231B77993800E4204B /* summaryTypeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = summaryTypeCell.h; path = Cell/summaryTypeCell.h; sourceTree = "<group>"; };
+		B0C101241B77993800E4204B /* summaryTypeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = summaryTypeCell.m; path = Cell/summaryTypeCell.m; sourceTree = "<group>"; };
+		B0C101251B77993800E4204B /* TypeManageTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TypeManageTVCell.h; path = Cell/TypeManageTVCell.h; sourceTree = "<group>"; };
+		B0C101261B77993800E4204B /* TypeManageTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TypeManageTVCell.m; path = Cell/TypeManageTVCell.m; sourceTree = "<group>"; };
+		B0DC6BE31B7F079F009DFA5A /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedbackViewController.h; path = Controller/FeedbackViewController.h; sourceTree = "<group>"; };
+		B0DC6BE41B7F079F009DFA5A /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedbackViewController.m; path = Controller/FeedbackViewController.m; sourceTree = "<group>"; };
+		B0DC6BE61B7F2970009DFA5A /* FeedbackTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedbackTVCell.h; path = Cell/FeedbackTVCell.h; sourceTree = "<group>"; };
+		B0DC6BE71B7F2970009DFA5A /* FeedbackTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedbackTVCell.m; path = Cell/FeedbackTVCell.m; sourceTree = "<group>"; };
+		B0DC6BE81B7F2970009DFA5A /* FeedbackTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = FeedbackTVCell.xib; path = Cell/FeedbackTVCell.xib; sourceTree = "<group>"; };
+		B0E144D51B80F6BB00934377 /* Launch Screen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		B0E144D71B81BD6000934377 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AboutViewController.h; path = Controller/AboutViewController.h; sourceTree = "<group>"; };
+		B0E144D81B81BD6000934377 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AboutViewController.m; path = Controller/AboutViewController.m; sourceTree = "<group>"; };
+		B0E144E51B81C58700934377 /* TOActivityChrome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOActivityChrome.h; sourceTree = "<group>"; };
+		B0E144E61B81C58700934377 /* TOActivityChrome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOActivityChrome.m; sourceTree = "<group>"; };
+		B0E144E71B81C58700934377 /* TOActivitySafari.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOActivitySafari.h; sourceTree = "<group>"; };
+		B0E144E81B81C58700934377 /* TOActivitySafari.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOActivitySafari.m; sourceTree = "<group>"; };
+		B0E144E91B81C58700934377 /* TOWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TOWebViewController.h; sourceTree = "<group>"; };
+		B0E144EA1B81C58700934377 /* TOWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TOWebViewController.m; sourceTree = "<group>"; };
+		B0E144EB1B81C58700934377 /* UIImage+TOWebViewControllerIcons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+TOWebViewControllerIcons.h"; sourceTree = "<group>"; };
+		B0E144EC1B81C58700934377 /* UIImage+TOWebViewControllerIcons.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+TOWebViewControllerIcons.m"; sourceTree = "<group>"; };
+		B0FA58921B4678D400E3BE94 /* AmosSportDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AmosSportDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0FA58961B4678D400E3BE94 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B0FA58981B4678D400E3BE94 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		B0FA58991B4678D400E3BE94 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		B0FA589F1B4678D400E3BE94 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B0FA58A21B4678D400E3BE94 /* AmosSportCalender.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AmosSportCalender.xcdatamodel; sourceTree = "<group>"; };
+		B0FA58A41B4678D400E3BE94 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B0FA58A91B4678D400E3BE94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B0FA58AE1B4678D400E3BE94 /* AmosSportDiary.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AmosSportDiary.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0FA58B21B4678D400E3BE94 /* AmosSportCalenderTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AmosSportCalenderTests.m; sourceTree = "<group>"; };
+		B0FA58B41B4678D400E3BE94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B0FA58B91B4678D400E3BE94 /* AmosSportDiary.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AmosSportDiary.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B0FA58BD1B4678D400E3BE94 /* AmosSportCalenderUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AmosSportCalenderUITests.m; sourceTree = "<group>"; };
+		B0FA58BF1B4678D400E3BE94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B0FA588F1B4678D400E3BE94 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0B548441B843F2A00D42B33 /* LocalAuthentication.framework in Frameworks */,
+				B0B548421B843F2400D42B33 /* Security.framework in Frameworks */,
+				B06594C31B7F62E100ACFD66 /* MessageUI.framework in Frameworks */,
+				B087E0291B76FFF2003D90B6 /* QuartzCore.framework in Frameworks */,
+				B0B973671B74808F0008640E /* EventKit.framework in Frameworks */,
+				B0B973681B74808F0008640E /* EventKitUI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0FA58AB1B4678D400E3BE94 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0FA58B61B4678D400E3BE94 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B0854D601B6BA84B00C1B150 /* MMDrawerController */ = {
+			isa = PBXGroup;
+			children = (
+				B0854D611B6BA84B00C1B150 /* MMDrawerBarButtonItem.h */,
+				B0854D621B6BA84B00C1B150 /* MMDrawerBarButtonItem.m */,
+				B0854D631B6BA84B00C1B150 /* MMDrawerController+Subclass.h */,
+				B0854D641B6BA84B00C1B150 /* MMDrawerController.h */,
+				B0854D651B6BA84B00C1B150 /* MMDrawerController.m */,
+				B0854D661B6BA84B00C1B150 /* MMDrawerVisualState.h */,
+				B0854D671B6BA84B00C1B150 /* MMDrawerVisualState.m */,
+				B0854D681B6BA84B00C1B150 /* UIViewController+MMDrawerController.h */,
+				B0854D691B6BA84B00C1B150 /* UIViewController+MMDrawerController.m */,
+			);
+			path = MMDrawerController;
+			sourceTree = "<group>";
+		};
+		B0854D6E1B6BA87600C1B150 /* JTCalendar */ = {
+			isa = PBXGroup;
+			children = (
+				B0854D6F1B6BA87600C1B150 /* JTCalendar.h */,
+				B0854D701B6BA87600C1B150 /* JTCalendarDelegate.h */,
+				B0854D711B6BA87600C1B150 /* JTCalendarManager.h */,
+				B0854D721B6BA87600C1B150 /* JTCalendarManager.m */,
+				B0854D731B6BA87600C1B150 /* JTCalendarSettings.h */,
+				B0854D741B6BA87600C1B150 /* JTCalendarSettings.m */,
+				B0854D751B6BA87600C1B150 /* JTDateHelper.h */,
+				B0854D761B6BA87600C1B150 /* JTDateHelper.m */,
+				B0854D771B6BA87600C1B150 /* Managers */,
+				B0854D7C1B6BA87600C1B150 /* Protocols */,
+				B0854D831B6BA87600C1B150 /* Views */,
+			);
+			path = JTCalendar;
+			sourceTree = "<group>";
+		};
+		B0854D771B6BA87600C1B150 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				B0854D781B6BA87600C1B150 /* JTCalendarDelegateManager.h */,
+				B0854D791B6BA87600C1B150 /* JTCalendarDelegateManager.m */,
+				B0854D7A1B6BA87600C1B150 /* JTCalendarScrollManager.h */,
+				B0854D7B1B6BA87600C1B150 /* JTCalendarScrollManager.m */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		B0854D7C1B6BA87600C1B150 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				B0854D7D1B6BA87600C1B150 /* JTCalendarDay.h */,
+				B0854D7E1B6BA87600C1B150 /* JTCalendarPage.h */,
+				B0854D7F1B6BA87600C1B150 /* JTCalendarWeek.h */,
+				B0854D801B6BA87600C1B150 /* JTCalendarWeekDay.h */,
+				B0854D811B6BA87600C1B150 /* JTContent.h */,
+				B0854D821B6BA87600C1B150 /* JTMenu.h */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		B0854D831B6BA87600C1B150 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B0854D841B6BA87600C1B150 /* JTCalendarDayView.h */,
+				B0854D851B6BA87600C1B150 /* JTCalendarDayView.m */,
+				B0854D861B6BA87600C1B150 /* JTCalendarMenuView.h */,
+				B0854D871B6BA87600C1B150 /* JTCalendarMenuView.m */,
+				B0854D881B6BA87600C1B150 /* JTCalendarPageView.h */,
+				B0854D891B6BA87600C1B150 /* JTCalendarPageView.m */,
+				B0854D8A1B6BA87600C1B150 /* JTCalendarWeekDayView.h */,
+				B0854D8B1B6BA87600C1B150 /* JTCalendarWeekDayView.m */,
+				B0854D8C1B6BA87600C1B150 /* JTCalendarWeekView.h */,
+				B0854D8D1B6BA87600C1B150 /* JTCalendarWeekView.m */,
+				B0854D8E1B6BA87600C1B150 /* JTHorizontalCalendarView.h */,
+				B0854D8F1B6BA87600C1B150 /* JTHorizontalCalendarView.m */,
+				B0854D901B6BA87600C1B150 /* JTVerticalCalendarView.h */,
+				B0854D911B6BA87600C1B150 /* JTVerticalCalendarView.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B0854D9E1B6CA0BC00C1B150 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				B0C100FD1B77984300E4204B /* Event.h */,
+				B0C100FE1B77984300E4204B /* Event.m */,
+				B0C100FF1B77984300E4204B /* EventStore.h */,
+				B0C101001B77984300E4204B /* EventStore.m */,
+				B0C100FA1B77982200E4204B /* ImageStore.h */,
+				B0C100FB1B77982200E4204B /* ImageStore.m */,
+				B0723E581B78913A00F8A63E /* SettingStore.h */,
+				B0723E591B78913A00F8A63E /* SettingStore.m */,
+				B0FA58A11B4678D400E3BE94 /* AmosSportCalender.xcdatamodeld */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		B0854D9F1B6CA0C900C1B150 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				B0FA589E1B4678D400E3BE94 /* Main.storyboard */,
+				B08875DF1B6F9AF3008DF5D4 /* SummaryViewController.xib */,
+				B087E02C1B7716E8003D90B6 /* DetailSummaryVC.xib */,
+				B0B9736B1B74DCF50008640E /* summaryTypeCell.xib */,
+				B0C100F81B772A0700E4204B /* summaryNewTVCell.xib */,
+				B0DC6BE81B7F2970009DFA5A /* FeedbackTVCell.xib */,
+				B0E144D51B80F6BB00934377 /* Launch Screen.storyboard */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		B0854DA01B6CA0E200C1B150 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B0C101091B7798C000E4204B /* ViewController.h */,
+				B0C1010A1B7798C000E4204B /* ViewController.m */,
+				B0C101071B7798C000E4204B /* SummaryViewController.h */,
+				B0C101081B7798C000E4204B /* SummaryViewController.m */,
+				B0C101031B7798C000E4204B /* DetailSummaryVC.h */,
+				B0C101041B7798C000E4204B /* DetailSummaryVC.m */,
+				B0C101051B7798C000E4204B /* NewEvevtViewController.h */,
+				B0C101061B7798C000E4204B /* NewEvevtViewController.m */,
+				B0DC6BE31B7F079F009DFA5A /* FeedbackViewController.h */,
+				B0DC6BE41B7F079F009DFA5A /* FeedbackViewController.m */,
+				B0E144D71B81BD6000934377 /* AboutViewController.h */,
+				B0E144D81B81BD6000934377 /* AboutViewController.m */,
+				B025CF451B84599000FB1A22 /* TouchIDViewController.h */,
+				B025CF461B84599000FB1A22 /* TouchIDViewController.m */,
+				B08875EB1B711EE3008DF5D4 /* TableView */,
+				B08875EF1B711F19008DF5D4 /* Cell */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		B087E0241B76F92B003D90B6 /* XYPieChart */ = {
+			isa = PBXGroup;
+			children = (
+				B087E0251B76F92B003D90B6 /* XYPieChart.h */,
+				B087E0261B76F92B003D90B6 /* XYPieChart.m */,
+			);
+			path = XYPieChart;
+			sourceTree = "<group>";
+		};
+		B08875EB1B711EE3008DF5D4 /* TableView */ = {
+			isa = PBXGroup;
+			children = (
+				B0C1010F1B7798F600E4204B /* LeftMenuTableView.h */,
+				B0C101101B7798F600E4204B /* LeftMenuTableView.m */,
+				B0C101131B7798F600E4204B /* SummaryTableView.h */,
+				B0C101141B7798F600E4204B /* SummaryTableView.m */,
+				B0C101151B7798F600E4204B /* TypeManageTableView.h */,
+				B0C101161B7798F600E4204B /* TypeManageTableView.m */,
+				B0C101111B7798F600E4204B /* NameManageTableView.h */,
+				B0C101121B7798F600E4204B /* NameManageTableView.m */,
+				B0723E521B786D2D00F8A63E /* SettingTableView.h */,
+				B0723E531B786D2D00F8A63E /* SettingTableView.m */,
+			);
+			name = TableView;
+			sourceTree = "<group>";
+		};
+		B08875EF1B711F19008DF5D4 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				B0C1011B1B77993800E4204B /* NameManageTVCell.h */,
+				B0C1011C1B77993800E4204B /* NameManageTVCell.m */,
+				B0C1011D1B77993800E4204B /* SportTVCell.h */,
+				B0C1011E1B77993800E4204B /* SportTVCell.m */,
+				B0C1011F1B77993800E4204B /* SummaryNewTVCell.h */,
+				B0C101201B77993800E4204B /* SummaryNewTVCell.m */,
+				B0C101211B77993800E4204B /* SummaryTVCell.h */,
+				B0C101221B77993800E4204B /* SummaryTVCell.m */,
+				B0C101231B77993800E4204B /* summaryTypeCell.h */,
+				B0C101241B77993800E4204B /* summaryTypeCell.m */,
+				B0C101251B77993800E4204B /* TypeManageTVCell.h */,
+				B0C101261B77993800E4204B /* TypeManageTVCell.m */,
+				B0DC6BE61B7F2970009DFA5A /* FeedbackTVCell.h */,
+				B0DC6BE71B7F2970009DFA5A /* FeedbackTVCell.m */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
+		B0B548401B843EF300D42B33 /* FrameWork */ = {
+			isa = PBXGroup;
+			children = (
+				B0B548431B843F2A00D42B33 /* LocalAuthentication.framework */,
+				B0B548411B843F2400D42B33 /* Security.framework */,
+				B06594C21B7F62E100ACFD66 /* MessageUI.framework */,
+				B087E0281B76FFF2003D90B6 /* QuartzCore.framework */,
+				B0B973651B74808F0008640E /* EventKit.framework */,
+				B0B973661B74808F0008640E /* EventKitUI.framework */,
+			);
+			name = FrameWork;
+			sourceTree = "<group>";
+		};
+		B0B548451B84443700D42B33 /* DMPasscode */ = {
+			isa = PBXGroup;
+			children = (
+				B0B548471B84443700D42B33 /* DMKeychain.h */,
+				B0B548481B84443700D42B33 /* DMKeychain.m */,
+				B0B548491B84443700D42B33 /* DMPasscode.h */,
+				B0B5484A1B84443700D42B33 /* DMPasscode.m */,
+				B0B5484B1B84443700D42B33 /* DMPasscodeConfig.h */,
+				B0B5484C1B84443700D42B33 /* DMPasscodeConfig.m */,
+				B0B5484D1B84443700D42B33 /* DMPasscodeInternalField.h */,
+				B0B5484E1B84443700D42B33 /* DMPasscodeInternalField.m */,
+				B0B5484F1B84443700D42B33 /* DMPasscodeInternalNavigationController.h */,
+				B0B548501B84443700D42B33 /* DMPasscodeInternalNavigationController.m */,
+				B0B548511B84443700D42B33 /* DMPasscodeInternalViewController.h */,
+				B0B548521B84443700D42B33 /* DMPasscodeInternalViewController.m */,
+			);
+			name = DMPasscode;
+			path = AmosSportCalender/DMPasscode;
+			sourceTree = SOURCE_ROOT;
+		};
+		B0E144DA1B81C58700934377 /* TOWebViewController */ = {
+			isa = PBXGroup;
+			children = (
+				B0E144E51B81C58700934377 /* TOActivityChrome.h */,
+				B0E144E61B81C58700934377 /* TOActivityChrome.m */,
+				B0E144E71B81C58700934377 /* TOActivitySafari.h */,
+				B0E144E81B81C58700934377 /* TOActivitySafari.m */,
+				B0E144E91B81C58700934377 /* TOWebViewController.h */,
+				B0E144EA1B81C58700934377 /* TOWebViewController.m */,
+				B0E144EB1B81C58700934377 /* UIImage+TOWebViewControllerIcons.h */,
+				B0E144EC1B81C58700934377 /* UIImage+TOWebViewControllerIcons.m */,
+			);
+			name = TOWebViewController;
+			path = AmosSportCalender/TOWebViewController;
+			sourceTree = SOURCE_ROOT;
+		};
+		B0FA58891B4678D400E3BE94 = {
+			isa = PBXGroup;
+			children = (
+				B0B548401B843EF300D42B33 /* FrameWork */,
+				B0FA58941B4678D400E3BE94 /* AmosSportCalender */,
+				B0FA58B11B4678D400E3BE94 /* AmosSportCalenderTests */,
+				B0FA58BC1B4678D400E3BE94 /* AmosSportCalenderUITests */,
+				B0FA58931B4678D400E3BE94 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B0FA58931B4678D400E3BE94 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B0FA58921B4678D400E3BE94 /* AmosSportDiary.app */,
+				B0FA58AE1B4678D400E3BE94 /* AmosSportDiary.xctest */,
+				B0FA58B91B4678D400E3BE94 /* AmosSportDiary.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B0FA58941B4678D400E3BE94 /* AmosSportCalender */ = {
+			isa = PBXGroup;
+			children = (
+				B0FA58981B4678D400E3BE94 /* AppDelegate.h */,
+				B0FA58991B4678D400E3BE94 /* AppDelegate.m */,
+				B0854D9E1B6CA0BC00C1B150 /* Model */,
+				B0854D9F1B6CA0C900C1B150 /* View */,
+				B0854DA01B6CA0E200C1B150 /* Controller */,
+				B0FA58A41B4678D400E3BE94 /* Assets.xcassets */,
+				B0FA58951B4678D400E3BE94 /* Supporting Files */,
+				B0B548451B84443700D42B33 /* DMPasscode */,
+				B087E0241B76F92B003D90B6 /* XYPieChart */,
+				B0854D6E1B6BA87600C1B150 /* JTCalendar */,
+				B0E144DA1B81C58700934377 /* TOWebViewController */,
+				B0854D601B6BA84B00C1B150 /* MMDrawerController */,
+			);
+			path = AmosSportCalender;
+			sourceTree = "<group>";
+		};
+		B0FA58951B4678D400E3BE94 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B0FA58A91B4678D400E3BE94 /* Info.plist */,
+				B0FA58961B4678D400E3BE94 /* main.m */,
+				B0723E5B1B79002900F8A63E /* sportTypes.plist */,
+				B0B973641B747CFF0008640E /* PrefixHeader.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		B0FA58B11B4678D400E3BE94 /* AmosSportCalenderTests */ = {
+			isa = PBXGroup;
+			children = (
+				B0FA58B21B4678D400E3BE94 /* AmosSportCalenderTests.m */,
+				B0FA58B41B4678D400E3BE94 /* Info.plist */,
+			);
+			path = AmosSportCalenderTests;
+			sourceTree = "<group>";
+		};
+		B0FA58BC1B4678D400E3BE94 /* AmosSportCalenderUITests */ = {
+			isa = PBXGroup;
+			children = (
+				B0FA58BD1B4678D400E3BE94 /* AmosSportCalenderUITests.m */,
+				B0FA58BF1B4678D400E3BE94 /* Info.plist */,
+			);
+			path = AmosSportCalenderUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B0FA58911B4678D400E3BE94 /* AmosSportDiary */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B0FA58C21B4678D400E3BE94 /* Build configuration list for PBXNativeTarget "AmosSportDiary" */;
+			buildPhases = (
+				B0FA588E1B4678D400E3BE94 /* Sources */,
+				B0FA588F1B4678D400E3BE94 /* Frameworks */,
+				B0FA58901B4678D400E3BE94 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = AmosSportDiary;
+			productName = AmosSportCalender;
+			productReference = B0FA58921B4678D400E3BE94 /* AmosSportDiary.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B0FA58AD1B4678D400E3BE94 /* AmosSportDiaryTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B0FA58C51B4678D400E3BE94 /* Build configuration list for PBXNativeTarget "AmosSportDiaryTests" */;
+			buildPhases = (
+				B0FA58AA1B4678D400E3BE94 /* Sources */,
+				B0FA58AB1B4678D400E3BE94 /* Frameworks */,
+				B0FA58AC1B4678D400E3BE94 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B0FA58B01B4678D400E3BE94 /* PBXTargetDependency */,
+			);
+			name = AmosSportDiaryTests;
+			productName = AmosSportCalenderTests;
+			productReference = B0FA58AE1B4678D400E3BE94 /* AmosSportDiary.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		B0FA58B81B4678D400E3BE94 /* AmosSportDiaryUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B0FA58C81B4678D400E3BE94 /* Build configuration list for PBXNativeTarget "AmosSportDiaryUITests" */;
+			buildPhases = (
+				B0FA58B51B4678D400E3BE94 /* Sources */,
+				B0FA58B61B4678D400E3BE94 /* Frameworks */,
+				B0FA58B71B4678D400E3BE94 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B0FA58BB1B4678D400E3BE94 /* PBXTargetDependency */,
+			);
+			name = AmosSportDiaryUITests;
+			productName = AmosSportCalenderUITests;
+			productReference = B0FA58B91B4678D400E3BE94 /* AmosSportDiary.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B0FA588A1B4678D400E3BE94 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0700;
+				ORGANIZATIONNAME = "Amos Wu";
+				TargetAttributes = {
+					B0FA58911B4678D400E3BE94 = {
+						CreatedOnToolsVersion = 7.0;
+						DevelopmentTeam = D3FXKEY64K;
+						SystemCapabilities = {
+							com.apple.iCloud = {
+								enabled = 0;
+							};
+						};
+					};
+					B0FA58AD1B4678D400E3BE94 = {
+						CreatedOnToolsVersion = 7.0;
+						TestTargetID = B0FA58911B4678D400E3BE94;
+					};
+					B0FA58B81B4678D400E3BE94 = {
+						CreatedOnToolsVersion = 7.0;
+						TestTargetID = B0FA58911B4678D400E3BE94;
+					};
+				};
+			};
+			buildConfigurationList = B0FA588D1B4678D400E3BE94 /* Build configuration list for PBXProject "AmosSportDiary" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+				de,
+				ru,
+				uk,
+				es,
+				fr,
+				ja,
+				ko,
+				pl,
+				"zh-Hans",
+				"zh-Hant",
+			);
+			mainGroup = B0FA58891B4678D400E3BE94;
+			productRefGroup = B0FA58931B4678D400E3BE94 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B0FA58911B4678D400E3BE94 /* AmosSportDiary */,
+				B0FA58AD1B4678D400E3BE94 /* AmosSportDiaryTests */,
+				B0FA58B81B4678D400E3BE94 /* AmosSportDiaryUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B0FA58901B4678D400E3BE94 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0DC6BEA1B7F2970009DFA5A /* FeedbackTVCell.xib in Resources */,
+				B0C100F91B772A0700E4204B /* summaryNewTVCell.xib in Resources */,
+				B0B9736D1B74DCF50008640E /* summaryTypeCell.xib in Resources */,
+				B0E144D61B80F6BB00934377 /* Launch Screen.storyboard in Resources */,
+				B0FA58A51B4678D400E3BE94 /* Assets.xcassets in Resources */,
+				B0FA58A01B4678D400E3BE94 /* Main.storyboard in Resources */,
+				B087E02E1B7716E8003D90B6 /* DetailSummaryVC.xib in Resources */,
+				B08875E11B6F9AF3008DF5D4 /* SummaryViewController.xib in Resources */,
+				B0723E5C1B79002900F8A63E /* sportTypes.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0FA58AC1B4678D400E3BE94 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0FA58B71B4678D400E3BE94 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B0FA588E1B4678D400E3BE94 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0C1010E1B7798C000E4204B /* ViewController.m in Sources */,
+				B0E144F01B81C58700934377 /* TOActivityChrome.m in Sources */,
+				B0C1012A1B77993800E4204B /* SummaryTVCell.m in Sources */,
+				B0854D6A1B6BA84B00C1B150 /* MMDrawerBarButtonItem.m in Sources */,
+				B0C1010C1B7798C000E4204B /* NewEvevtViewController.m in Sources */,
+				B0723E5A1B78913A00F8A63E /* SettingStore.m in Sources */,
+				B0C101181B7798F600E4204B /* NameManageTableView.m in Sources */,
+				B0C100FC1B77982200E4204B /* ImageStore.m in Sources */,
+				B0B548571B84443700D42B33 /* DMPasscodeInternalField.m in Sources */,
+				B0DC6BE51B7F079F009DFA5A /* FeedbackViewController.m in Sources */,
+				B0854D9C1B6BA87600C1B150 /* JTHorizontalCalendarView.m in Sources */,
+				B0C1012C1B77993800E4204B /* TypeManageTVCell.m in Sources */,
+				B0C101011B77984300E4204B /* Event.m in Sources */,
+				B0854D6B1B6BA84B00C1B150 /* MMDrawerController.m in Sources */,
+				B0DC6BE91B7F2970009DFA5A /* FeedbackTVCell.m in Sources */,
+				B0C1010B1B7798C000E4204B /* DetailSummaryVC.m in Sources */,
+				B0854D9A1B6BA87600C1B150 /* JTCalendarWeekDayView.m in Sources */,
+				B0854D921B6BA87600C1B150 /* JTCalendarManager.m in Sources */,
+				B0B548561B84443700D42B33 /* DMPasscodeConfig.m in Sources */,
+				B0854D941B6BA87600C1B150 /* JTDateHelper.m in Sources */,
+				B0854D9B1B6BA87600C1B150 /* JTCalendarWeekView.m in Sources */,
+				B0C101291B77993800E4204B /* SummaryNewTVCell.m in Sources */,
+				B0FA58A31B4678D400E3BE94 /* AmosSportCalender.xcdatamodeld in Sources */,
+				B0E144F21B81C58700934377 /* TOWebViewController.m in Sources */,
+				B0B548541B84443700D42B33 /* DMKeychain.m in Sources */,
+				B0854D9D1B6BA87600C1B150 /* JTVerticalCalendarView.m in Sources */,
+				B0B548591B84443700D42B33 /* DMPasscodeInternalViewController.m in Sources */,
+				B0E144F31B81C58700934377 /* UIImage+TOWebViewControllerIcons.m in Sources */,
+				B0C101271B77993800E4204B /* NameManageTVCell.m in Sources */,
+				B0C1011A1B7798F600E4204B /* TypeManageTableView.m in Sources */,
+				B0854D971B6BA87600C1B150 /* JTCalendarDayView.m in Sources */,
+				B0E144D91B81BD6000934377 /* AboutViewController.m in Sources */,
+				B087E0271B76F92B003D90B6 /* XYPieChart.m in Sources */,
+				B0854D951B6BA87600C1B150 /* JTCalendarDelegateManager.m in Sources */,
+				B0C1010D1B7798C000E4204B /* SummaryViewController.m in Sources */,
+				B0854D991B6BA87600C1B150 /* JTCalendarPageView.m in Sources */,
+				B0854D6C1B6BA84B00C1B150 /* MMDrawerVisualState.m in Sources */,
+				B0854D6D1B6BA84B00C1B150 /* UIViewController+MMDrawerController.m in Sources */,
+				B0B548581B84443700D42B33 /* DMPasscodeInternalNavigationController.m in Sources */,
+				B0854D961B6BA87600C1B150 /* JTCalendarScrollManager.m in Sources */,
+				B0C101281B77993800E4204B /* SportTVCell.m in Sources */,
+				B0854D931B6BA87600C1B150 /* JTCalendarSettings.m in Sources */,
+				B0B548551B84443700D42B33 /* DMPasscode.m in Sources */,
+				B0723E541B786D2D00F8A63E /* SettingTableView.m in Sources */,
+				B0854D981B6BA87600C1B150 /* JTCalendarMenuView.m in Sources */,
+				B0C101021B77984300E4204B /* EventStore.m in Sources */,
+				B0C1012B1B77993800E4204B /* summaryTypeCell.m in Sources */,
+				B0E144F11B81C58700934377 /* TOActivitySafari.m in Sources */,
+				B0C101171B7798F600E4204B /* LeftMenuTableView.m in Sources */,
+				B0FA589A1B4678D400E3BE94 /* AppDelegate.m in Sources */,
+				B0C101191B7798F600E4204B /* SummaryTableView.m in Sources */,
+				B025CF471B84599000FB1A22 /* TouchIDViewController.m in Sources */,
+				B0FA58971B4678D400E3BE94 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0FA58AA1B4678D400E3BE94 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0FA58B31B4678D400E3BE94 /* AmosSportCalenderTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B0FA58B51B4678D400E3BE94 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B0FA58BE1B4678D400E3BE94 /* AmosSportCalenderUITests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B0FA58B01B4678D400E3BE94 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B0FA58911B4678D400E3BE94 /* AmosSportDiary */;
+			targetProxy = B0FA58AF1B4678D400E3BE94 /* PBXContainerItemProxy */;
+		};
+		B0FA58BB1B4678D400E3BE94 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B0FA58911B4678D400E3BE94 /* AmosSportDiary */;
+			targetProxy = B0FA58BA1B4678D400E3BE94 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		B0FA589E1B4678D400E3BE94 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B0FA589F1B4678D400E3BE94 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B0FA58C01B4678D400E3BE94 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: yuke wu (D3FXKEY64K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: yuke wu (D3FXKEY64K)";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = NO;
+				PROVISIONING_PROFILE = "c031f6f7-5e66-49e5-b8a6-20fea4566c45";
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		B0FA58C11B4678D400E3BE94 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: yuke wu (D3FXKEY64K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: yuke wu (D3FXKEY64K)";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "c031f6f7-5e66-49e5-b8a6-20fea4566c45";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B0FA58C31B4678D400E3BE94 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: yuke wu (D3FXKEY64K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: yuke wu (D3FXKEY64K)";
+				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
+				INFOPLIST_FILE = AmosSportCalender/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.AKSocialLab.AmosSportDiary;
+				PRODUCT_NAME = AmosSportDiary;
+				PROVISIONING_PROFILE = "c031f6f7-5e66-49e5-b8a6-20fea4566c45";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		B0FA58C41B4678D400E3BE94 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: yuke wu (D3FXKEY64K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: yuke wu (D3FXKEY64K)";
+				INFOPLIST_FILE = AmosSportCalender/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.AKSocialLab.AmosSportDiary;
+				PRODUCT_NAME = AmosSportDiary;
+				PROVISIONING_PROFILE = "c031f6f7-5e66-49e5-b8a6-20fea4566c45";
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+		B0FA58C61B4678D400E3BE94 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = AmosSportCalenderTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.AKSocialLab.AmosSportCalenderTests;
+				PRODUCT_NAME = AmosSportDiary;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AmosSportDiary.app/AmosSportDiary";
+			};
+			name = Debug;
+		};
+		B0FA58C71B4678D400E3BE94 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				INFOPLIST_FILE = AmosSportCalenderTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.AKSocialLab.AmosSportCalenderTests;
+				PRODUCT_NAME = AmosSportDiary;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AmosSportDiary.app/AmosSportDiary";
+			};
+			name = Release;
+		};
+		B0FA58C91B4678D400E3BE94 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = AmosSportCalenderUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.AKSocialLab.AmosSportCalenderUITests;
+				PRODUCT_NAME = AmosSportDiary;
+				TEST_TARGET_NAME = AmosSportCalender;
+				USES_XCTRUNNER = YES;
+			};
+			name = Debug;
+		};
+		B0FA58CA1B4678D400E3BE94 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				INFOPLIST_FILE = AmosSportCalenderUITests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.AKSocialLab.AmosSportCalenderUITests;
+				PRODUCT_NAME = AmosSportDiary;
+				TEST_TARGET_NAME = AmosSportCalender;
+				USES_XCTRUNNER = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B0FA588D1B4678D400E3BE94 /* Build configuration list for PBXProject "AmosSportDiary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B0FA58C01B4678D400E3BE94 /* Debug */,
+				B0FA58C11B4678D400E3BE94 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B0FA58C21B4678D400E3BE94 /* Build configuration list for PBXNativeTarget "AmosSportDiary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B0FA58C31B4678D400E3BE94 /* Debug */,
+				B0FA58C41B4678D400E3BE94 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B0FA58C51B4678D400E3BE94 /* Build configuration list for PBXNativeTarget "AmosSportDiaryTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B0FA58C61B4678D400E3BE94 /* Debug */,
+				B0FA58C71B4678D400E3BE94 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B0FA58C81B4678D400E3BE94 /* Build configuration list for PBXNativeTarget "AmosSportDiaryUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B0FA58C91B4678D400E3BE94 /* Debug */,
+				B0FA58CA1B4678D400E3BE94 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		B0FA58A11B4678D400E3BE94 /* AmosSportCalender.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B0FA58A21B4678D400E3BE94 /* AmosSportCalender.xcdatamodel */,
+			);
+			currentVersion = B0FA58A21B4678D400E3BE94 /* AmosSportCalender.xcdatamodel */;
+			path = AmosSportCalender.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = B0FA588A1B4678D400E3BE94 /* Project object */;
+}

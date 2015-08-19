@@ -11,6 +11,7 @@
 #import "ViewController.h"
 #import "EventStore.h"
 #import "SettingStore.h"
+#import "DMPasscode.h"
 
 @interface AppDelegate ()
 @end
@@ -21,8 +22,11 @@ NSArray *sportTypes;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    NSLog(@"application didFinishLaunchingWithOptions");
+    
     //重绘状态栏
     [application setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
+    
     //取消所有通知
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
     
@@ -84,6 +88,7 @@ NSArray *sportTypes;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
+    NSLog(@"applicationWillResignActive");
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 }
@@ -91,6 +96,7 @@ NSArray *sportTypes;
 - (void)applicationDidEnterBackground:(UIApplication *)application {
 
     SettingStore *setting = [SettingStore sharedSetting];
+    setting.passWordOfFingerprint = NO;
     
     //注册五天不使用的本地通知
     UILocalNotification *localNotification = UILocalNotification.new;
@@ -108,6 +114,9 @@ NSArray *sportTypes;
     
     [application scheduleLocalNotification:localNotification];
     
+    if (!setting.iconBadgeNumber) {
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    }
     
     BOOL success = [[EventStore sharedStore] saveChanges];
     if (success) {
@@ -115,6 +124,7 @@ NSArray *sportTypes;
     }else{
         NSLog(@"退出程序后的储存失败！");
     }
+    
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {

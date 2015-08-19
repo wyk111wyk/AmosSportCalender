@@ -11,6 +11,10 @@
 #import "SettingStore.h"
 #import "UIViewController+MMDrawerController.h"
 #import "ViewController.h"
+#import "DMPasscode.h"
+#import "DMKeychain.h"
+
+static const NSString* KEYCHAIN_NAME = @"passcode";
 
 @interface SettingTableView ()<UITextFieldDelegate, UIPickerViewDelegate,UIPickerViewDataSource>
 
@@ -111,17 +115,32 @@
 
 - (IBAction)changeSwitchView:(UISwitch *)sender {
     SettingStore *setting = [SettingStore sharedSetting];
+    //是否显示角标
     if (sender == _iconBadgeNumberSwitch) {
         if (_iconBadgeNumberSwitch.on) {
             setting.iconBadgeNumber = YES;
         }else{
             setting.iconBadgeNumber = NO;
         }
+        
+    //是否启用TouchID
+    }else if(sender == _passwordSwitch){
+        if (_passwordSwitch.on) {
+       
+            [DMPasscode setupPasscodeInViewController:self completion:^(BOOL success, NSError *error) {
+                if (success) {
+                    setting.passWordOfFingerprint = YES;
+                }
+            }];
+            
+        }else{
+            [DMPasscode removePasscode];
+        }
     }
     
     [self setLabelStatus:setting];
     
-     [[NSNotificationCenter defaultCenter] postNotificationName:@"iconMessage" object:nil];
+//     [[NSNotificationCenter defaultCenter] postNotificationName:@"iconMessage" object:nil];
 }
 
 - (IBAction)switchValueChange:(UISegmentedControl *)sender {

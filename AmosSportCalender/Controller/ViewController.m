@@ -12,6 +12,9 @@
 
 #import <EventKit/EventKit.h>
 #import <EventKitUI/EventKitUI.h>
+#import "DMPasscode.h"
+#import <LocalAuthentication/LocalAuthentication.h>
+#import <Security/Security.h>
 
 #import "ViewController.h"
 #import "NewEvevtViewController.h"
@@ -61,6 +64,8 @@
 
 @property (nonatomic) NSInteger applicationIconBadgeNumber;
 
+@property (nonatomic)BOOL isEnterApp;
+
 @end
 
 @implementation ViewController
@@ -73,6 +78,19 @@
 }
 
 #pragma mark - life cycle
+
+- (void)loadView
+{
+    [super loadView];
+    SettingStore *setting = [SettingStore sharedSetting];
+    
+    if ([DMPasscode isPasscodeSet] && !setting.passWordOfFingerprint) {
+        UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+        [self presentViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"touchid"] animated:NO completion:^{
+            
+        }];
+    }
+}
 
 - (void)viewDidLoad
 {
@@ -125,14 +143,10 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+
     [self loadTheDateEvents];
     self.tempEvent = nil;
-    
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc addObserver:self
-           selector:@selector(setUnderTableLabelWithDifferentDay:)
-               name:@"iconMessage"
-             object:nil];
+
 //    NSLog(@"%@", NSStringFromSelector(_cmd));
 }
 
@@ -146,8 +160,8 @@
 
 - (void)dealloc
 {
-    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-    [nc removeObserver:self];
+//    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+//    [nc removeObserver:self];
 }
 
 - (void)loadTheDateEvents
@@ -217,7 +231,7 @@
             if (setting.name.length > 0){
             self.underTableLabel.text = [NSString stringWithFormat:@"%@，共有%lu个项目，已完成%d项，还剩%lu项", setting.name, (unsigned long)self.oneDayEvents.count, [self.doneNumber intValue], self.oneDayEvents.count - [self.doneNumber intValue]];
             }else{
-                self.underTableLabel.text = [NSString stringWithFormat:@"共有%lu个项目，已完成%d项，还剩%lu项",(unsigned long)self.oneDayEvents.count, [self.doneNumber intValue], self.oneDayEvents.count - [self.doneNumber intValue]];
+                self.underTableLabel.text = [NSString stringWithFormat:@"共有%lu个项目，已完成%d项，还剩%lu项", (unsigned long)self.oneDayEvents.count, [self.doneNumber intValue], self.oneDayEvents.count - [self.doneNumber intValue]];
             }
             if (_calendarManager.settings.weekModeEnabled) {
                 self.addToCalendarButton.hidden = NO;
