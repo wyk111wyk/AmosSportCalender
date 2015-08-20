@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8173.3" systemVersion="15A244d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8142"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LeftMenuViewController">
+            <connections>
+                <outlet property="aboutView" destination="zyg-cR-Egi" id="gsJ-0g-eq1"/>
+                <outlet property="feedbackView" destination="ni2-Qa-fHg" id="v0y-UI-Mb6"/>
+                <outlet property="finishedListView" destination="5HM-QP-EZc" id="kY4-A2-qwb"/>
+                <outlet property="settingView" destination="M0y-n5-TqY" id="pdj-2F-8GP"/>
+                <outlet property="sportCalendarView" destination="W1h-oB-OjL" id="mrW-Fj-s5n"/>
+                <outlet property="typeManageView" destination="ntx-aQ-a5D" id="hfF-io-Emr"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="menuview" translatesAutoresizingMaskIntoConstraints="NO" id="iim-A4-wPL">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                    <animations/>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TX6-Il-Bev">
+                    <rect key="frame" x="0.0" y="153.5" width="375" height="360"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W1h-oB-OjL" customClass="LeftMenuView">
+                            <rect key="frame" x="38" y="0.0" width="210" height="60"/>
+                            <animations/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="60" id="E24-bb-Sh2"/>
+                                <constraint firstAttribute="width" constant="210" id="Jqe-u4-pPt"/>
+                            </constraints>
+                            <connections>
+                                <action selector="menuSelected:" destination="-1" eventType="touchUpInside" id="6h1-Gh-Gu5"/>
+                            </connections>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5HM-QP-EZc" customClass="LeftMenuView">
+                            <rect key="frame" x="38" y="60" width="210" height="60"/>
+                            <animations/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="60" id="nTU-T2-x6N"/>
+                                <constraint firstAttribute="width" constant="210" id="yQh-UL-hF5"/>
+                            </constraints>
+                            <connections>
+                                <action selector="menuSelected:" destination="-1" eventType="touchUpInside" id="oQH-RT-oGW"/>
+                            </connections>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ntx-aQ-a5D" customClass="LeftMenuView">
+                            <rect key="frame" x="38" y="120" width="210" height="60"/>
+                            <animations/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="60" id="dXK-9u-oGJ"/>
+                                <constraint firstAttribute="width" constant="210" id="zik-N7-STr"/>
+                            </constraints>
+                            <connections>
+                                <action selector="menuSelected:" destination="-1" eventType="touchUpInside" id="RJX-sC-HE1"/>
+                            </connections>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M0y-n5-TqY" customClass="LeftMenuView">
+                            <rect key="frame" x="38" y="180" width="210" height="60"/>
+                            <animations/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="210" id="Vdw-5b-ds6"/>
+                                <constraint firstAttribute="height" constant="60" id="ooe-X4-Rng"/>
+                            </constraints>
+                            <connections>
+                                <action selector="menuSelected:" destination="-1" eventType="touchUpInside" id="zm5-Ne-mLI"/>
+                            </connections>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ni2-Qa-fHg" customClass="LeftMenuView">
+                            <rect key="frame" x="38" y="240" width="210" height="60"/>
+                            <animations/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="60" id="3jC-SB-CjE"/>
+                                <constraint firstAttribute="width" constant="210" id="h7f-k0-eiO"/>
+                            </constraints>
+                            <connections>
+                                <action selector="menuSelected:" destination="-1" eventType="touchUpInside" id="sC2-sc-8wD"/>
+                            </connections>
+                        </view>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zyg-cR-Egi" customClass="LeftMenuView">
+                            <rect key="frame" x="38" y="300" width="210" height="60"/>
+                            <animations/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="60" id="UnW-cV-MPc"/>
+                                <constraint firstAttribute="width" constant="210" id="eTp-yF-Nee"/>
+                            </constraints>
+                            <connections>
+                                <action selector="menuSelected:" destination="-1" eventType="touchUpInside" id="umM-Em-Qg0"/>
+                            </connections>
+                        </view>
+                    </subviews>
+                    <animations/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="ni2-Qa-fHg" firstAttribute="leading" secondItem="W1h-oB-OjL" secondAttribute="leading" id="EdZ-Xs-piq"/>
+                        <constraint firstItem="M0y-n5-TqY" firstAttribute="top" secondItem="ntx-aQ-a5D" secondAttribute="bottom" id="HG9-yh-hEW"/>
+                        <constraint firstItem="5HM-QP-EZc" firstAttribute="top" secondItem="W1h-oB-OjL" secondAttribute="bottom" id="RX0-FV-GOl"/>
+                        <constraint firstItem="ni2-Qa-fHg" firstAttribute="top" secondItem="M0y-n5-TqY" secondAttribute="bottom" id="Rsy-qE-h8W"/>
+                        <constraint firstItem="W1h-oB-OjL" firstAttribute="top" secondItem="TX6-Il-Bev" secondAttribute="top" id="Xuv-HP-Jwc"/>
+                        <constraint firstItem="5HM-QP-EZc" firstAttribute="leading" secondItem="W1h-oB-OjL" secondAttribute="leading" id="Z7t-ov-zbM"/>
+                        <constraint firstItem="zyg-cR-Egi" firstAttribute="leading" secondItem="W1h-oB-OjL" secondAttribute="leading" id="dyu-ln-jah"/>
+                        <constraint firstItem="zyg-cR-Egi" firstAttribute="top" secondItem="ni2-Qa-fHg" secondAttribute="bottom" id="gFP-1Y-OHU"/>
+                        <constraint firstItem="ntx-aQ-a5D" firstAttribute="top" secondItem="5HM-QP-EZc" secondAttribute="bottom" id="sHA-N7-sk3"/>
+                        <constraint firstAttribute="height" constant="360" id="sIP-HM-r9S"/>
+                        <constraint firstItem="W1h-oB-OjL" firstAttribute="leading" secondItem="TX6-Il-Bev" secondAttribute="leading" constant="38" id="vGG-dI-OsY"/>
+                        <constraint firstItem="M0y-n5-TqY" firstAttribute="leading" secondItem="W1h-oB-OjL" secondAttribute="leading" id="vbg-E8-vaD"/>
+                        <constraint firstItem="ntx-aQ-a5D" firstAttribute="leading" secondItem="W1h-oB-OjL" secondAttribute="leading" id="wF7-Ao-gbF"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <gestureRecognizers/>
+            <constraints>
+                <constraint firstAttribute="centerY" secondItem="TX6-Il-Bev" secondAttribute="centerY" id="0zE-sa-mcr"/>
+                <constraint firstItem="TX6-Il-Bev" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="1qp-w0-43n"/>
+                <constraint firstAttribute="trailing" secondItem="iim-A4-wPL" secondAttribute="trailing" id="2Yb-QM-FHO"/>
+                <constraint firstItem="iim-A4-wPL" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="2p4-lP-dgv"/>
+                <constraint firstAttribute="trailing" secondItem="TX6-Il-Bev" secondAttribute="trailing" id="41c-r0-896"/>
+                <constraint firstItem="TX6-Il-Bev" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="FvN-un-MBC"/>
+                <constraint firstAttribute="bottom" secondItem="TX6-Il-Bev" secondAttribute="bottom" constant="8" id="ZoH-9W-33G"/>
+                <constraint firstAttribute="bottom" secondItem="iim-A4-wPL" secondAttribute="bottom" id="nEM-zb-un6"/>
+                <constraint firstItem="iim-A4-wPL" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="pC4-dU-7bw"/>
+            </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="0zE-sa-mcr"/>
+                    <exclude reference="ZoH-9W-33G"/>
+                </mask>
+            </variation>
+            <point key="canvasLocation" x="458" y="377"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="menuview" width="562" height="1000"/>
+    </resources>
+</document>

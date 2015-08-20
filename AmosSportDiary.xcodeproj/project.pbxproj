@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B00D87A51B857CF00044BF85 /* LeftMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B00D87A41B857CF00044BF85 /* LeftMenuViewController.m */; };
 		B025CF471B84599000FB1A22 /* TouchIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B025CF461B84599000FB1A22 /* TouchIDViewController.m */; };
 		B06594C31B7F62E100ACFD66 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B06594C21B7F62E100ACFD66 /* MessageUI.framework */; };
+		B071E69A1B859B4100133D63 /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = B071E6951B859B4100133D63 /* RECommonFunctions.m */; };
+		B071E69B1B859B4100133D63 /* RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = B071E6971B859B4100133D63 /* RESideMenu.m */; };
+		B071E69C1B859B4100133D63 /* UIViewController+RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = B071E6991B859B4100133D63 /* UIViewController+RESideMenu.m */; };
 		B0723E541B786D2D00F8A63E /* SettingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0723E531B786D2D00F8A63E /* SettingTableView.m */; };
 		B0723E5A1B78913A00F8A63E /* SettingStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B0723E591B78913A00F8A63E /* SettingStore.m */; };
 		B0723E5C1B79002900F8A63E /* sportTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0723E5B1B79002900F8A63E /* sportTypes.plist */; };
@@ -32,7 +36,6 @@
 		B087E0291B76FFF2003D90B6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B087E0281B76FFF2003D90B6 /* QuartzCore.framework */; };
 		B087E02E1B7716E8003D90B6 /* DetailSummaryVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B087E02C1B7716E8003D90B6 /* DetailSummaryVC.xib */; };
 		B08875E11B6F9AF3008DF5D4 /* SummaryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B08875DF1B6F9AF3008DF5D4 /* SummaryViewController.xib */; };
-		B09DB27F1B849EBE007458C1 /* PgySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09DB27E1B849EBE007458C1 /* PgySDK.framework */; };
 		B09DB2811B84A396007458C1 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09DB2801B84A396007458C1 /* CoreTelephony.framework */; };
 		B09DB2831B84A3A2007458C1 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09DB2821B84A3A2007458C1 /* OpenGLES.framework */; };
 		B09DB2851B84A3AD007458C1 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09DB2841B84A3AD007458C1 /* SceneKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -40,6 +43,12 @@
 		B09DB2891B84A3C2007458C1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09DB2881B84A3C2007458C1 /* AudioToolbox.framework */; };
 		B09DB28B1B84A3CD007458C1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09DB28A1B84A3CD007458C1 /* AVFoundation.framework */; };
 		B09DB28D1B84A3D9007458C1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09DB28C1B84A3D9007458C1 /* SystemConfiguration.framework */; };
+		B09DB2911B84A8C0007458C1 /* PgySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09DB2901B84A8C0007458C1 /* PgySDK.framework */; };
+		B09DB2941B84E5E0007458C1 /* LeftMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = B09DB2931B84E5E0007458C1 /* LeftMenuView.m */; };
+		B09DB2E31B857207007458C1 /* pop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09DB2E21B857207007458C1 /* pop.framework */; };
+		B09DB2E41B85738A007458C1 /* pop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09DB2E21B857207007458C1 /* pop.framework */; };
+		B09DB2E61B85738A007458C1 /* pop.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B09DB2E21B857207007458C1 /* pop.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		B09DB2E81B857437007458C1 /* LeftMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B09DB2E71B857437007458C1 /* LeftMenuViewController.xib */; };
 		B0B548421B843F2400D42B33 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B548411B843F2400D42B33 /* Security.framework */; };
 		B0B548441B843F2A00D42B33 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B548431B843F2A00D42B33 /* LocalAuthentication.framework */; };
 		B0B548541B84443700D42B33 /* DMKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = B0B548481B84443700D42B33 /* DMKeychain.m */; };
@@ -104,10 +113,32 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		B09DB2E51B85738A007458C1 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B09DB2E61B85738A007458C1 /* pop.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		B00D87A31B857CF00044BF85 /* LeftMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeftMenuViewController.h; path = Controller/LeftMenuViewController.h; sourceTree = "<group>"; };
+		B00D87A41B857CF00044BF85 /* LeftMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LeftMenuViewController.m; path = Controller/LeftMenuViewController.m; sourceTree = "<group>"; };
 		B025CF451B84599000FB1A22 /* TouchIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TouchIDViewController.h; path = Controller/TouchIDViewController.h; sourceTree = "<group>"; };
 		B025CF461B84599000FB1A22 /* TouchIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TouchIDViewController.m; path = Controller/TouchIDViewController.m; sourceTree = "<group>"; };
 		B06594C21B7F62E100ACFD66 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
+		B071E6941B859B4100133D63 /* RECommonFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RECommonFunctions.h; sourceTree = "<group>"; };
+		B071E6951B859B4100133D63 /* RECommonFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RECommonFunctions.m; sourceTree = "<group>"; };
+		B071E6961B859B4100133D63 /* RESideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RESideMenu.h; sourceTree = "<group>"; };
+		B071E6971B859B4100133D63 /* RESideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RESideMenu.m; sourceTree = "<group>"; };
+		B071E6981B859B4100133D63 /* UIViewController+RESideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+RESideMenu.h"; sourceTree = "<group>"; };
+		B071E6991B859B4100133D63 /* UIViewController+RESideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+RESideMenu.m"; sourceTree = "<group>"; };
 		B0723E521B786D2D00F8A63E /* SettingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTableView.h; sourceTree = "<group>"; };
 		B0723E531B786D2D00F8A63E /* SettingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTableView.m; sourceTree = "<group>"; };
 		B0723E581B78913A00F8A63E /* SettingStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingStore.h; path = Model/SettingStore.h; sourceTree = "<group>"; };
@@ -159,7 +190,6 @@
 		B087E0281B76FFF2003D90B6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		B087E02C1B7716E8003D90B6 /* DetailSummaryVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailSummaryVC.xib; sourceTree = "<group>"; };
 		B08875DF1B6F9AF3008DF5D4 /* SummaryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SummaryViewController.xib; sourceTree = "<group>"; };
-		B09DB27E1B849EBE007458C1 /* PgySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PgySDK.framework; path = AmosSportCalender/PgySDK.framework; sourceTree = "<group>"; };
 		B09DB2801B84A396007458C1 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		B09DB2821B84A3A2007458C1 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		B09DB2841B84A3AD007458C1 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
@@ -167,6 +197,11 @@
 		B09DB2881B84A3C2007458C1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		B09DB28A1B84A3CD007458C1 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		B09DB28C1B84A3D9007458C1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		B09DB2901B84A8C0007458C1 /* PgySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PgySDK.framework; path = AmosSportCalender/FrameWork/PgySDK.framework; sourceTree = "<group>"; };
+		B09DB2921B84E5E0007458C1 /* LeftMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeftMenuView.h; path = Controller/LeftMenuView.h; sourceTree = "<group>"; };
+		B09DB2931B84E5E0007458C1 /* LeftMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LeftMenuView.m; path = Controller/LeftMenuView.m; sourceTree = "<group>"; };
+		B09DB2E21B857207007458C1 /* pop.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = pop.framework; path = AmosSportCalender/FrameWork/pop.framework; sourceTree = "<group>"; };
+		B09DB2E71B857437007458C1 /* LeftMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LeftMenuViewController.xib; path = View/LeftMenuViewController.xib; sourceTree = "<group>"; };
 		B0B548411B843F2400D42B33 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		B0B548431B843F2A00D42B33 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		B0B548471B84443700D42B33 /* DMKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMKeychain.h; sourceTree = "<group>"; };
@@ -263,6 +298,9 @@
 				B09DB2871B84A3B8007458C1 /* CoreMotion.framework in Frameworks */,
 				B09DB2851B84A3AD007458C1 /* SceneKit.framework in Frameworks */,
 				B09DB2831B84A3A2007458C1 /* OpenGLES.framework in Frameworks */,
+				B09DB2911B84A8C0007458C1 /* PgySDK.framework in Frameworks */,
+				B09DB2E31B857207007458C1 /* pop.framework in Frameworks */,
+				B09DB2E41B85738A007458C1 /* pop.framework in Frameworks */,
 				B09DB2811B84A396007458C1 /* CoreTelephony.framework in Frameworks */,
 				B0B548441B843F2A00D42B33 /* LocalAuthentication.framework in Frameworks */,
 				B0B548421B843F2400D42B33 /* Security.framework in Frameworks */,
@@ -270,7 +308,6 @@
 				B087E0291B76FFF2003D90B6 /* QuartzCore.framework in Frameworks */,
 				B0B973671B74808F0008640E /* EventKit.framework in Frameworks */,
 				B0B973681B74808F0008640E /* EventKitUI.framework in Frameworks */,
-				B09DB27F1B849EBE007458C1 /* PgySDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,6 +328,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B071E6931B859B4100133D63 /* RESideMenu */ = {
+			isa = PBXGroup;
+			children = (
+				B071E6941B859B4100133D63 /* RECommonFunctions.h */,
+				B071E6951B859B4100133D63 /* RECommonFunctions.m */,
+				B071E6961B859B4100133D63 /* RESideMenu.h */,
+				B071E6971B859B4100133D63 /* RESideMenu.m */,
+				B071E6981B859B4100133D63 /* UIViewController+RESideMenu.h */,
+				B071E6991B859B4100133D63 /* UIViewController+RESideMenu.m */,
+			);
+			name = RESideMenu;
+			path = AmosSportCalender/RESideMenu;
+			sourceTree = SOURCE_ROOT;
+		};
 		B0854D601B6BA84B00C1B150 /* MMDrawerController */ = {
 			isa = PBXGroup;
 			children = (
@@ -395,6 +446,7 @@
 				B0B9736B1B74DCF50008640E /* summaryTypeCell.xib */,
 				B0C100F81B772A0700E4204B /* summaryNewTVCell.xib */,
 				B0DC6BE81B7F2970009DFA5A /* FeedbackTVCell.xib */,
+				B09DB2E71B857437007458C1 /* LeftMenuViewController.xib */,
 				B0E144D51B80F6BB00934377 /* Launch Screen.storyboard */,
 			);
 			name = View;
@@ -417,6 +469,8 @@
 				B0E144D81B81BD6000934377 /* AboutViewController.m */,
 				B025CF451B84599000FB1A22 /* TouchIDViewController.h */,
 				B025CF461B84599000FB1A22 /* TouchIDViewController.m */,
+				B00D87A31B857CF00044BF85 /* LeftMenuViewController.h */,
+				B00D87A41B857CF00044BF85 /* LeftMenuViewController.m */,
 				B08875EB1B711EE3008DF5D4 /* TableView */,
 				B08875EF1B711F19008DF5D4 /* Cell */,
 			);
@@ -437,6 +491,8 @@
 			children = (
 				B0C1010F1B7798F600E4204B /* LeftMenuTableView.h */,
 				B0C101101B7798F600E4204B /* LeftMenuTableView.m */,
+				B09DB2921B84E5E0007458C1 /* LeftMenuView.h */,
+				B09DB2931B84E5E0007458C1 /* LeftMenuView.m */,
 				B0C101131B7798F600E4204B /* SummaryTableView.h */,
 				B0C101141B7798F600E4204B /* SummaryTableView.m */,
 				B0C101151B7798F600E4204B /* TypeManageTableView.h */,
@@ -488,13 +544,14 @@
 			isa = PBXGroup;
 			children = (
 				B09DB28E1B84A3E5007458C1 /* PGY */,
+				B09DB2E21B857207007458C1 /* pop.framework */,
 				B0B548431B843F2A00D42B33 /* LocalAuthentication.framework */,
 				B0B548411B843F2400D42B33 /* Security.framework */,
 				B06594C21B7F62E100ACFD66 /* MessageUI.framework */,
 				B087E0281B76FFF2003D90B6 /* QuartzCore.framework */,
 				B0B973651B74808F0008640E /* EventKit.framework */,
 				B0B973661B74808F0008640E /* EventKitUI.framework */,
-				B09DB27E1B849EBE007458C1 /* PgySDK.framework */,
+				B09DB2901B84A8C0007458C1 /* PgySDK.framework */,
 			);
 			name = FrameWork;
 			sourceTree = "<group>";
@@ -569,6 +626,7 @@
 				B0B548451B84443700D42B33 /* DMPasscode */,
 				B087E0241B76F92B003D90B6 /* XYPieChart */,
 				B0854D6E1B6BA87600C1B150 /* JTCalendar */,
+				B071E6931B859B4100133D63 /* RESideMenu */,
 				B0E144DA1B81C58700934377 /* TOWebViewController */,
 				B0854D601B6BA84B00C1B150 /* MMDrawerController */,
 			);
@@ -614,6 +672,7 @@
 				B0FA588E1B4678D400E3BE94 /* Sources */,
 				B0FA588F1B4678D400E3BE94 /* Frameworks */,
 				B0FA58901B4678D400E3BE94 /* Resources */,
+				B09DB2E51B85738A007458C1 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -731,6 +790,7 @@
 				B0FA58A01B4678D400E3BE94 /* Main.storyboard in Resources */,
 				B087E02E1B7716E8003D90B6 /* DetailSummaryVC.xib in Resources */,
 				B08875E11B6F9AF3008DF5D4 /* SummaryViewController.xib in Resources */,
+				B09DB2E81B857437007458C1 /* LeftMenuViewController.xib in Resources */,
 				B0723E5C1B79002900F8A63E /* sportTypes.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -756,6 +816,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B09DB2941B84E5E0007458C1 /* LeftMenuView.m in Sources */,
 				B0C1010E1B7798C000E4204B /* ViewController.m in Sources */,
 				B0E144F01B81C58700934377 /* TOActivityChrome.m in Sources */,
 				B0C1012A1B77993800E4204B /* SummaryTVCell.m in Sources */,
@@ -782,10 +843,12 @@
 				B0E144F21B81C58700934377 /* TOWebViewController.m in Sources */,
 				B0B548541B84443700D42B33 /* DMKeychain.m in Sources */,
 				B0854D9D1B6BA87600C1B150 /* JTVerticalCalendarView.m in Sources */,
+				B071E69C1B859B4100133D63 /* UIViewController+RESideMenu.m in Sources */,
 				B0B548591B84443700D42B33 /* DMPasscodeInternalViewController.m in Sources */,
 				B0E144F31B81C58700934377 /* UIImage+TOWebViewControllerIcons.m in Sources */,
 				B0C101271B77993800E4204B /* NameManageTVCell.m in Sources */,
 				B0C1011A1B7798F600E4204B /* TypeManageTableView.m in Sources */,
+				B071E69B1B859B4100133D63 /* RESideMenu.m in Sources */,
 				B0854D971B6BA87600C1B150 /* JTCalendarDayView.m in Sources */,
 				B0E144D91B81BD6000934377 /* AboutViewController.m in Sources */,
 				B087E0271B76F92B003D90B6 /* XYPieChart.m in Sources */,
@@ -798,6 +861,7 @@
 				B0854D961B6BA87600C1B150 /* JTCalendarScrollManager.m in Sources */,
 				B0C101281B77993800E4204B /* SportTVCell.m in Sources */,
 				B0854D931B6BA87600C1B150 /* JTCalendarSettings.m in Sources */,
+				B00D87A51B857CF00044BF85 /* LeftMenuViewController.m in Sources */,
 				B0B548551B84443700D42B33 /* DMPasscode.m in Sources */,
 				B0723E541B786D2D00F8A63E /* SettingTableView.m in Sources */,
 				B0854D981B6BA87600C1B150 /* JTCalendarMenuView.m in Sources */,
@@ -809,6 +873,7 @@
 				B0C101191B7798F600E4204B /* SummaryTableView.m in Sources */,
 				B025CF471B84599000FB1A22 /* TouchIDViewController.m in Sources */,
 				B0FA58971B4678D400E3BE94 /* main.m in Sources */,
+				B071E69A1B859B4100133D63 /* RECommonFunctions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -894,7 +959,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				PROVISIONING_PROFILE = "c031f6f7-5e66-49e5-b8a6-20fea4566c45";
 				SDKROOT = iphoneos;
 			};
@@ -948,9 +1013,11 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: yuke wu (D3FXKEY64K)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: yuke wu (D3FXKEY64K)";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/AmosSportCalender",
+					"$(PROJECT_DIR)/AmosSportCalender/FrameWork",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				INFOPLIST_FILE = AmosSportCalender/Info.plist;
@@ -970,9 +1037,11 @@
 				CODE_SIGN_ENTITLEMENTS = "";
 				CODE_SIGN_IDENTITY = "iPhone Distribution: yuke wu (D3FXKEY64K)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: yuke wu (D3FXKEY64K)";
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/AmosSportCalender",
+					"$(PROJECT_DIR)/AmosSportCalender/FrameWork",
 				);
 				INFOPLIST_FILE = AmosSportCalender/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;

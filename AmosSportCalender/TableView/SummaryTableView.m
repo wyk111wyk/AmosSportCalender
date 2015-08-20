@@ -10,7 +10,8 @@
 #import "EventStore.h"
 #import "SummaryTableView.h"
 #import "SummaryTVCell.h"
-#import "UIViewController+MMDrawerController.h"
+//#import "UIViewController+MMDrawerController.h"
+#import "RESideMenu.h"
 
 static NSString * const YKSummaryCellReuseId = @"summaryCell";
 
@@ -34,7 +35,8 @@ static NSString * const YKSummaryCellReuseId = @"summaryCell";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.allowsSelection = NO;
     
-    [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+    [self.sideMenuViewController setPanFromEdge:NO];
+//    [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
     
     //datePick初始化
     NSString *minDate = @"1990-01-01";
@@ -128,7 +130,8 @@ static NSString * const YKSummaryCellReuseId = @"summaryCell";
 #pragma mark - Buttons
 
 - (IBAction)OpenAndCloseMenu:(UIBarButtonItem *)sender {
-    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+//    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+    [self.sideMenuViewController presentLeftMenuViewController];
 }
 
 -(void)dateChanged:(id)sender{

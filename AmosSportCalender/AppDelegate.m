@@ -13,10 +13,12 @@
 #import "EventStore.h"
 #import "SettingStore.h"
 #import "DMPasscode.h"
+#import "LeftMenuViewController.h"
+#import "RESideMenu.h"
 
 #define PGY_APP_ID @"1694170a8f87c44a10201ef6c8831931"
 
-@interface AppDelegate ()
+@interface AppDelegate ()<RESideMenuDelegate>
 @end
 
 NSArray *sportTypes;
@@ -27,6 +29,7 @@ NSArray *sportTypes;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 //    NSLog(@"application didFinishLaunchingWithOptions");
     
+    //蒲公英SDK提供的方法
     [[PgyManager sharedPgyManager] startManagerWithAppId:PGY_APP_ID];
     [[PgyManager sharedPgyManager] setEnableFeedback:NO];
     [[PgyManager sharedPgyManager] setEnableDebugLog:YES];
@@ -40,13 +43,33 @@ NSArray *sportTypes;
     [self createAllSportTypeArray];
     
     UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
+    LeftMenuViewController *leftMenu = [[LeftMenuViewController alloc]init];
     
-    MMDrawerController *drawer = [[MMDrawerController alloc] initWithCenterViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"nav"] leftDrawerViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"menunav"]];
+    RESideMenu *drawer = [[RESideMenu alloc] initWithContentViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"nav"]
+                                                                    leftMenuViewController:leftMenu
+                                                                   rightMenuViewController:nil];
     
-    [drawer setShowsShadow:YES];
-    [drawer setMaximumLeftDrawerWidth:160.0];
-    [drawer setOpenDrawerGestureModeMask:MMOpenDrawerGestureModePanningNavigationBar];
-    [drawer setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
+//    MMDrawerController *drawer = [[MMDrawerController alloc] initWithCenterViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"nav"] leftDrawerViewController:leftMenu];
+//    [drawer setShowsShadow:YES];
+//    [drawer setMaximumLeftDrawerWidth:230.0];
+//    [drawer setOpenDrawerGestureModeMask:MMOpenDrawerGestureModePanningNavigationBar];
+//    [drawer setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
+    
+    drawer.delegate = self;
+    drawer.panGestureEnabled = YES;
+    drawer.panFromEdge = YES;
+    drawer.parallaxEnabled = YES;
+    drawer.menuPreferredStatusBarStyle = UIStatusBarStyleLightContent;
+    drawer.bouncesHorizontally = NO;
+    
+    drawer.fadeMenuView = YES;
+    drawer.scaleBackgroundImageView = YES;
+    drawer.scaleContentView = YES;
+    drawer.scaleMenuView = YES;
+    drawer.contentViewShadowEnabled = YES;
+    drawer.contentViewShadowColor = [UIColor colorWithWhite:0.95 alpha:1];
+    
+    drawer.contentViewInPortraitOffsetCenterX = 0;
     
     self.window.rootViewController = drawer;
     [self.window makeKeyAndVisible];

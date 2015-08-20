@@ -26,7 +26,7 @@
     
     SettingStore *setting = [SettingStore sharedSetting];
     if (setting.name.length > 0) {
-        _helloLabel.text = [NSString stringWithFormat:@"你好，%@！/n请使用指纹进行解锁。", setting.name];
+        _helloLabel.text = [NSString stringWithFormat:@"你好，%@！\n请使用指纹进行解锁。", setting.name];
     }
     // Do any additional setup after loading the view.
 }

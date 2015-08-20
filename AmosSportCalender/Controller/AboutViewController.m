@@ -8,7 +8,8 @@
 
 #import "AboutViewController.h"
 #import "TOWebViewController.h"
-#import "UIViewController+MMDrawerController.h"
+//#import "UIViewController+MMDrawerController.h"
+#import "RESideMenu.h"
 
 static NSString *const cellID = @"aboutcell";
 
@@ -28,7 +29,9 @@ static NSString *const cellID = @"aboutcell";
     [_aboutLabel sizeToFit];
     
     _tableArray = [[NSArray alloc] initWithObjects:@"去Apple Store评分", @"瞅瞅作者写的运动心得", nil];
-    [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+    
+    [self.sideMenuViewController setPanFromEdge:NO];
+//    [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
     
 }
 
@@ -38,7 +41,8 @@ static NSString *const cellID = @"aboutcell";
 }
 
 - (IBAction)closeAndOpenDrawer:(UIBarButtonItem *)sender {
-    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+//    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+    [self.sideMenuViewController presentLeftMenuViewController];
 }
 
 #pragma mark - TableView

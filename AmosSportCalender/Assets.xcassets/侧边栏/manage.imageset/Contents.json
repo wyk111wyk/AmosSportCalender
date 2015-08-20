@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "calendar_filled.png",
+      "filename" : "business_filled.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "calendar_filled-1.png",
+      "filename" : "business_filled-1.png",
       "scale" : "2x"
     },
     {

@@ -13,6 +13,7 @@
 #import "Event.h"
 #import "DetailSummaryVC.h"
 #import "SettingStore.h"
+
 static NSString * const summaryCellReuseId = @"summaryTypeCell";
 
 @interface SummaryViewController ()<UITableViewDataSource, UITableViewDelegate, XYPieChartDelegate, XYPieChartDataSource>

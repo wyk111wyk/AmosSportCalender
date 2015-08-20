@@ -11,10 +11,11 @@
 #import "EventStore.h"
 #import "SettingTableView.h"
 #import "SettingStore.h"
-#import "UIViewController+MMDrawerController.h"
+//#import "UIViewController+MMDrawerController.h"
 #import "ViewController.h"
 #import "DMPasscode.h"
 #import "DMKeychain.h"
+#import "RESideMenu.h"
 
 static const NSString* KEYCHAIN_NAME = @"passcode";
 
@@ -48,8 +49,8 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+    [self.sideMenuViewController setPanFromEdge:NO];
+//    [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
     
     self.finishButton = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStyleDone target:self action:@selector(textFieldShouldReturn:)];
     
@@ -118,9 +119,8 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
 }
 
 - (IBAction)openAndCloseDrower:(UIBarButtonItem *)sender {
-    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {
-        
-    }];
+//    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:^(BOOL finished) {
+    [self.sideMenuViewController presentLeftMenuViewController];
 }
 
 - (IBAction)changeSwitchView:(UISwitch *)sender {

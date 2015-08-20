@@ -9,7 +9,8 @@
 #import "TypeManageTableView.h"
 #import "TypeManageTVCell.h"
 #import "NameManageTableView.h"
-#import "UIViewController+MMDrawerController.h"
+//#import "UIViewController+MMDrawerController.h"
+#import "RESideMenu.h"
 
 static NSString* const typeManageCellReuseId = @"typeManageCell";
 
@@ -32,7 +33,8 @@ static NSString* const typeManageCellReuseId = @"typeManageCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+    [self.sideMenuViewController setPanFromEdge:NO];
+//    [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
     
     NSFileManager * defaultManager = [NSFileManager defaultManager];
     NSURL * documentPath = [[defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask]firstObject];
@@ -50,7 +52,8 @@ static NSString* const typeManageCellReuseId = @"typeManageCell";
 }
 
 - (IBAction)openAndCloseDrawer:(UIBarButtonItem *)sender {
-    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+//    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+    [self.sideMenuViewController presentLeftMenuViewController];
 }
 - (IBAction)saveToDefault:(UIButton *)sender {
     [self alertForSave];

@@ -11,7 +11,8 @@
 
 #import "FeedbackViewController.h"
 #import "FeedbackTVCell.h"
-#import "UIViewController+MMDrawerController.h"
+//#import "UIViewController+MMDrawerController.h"
+#import "RESideMenu.h"
 
 static NSString *const cellID = @"feedbackcell";
 
@@ -78,7 +79,8 @@ static NSString *const cellID = @"feedbackcell";
         [_otherLabel setFont:font];
     }
     
-    [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+    [self.sideMenuViewController setPanFromEdge:NO];
+//    [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -90,7 +92,8 @@ static NSString *const cellID = @"feedbackcell";
 }
 
 - (IBAction)closeAndOpenDrower:(UIBarButtonItem *)sender {
-    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+//    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
+    [self.sideMenuViewController presentLeftMenuViewController];
 }
 
 - (IBAction)sendTheFeedbackToAmos:(UIBarButtonItem *)sender {
