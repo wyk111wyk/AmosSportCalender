@@ -86,20 +86,23 @@
     [super loadView];
     SettingStore *setting = [SettingStore sharedSetting];
     
+    if (!setting.passWordOfFingerprint) {
+        [[PgyManager sharedPgyManager] checkUpdate];
+    }
+    
     if ([DMPasscode isPasscodeSet] && !setting.passWordOfFingerprint) {
         UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
         [self presentViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"touchid"] animated:NO completion:^{
             
         }];
     }
+    
+    setting.passWordOfFingerprint = YES;
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    //测试版检查更新
-    [[PgyManager sharedPgyManager] checkUpdate];
     
     [self.sideMenuViewController setPanFromEdge:YES];
     
