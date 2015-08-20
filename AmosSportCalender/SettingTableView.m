@@ -52,6 +52,12 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
     [self.sideMenuViewController setPanFromEdge:NO];
 //    [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
     
+    SettingStore *setting = [SettingStore sharedSetting];
+    
+    if (!setting.passWordOfFingerprint) {
+        [[PgyManager sharedPgyManager] checkUpdate];
+    }
+    
     self.finishButton = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStyleDone target:self action:@selector(textFieldShouldReturn:)];
     
     //Picker初始化
@@ -76,8 +82,6 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
     _genderTextField.inputView = _genderPicker;
     
     //UI显示数据初始化
-    SettingStore *setting = [SettingStore sharedSetting];
-    
     _nameTextField.text = setting.name;
     _ageTextField.text = setting.age;
     _genderTextField.text = setting.gender;

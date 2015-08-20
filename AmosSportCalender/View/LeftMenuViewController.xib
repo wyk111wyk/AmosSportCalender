@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8173.3" systemVersion="15A244d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8173.3" systemVersion="15A263e" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8142"/>
@@ -29,7 +29,7 @@
                     <rect key="frame" x="0.0" y="153.5" width="375" height="360"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W1h-oB-OjL" customClass="LeftMenuView">
-                            <rect key="frame" x="38" y="0.0" width="210" height="60"/>
+                            <rect key="frame" x="35" y="0.0" width="210" height="60"/>
                             <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -41,7 +41,7 @@
                             </connections>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5HM-QP-EZc" customClass="LeftMenuView">
-                            <rect key="frame" x="38" y="60" width="210" height="60"/>
+                            <rect key="frame" x="35" y="60" width="210" height="60"/>
                             <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -53,7 +53,7 @@
                             </connections>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ntx-aQ-a5D" customClass="LeftMenuView">
-                            <rect key="frame" x="38" y="120" width="210" height="60"/>
+                            <rect key="frame" x="35" y="120" width="210" height="60"/>
                             <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -65,7 +65,7 @@
                             </connections>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="M0y-n5-TqY" customClass="LeftMenuView">
-                            <rect key="frame" x="38" y="180" width="210" height="60"/>
+                            <rect key="frame" x="35" y="180" width="210" height="60"/>
                             <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -77,7 +77,7 @@
                             </connections>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ni2-Qa-fHg" customClass="LeftMenuView">
-                            <rect key="frame" x="38" y="240" width="210" height="60"/>
+                            <rect key="frame" x="35" y="240" width="210" height="60"/>
                             <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -89,7 +89,7 @@
                             </connections>
                         </view>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zyg-cR-Egi" customClass="LeftMenuView">
-                            <rect key="frame" x="38" y="300" width="210" height="60"/>
+                            <rect key="frame" x="35" y="300" width="210" height="60"/>
                             <animations/>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
@@ -114,7 +114,7 @@
                         <constraint firstItem="zyg-cR-Egi" firstAttribute="top" secondItem="ni2-Qa-fHg" secondAttribute="bottom" id="gFP-1Y-OHU"/>
                         <constraint firstItem="ntx-aQ-a5D" firstAttribute="top" secondItem="5HM-QP-EZc" secondAttribute="bottom" id="sHA-N7-sk3"/>
                         <constraint firstAttribute="height" constant="360" id="sIP-HM-r9S"/>
-                        <constraint firstItem="W1h-oB-OjL" firstAttribute="leading" secondItem="TX6-Il-Bev" secondAttribute="leading" constant="38" id="vGG-dI-OsY"/>
+                        <constraint firstItem="W1h-oB-OjL" firstAttribute="leading" secondItem="TX6-Il-Bev" secondAttribute="leading" constant="35" id="vGG-dI-OsY"/>
                         <constraint firstItem="M0y-n5-TqY" firstAttribute="leading" secondItem="W1h-oB-OjL" secondAttribute="leading" id="vbg-E8-vaD"/>
                         <constraint firstItem="ntx-aQ-a5D" firstAttribute="leading" secondItem="W1h-oB-OjL" secondAttribute="leading" id="wF7-Ao-gbF"/>
                     </constraints>

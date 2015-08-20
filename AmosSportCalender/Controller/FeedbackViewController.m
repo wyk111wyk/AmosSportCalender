@@ -45,6 +45,7 @@ static NSString *const cellID = @"feedbackcell";
 @property (strong, nonatomic) NSString *typeStr;
 @property (strong, nonatomic) NSString *titleStr;
 @property (strong, nonatomic) NSString *containStr;
+@property (strong, nonatomic) NSString *emailStr;
 
 @end
 
@@ -122,11 +123,15 @@ static NSString *const cellID = @"feedbackcell";
     MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
     mc.mailComposeDelegate = self;
     
+    NSDictionary *infoDictionary =[[NSBundle mainBundle]infoDictionary];
+    NSString *infoStr = [NSString stringWithFormat:@"(%@.%@)", [infoDictionary objectForKey:@"CFBundleShortVersionString"], [infoDictionary objectForKey:@"CFBundleVersion"]];
+    NSString *contectStr = [NSString stringWithFormat:@"联系方式：%@", _emailStr];
+    
     //设置标题等
     NSString *titleTemp = @"无内容";
     NSString *containTemp = @"无内容";
-    titleTemp = [NSString stringWithFormat:@"ASC-%@-%@", _typeStr, _titleStr];
-    containTemp = [NSString stringWithFormat:@"%@-%@\n%@", _typeStr, _titleStr, _containStr];
+    titleTemp = [NSString stringWithFormat:@"ASD%@-%@-%@", infoStr, _typeStr, _titleStr];
+    containTemp = [NSString stringWithFormat:@"%@-%@\n\n%@\n\n%@", _typeStr, _titleStr, _containStr, contectStr];
     
     [mc setSubject:titleTemp];
     [mc setToRecipients:[NSArray arrayWithObject:@"wyk111wyk@icloud.com"]];
@@ -202,7 +207,7 @@ static NSString *const cellID = @"feedbackcell";
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField
 {
-    
+    _sendButton.enabled = NO;
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
@@ -215,7 +220,11 @@ static NSString *const cellID = @"feedbackcell";
         }
         
     }else if(textField == _emailTextField){
+        _emailStr = textField.text;
         
+        if (textField.text.length > 0) {
+            _sendButton.enabled = YES;
+        }
     }
 }
 

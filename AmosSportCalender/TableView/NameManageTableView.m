@@ -8,7 +8,6 @@
 
 #import "NameManageTableView.h"
 #import "NameManageTVCell.h"
-#import "UIViewController+MMDrawerController.h"
 
 static NSString* const typeManageCellReuseId = @"sportNameManageCell";
 
@@ -28,8 +27,6 @@ static NSString* const typeManageCellReuseId = @"sportNameManageCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeNone];
     
     self.tableView.allowsSelection = NO;
     self.tableView.editing = YES;

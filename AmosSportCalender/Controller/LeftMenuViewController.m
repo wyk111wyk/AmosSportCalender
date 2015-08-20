@@ -10,8 +10,6 @@
 #import "LeftMenuView.h"
 #import "RESideMenu.h"
 
-#import "UIViewController+MMDrawerController.h"
-
 @interface LeftMenuViewController ()
 
 @property (weak, nonatomic) IBOutlet LeftMenuView *sportCalendarView;
@@ -62,7 +60,7 @@
 - (IBAction)menuSelected:(LeftMenuView *)sender {
     
     if (sender == _currentSelectedView) {
-        [self.mm_drawerController closeDrawerAnimated:YES completion:nil];
+        [self.sideMenuViewController hideMenuViewController];
     }else{
         _currentSelectedView.isSelected = NO;
         sender.isSelected = YES;

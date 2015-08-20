@@ -8,7 +8,6 @@
 #import <PgySDK/PgyManager.h>
 
 #import "AppDelegate.h"
-#import "MMDrawerController.h"
 #import "ViewController.h"
 #import "EventStore.h"
 #import "SettingStore.h"
@@ -37,6 +36,9 @@ NSArray *sportTypes;
     //重绘状态栏
     [application setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
     
+    SettingStore *setting = [SettingStore sharedSetting];
+    setting.passWordOfFingerprint = NO;
+    
     //取消所有通知
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
     
@@ -48,12 +50,6 @@ NSArray *sportTypes;
     RESideMenu *drawer = [[RESideMenu alloc] initWithContentViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"nav"]
                                                                     leftMenuViewController:leftMenu
                                                                    rightMenuViewController:nil];
-    
-//    MMDrawerController *drawer = [[MMDrawerController alloc] initWithCenterViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"nav"] leftDrawerViewController:leftMenu];
-//    [drawer setShowsShadow:YES];
-//    [drawer setMaximumLeftDrawerWidth:230.0];
-//    [drawer setOpenDrawerGestureModeMask:MMOpenDrawerGestureModePanningNavigationBar];
-//    [drawer setCloseDrawerGestureModeMask:MMCloseDrawerGestureModeAll];
     
     drawer.delegate = self;
     drawer.panGestureEnabled = YES;
@@ -124,10 +120,7 @@ NSArray *sportTypes;
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-
-    SettingStore *setting = [SettingStore sharedSetting];
-    setting.passWordOfFingerprint = NO;
-    
+        SettingStore *setting = [SettingStore sharedSetting];
     //注册五天不使用的本地通知
     UILocalNotification *localNotification = UILocalNotification.new;
     
@@ -140,7 +133,7 @@ NSArray *sportTypes;
     localNotification.alertAction = NSLocalizedString(@"立即开始计划运动吧！", nil);
     localNotification.soundName= UILocalNotificationDefaultSoundName;
     
-    // 设定通知的userInfo，用来标识该通知
+    // 设定通知的userInfo，用来标识该通知:不会
     
     [application scheduleLocalNotification:localNotification];
     
@@ -148,6 +141,7 @@ NSArray *sportTypes;
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     }
     
+    //储存所有用户数据
     BOOL success = [[EventStore sharedStore] saveChanges];
     if (success) {
         NSLog(@"退出程序后,进行了数据本地储存");
@@ -155,6 +149,11 @@ NSArray *sportTypes;
         NSLog(@"退出程序后的储存失败！");
     }
     
+    dispatch_queue_t queue = dispatch_queue_create("myQueue",DISPATCH_QUEUE_SERIAL);
+    dispatch_async(queue, ^{
+        [NSThread sleepForTimeInterval:60*5];
+        setting.passWordOfFingerprint = NO;
+    });
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {

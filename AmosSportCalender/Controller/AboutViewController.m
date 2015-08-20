@@ -15,6 +15,8 @@ static NSString *const cellID = @"aboutcell";
 
 @interface AboutViewController ()<UITableViewDataSource, UITableViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UILabel *visionLabel;
+
 @property (weak, nonatomic) IBOutlet UILabel *aboutLabel;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -27,6 +29,12 @@ static NSString *const cellID = @"aboutcell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     [_aboutLabel sizeToFit];
+    
+    NSDictionary *infoDictionary =[[NSBundle mainBundle]infoDictionary];
+    NSString *infoStr = [NSString stringWithFormat:@"Amos Sport Diary  V %@.%@", [infoDictionary objectForKey:@"CFBundleShortVersionString"], [infoDictionary objectForKey:@"CFBundleVersion"]];
+    [_visionLabel sizeToFit];
+    
+    _visionLabel.text = infoStr;
     
     _tableArray = [[NSArray alloc] initWithObjects:@"去Apple Store评分", @"瞅瞅作者写的运动心得", nil];
     

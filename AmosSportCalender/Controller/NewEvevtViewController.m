@@ -632,6 +632,8 @@
 {
     [searchBar resignFirstResponder];
     
+    if (searchBar.text.length > 0) {
+        
     NSString *searchResult = searchBar.text;
     unsigned long index = 0;
     int row1 = 9999;
@@ -666,6 +668,7 @@
         
         self.sportTypeTextField.text = [[self.sportTypes objectAtIndex:row1] objectForKey:@"sportType"];
         self.sportNameTextField.text = [self.sportNames objectAtIndex:row2];
+    }
     }
 }
 

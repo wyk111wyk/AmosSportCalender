@@ -16,6 +16,8 @@
 #import <LocalAuthentication/LocalAuthentication.h>
 #import <Security/Security.h>
 
+#import <QuartzCore/QuartzCore.h>
+
 #import "DMPasscode.h"
 #import "ViewController.h"
 #import "NewEvevtViewController.h"
@@ -23,15 +25,13 @@
 #import "EventStore.h"
 #import "SportTVCell.h"
 #import "SummaryViewController.h"
-#import "LeftMenuTableView.h"
 #import "SettingStore.h"
 #import "SettingTableView.h"
-#import "UIViewController+MMDrawerController.h"
 #import "RESideMenu.h"
 
 #define IS_IOS8 ([[UIDevice currentDevice].systemVersion doubleValue] >= 8.0)
 
-@interface ViewController ()<UITableViewDataSource, UITableViewDelegate, EKEventEditViewDelegate>
+@interface ViewController ()<UITableViewDataSource, UITableViewDelegate, EKEventEditViewDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate>
 {
     NSMutableDictionary *eventsByDate; ///<储存所有事件的Dic
     
@@ -42,6 +42,7 @@
 @property (strong, nonatomic)NSMutableDictionary *eventsMostByDate;
 @property (strong, nonatomic)NSMutableArray *sportTypes;
 @property (strong, nonatomic)NSArray *homeStrLists;
+@property (strong, nonatomic)NSArray *rightButtons;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *menuButton;
@@ -68,6 +69,9 @@
 
 @property (nonatomic)BOOL isEnterApp;
 
+/* Popover View Controller Handlers */
+@property (nonatomic,strong) UIPopoverController *sharingPopoverController;
+
 @end
 
 @implementation ViewController
@@ -86,10 +90,6 @@
     [super loadView];
     SettingStore *setting = [SettingStore sharedSetting];
     
-    if (!setting.passWordOfFingerprint) {
-        [[PgyManager sharedPgyManager] checkUpdate];
-    }
-    
     if ([DMPasscode isPasscodeSet] && !setting.passWordOfFingerprint) {
         UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
         [self presentViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"touchid"] animated:NO completion:^{
@@ -104,11 +104,13 @@
 {
     [super viewDidLoad];
     
+    //侧边栏打开的手势
     [self.sideMenuViewController setPanFromEdge:YES];
     
     //主页无计划时TableView上显示的文字
     self.homeStrLists = [[NSArray alloc] initWithObjects:@"努力画满每一天的圈圈吧！", @"今天没有运动，做个计划吧！", @"每日的计划可以同步到系统日历里去哦", @"为过去创建的运动计划默认已完成",nil];
     
+    //获取用户权限发送通知
     if (IS_IOS8) {
     UIUserNotificationSettings *setting=[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert categories:nil];
     [[UIApplication sharedApplication] registerUserNotificationSettings:setting];
@@ -118,7 +120,10 @@
     _tableView.dataSource = self;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModePanningNavigationBar];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"plus"] style:UIBarButtonItemStylePlain target:self action:@selector(addNewEvent:)];
+    UIBarButtonItem *todayButton = [[UIBarButtonItem alloc] initWithTitle:@"今天" style:UIBarButtonItemStylePlain target:self action:@selector(didGoTodayTouch)];
+    _rightButtons = [[NSArray alloc] initWithObjects: addButton, todayButton, nil];
+    self.navigationItem.rightBarButtonItems = _rightButtons;
     
     _calendarManager = [JTCalendarManager new];
     _calendarManager.delegate = self;
@@ -315,6 +320,7 @@
 {
 //    NSLog(@"%@", NSStringFromSelector(_cmd));
     if ([segue.identifier isEqualToString:@"newEvent"]) {
+        
         UINavigationController *nc = (UINavigationController *)segue.destinationViewController;
         NewEvevtViewController *mvc = (NewEvevtViewController *)[nc topViewController];
         
@@ -349,10 +355,16 @@
 
 - (IBAction)segmentedControl:(UISegmentedControl *)sender {
     
+    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"upload"] style:UIBarButtonItemStylePlain target:self action:@selector(shareThePersonalInfo:)];
+    
     switch ([sender selectedSegmentIndex]) {
         case 0:
             NSLog(@"first click");
             [[self.view.subviews lastObject] removeFromSuperview];
+            
+            self.navigationItem.rightBarButtonItem = nil;
+            self.navigationItem.rightBarButtonItems = _rightButtons;
+            
             self.addEventButton.enabled = YES;
             [self setTableViewHeadTitle:self.selectedDate];
             break;
@@ -364,6 +376,9 @@
             summaryVC.eventsMostByDate = self.eventsMostByDate;
             summaryVC.screenWidth = [UIScreen mainScreen].bounds.size.width;
             summaryVC.screenHight = [UIScreen mainScreen].bounds.size.height;
+            
+            self.navigationItem.rightBarButtonItems = nil;
+            self.navigationItem.rightBarButtonItem = shareButton;
             
             self.addEventButton.enabled = NO;
             [self.view addSubview:summaryVC.view];
@@ -964,6 +979,11 @@
 
 #pragma mark - Helper methods
 
+- (void)shareThePersonalInfo
+{
+    
+}
+
 /** @brief Returns a customized snapshot of a given view. */
 - (UIView *)customSnapshoFromView:(UIView *)inputView {
     
@@ -1136,4 +1156,20 @@
     }
 }
 
+#pragma mark - Share
+- (void)shareThePersonalInfo:(id)sender
+{
+    NSString *string = @"http://www.zhihu.com/people/amos-9";
+    NSURL *URL = [NSURL URLWithString:string];
+    
+    UIActivityViewController *activityViewController =
+    [[UIActivityViewController alloc] initWithActivityItems:@[string, URL]
+                                      applicationActivities:nil];
+    [self.navigationController presentViewController:activityViewController
+                                       animated:YES
+                                     completion:^{
+                                         // ... 
+                                     }];
+
+}
 @end
