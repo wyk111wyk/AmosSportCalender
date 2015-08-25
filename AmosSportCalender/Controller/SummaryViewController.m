@@ -5,6 +5,10 @@
 //  Created by Amos Wu on 15/8/3.
 //  Copyright © 2015年 Amos Wu. All rights reserved.
 //
+#define screenWidth ([UIScreen mainScreen].bounds.size.width)
+#define screenHeight ([UIScreen mainScreen].bounds.size.height)
+#define screenScale ([UIScreen mainScreen].scale)
+#define screenSize ([UIScreen mainScreen].bounds.size)
 
 #import <QuartzCore/QuartzCore.h>
 #import "SummaryViewController.h"
@@ -13,12 +17,13 @@
 #import "Event.h"
 #import "DetailSummaryVC.h"
 #import "SettingStore.h"
+#import "DMPasscode.h"
 
 static NSString * const summaryCellReuseId = @"summaryTypeCell";
 
 @interface SummaryViewController ()<UITableViewDataSource, UITableViewDelegate, XYPieChartDelegate, XYPieChartDataSource>
 
-@property (strong, nonatomic) IBOutlet UIView *view1;
+@property (strong, nonatomic) IBOutlet UIView *viewBackground;
 @property (strong, nonatomic) IBOutlet UIView *view2;
 @property (strong, nonatomic) IBOutlet UIView *view3;
 @property (weak, nonatomic) IBOutlet UIView *vLineView;
@@ -64,28 +69,29 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     
     //View的初始化
     self.view.backgroundColor = [UIColor colorWithRed:0.9529 green:0.9529 blue:0.9529 alpha:1];
-    self.scrollView.frame = CGRectMake(0, 64, self.screenWidth, self.screenHight);
+    _viewBackground.frame = CGRectMake(0, 0, screenWidth, screenHeight);
     
-    self.view1.frame = CGRectMake(0, 0, self.screenWidth, 167);
+    self.scrollView.frame = CGRectMake(0, 64, screenWidth, screenHeight);
     
-    self.view2.frame = CGRectMake(0, self.view1.frame.size.height, self.screenWidth, 152);
-    if (self.screenWidth == 320)
-    { self.view2.frame = CGRectMake(0, self.view1.frame.size.height, self.screenWidth, 129.5); }
-    else if (self.screenWidth == 414)
-    { self.view2.frame = CGRectMake(0, self.view1.frame.size.height, self.screenWidth, 167.5); }
+    self.view1.frame = CGRectMake(0, 0, screenWidth, 167);
+    
+    self.view2.frame = CGRectMake(0, self.view1.frame.size.height, screenWidth, 152);
+    if (screenWidth == 320)
+    { self.view2.frame = CGRectMake(0, self.view1.frame.size.height, screenWidth, 129.5); }
+    else if (screenWidth == 414)
+    { self.view2.frame = CGRectMake(0, self.view1.frame.size.height, screenWidth, 167.5); }
     
     self.tableView.frame = CGRectMake(0, 0, self.tableView.bounds.size.width, 376);
-    self.view3.frame = CGRectMake(0, self.view1.frame.size.height + self.view2.frame.size.height, self.screenWidth, 384);
+    
+    self.view3.frame = CGRectMake(0, self.view1.frame.size.height + self.view2.frame.size.height, screenWidth, 384);
+    if (screenWidth == 320) {
+        self.view3.frame = CGRectMake(0, self.view1.frame.size.height + self.view2.frame.size.height, screenWidth, 360);
+    }
     
     NSLog(@"tableview: %g, view3: %g", self.tableView.frame.size.height, _view3.frame.size.height);
     
-    CGFloat contentHight;
-    if (self.screenWidth == 320) { contentHight = 824; }
-    else if (self.screenWidth == 375) { contentHight = 773; }
-    else if (self.screenWidth == 414) { contentHight = 720; }
-    
-//    = self.view1.frame.size.height + self.view2.frame.size.height + self.view3.frame.size.height;
-    self.scrollView.contentSize = CGSizeMake(self.screenWidth, contentHight);
+   CGFloat contentHight = self.view1.frame.size.height + self.view2.frame.size.height + self.view3.frame.size.height;
+    self.scrollView.contentSize = CGSizeMake(screenWidth, contentHight);
     self.scrollView.bounces = YES;
     self.scrollView.showsVerticalScrollIndicator = YES;
     self.scrollView.scrollEnabled = YES;
@@ -94,7 +100,7 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     [self.scrollView addSubview:self.view2];
     [self.scrollView addSubview:self.view3];
     
-    NSLog(@"1 screenWidth is %g, screen hight %g, contentHight is %g", self.screenWidth, self.screenHight, contentHight);
+//    NSLog(@"1 screenWidth is %g, screen hight %g, contentHight is %g", screenWidth, screenHeight, contentHight);
     
     //图表View的初始化
     self.pieChartView.delegate = self;
@@ -196,7 +202,7 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     }else{self.aveTimesAWeek.text = @"0";}
     
     //iphone5的话字体缩小
-    if (self.screenWidth == 320) {
+    if (screenWidth == 320) {
         UIFont *font = [UIFont systemFontOfSize:22];
         [_theWholeNumber setFont:font];
         [_theWholeTime setFont:font];
@@ -232,15 +238,8 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    self.scrollView.frame = CGRectMake(0, 64, self.screenWidth, self.screenHight);
     [super viewWillAppear:animated];
     
-    if (_contentHight) {
-    self.scrollView.contentSize = CGSizeMake(self.screenWidth, _contentHight);
-    NSLog(@"2 screenWidth is %g, screen hight %g, contentHight is %g", self.screenWidth, self.screenHight, _contentHight);
-    }
-    
-    _contentHight = self.view1.frame.size.height + self.view2.frame.size.height + self.view3.frame.size.height;
     [self.pieChartView reloadData];
 }
 
@@ -539,4 +538,17 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     
     return [UIColor darkGrayColor];
 }
+
++(UIImage*)captureView: (UIView *)theView
+{
+    CGRect rect = theView.frame;
+    UIGraphicsBeginImageContextWithOptions(rect.size, YES, 0.0);
+    CGContextRef context =UIGraphicsGetCurrentContext();
+    [theView.layer renderInContext:context];
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return img;
+}
+
 @end

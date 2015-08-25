@@ -272,7 +272,7 @@
                             </connections>
                         </segmentedControl>
                         <rightBarButtonItems>
-                            <barButtonItem image="04144140-8FFD-4762-8318-A81D3609B2D9" id="Q0d-93-jot">
+                            <barButtonItem image="4B48B0DD-9550-447F-8F87-E4852A0C639A" id="Q0d-93-jot">
                                 <inset key="imageInsets" minX="0.0" minY="0.0" maxX="-5" maxY="0.0"/>
                                 <connections>
                                     <segue destination="PQc-Sa-kkZ" kind="modal" identifier="newEvent" id="Eyv-e8-k6G"/>
@@ -442,7 +442,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="启用Touch ID" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YcS-BT-7uK">
-                                                    <rect key="frame" x="22" y="12" width="96.5" height="19.5"/>
+                                                    <rect key="frame" x="22" y="7" width="96.5" height="19.5"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <nil key="highlightedColor"/>
@@ -454,13 +454,22 @@
                                                         <action selector="changeSwitchView:" destination="lBI-rL-J1K" eventType="valueChanged" id="gaq-QX-xKy"/>
                                                     </connections>
                                                 </switch>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="在每次重启后需输入密码(TouchID)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J7m-C6-gJD">
+                                                    <rect key="frame" x="22" y="26" width="173" height="13.5"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <animations/>
                                             <constraints>
                                                 <constraint firstItem="liK-F3-dKn" firstAttribute="centerY" secondItem="FKp-sh-gNO" secondAttribute="centerY" id="1Kp-Y0-PGX"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="liK-F3-dKn" secondAttribute="trailing" constant="15" id="1Mo-aV-g04"/>
+                                                <constraint firstItem="J7m-C6-gJD" firstAttribute="top" secondItem="YcS-BT-7uK" secondAttribute="bottom" constant="-0.5" id="Uvz-o8-RdF"/>
                                                 <constraint firstItem="YcS-BT-7uK" firstAttribute="leading" secondItem="FKp-sh-gNO" secondAttribute="leading" constant="22" id="btY-6d-aCn"/>
-                                                <constraint firstItem="YcS-BT-7uK" firstAttribute="centerY" secondItem="FKp-sh-gNO" secondAttribute="centerY" id="hqs-if-dyd"/>
+                                                <constraint firstItem="J7m-C6-gJD" firstAttribute="leading" secondItem="YcS-BT-7uK" secondAttribute="leading" id="h9m-kV-INa"/>
+                                                <constraint firstItem="YcS-BT-7uK" firstAttribute="centerY" secondItem="FKp-sh-gNO" secondAttribute="centerY" constant="-5" id="hqs-if-dyd"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <animations/>
@@ -535,18 +544,27 @@
                             </tableViewSection>
                             <tableViewSection headerTitle="数据管理" id="OKR-yF-Wd9">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" textLabel="QGH-1A-Uvv" style="IBUITableViewCellStyleDefault" id="46Q-PS-h0v">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="newEditionCheckCell" textLabel="QGH-1A-Uvv" detailTextLabel="6RV-W5-NKd" style="IBUITableViewCellStyleSubtitle" id="46Q-PS-h0v">
                                         <rect key="frame" x="0.0" y="477.5" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="46Q-PS-h0v" id="xip-Bh-Fo6">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="检查是否有新版更新" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QGH-1A-Uvv">
-                                                    <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="点击检查是否有版本更新" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QGH-1A-Uvv">
+                                                    <rect key="frame" x="15" y="6" width="176" height="19.5"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6RV-W5-NKd">
+                                                    <rect key="frame" x="15" y="25.5" width="40.5" height="13.5"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <animations/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -617,9 +635,11 @@
                         <outlet property="iconBadgeNumberSwitch" destination="bqb-tf-qaF" id="9Q6-yf-Z8y"/>
                         <outlet property="imageTypeLabel" destination="ZEm-cF-RG1" id="Rdz-1H-Nav"/>
                         <outlet property="imageTypeSegment" destination="6Fq-cs-UB0" id="qZ1-xw-HEL"/>
+                        <outlet property="lastestEdtionLabel" destination="6RV-W5-NKd" id="3Ff-VM-2Ct"/>
                         <outlet property="nameTextField" destination="B0L-Vw-kYT" id="e0B-ig-2VJ"/>
                         <outlet property="passwordLabel" destination="YcS-BT-7uK" id="4qE-b5-ve4"/>
                         <outlet property="passwordSwitch" destination="liK-F3-dKn" id="sw2-jP-x5N"/>
+                        <outlet property="tableView" destination="uwK-Ig-0Zm" id="M9d-ZV-SVf"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zbh-ja-Zit" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1051,7 +1071,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IYP-ap-tHM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2592.5" y="1179.5"/>
+            <point key="canvasLocation" x="3024.5" y="1183.5"/>
         </scene>
         <!--New Evevt View Controller-->
         <scene sceneID="cDO-c3-AFI">
@@ -1395,6 +1415,12 @@
                                             <action selector="cameraButtonClick:" destination="WTf-Hi-5yk" id="HnY-rb-IPI"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="6NJ-5e-dWe"/>
+                                    <barButtonItem title="Tips" id="9QM-Lc-WU4">
+                                        <connections>
+                                            <action selector="tipsButtonClick:" destination="WTf-Hi-5yk" id="i9i-Nk-CdG"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -1611,7 +1637,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yRG-us-RSj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1070.5" y="1179.5"/>
+            <point key="canvasLocation" x="1502.5" y="1183.5"/>
         </scene>
         <!--反馈-->
         <scene sceneID="vZM-ns-iE8">
@@ -1924,7 +1950,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="U6m-So-IF3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1578.5" y="1179.5"/>
+            <point key="canvasLocation" x="2010.5" y="1183.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="0HW-U8-gMX">
@@ -1964,11 +1990,11 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AuQ-16-Le7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2083" y="1180"/>
+            <point key="canvasLocation" x="2514.5" y="1183.5"/>
         </scene>
     </scenes>
     <resources>
-        <image name="04144140-8FFD-4762-8318-A81D3609B2D9" width="24" height="24">
+        <image name="4B48B0DD-9550-447F-8F87-E4852A0C639A" width="24" height="24">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOjtYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISgrLjQ3VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
@@ -2016,7 +2042,7 @@ AAMAAAABABgAAAEBAAMAAAABABgAAAECAAMAAAAEAAAJtgEDAAMAAAABAAEAAAEGAAMAAAABAAIAAAER
 AAQAAAABAAAACAESAAMAAAABAAEAAAEVAAMAAAABAAQAAAEWAAMAAAABABgAAAEXAAQAAAABAAAJAAEc
 AAMAAAABAAEAAAFSAAMAAAABAAIAAAFTAAMAAAAEAAAJvodzAAcAAAxIAAAJxgAAAAAACAAIAAgACAAB
 AAEAAQABAAAMSExpbm8CEAAAbW50clJHQiBYWVogB84AAgAJAAYAMQAAYWNzcE1TRlQAAAAASUVDIHNS
-R0IAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y1IUCAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+R0IAAAAAAAAAAAAAAAEAAPbWAAEAAAAA0y1IUCAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAARY3BydAAAAVAAAAAzZGVzYwAAAYQAAABsd3RwdAAAAfAAAAAUYmtwdAAA
 AgQAAAAUclhZWgAAAhgAAAAUZ1hZWgAAAiwAAAAUYlhZWgAAAkAAAAAUZG1uZAAAAlQAAABwZG1kZAAA
 AsQAAACIdnVlZAAAA0wAAACGdmlldwAAA9QAAAAkbHVtaQAAA/gAAAAUbWVhcwAABAwAAAAkdGVjaAAA

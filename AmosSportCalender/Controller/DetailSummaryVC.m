@@ -10,6 +10,7 @@
 #import "SummaryNewTVCell.h"
 #import "Event.h"
 #import "SettingStore.h"
+#import "DMPasscode.h"
 
 static NSString * const YKSummaryCellReuseId = @"summaryNewTVCell";
 

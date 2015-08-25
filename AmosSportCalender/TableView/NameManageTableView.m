@@ -8,6 +8,8 @@
 
 #import "NameManageTableView.h"
 #import "NameManageTVCell.h"
+#import "DMPasscode.h"
+#import "SettingStore.h"
 
 static NSString* const typeManageCellReuseId = @"sportNameManageCell";
 

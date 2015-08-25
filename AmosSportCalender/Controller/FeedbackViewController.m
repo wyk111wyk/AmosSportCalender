@@ -13,6 +13,8 @@
 #import "FeedbackTVCell.h"
 //#import "UIViewController+MMDrawerController.h"
 #import "RESideMenu.h"
+#import "DMPasscode.h"
+#import "SettingStore.h"
 
 static NSString *const cellID = @"feedbackcell";
 

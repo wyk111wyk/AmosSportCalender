@@ -16,6 +16,7 @@
 #import "DMPasscode.h"
 #import "DMKeychain.h"
 #import "RESideMenu.h"
+#import "DMPasscode.h"
 
 static const NSString* KEYCHAIN_NAME = @"passcode";
 
@@ -39,6 +40,7 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
 @property (strong, nonatomic) UIPickerView *genderPicker;
 @property (strong, nonatomic) NSArray *ageArray;
 @property (strong, nonatomic) NSArray *genderArray;
+@property (weak, nonatomic) IBOutlet UILabel *lastestEdtionLabel;
 
 @property (strong, nonatomic) UIBarButtonItem *finishButton;
 
@@ -53,10 +55,6 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
 //    [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
     
     SettingStore *setting = [SettingStore sharedSetting];
-    
-    if (!setting.passWordOfFingerprint) {
-        [[PgyManager sharedPgyManager] checkUpdate];
-    }
     
     self.finishButton = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStyleDone target:self action:@selector(textFieldShouldReturn:)];
     
@@ -87,7 +85,6 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
     _genderTextField.text = setting.gender;
     
     _iCloudSwitch.on = setting.iCloud;
-    _passwordSwitch.on = setting.passWordOfFingerprint;
     
     _iconBadgeNumberSwitch.on = setting.iconBadgeNumber;
     
@@ -106,6 +103,12 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
     }
     
     [self setLabelStatus:setting];
+    
+    NSDictionary *infoDictionary =[[NSBundle mainBundle]infoDictionary];
+    NSString *infoStr = [NSString stringWithFormat:@"当前版本 V %@.%@", [infoDictionary objectForKey:@"CFBundleShortVersionString"], [infoDictionary objectForKey:@"CFBundleVersion"]];
+    
+    _lastestEdtionLabel.text = infoStr;
+    _lastestEdtionLabel.textColor = [UIColor lightGrayColor];
 }
 
 - (void)setLabelStatus: (SettingStore *)setting
@@ -143,7 +146,7 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
        
             [DMPasscode setupPasscodeInViewController:self completion:^(BOOL success, NSError *error) {
                 if (success) {
-                    setting.passWordOfFingerprint = YES;
+                    
                 }else{
                     [_passwordSwitch setOn:NO animated:YES];
                     _passwordLabel.textColor = [UIColor lightGrayColor];
@@ -279,6 +282,7 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
     [[PgyManager sharedPgyManager] checkUpdate];
     [[PgyManager sharedPgyManager] updateLocalBuildNumber];
 }
+
 #pragma mark - alert Method
 
 - (void)alertForClearAllData

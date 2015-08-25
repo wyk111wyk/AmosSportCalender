@@ -10,12 +10,16 @@
 // MARK: [something]
 // FIXME: [something]
 
+#define screenWidth ([UIScreen mainScreen].bounds.size.width)
+#define screenHeight ([UIScreen mainScreen].bounds.size.height)
+#define screenScale ([UIScreen mainScreen].scale)
+#define screenSize ([UIScreen mainScreen].bounds.size)
+
 #import <EventKit/EventKit.h>
 #import <EventKitUI/EventKitUI.h>
 #import <PgySDK/PgyManager.h>
 #import <LocalAuthentication/LocalAuthentication.h>
 #import <Security/Security.h>
-
 #import <QuartzCore/QuartzCore.h>
 
 #import "DMPasscode.h"
@@ -91,12 +95,14 @@
     SettingStore *setting = [SettingStore sharedSetting];
     
     if ([DMPasscode isPasscodeSet] && !setting.passWordOfFingerprint) {
+        
         UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
         [self presentViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"touchid"] animated:NO completion:^{
             
         }];
+        
     }
-    
+    //假如通过了密码，则在本次开机过程都不需输入密码
     setting.passWordOfFingerprint = YES;
 }
 
@@ -272,6 +278,7 @@
         self.underTableLabel.text = self.homeStrLists[i];
     }
 }
+
 #pragma mark - click the Date
 
 - (void)calendar:(JTCalendarManager *)calendar didTouchDayView:(JTCalendarDayView *)dayView
@@ -355,13 +362,19 @@
 
 - (IBAction)segmentedControl:(UISegmentedControl *)sender {
     
-    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"upload"] style:UIBarButtonItemStylePlain target:self action:@selector(shareThePersonalInfo:)];
-    
+    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"upload"] style:UIBarButtonItemStylePlain target:self action:@selector(alertForShare)];
+
     switch ([sender selectedSegmentIndex]) {
         case 0:
             NSLog(@"first click");
-            [[self.view.subviews lastObject] removeFromSuperview];
             
+//            if (_calendarManager.settings.weekModeEnabled) {
+//                [self transitionExample];
+//                [_calendarManager reload];
+//                [self setTableViewHeadTitle:_selectedDate];
+//            }
+            
+            [[self.view.subviews lastObject] removeFromSuperview];
             self.navigationItem.rightBarButtonItem = nil;
             self.navigationItem.rightBarButtonItems = _rightButtons;
             
@@ -371,11 +384,18 @@
             
         case 1:
             NSLog(@"second click");
+
+//            if (!_calendarManager.settings.weekModeEnabled) {
+//                [self transitionExample];
+//                [_calendarManager reload];
+//                [self setTableViewHeadTitle:_selectedDate];
+//            }
+            
+            //View Changes to Today
+            [self didGoTodayTouch];
             
             summaryVC = [[SummaryViewController alloc] init];
             summaryVC.eventsMostByDate = self.eventsMostByDate;
-            summaryVC.screenWidth = [UIScreen mainScreen].bounds.size.width;
-            summaryVC.screenHight = [UIScreen mainScreen].bounds.size.height;
             
             self.navigationItem.rightBarButtonItems = nil;
             self.navigationItem.rightBarButtonItem = shareButton;
@@ -397,12 +417,11 @@
 
 - (IBAction)didGoTodayTouch
 {
-    //新建事件前把页面切回日历视图
-    if (self.segmentButton.selectedSegmentIndex == 1) {
-        self.segmentButton.selectedSegmentIndex = 0;
-        [self segmentedControl:self.segmentButton];
-    }
     [_calendarManager setDate:_todayDate];
+    _selectedDate = _todayDate;
+    [self loadTheDateEvents];
+    [_calendarManager reload];
+    [_tableView reloadData];
 }
 
 //往下滑动week模式改为全日期模式
@@ -1157,13 +1176,38 @@
 }
 
 #pragma mark - Share
-- (void)shareThePersonalInfo:(id)sender
+
+- (void)alertForShare
 {
-    NSString *string = @"http://www.zhihu.com/people/amos-9";
-    NSURL *URL = [NSURL URLWithString:string];
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"您想要分享什么"
+                                                                   message:@""
+                                                            preferredStyle:UIAlertControllerStyleActionSheet];
     
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消"
+                                              style:UIAlertActionStyleCancel
+                                            handler:^(UIAlertAction * action) {}]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"今日-运动项目"
+                                              style:UIAlertActionStyleDefault
+                                            handler:^(UIAlertAction * action) {
+                                                UIImage *headerImg = [self captureView:_tableView Rectsize:CGSizeMake(screenWidth, 20)];
+                                                UIImage *tableImg = [self captureTableView:_tableView];
+                                                UIImage *img = [self addImageview:tableImg toImage:headerImg];
+                                                [self shareThePersonalInfo:img];
+                                            }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"总体-运动概况"
+                                              style:UIAlertActionStyleDefault
+                                            handler:^(UIAlertAction * action) {
+                                            UIImage *img = [SummaryViewController captureView:summaryVC.view1];
+                                                [self shareThePersonalInfo:img];
+                                            }]];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)shareThePersonalInfo:(UIImage *)img
+{
     UIActivityViewController *activityViewController =
-    [[UIActivityViewController alloc] initWithActivityItems:@[string, URL]
+    [[UIActivityViewController alloc] initWithActivityItems:@[img]
                                       applicationActivities:nil];
     [self.navigationController presentViewController:activityViewController
                                        animated:YES
@@ -1172,4 +1216,97 @@
                                      }];
 
 }
+
+# pragma mark - 屏幕截图处理方法
+
+//对某View进行截图
+- (UIImage*)captureView: (UIView *)theView Rectsize: (CGSize)size
+{
+    UIGraphicsBeginImageContextWithOptions(size, YES, 0.f);
+    //将view上的子view加进来
+    CGContextRef context =UIGraphicsGetCurrentContext();
+    [theView.layer renderInContext:context];
+    
+//    CGImageRef imageMasked = CGBitmapContextCreateImage(context);
+//    UIImage *img = [UIImage imageWithCGImage:imageMasked];
+    
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    return img;
+}
+
+//对TableView进行截图
+- (UIImage *)captureTableView:(UITableView *)tableView
+{
+    //t来保存整张图的高度
+    int t = 0;
+    for (int i = 0; i < [self.tableView numberOfRowsInSection:0]; ++i) {
+        NSIndexPath *path = [NSIndexPath indexPathForRow:i inSection:0];
+        t += [self tableView:_tableView heightForRowAtIndexPath:path];
+    }
+    //开始绘图
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(screenWidth, t), YES, 0.f);
+    //获取当前图形上下文
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    //保存上一个cell绘制时候的纵向偏移
+    float lasty = 0;
+    //保存当前总共绘制的高度
+    float height = 0;
+    
+    //使用循环创建tableviewcell绘制在图形上下文之上
+    for (int i = 0; i < [self.tableView numberOfRowsInSection:0]; ++i) {
+        //绘制第i个cell的时候需要下移前面所有cell高度的和
+        CGContextTranslateCTM(context,.0,-lasty);
+        
+        NSIndexPath *path = [NSIndexPath indexPathForRow:i inSection:0];
+        //获取cell
+        UITableViewCell *Cell = [tableView cellForRowAtIndexPath:path];
+        if (Cell == nil) {
+            Cell = [self tableView:_tableView cellForRowAtIndexPath:path];
+        }
+        
+        height += [self tableView:_tableView heightForRowAtIndexPath:path];
+        float y = height - [self tableView:_tableView heightForRowAtIndexPath:path];
+        
+        [_tableView setContentOffset:CGPointMake(0, y)];
+        
+        //绘图偏移移回最顶部
+        CGContextTranslateCTM(context,.0,y);
+        //绘制
+        [Cell.layer renderInContext:context];
+        
+        lasty = y;
+    }
+    //结束绘图
+//    CGImageRef imageMasked = CGBitmapContextCreateImage(context);
+//    UIImage *img = [UIImage imageWithCGImage:imageMasked];
+    
+    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    
+    [_tableView setContentOffset:CGPointZero];
+    return img;
+}
+
+//合并两张图片
+- (UIImage *)addImageview:(UIImage *)image1 toImage:(UIImage *)image2 {
+    
+    CGSize size= CGSizeMake( image1.size.width,image1.size.height + image2.size.height);
+    UIGraphicsBeginImageContextWithOptions(size, YES, 0.f);
+    
+    // Draw image1
+    [image2 drawInRect:CGRectMake(0, 0, image2.size.width, image2.size.height)];
+    
+    // Draw image2
+    [image1 drawInRect:CGRectMake(0, image2.size.height, image1.size.width, image1.size.height)];
+    
+    UIImage *resultingImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return resultingImage;
+}
+
 @end

@@ -312,6 +312,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B07043E91B8C148900512A3C /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				B0B548451B84443700D42B33 /* DMPasscode */,
+				B087E0241B76F92B003D90B6 /* XYPieChart */,
+				B0854D6E1B6BA87600C1B150 /* JTCalendar */,
+				B071E6931B859B4100133D63 /* RESideMenu */,
+				B0E144DA1B81C58700934377 /* TOWebViewController */,
+			);
+			name = Helper;
+			sourceTree = "<group>";
+		};
 		B071E6931B859B4100133D63 /* RESideMenu */ = {
 			isa = PBXGroup;
 			children = (
@@ -589,11 +601,7 @@
 				B0854DA01B6CA0E200C1B150 /* Controller */,
 				B0FA58A41B4678D400E3BE94 /* Assets.xcassets */,
 				B0FA58951B4678D400E3BE94 /* Supporting Files */,
-				B0B548451B84443700D42B33 /* DMPasscode */,
-				B087E0241B76F92B003D90B6 /* XYPieChart */,
-				B0854D6E1B6BA87600C1B150 /* JTCalendar */,
-				B071E6931B859B4100133D63 /* RESideMenu */,
-				B0E144DA1B81C58700934377 /* TOWebViewController */,
+				B07043E91B8C148900512A3C /* Helper */,
 			);
 			path = AmosSportCalender;
 			sourceTree = "<group>";

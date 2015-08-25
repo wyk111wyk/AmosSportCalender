@@ -10,6 +10,8 @@
 #import "TOWebViewController.h"
 //#import "UIViewController+MMDrawerController.h"
 #import "RESideMenu.h"
+#import "DMPasscode.h"
+#import "SettingStore.h"
 
 static NSString *const cellID = @"aboutcell";
 
@@ -32,9 +34,9 @@ static NSString *const cellID = @"aboutcell";
     
     NSDictionary *infoDictionary =[[NSBundle mainBundle]infoDictionary];
     NSString *infoStr = [NSString stringWithFormat:@"Amos Sport Diary  V %@.%@", [infoDictionary objectForKey:@"CFBundleShortVersionString"], [infoDictionary objectForKey:@"CFBundleVersion"]];
-    [_visionLabel sizeToFit];
     
     _visionLabel.text = infoStr;
+    [_visionLabel sizeToFit];
     
     _tableArray = [[NSArray alloc] initWithObjects:@"去Apple Store评分", @"瞅瞅作者写的运动心得", nil];
     

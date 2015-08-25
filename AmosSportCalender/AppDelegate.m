@@ -35,7 +35,7 @@ NSArray *sportTypes;
     
     //重绘状态栏
     [application setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-    
+
     SettingStore *setting = [SettingStore sharedSetting];
     setting.passWordOfFingerprint = NO;
     
@@ -149,11 +149,12 @@ NSArray *sportTypes;
         NSLog(@"退出程序后的储存失败！");
     }
     
-    dispatch_queue_t queue = dispatch_queue_create("myQueue",DISPATCH_QUEUE_SERIAL);
-    dispatch_async(queue, ^{
-        [NSThread sleepForTimeInterval:60*5];
-        setting.passWordOfFingerprint = NO;
-    });
+//    dispatch_queue_t queue = dispatch_queue_create("myQueue",DISPATCH_QUEUE_SERIAL);
+//    dispatch_async(queue, ^{
+////        [NSThread sleepForTimeInterval:1]; //5分钟后锁定
+//        setting.passWordOfFingerprint = NO;
+//        NSLog(@"TouchID 已打开");
+//    });
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -167,6 +168,10 @@ NSArray *sportTypes;
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     // Saves changes in the application's managed object context before the application terminates.
+    SettingStore *setting = [SettingStore sharedSetting];
+    setting.passWordOfFingerprint = NO;
+    NSLog(@"TouchID 已打开");
+    
     [self saveContext];
 }
 
