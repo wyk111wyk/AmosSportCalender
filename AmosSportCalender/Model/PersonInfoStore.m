@@ -19,6 +19,9 @@ static NSString *const kPurpose = @"purpose";
 static NSString *const kStamina = @"stamina";
 static NSString *const kFrequency = @"frequency";
 
+static NSString *const kdefaultSportType = @"defaultSportType";
+static NSString *const kdefaultSportName = @"defaultSportName";
+
 @interface PersonInfoStore()
 
 @property (nonatomic, strong) NSUserDefaults *userDefaults;
@@ -56,12 +59,16 @@ static NSString *const kFrequency = @"frequency";
                                           kYingla: @0,
                                           kPurpose: @0,
                                           kStamina: @0,
-                                          kFrequency: @0
+                                          kFrequency: @0,
+                                          kdefaultSportType: @("胸部"),
+                                          kdefaultSportName: @("卧推（平板杠铃）"),
                                           }];
         
         _name = [_userDefaults stringForKey:kNameKey];
         _age = [_userDefaults stringForKey:kAgeKey];
         _gender = [_userDefaults stringForKey:kGenderKey];
+        _defaultSportType = [_userDefaults stringForKey:kdefaultSportType];
+        _defaultSportName = [_userDefaults stringForKey:kdefaultSportName];
         
         _wanjuWeight = [_userDefaults floatForKey:kWanju];
         _woutuiWeight = [_userDefaults floatForKey:kWoutui];
@@ -137,4 +144,15 @@ static NSString *const kFrequency = @"frequency";
     [self.userDefaults setFloat:frequency forKey:kFrequency];
 }
 
+- (void)setDefaultSportType:(NSString *)defaultSportType
+{
+    _defaultSportType = defaultSportType;
+    [self.userDefaults setObject:defaultSportType forKey:kdefaultSportType];
+}
+
+- (void)setDefaultSportName:(NSString *)defaultSportName
+{
+    _defaultSportName = defaultSportName;
+    [self.userDefaults setObject:defaultSportName forKey:kdefaultSportName];
+}
 @end

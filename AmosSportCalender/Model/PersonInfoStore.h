@@ -16,6 +16,9 @@
 @property (nonatomic, strong)NSString *age;
 @property (nonatomic, strong)NSString *gender;
 
+@property (nonatomic, strong)NSString *defaultSportType;
+@property (nonatomic, strong)NSString *defaultSportName;
+
 @property (nonatomic)float wanjuWeight;
 @property (nonatomic)float woutuiWeight;
 @property (nonatomic)float shengdunWeight;

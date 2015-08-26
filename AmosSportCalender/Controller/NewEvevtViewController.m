@@ -84,6 +84,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    //智能推荐的部分
+    _personal = [PersonInfoStore sharedSetting];
+    
     //UIView的初始化
     self.outsideView.layer.cornerRadius = 8;
     self.outsideView.backgroundColor = [UIColor whiteColor];
@@ -185,12 +188,9 @@
     
     [self.dateTextField sizeToFit];
     
-    self.sportTypeTextField.text = self.event.sportType;
-    self.sportNameTextField.text = self.event.sportName;
+    self.sportTypeTextField.text = _personal.defaultSportType;
+    self.sportNameTextField.text = _personal.defaultSportName;
     self.timelastFeild.text = [NSString stringWithFormat:@"%d", self.event.timelast];
-    
-    //智能推荐的部分
-    _personal = [PersonInfoStore sharedSetting];
     
     //根据选项重新设置不同属性的值
     [self setSportsValue];
@@ -370,9 +370,13 @@
         }
     }];
 }
+
 - (IBAction)createOneMoreEvent:(UIBarButtonItem *)sender {
     [self finishAndCreateEvent:self.finishBarButtonItem];
 
+    _personal.defaultSportType = self.sportTypeTextField.text;
+    _personal.defaultSportName = self.sportNameTextField.text;
+    
     if (self.creatEventBlock) {
         self.creatEventBlock();
     }

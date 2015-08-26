@@ -30,8 +30,8 @@
 //        self.sportType = sportTypes[index];
         //测试代码结束
         
-        self.sportType = @"胸部";
-        self.sportName = @"卧推（平板杠铃）";
+        self.sportType = @"";
+        self.sportName = @"";
         
         self.weight = 30;
         self.times = 10;
