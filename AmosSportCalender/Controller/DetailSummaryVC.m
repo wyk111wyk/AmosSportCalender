@@ -11,6 +11,7 @@
 #import "Event.h"
 #import "SettingStore.h"
 #import "DMPasscode.h"
+#import "MobClick.h"
 
 static NSString * const YKSummaryCellReuseId = @"summaryNewTVCell";
 
@@ -127,6 +128,12 @@ static NSString * const YKSummaryCellReuseId = @"summaryNewTVCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"1.1.1_SummaryDetail_Page"];
+}
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"1.1.1_SummaryDetail_Page"];
 }
 
 - (void)didReceiveMemoryWarning {

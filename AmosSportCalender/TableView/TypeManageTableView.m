@@ -9,7 +9,6 @@
 #import "TypeManageTableView.h"
 #import "TypeManageTVCell.h"
 #import "NameManageTableView.h"
-//#import "UIViewController+MMDrawerController.h"
 #import "RESideMenu.h"
 #import "DMPasscode.h"
 #import "SettingStore.h"
@@ -29,7 +28,6 @@ static NSString* const typeManageCellReuseId = @"typeManageCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated

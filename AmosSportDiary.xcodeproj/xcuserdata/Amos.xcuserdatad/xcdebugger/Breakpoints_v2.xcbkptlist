@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "AmosSportCalender/Model/EventStore.m"
-            timestampString = "461581903.117912"
+            timestampString = "462269059.943012"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "144"
-            endingLineNumber = "144"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
             landmarkName = "-itemArchivePath"
             landmarkType = "5">
          </BreakpointContent>

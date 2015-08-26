@@ -15,8 +15,12 @@
 #import "ImageStore.h"
 #import "DMPasscode.h"
 #import "SettingStore.h"
+#import "MobClick.h"
+#import "PersonInfoStore.h"
 
 @interface NewEvevtViewController ()<UIPickerViewDelegate,UIPickerViewDataSource,UITextFieldDelegate, UISearchBarDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+
+@property (strong, nonatomic)PersonInfoStore *personal;
 
 //Data
 @property (strong, nonatomic)NSMutableArray *sportNameTemps;
@@ -130,17 +134,7 @@
     self.sportSearchBar.returnKeyType = UIReturnKeySearch;
     self.sportSearchBar.placeholder = @"搜索或者新建运动项目";
     [self getSportPickerData];
-//    
-//    self.searchTVC = [[UITableViewController alloc]initWithStyle:UITableViewStylePlain];
-//    _searchTVC.tableView.dataSource = self;
-//    _searchTVC.tableView.delegate = self;
-//    
-//    self.searchController = [[UISearchController alloc] initWithSearchResultsController:_searchTVC];
-//    self.searchController.searchResultsUpdater = self;
-//    self.searchController.delegate = self;
-//    [self.searchController.searchBar sizeToFit];
-//    [self presentViewController:self.searchController animated:YES completion:nil];
-    
+
     //sportTypePicker初始化
     self.sportTypePicker = [[UIPickerView alloc] initWithFrame:CGRectZero];
     self.sportTypePicker.delegate = self;
@@ -193,12 +187,14 @@
     
     self.sportTypeTextField.text = self.event.sportType;
     self.sportNameTextField.text = self.event.sportName;
-    self.weightTextFeild.text = [NSString stringWithFormat:@"%i", (int)self.event.weight];
     self.timelastFeild.text = [NSString stringWithFormat:@"%d", self.event.timelast];
-    self.timesFeild.text = [NSString stringWithFormat:@"%d", self.event.times];
-    self.rapFeild.text = [NSString stringWithFormat:@"%d", self.event.rap];
-    self.weightSlider.value = self.event.weight;
-    self.weightSlider.continuous = YES;
+    
+    //智能推荐的部分
+    _personal = [PersonInfoStore sharedSetting];
+    
+    //根据选项重新设置不同属性的值
+    [self setSportsValue];
+    
     self.timelastSlider.value = self.event.timelast;
     self.doneSwitchButton.on = self.event.done;
     
@@ -235,12 +231,12 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"1.2_NewEvent_Page"];
 }
-
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
+    [MobClick endLogPageView:@"1.2_NewEvent_Page"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -303,17 +299,17 @@
         //开
         self.timesFeild.textColor = [UIColor blackColor];
         self.timesFeild.enabled = YES;
-        self.timesFeild.text = [NSString stringWithFormat:@"%i", self.event.times];
+        self.timesFeild.text = [NSString stringWithFormat:@"%i", [self timesValue]];
         
         self.rapFeild.textColor = [UIColor blackColor];
         self.rapFeild.enabled = YES;
-        self.rapFeild.text = [NSString stringWithFormat:@"%i", self.event.rap];
+        self.rapFeild.text = [NSString stringWithFormat:@"%i", [self rapsValue]];
         
         self.weightTextFeild.textColor = [UIColor blackColor];
         self.weightTextFeild.enabled = YES;
-        self.weightTextFeild.text = [NSString stringWithFormat:@"%i", (int)self.event.weight];
+        self.weightTextFeild.text = [NSString stringWithFormat:@"%i", (int)[self weightValue]];
         self.weightSlider.enabled = YES;
-        [self.weightSlider setValue:self.event.weight animated:YES];
+        [self.weightSlider setValue:[self weightValue] animated:YES];
         
         self.rapLabel.textColor = [UIColor darkGrayColor];
         self.weightLabel.textColor = [UIColor darkGrayColor];
@@ -365,6 +361,7 @@
     }
     
     [self dismissViewControllerAnimated:YES completion:^{
+        [MobClick event:@"CreateNewEvent"]; //友盟统计数据：添加事件
         BOOL success = [[EventStore sharedStore] saveChanges];
         if (success) {
             NSLog(@"新建事件后，储存数据成功");
@@ -568,29 +565,25 @@
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
     
     if (pickerView == self.sportPicker) {
-    switch (component) {
-        case 0:
-            self.sportNames = [[self.sportTypes objectAtIndex:row] objectForKey:@"sportName"];
-            [self.sportPicker selectRow:0 inComponent:1 animated:YES];
-            [self.sportPicker reloadComponent:1];
-            
-            self.sportTypeTextField.text = [[self.sportTypes objectAtIndex:row] objectForKey:@"sportType"];
-            self.sportNameTextField.text = [self.sportNames objectAtIndex:0];
-            break;
-        case 1:
-            self.sportNameTextField.text = [self.sportNames objectAtIndex:row];
-            break;
-        default:
-            break;
-    }
-        //如果选择了体力类别，则关闭组数等选项
-        if ([self.sportTypeTextField.text isEqualToString:@"体力"]) {
-            [self.swithButton setOn:NO animated:YES];
-            [self NotHaveRapAndTimes:self.swithButton];
-        }else if (![self.sportTypeTextField.text isEqualToString:@"体力"]){
-            [self.swithButton setOn:YES animated:YES];
-            [self NotHaveRapAndTimes:self.swithButton];
+        switch (component) {
+            case 0:
+                self.sportNames = [[self.sportTypes objectAtIndex:row] objectForKey:@"sportName"];
+                [self.sportPicker selectRow:0 inComponent:1 animated:YES];
+                [self.sportPicker reloadComponent:1];
+                
+                self.sportTypeTextField.text = [[self.sportTypes objectAtIndex:row] objectForKey:@"sportType"];
+                self.sportNameTextField.text = [self.sportNames objectAtIndex:0];
+                break;
+            case 1:
+                self.sportNameTextField.text = [self.sportNames objectAtIndex:row];
+                break;
+            default:
+                break;
         }
+        
+        //根据选项重新设置不同属性的值
+        [self setSportsValue];
+        
     }else if(pickerView == self.sportTypePicker){
         self.indexRow = row;
         self.searchBarType.text = [[self.sportTypes objectAtIndex:row] objectForKey:@"sportType"];
@@ -693,7 +686,7 @@
 
 - (void)alertForTips
 {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"根据运动目的的不同"
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Tips:根据运动目的的不同"
                                                                    message:@"\n1.减脂\n先做些大肌群的中等重量复合动作训练，比如空杆的深蹲，蹲跳等。无氧后采用强度和时间都相对长的HIIT。\n\n2.紧致的线条\n可以采用多组数（20组以上），多次数（每组20次以上），中等重量（最大负重的50%）的循环力量训练。搭配强度较大，时间中等的HIIT。\n\n3.增加某部位肌肉\n大重量小组数，下落时候要有控制的非常慢，也就是注意离心收缩。"
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
     
@@ -948,4 +941,128 @@
     
     return smallImage;
 }
+
+#pragma mark - 智能推荐的方法
+
+- (void)setSportsValue
+{
+    self.weightSlider.value = [self weightValue];
+    self.weightTextFeild.text = [NSString stringWithFormat:@"%i", (int)[self weightValue]];
+    self.timesFeild.text = [NSString stringWithFormat:@"%d", [self timesValue]];
+    self.rapFeild.text = [NSString stringWithFormat:@"%d", [self rapsValue]];
+    
+    //如果选择了体力类别，则关闭组数等选项
+    if ([self.sportTypeTextField.text isEqualToString:@"体力"]) {
+        [self.swithButton setOn:NO animated:YES];
+        [self NotHaveRapAndTimes:self.swithButton];
+    }else if (![self.sportTypeTextField.text isEqualToString:@"体力"]){
+        [self.swithButton setOn:YES animated:YES];
+        [self NotHaveRapAndTimes:self.swithButton];
+    }
+}
+
+- (float)weightValue
+{
+    float weight = self.event.weight;
+    
+    if ([_sportTypeTextField.text isEqualToString:@"胸部"]) {
+        if (_personal.woutuiWeight > 0) {
+            weight = _personal.woutuiWeight * [self weightBase];
+        }
+    } else if ([_sportTypeTextField.text isEqualToString:@"腿部"]) {
+        if (_personal.shengdunWeight > 0) {
+            weight = _personal.shengdunWeight * [self weightBase];
+        }
+    } else if ([_sportTypeTextField.text isEqualToString:@"背部"]) {
+        if (_personal.yinglaWeight > 0) {
+            weight = _personal.yinglaWeight * [self weightBase];
+        }
+    } else if ([_sportTypeTextField.text isEqualToString:@"手臂"] || [_sportTypeTextField.text isEqualToString:@"肩部"]) {
+        if (_personal.wanjuWeight > 0) {
+            weight = _personal.wanjuWeight * [self weightBase];
+        }
+    } else {
+        weight = 30;
+    }
+    
+    if ([_personal.age intValue] < 18 || [_personal.age intValue] > 55) {
+        weight *= .85;
+    }
+    
+    for (int i = 0; i < 5; i++) {
+        if ((int)weight % 5 != 0) {
+            weight = weight + i;
+        }
+    }
+    
+    return weight;
+}
+
+- (int)timesValue
+{
+    int times = self.event.times;
+    int i = arc4random() % 5;
+    
+    if (_personal.purpose == 0){
+        times = 15 + i;
+    }else if (_personal.purpose == 1){
+        times = 10 + i;
+    }else if (_personal.purpose == 3){
+        times = 5 + i;
+    }else if (_personal.purpose == 4){
+        times = 9 + i;
+    }
+    
+    return times;
+}
+
+- (int)rapsValue
+{
+    int raps = [self rapsBase];
+    
+    if (_personal.stamina == 0) {
+        raps -= 1;
+    }else if (_personal.stamina == 1) {
+        
+    }else if (_personal.stamina == 2) {
+        raps += 1;
+    }
+    
+    return raps;
+}
+
+- (float)weightBase
+{
+    float weightBase;
+    
+    if (_personal.purpose == 0){
+        weightBase = .5;
+    }else if (_personal.purpose == 1){
+        weightBase = .67;
+    }else if (_personal.purpose == 3){
+        weightBase = .85;
+    }else if (_personal.purpose == 4){
+        weightBase = .75;
+    }
+    
+    return weightBase;
+}
+
+- (int)rapsBase
+{
+    int rapsBase;
+    
+    if (_personal.purpose == 0){
+        rapsBase = 6;
+    }else if (_personal.purpose == 1){
+        rapsBase = 4;
+    }else if (_personal.purpose == 3){
+        rapsBase = 3;
+    }else if (_personal.purpose == 4){
+        rapsBase = 4;
+    }
+    
+    return rapsBase;
+}
+
 @end

@@ -5,8 +5,10 @@
 //  Created by Johnny iDay on 13-12-2.
 //  Copyright (c) 2013年 Johnny iDay. All rights reserved.
 //
+#define YouMen_AppKey @"55dd6364e0f55ab05b000502"
 
 #import "WeixinActivityBase.h"
+#import "MobClickSocialAnalytics.h"
 
 @implementation WeixinActivityBase
 
@@ -86,6 +88,26 @@
         req.message.mediaObject = imageObject;
     }
     [WXApi sendReq:req];
+    
+    NSString *shareType;
+    if (image.size.width == 375 && image.size.height == 239.5) {
+        shareType = @"总结-运动概况";
+    }else if (image.size.width == 320 && image.size.height == 229){
+        shareType = @"总结-运动概况";
+    }else if (image.size.width == 414 && image.size.height == 247){
+        shareType = @"总结-运动概况";
+    }else{
+        shareType = @"当日-运动项目";
+    }
+    
+    //友盟社交分享统计
+    MobClickSocialWeibo *weChat=[[MobClickSocialWeibo alloc] initWithPlatformType:@"微信" weiboId:nil usid:nil param:nil];
+    [MobClickSocialAnalytics postWeiboCounts:@[weChat] appKey:YouMen_AppKey topic:shareType completion:^(NSDictionary *response, NSError *error) {
+        NSLog(@"result is %@",response);
+        //result里面包含分别为key为st、msg、data，分别代表错误码、错误描述、返回数据
+        //error代表网络连接等错误
+    }];
+    
     [self activityDidFinish:YES];
 }
 

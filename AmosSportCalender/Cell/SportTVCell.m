@@ -37,6 +37,7 @@
     
     if (self.event.done == NO) {
         
+        self.backgroundColor = [UIColor whiteColor];
 //        NSLog(@"In cell Not Done");
         self.donePic.hidden = YES;
         self.sportName.textColor = [UIColor blackColor];
@@ -63,6 +64,7 @@
     }
     }else{
 //        NSLog(@"In cell Done");
+        self.backgroundColor = [UIColor colorWithRed:0.8980 green:0.8980 blue:0.8980 alpha:0.9];
         self.donePic.hidden = NO;
         self.sportType.text = self.event.sportType;
         self.sportType.textColor = [UIColor grayColor];

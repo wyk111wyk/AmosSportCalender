@@ -11,12 +11,16 @@
 #import "ViewController.h"
 #import "EventStore.h"
 #import "SettingStore.h"
+#import "PersonInfoStore.h"
 #import "DMPasscode.h"
 #import "LeftMenuViewController.h"
 #import "RESideMenu.h"
 #import "WXApi.h"
+#import "MobClick.h"
 
 #define PGY_APP_ID @"1694170a8f87c44a10201ef6c8831931"
+#define YouMen_AppKey @"55dd6364e0f55ab05b000502"
+#define WeiXin_AppKey @"wx7804e9687ad3c0bd"
 
 @interface AppDelegate ()<RESideMenuDelegate, WXApiDelegate>
 @end
@@ -29,10 +33,19 @@ NSArray *sportTypes;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 //    NSLog(@"application didFinishLaunchingWithOptions");
     
+    //注册友盟的API
+    [MobClick startWithAppkey:YouMen_AppKey reportPolicy:BATCH  channelId:@""];
+    NSDictionary *infoDictionary =[[NSBundle mainBundle]infoDictionary];
+    NSString *infoStr = [NSString stringWithFormat:@"V %@.%@", [infoDictionary objectForKey:@"CFBundleShortVersionString"], [infoDictionary objectForKey:@"CFBundleVersion"]];
+    [MobClick setAppVersion:infoStr]; //app版本设置
+    [MobClick setEncryptEnabled:YES]; //日子传输加密
+    [MobClick setLogEnabled:YES]; //是否开启调试日志
+    [MobClick setCrashReportEnabled:YES]; //是否报告崩溃记录
+    
     //蒲公英SDK提供的方法
     [[PgyManager sharedPgyManager] startManagerWithAppId:PGY_APP_ID];
     [[PgyManager sharedPgyManager] setEnableFeedback:NO];
-    [[PgyManager sharedPgyManager] setEnableDebugLog:YES];
+    [[PgyManager sharedPgyManager] setEnableDebugLog:NO]; //是否开启调试日志
     
     //重绘状态栏
     [application setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
@@ -72,9 +85,8 @@ NSArray *sportTypes;
     [self.window makeKeyAndVisible];
     
     //向微信注册
-    BOOL weChatSuccess = [WXApi registerApp:@"wx7804e9687ad3c0bd" withDescription:@"Amos运动日记"];
-    
-    NSLog(@"%@", weChatSuccess ? @"注册成功" : @"register Fail");
+    BOOL weChatSuccess = [WXApi registerApp:WeiXin_AppKey withDescription:@"Amos运动日记"];
+    NSLog(@"%@", weChatSuccess ? @"微信注册成功" : @"register Fail");
     
     //开机画面的显示时间
     [NSThread sleepForTimeInterval:1.8];
@@ -136,7 +148,10 @@ NSArray *sportTypes;
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
-        SettingStore *setting = [SettingStore sharedSetting];
+    
+    SettingStore *setting = [SettingStore sharedSetting];
+    PersonInfoStore *personal = [PersonInfoStore sharedSetting];
+    
     //注册五天不使用的本地通知
     UILocalNotification *localNotification = UILocalNotification.new;
     
@@ -144,7 +159,7 @@ NSArray *sportTypes;
     localNotification.timeZone = [NSTimeZone defaultTimeZone];
     
     int i = arc4random() % 100;
-    NSString *str = [NSString stringWithFormat:@"%@，又五天没有运动了，恭喜您又长了1.%i斤肉~", setting.name, i];
+    NSString *str = [NSString stringWithFormat:@"%@，又五天没有运动了，恭喜您又长了1.%i斤肉~", personal.name, i];
     localNotification.alertBody = str;
     localNotification.alertAction = NSLocalizedString(@"立即开始计划运动吧！", nil);
     localNotification.soundName= UILocalNotificationDefaultSoundName;

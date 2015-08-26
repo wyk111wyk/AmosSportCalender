@@ -66,6 +66,9 @@
 		B0B973671B74808F0008640E /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B973651B74808F0008640E /* EventKit.framework */; };
 		B0B973681B74808F0008640E /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B973661B74808F0008640E /* EventKitUI.framework */; };
 		B0B9736D1B74DCF50008640E /* summaryTypeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0B9736B1B74DCF50008640E /* summaryTypeCell.xib */; };
+		B0BAD0941B8D9DAA00F41091 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0BAD0911B8D9DAA00F41091 /* libMobClickLibrary.a */; };
+		B0BAD0971B8DD64000F41091 /* PersonalInfoTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BAD0961B8DD64000F41091 /* PersonalInfoTableView.m */; };
+		B0BAD09A1B8DD67600F41091 /* PersonInfoStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BAD0991B8DD67600F41091 /* PersonInfoStore.m */; };
 		B0C100F91B772A0700E4204B /* summaryNewTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0C100F81B772A0700E4204B /* summaryNewTVCell.xib */; };
 		B0C100FC1B77982200E4204B /* ImageStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C100FB1B77982200E4204B /* ImageStore.m */; };
 		B0C101011B77984300E4204B /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C100FE1B77984300E4204B /* Event.m */; };
@@ -232,6 +235,13 @@
 		B0B973651B74808F0008640E /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		B0B973661B74808F0008640E /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		B0B9736B1B74DCF50008640E /* summaryTypeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = summaryTypeCell.xib; sourceTree = "<group>"; };
+		B0BAD0911B8D9DAA00F41091 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
+		B0BAD0921B8D9DAA00F41091 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
+		B0BAD0931B8D9DAA00F41091 /* MobClickSocialAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickSocialAnalytics.h; sourceTree = "<group>"; };
+		B0BAD0951B8DD63F00F41091 /* PersonalInfoTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PersonalInfoTableView.h; path = TableView/PersonalInfoTableView.h; sourceTree = "<group>"; };
+		B0BAD0961B8DD64000F41091 /* PersonalInfoTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersonalInfoTableView.m; path = TableView/PersonalInfoTableView.m; sourceTree = "<group>"; };
+		B0BAD0981B8DD67600F41091 /* PersonInfoStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PersonInfoStore.h; path = Model/PersonInfoStore.h; sourceTree = "<group>"; };
+		B0BAD0991B8DD67600F41091 /* PersonInfoStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersonInfoStore.m; path = Model/PersonInfoStore.m; sourceTree = "<group>"; };
 		B0C100F81B772A0700E4204B /* summaryNewTVCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = summaryNewTVCell.xib; sourceTree = "<group>"; };
 		B0C100FA1B77982200E4204B /* ImageStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ImageStore.h; path = Model/ImageStore.h; sourceTree = "<group>"; };
 		B0C100FB1B77982200E4204B /* ImageStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageStore.m; path = Model/ImageStore.m; sourceTree = "<group>"; };
@@ -314,6 +324,7 @@
 				B09DB2831B84A3A2007458C1 /* OpenGLES.framework in Frameworks */,
 				B09DB2911B84A8C0007458C1 /* PgySDK.framework in Frameworks */,
 				B09DB2E31B857207007458C1 /* pop.framework in Frameworks */,
+				B0BAD0941B8D9DAA00F41091 /* libMobClickLibrary.a in Frameworks */,
 				B09DB2E41B85738A007458C1 /* pop.framework in Frameworks */,
 				B09DB2811B84A396007458C1 /* CoreTelephony.framework in Frameworks */,
 				B0B548441B843F2A00D42B33 /* LocalAuthentication.framework in Frameworks */,
@@ -345,6 +356,7 @@
 		B07043E91B8C148900512A3C /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				B0BAD0901B8D9DAA00F41091 /* UMAnalytics_Sdk_3.5.11 */,
 				B07043EA1B8D708500512A3C /* weChat */,
 				B0B548451B84443700D42B33 /* DMPasscode */,
 				B087E0241B76F92B003D90B6 /* XYPieChart */,
@@ -462,6 +474,8 @@
 				B0C100FB1B77982200E4204B /* ImageStore.m */,
 				B0723E581B78913A00F8A63E /* SettingStore.h */,
 				B0723E591B78913A00F8A63E /* SettingStore.m */,
+				B0BAD0981B8DD67600F41091 /* PersonInfoStore.h */,
+				B0BAD0991B8DD67600F41091 /* PersonInfoStore.m */,
 				B0FA58A11B4678D400E3BE94 /* AmosSportCalender.xcdatamodeld */,
 			);
 			name = Model;
@@ -529,6 +543,8 @@
 				B0C101121B7798F600E4204B /* NameManageTableView.m */,
 				B0723E521B786D2D00F8A63E /* SettingTableView.h */,
 				B0723E531B786D2D00F8A63E /* SettingTableView.m */,
+				B0BAD0951B8DD63F00F41091 /* PersonalInfoTableView.h */,
+				B0BAD0961B8DD64000F41091 /* PersonalInfoTableView.m */,
 			);
 			name = TableView;
 			sourceTree = "<group>";
@@ -607,6 +623,16 @@
 			path = AmosSportCalender/DMPasscode;
 			sourceTree = SOURCE_ROOT;
 		};
+		B0BAD0901B8D9DAA00F41091 /* UMAnalytics_Sdk_3.5.11 */ = {
+			isa = PBXGroup;
+			children = (
+				B0BAD0911B8D9DAA00F41091 /* libMobClickLibrary.a */,
+				B0BAD0921B8D9DAA00F41091 /* MobClick.h */,
+				B0BAD0931B8D9DAA00F41091 /* MobClickSocialAnalytics.h */,
+			);
+			path = UMAnalytics_Sdk_3.5.11;
+			sourceTree = "<group>";
+		};
 		B0E144DA1B81C58700934377 /* TOWebViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -650,8 +676,8 @@
 			children = (
 				B0FA58981B4678D400E3BE94 /* AppDelegate.h */,
 				B0FA58991B4678D400E3BE94 /* AppDelegate.m */,
-				B0854D9E1B6CA0BC00C1B150 /* Model */,
 				B0854D9F1B6CA0C900C1B150 /* View */,
+				B0854D9E1B6CA0BC00C1B150 /* Model */,
 				B0854DA01B6CA0E200C1B150 /* Controller */,
 				B0FA58A41B4678D400E3BE94 /* Assets.xcassets */,
 				B0FA58951B4678D400E3BE94 /* Supporting Files */,
@@ -891,11 +917,13 @@
 				B0C101281B77993800E4204B /* SportTVCell.m in Sources */,
 				B0854D931B6BA87600C1B150 /* JTCalendarSettings.m in Sources */,
 				B00D87A51B857CF00044BF85 /* LeftMenuViewController.m in Sources */,
+				B0BAD09A1B8DD67600F41091 /* PersonInfoStore.m in Sources */,
 				B0B548551B84443700D42B33 /* DMPasscode.m in Sources */,
 				B0723E541B786D2D00F8A63E /* SettingTableView.m in Sources */,
 				B0854D981B6BA87600C1B150 /* JTCalendarMenuView.m in Sources */,
 				B0C101021B77984300E4204B /* EventStore.m in Sources */,
 				B0C1012B1B77993800E4204B /* summaryTypeCell.m in Sources */,
+				B0BAD0971B8DD64000F41091 /* PersonalInfoTableView.m in Sources */,
 				B0E144F11B81C58700934377 /* TOActivitySafari.m in Sources */,
 				B0FA589A1B4678D400E3BE94 /* AppDelegate.m in Sources */,
 				B0C101191B7798F600E4204B /* SummaryTableView.m in Sources */,
@@ -1055,6 +1083,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/AmosSportCalender/weChat",
+					"$(PROJECT_DIR)/AmosSportCalender/UMAnalytics_Sdk_3.5.11",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.AKSocialLab.AmosSportDiary;
 				PRODUCT_NAME = AmosSportDiary;
@@ -1083,6 +1112,7 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/AmosSportCalender/weChat",
+					"$(PROJECT_DIR)/AmosSportCalender/UMAnalytics_Sdk_3.5.11",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.AKSocialLab.AmosSportDiary;
 				PRODUCT_NAME = AmosSportDiary;

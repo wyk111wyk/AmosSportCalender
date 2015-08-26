@@ -14,6 +14,7 @@
 #import "RESideMenu.h"
 #import "DMPasscode.h"
 #import "SettingStore.h"
+#import "MobClick.h"
 
 static NSString * const YKSummaryCellReuseId = @"summaryCell";
 
@@ -101,6 +102,17 @@ static NSString * const YKSummaryCellReuseId = @"summaryCell";
     //设置标题
     self.navigationItem.title = [NSString stringWithFormat:@"完成列表（共计：%lu天）", (unsigned long)self.sortedKeyArray.count];
 
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"2_FinishedList_Page"];
+}
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"2_FinishedList_Page"];
 }
 
 - (void)didReceiveMemoryWarning {

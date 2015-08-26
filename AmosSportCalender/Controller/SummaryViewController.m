@@ -18,6 +18,7 @@
 #import "DetailSummaryVC.h"
 #import "SettingStore.h"
 #import "DMPasscode.h"
+#import "MobClick.h"
 
 static NSString * const summaryCellReuseId = @"summaryTypeCell";
 
@@ -88,7 +89,7 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
         self.view3.frame = CGRectMake(0, self.view1.frame.size.height + self.view2.frame.size.height, screenWidth, 360);
     }
     
-    NSLog(@"tableview: %g, view3: %g", self.tableView.frame.size.height, _view3.frame.size.height);
+//    NSLog(@"tableview: %g, view3: %g", self.tableView.frame.size.height, _view3.frame.size.height);
     
    CGFloat contentHight = self.view1.frame.size.height + self.view2.frame.size.height + self.view3.frame.size.height;
     self.scrollView.contentSize = CGSizeMake(screenWidth, contentHight);
@@ -241,6 +242,13 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     [super viewWillAppear:animated];
     
     [self.pieChartView reloadData];
+    [MobClick beginLogPageView:@"1.1_Summary_Page"];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"1.1_Summary_Page"];
 }
 
 - (void)didReceiveMemoryWarning {

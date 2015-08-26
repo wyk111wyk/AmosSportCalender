@@ -8,9 +8,6 @@
 
 #import "SettingStore.h"
 
-static NSString *const kNameKey = @"name";
-static NSString *const kAgeKey = @"age";
-static NSString *const kGenderKey = @"gender";
 static NSString *const kAutoUpDate = @"autoUpDate";
 static NSString *const kiCloudKey = @"iCloud";
 static NSString *const kpassWordOfFingerprintKey = @"passWordOfFingerprint";
@@ -45,18 +42,12 @@ static NSString *const kIconBadgeNumber = @"IconBadgeNumber";
     if (self) {
         _userDefaults = [NSUserDefaults standardUserDefaults];
         
-        [_userDefaults registerDefaults:@{kNameKey: @(""),
-                                          kAgeKey: @(""),
-                                          kGenderKey: @(""),
-                                          kiCloudKey: @NO,
+        [_userDefaults registerDefaults:@{kiCloudKey: @NO,
                                           kAutoUpDate: @YES,
                                           kpassWordOfFingerprintKey: @NO,
                                           ksportTypeImageMaleKey: @YES,
                                           kIconBadgeNumber: @YES}];
         
-        _name = [_userDefaults stringForKey:kNameKey];
-        _age = [_userDefaults stringForKey:kAgeKey];
-        _gender = [_userDefaults stringForKey:kGenderKey];
         _iCloud = [_userDefaults boolForKey:kiCloudKey];
         _autoUpDate = [_userDefaults boolForKey:kAutoUpDate];
         _passWordOfFingerprint = [_userDefaults boolForKey:kpassWordOfFingerprintKey];
@@ -64,25 +55,6 @@ static NSString *const kIconBadgeNumber = @"IconBadgeNumber";
         _iconBadgeNumber = [_userDefaults boolForKey:kIconBadgeNumber];
     }
     return self;
-}
-
-- (void)setName:(NSString *)name
-{
-    _name = name;
-    [self.userDefaults setObject:name forKey:kNameKey];
-}
-
-- (void)setAge:(NSString *)age
-{
-    _age = age;
-    [self.userDefaults setObject:age forKey:kAgeKey];
-}
-
-- (void)setGender:(NSString *)gender
-{
-    _gender = gender;
-    
-    [self.userDefaults setObject:gender forKey:kGenderKey];
 }
 
 - (void)setICloud:(BOOL)iCloud

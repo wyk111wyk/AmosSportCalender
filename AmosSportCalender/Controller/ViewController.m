@@ -30,9 +30,11 @@
 #import "SportTVCell.h"
 #import "SummaryViewController.h"
 #import "SettingStore.h"
+#import "PersonInfoStore.h"
 #import "SettingTableView.h"
 #import "RESideMenu.h"
 #import "WXApi.h"
+#import "MobClick.h"
 
 #define IS_IOS8 ([[UIDevice currentDevice].systemVersion doubleValue] >= 8.0)
 
@@ -120,7 +122,7 @@
     [self.sideMenuViewController setPanFromEdge:YES];
     
     //主页无计划时TableView上显示的文字
-    self.homeStrLists = [[NSArray alloc] initWithObjects:@"努力画满每一天的圈圈吧！", @"今天没有运动，做个计划吧！", @"每日的计划可以同步到系统日历里去哦", @"为过去创建的运动计划默认已完成",nil];
+    self.homeStrLists = [[NSArray alloc] initWithObjects:@"努力画满每一天的圈圈吧！", @"今天没有运动，做个计划吧！", @"每日的计划可以同步到系统日历里去哦", @"为过去创建的运动计划默认已完成", @"你看到了他的腹肌，我看到了坚持和决心", nil];
     
     //获取用户权限发送通知
     if (IS_IOS8) {
@@ -181,14 +183,15 @@
 {
     [super viewDidAppear:animated];
     [_calendarManager reload];
+    [MobClick beginLogPageView:@"1_Calendar_Page"];
     
 //    NSLog(@"%@", NSStringFromSelector(_cmd));
 }
 
-- (void)dealloc
+- (void)viewWillDisappear:(BOOL)animated
 {
-//    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
-//    [nc removeObserver:self];
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"1_Calendar_Page"];
 }
 
 - (void)loadTheDateEvents
@@ -242,7 +245,8 @@
     
     NSString *key = [[self dateFormatter] stringFromDate:date];
     self.doneNumber = self.doneNumbers[key];
-    SettingStore *setting = [SettingStore sharedSetting];
+    
+    PersonInfoStore *personal = [PersonInfoStore sharedSetting];
     
     //设置显示的文字
     if (self.oneDayEvents.count > 0) {
@@ -255,8 +259,8 @@
         }
         if (self.oneDayEvents.count > [self.doneNumber intValue]) {
             
-            if (setting.name.length > 0){
-            self.underTableLabel.text = [NSString stringWithFormat:@"%@，共有%lu个项目，已完成%d项，还剩%lu项", setting.name, (unsigned long)self.oneDayEvents.count, [self.doneNumber intValue], self.oneDayEvents.count - [self.doneNumber intValue]];
+            if (personal.name.length > 0){
+            self.underTableLabel.text = [NSString stringWithFormat:@"%@，共有%lu个项目，已完成%d项，还剩%lu项", personal.name, (unsigned long)self.oneDayEvents.count, [self.doneNumber intValue], self.oneDayEvents.count - [self.doneNumber intValue]];
             }else{
                 self.underTableLabel.text = [NSString stringWithFormat:@"共有%lu个项目，已完成%d项，还剩%lu项", (unsigned long)self.oneDayEvents.count, [self.doneNumber intValue], self.oneDayEvents.count - [self.doneNumber intValue]];
             }
@@ -266,8 +270,8 @@
                 self.addToCalendarButton.hidden = YES;
             }
         }else if (self.oneDayEvents.count == [self.doneNumber intValue]){
-            if (setting.name.length > 0) {
-                self.underTableLabel.text = [NSString stringWithFormat:@"今天的运动已经全部完成，%@，干得好！", setting.name];
+            if (personal.name.length > 0) {
+                self.underTableLabel.text = [NSString stringWithFormat:@"今天的运动已经全部完成，%@，干得好！", personal.name];
             }else{
                 self.underTableLabel.text = [NSString stringWithFormat:@"今天的运动已经全部完成，干得好！"];
             }
@@ -353,7 +357,7 @@
         }
         
         mvc.creatEventBlock = ^(){
-            NSLog(@"Hello World, I am Amos' first Block");
+//            NSLog(@"Hello World, I am Amos' first Block");
             [self performSegueWithIdentifier:@"newEvent" sender:self];
         };
         
@@ -572,6 +576,7 @@
 
 - (IBAction)addToCalendar:(UIButton *)sender {
     [self checkEventStoreAccessForCalendar];
+    [MobClick event:@"AddToCalendar"]; //友盟统计数据：添加到日程
 }
 
 #pragma mark - CalendarManager delegate
@@ -865,6 +870,7 @@
        handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
          Event *event = self.oneDayEvents[indexPath.row];
          [[EventStore sharedStore] removeItem:event date:self.selectedDate];
+           
          //删除表格中的相应行
          [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
            
@@ -1183,21 +1189,24 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"取消"
                                               style:UIAlertActionStyleCancel
                                             handler:^(UIAlertAction * action) {}]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"今日-运动项目"
+    NSString *countStr = [NSString stringWithFormat:@"今日-运动项目(%lu项)", self.oneDayEvents.count];
+    [alert addAction:[UIAlertAction actionWithTitle:countStr
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction * action) {
-                                                UIImage *headerImg = [self captureView:_tableView Rectsize:CGSizeMake(screenWidth, 20)];
-                                                UIImage *tableImg = [self captureTableView:_tableView];
-                                                UIImage *tempImg = [self addImageview:tableImg toImage:headerImg];
-                                                UIImage *img = [self addImageview:bottomImage toImage:tempImg];
-                                                [self shareThePersonalInfo:img];
+                                                
+        UIImage *headerImg = [self captureView:_tableView Rectsize:CGSizeMake(screenWidth, 20)];
+        UIImage *tableImg = [self captureTableView:_tableView];
+        UIImage *tempImg = [self addImageview:tableImg toImage:headerImg];
+        UIImage *img = [self addImageview:bottomImage toImage:tempImg];
+        [self shareThePersonalInfo:img];
                                             }]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"总体-运动概况"
+    [alert addAction:[UIAlertAction actionWithTitle:@"总结-运动概况"
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction * action) {
-                                                UIImage *tempImg = [SummaryViewController captureView:summaryVC.view1];
-                                                UIImage *img = [self addImageview:bottomImage toImage:tempImg];
-                                                [self shareThePersonalInfo:img];
+                                                
+        UIImage *tempImg = [SummaryViewController captureView:summaryVC.view1];
+        UIImage *img = [self addImageview:bottomImage toImage:tempImg];
+        [self shareThePersonalInfo:img];
                                             }]];
     
     [self presentViewController:alert animated:YES completion:nil];

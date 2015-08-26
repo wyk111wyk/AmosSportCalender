@@ -70,7 +70,6 @@
 - (Event *)createItem
 {
     Event *event = [[Event alloc] init];
-    
     return event;
 }
 
@@ -84,7 +83,7 @@
     self.privateEvents[key] = [NSMutableArray array];
     }
 
-    [self.privateEvents[key] addObject:event];
+    [self.privateEvents[key] insertObject:event atIndex:0];
     }
 }
 
@@ -115,7 +114,7 @@
                toIndex :(NSUInteger)toIndex
                    date:(NSDate *)date
 {
-    NSLog(@"m 移动数据库顺序");
+//    NSLog(@"m 移动数据库顺序");
     
     NSString *key = [[self dateFormatter] stringFromDate:date ? date : [NSDate date]];
     if (fromIndex == toIndex) {

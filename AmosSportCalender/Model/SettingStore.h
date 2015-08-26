@@ -12,10 +12,6 @@
 
 + (instancetype)sharedSetting;
 
-@property (nonatomic, strong)NSString *name;
-@property (nonatomic, strong)NSString *age;
-@property (nonatomic, strong)NSString *gender;
-
 @property (nonatomic)BOOL autoUpDate;
 @property (nonatomic)BOOL iCloud;
 @property (nonatomic)BOOL passWordOfFingerprint;

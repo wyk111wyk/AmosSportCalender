@@ -11,7 +11,8 @@
 #import "EventStore.h"
 #import "SettingTableView.h"
 #import "SettingStore.h"
-//#import "UIViewController+MMDrawerController.h"
+#import "PersonInfoStore.h"
+
 #import "ViewController.h"
 #import "DMPasscode.h"
 #import "DMKeychain.h"
@@ -57,6 +58,7 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
 //    [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
     
     SettingStore *setting = [SettingStore sharedSetting];
+    PersonInfoStore *personal = [PersonInfoStore sharedSetting];
     
     self.finishButton = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStyleDone target:self action:@selector(textFieldShouldReturn:)];
     
@@ -82,9 +84,9 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
     _genderTextField.inputView = _genderPicker;
     
     //UI显示数据初始化
-    _nameTextField.text = setting.name;
-    _ageTextField.text = setting.age;
-    _genderTextField.text = setting.gender;
+    _nameTextField.text = personal.name;
+    _ageTextField.text = personal.age;
+    _genderTextField.text = personal.gender;
     
     _iCloudSwitch.on = setting.iCloud;
     _autoUpDateSwitch.on = setting.autoUpDate;
@@ -207,18 +209,18 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {
     textField.textColor = [UIColor blackColor];
-    self.navigationItem.rightBarButtonItem = nil;
     
-    SettingStore *setting = [SettingStore sharedSetting];
+    PersonInfoStore *personal = [PersonInfoStore sharedSetting];
     
-    setting.name = _nameTextField.text;
-    setting.age = _ageTextField.text;
-    setting.gender = _genderTextField.text;
+    personal.name = _nameTextField.text;
+    personal.age = _ageTextField.text;
+    personal.gender = _genderTextField.text;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [self.view endEditing:YES];;
+    [self.view endEditing:YES];
+    self.navigationItem.rightBarButtonItem = nil;
     return YES;
 }
 
