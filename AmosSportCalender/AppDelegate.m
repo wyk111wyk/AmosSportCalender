@@ -14,10 +14,11 @@
 #import "DMPasscode.h"
 #import "LeftMenuViewController.h"
 #import "RESideMenu.h"
+#import "WXApi.h"
 
 #define PGY_APP_ID @"1694170a8f87c44a10201ef6c8831931"
 
-@interface AppDelegate ()<RESideMenuDelegate>
+@interface AppDelegate ()<RESideMenuDelegate, WXApiDelegate>
 @end
 
 NSArray *sportTypes;
@@ -70,6 +71,11 @@ NSArray *sportTypes;
     self.window.rootViewController = drawer;
     [self.window makeKeyAndVisible];
     
+    //向微信注册
+    BOOL weChatSuccess = [WXApi registerApp:@"wx7804e9687ad3c0bd" withDescription:@"Amos运动日记"];
+    
+    NSLog(@"%@", weChatSuccess ? @"注册成功" : @"register Fail");
+    
     //开机画面的显示时间
     [NSThread sleepForTimeInterval:1.8];
     
@@ -111,6 +117,16 @@ NSArray *sportTypes;
             NSLog(@"写入失败！");
         }
     }
+}
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return  [WXApi handleOpenURL:url delegate:self];
+}
+
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
+{
+    return  [WXApi handleOpenURL:url delegate:self];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {

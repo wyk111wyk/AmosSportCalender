@@ -30,11 +30,13 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
 @property (weak, nonatomic) IBOutlet UILabel *passwordLabel;
 @property (weak, nonatomic) IBOutlet UILabel *imageTypeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *iconBadgeNumberLabel;
+@property (weak, nonatomic) IBOutlet UILabel *autoUpDateLabel;
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *imageTypeSegment;
 @property (weak, nonatomic) IBOutlet UISwitch *iCloudSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *passwordSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *iconBadgeNumberSwitch;
+@property (weak, nonatomic) IBOutlet UISwitch *autoUpDateSwitch;
 
 @property (strong, nonatomic) UIPickerView *agePicker;
 @property (strong, nonatomic) UIPickerView *genderPicker;
@@ -85,7 +87,7 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
     _genderTextField.text = setting.gender;
     
     _iCloudSwitch.on = setting.iCloud;
-    
+    _autoUpDateSwitch.on = setting.autoUpDate;
     _iconBadgeNumberSwitch.on = setting.iconBadgeNumber;
     
     if (setting.sportTypeImageMale) {
@@ -117,6 +119,12 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
         _iconBadgeNumberLabel.textColor = [UIColor blackColor];
     }else{
         _iconBadgeNumberLabel.textColor = [UIColor lightGrayColor];
+    }
+    
+    if (setting.autoUpDate) {
+        _autoUpDateLabel.textColor = [UIColor blackColor];
+    }else{
+        _autoUpDateLabel.textColor = [UIColor lightGrayColor];
     }
 }
 
@@ -153,11 +161,17 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
                 }
             }];
             _passwordLabel.textColor = [UIColor blackColor];
-            
-            
+        
         }else{
             [DMPasscode removePasscode];
             _passwordLabel.textColor = [UIColor lightGrayColor];
+        }
+    //是否启用自动更新
+    }else if(sender == _autoUpDateSwitch){
+        if (_autoUpDateSwitch.on) {
+            setting.autoUpDate = YES;
+        }else{
+            setting.autoUpDate = NO;
         }
     }
     
@@ -256,6 +270,9 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     switch (indexPath.section) {
         case 0:
+            if (indexPath.row == 4) {
+                //个人信息-更多
+            }
             
             break;
         case 1:
@@ -263,10 +280,13 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
             break;
         case 2:
             if (indexPath.row == 0) {
+                //检查是否有新版本
                 [[PgyManager sharedPgyManager] checkUpdateWithDelegete:self selector:@selector(updateMethod:)];
-            }else if (indexPath.row == 1.0){
+            }else if (indexPath.row == 2){
+                //重置运动项目为默认
                 [self alertForResetSportType];
-            }else if (indexPath.row == 2.0){
+            }else if (indexPath.row == 3){
+                //清空所有数据
                 [self alertForClearAllData];
             }
             break;

@@ -8,9 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "JTCalendar.h"
+#import "WeixinActivity.h"
+
 @class SummaryViewController;
 
 @interface ViewController : UIViewController<JTCalendarDelegate>
+
+@property (strong, nonatomic)NSArray *activity;
 
 @property (weak, nonatomic) IBOutlet JTCalendarMenuView *calendarMenuView;
 @property (weak, nonatomic) IBOutlet JTHorizontalCalendarView *calendarContentView;

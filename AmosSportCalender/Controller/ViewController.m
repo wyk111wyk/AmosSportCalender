@@ -32,10 +32,11 @@
 #import "SettingStore.h"
 #import "SettingTableView.h"
 #import "RESideMenu.h"
+#import "WXApi.h"
 
 #define IS_IOS8 ([[UIDevice currentDevice].systemVersion doubleValue] >= 8.0)
 
-@interface ViewController ()<UITableViewDataSource, UITableViewDelegate, EKEventEditViewDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate>
+@interface ViewController ()<UITableViewDataSource, UITableViewDelegate, EKEventEditViewDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate, WXApiDelegate>
 {
     NSMutableDictionary *eventsByDate; ///<储存所有事件的Dic
     
@@ -104,6 +105,11 @@
     }
     //假如通过了密码，则在本次开机过程都不需输入密码
     setting.passWordOfFingerprint = YES;
+    
+    if (setting.autoUpDate) {
+        [[PgyManager sharedPgyManager] checkUpdate];
+        [[PgyManager sharedPgyManager] updateLocalBuildNumber];
+    }
 }
 
 - (void)viewDidLoad
@@ -368,12 +374,6 @@
         case 0:
             NSLog(@"first click");
             
-//            if (_calendarManager.settings.weekModeEnabled) {
-//                [self transitionExample];
-//                [_calendarManager reload];
-//                [self setTableViewHeadTitle:_selectedDate];
-//            }
-            
             [[self.view.subviews lastObject] removeFromSuperview];
             self.navigationItem.rightBarButtonItem = nil;
             self.navigationItem.rightBarButtonItems = _rightButtons;
@@ -385,12 +385,6 @@
         case 1:
             NSLog(@"second click");
 
-//            if (!_calendarManager.settings.weekModeEnabled) {
-//                [self transitionExample];
-//                [_calendarManager reload];
-//                [self setTableViewHeadTitle:_selectedDate];
-//            }
-            
             //View Changes to Today
             [self didGoTodayTouch];
             
@@ -1179,6 +1173,9 @@
 
 - (void)alertForShare
 {
+    UIImage *bottomImage = [self scaleTheImage:[UIImage imageNamed:@"shareButtonImage"]];
+    _activity = @[[[WeixinSessionActivity alloc] init], [[WeixinTimelineActivity alloc] init]];
+    
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"您想要分享什么"
                                                                    message:@""
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
@@ -1191,13 +1188,15 @@
                                             handler:^(UIAlertAction * action) {
                                                 UIImage *headerImg = [self captureView:_tableView Rectsize:CGSizeMake(screenWidth, 20)];
                                                 UIImage *tableImg = [self captureTableView:_tableView];
-                                                UIImage *img = [self addImageview:tableImg toImage:headerImg];
+                                                UIImage *tempImg = [self addImageview:tableImg toImage:headerImg];
+                                                UIImage *img = [self addImageview:bottomImage toImage:tempImg];
                                                 [self shareThePersonalInfo:img];
                                             }]];
     [alert addAction:[UIAlertAction actionWithTitle:@"总体-运动概况"
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction * action) {
-                                            UIImage *img = [SummaryViewController captureView:summaryVC.view1];
+                                                UIImage *tempImg = [SummaryViewController captureView:summaryVC.view1];
+                                                UIImage *img = [self addImageview:bottomImage toImage:tempImg];
                                                 [self shareThePersonalInfo:img];
                                             }]];
     
@@ -1208,7 +1207,11 @@
 {
     UIActivityViewController *activityViewController =
     [[UIActivityViewController alloc] initWithActivityItems:@[img]
-                                      applicationActivities:nil];
+                                      applicationActivities:_activity];
+    
+    //不需要显示的部分
+    activityViewController.excludedActivityTypes = @[UIActivityTypeAssignToContact, UIActivityTypePrint];
+    
     [self.navigationController presentViewController:activityViewController
                                        animated:YES
                                      completion:^{
@@ -1239,6 +1242,8 @@
 //对TableView进行截图
 - (UIImage *)captureTableView:(UITableView *)tableView
 {
+    [_tableView setContentOffset:CGPointMake(0, 0)];
+    
     //t来保存整张图的高度
     int t = 0;
     for (int i = 0; i < [self.tableView numberOfRowsInSection:0]; ++i) {
@@ -1291,16 +1296,16 @@
 }
 
 //合并两张图片
-- (UIImage *)addImageview:(UIImage *)image1 toImage:(UIImage *)image2 {
+- (UIImage *)addImageview:(UIImage *)imageBottom toImage:(UIImage *)imageTop {
     
-    CGSize size= CGSizeMake( image1.size.width,image1.size.height + image2.size.height);
+    CGSize size = CGSizeMake(imageTop.size.width, imageTop.size.height + imageBottom.size.height);
     UIGraphicsBeginImageContextWithOptions(size, YES, 0.f);
     
     // Draw image1
-    [image2 drawInRect:CGRectMake(0, 0, image2.size.width, image2.size.height)];
+    [imageTop drawInRect:CGRectMake(0, 0, imageTop.size.width, imageTop.size.height)];
     
     // Draw image2
-    [image1 drawInRect:CGRectMake(0, image2.size.height, image1.size.width, image1.size.height)];
+    [imageBottom drawInRect:CGRectMake(0, imageTop.size.height, imageBottom.size.width, imageBottom.size.height)];
     
     UIImage *resultingImage = UIGraphicsGetImageFromCurrentImageContext();
     
@@ -1308,5 +1313,29 @@
     
     return resultingImage;
 }
+
+- (UIImage *)scaleTheImage:(UIImage *)img {
+    
+    float radio = img.size.height / img.size.width;
+    
+    float width = screenWidth;
+    float height = width * radio;
+
+    // 并把它设置成为当前正在使用的context(这里的Size是最终成品图的size)
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(width, height), YES, 0.f);
+
+    // 绘制改变大小的图片
+    [img drawInRect:CGRectMake(0, 0, width, height)];
+
+    // 从当前context中创建一个改变大小后的图片
+    UIImage* scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+
+    // 使当前的context出堆栈
+    UIGraphicsEndImageContext();
+    
+    // 返回新的改变大小后的图片
+    return scaledImage;
+}
+
 
 @end

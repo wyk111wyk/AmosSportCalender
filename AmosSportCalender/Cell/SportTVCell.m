@@ -63,7 +63,6 @@
     }
     }else{
 //        NSLog(@"In cell Done");
-        
         self.donePic.hidden = NO;
         self.sportType.text = self.event.sportType;
         self.sportType.textColor = [UIColor grayColor];

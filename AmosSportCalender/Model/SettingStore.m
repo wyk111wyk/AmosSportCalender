@@ -11,6 +11,7 @@
 static NSString *const kNameKey = @"name";
 static NSString *const kAgeKey = @"age";
 static NSString *const kGenderKey = @"gender";
+static NSString *const kAutoUpDate = @"autoUpDate";
 static NSString *const kiCloudKey = @"iCloud";
 static NSString *const kpassWordOfFingerprintKey = @"passWordOfFingerprint";
 static NSString *const ksportTypeImageMaleKey = @"sportTypeImageMale";
@@ -48,6 +49,7 @@ static NSString *const kIconBadgeNumber = @"IconBadgeNumber";
                                           kAgeKey: @(""),
                                           kGenderKey: @(""),
                                           kiCloudKey: @NO,
+                                          kAutoUpDate: @YES,
                                           kpassWordOfFingerprintKey: @NO,
                                           ksportTypeImageMaleKey: @YES,
                                           kIconBadgeNumber: @YES}];
@@ -56,6 +58,7 @@ static NSString *const kIconBadgeNumber = @"IconBadgeNumber";
         _age = [_userDefaults stringForKey:kAgeKey];
         _gender = [_userDefaults stringForKey:kGenderKey];
         _iCloud = [_userDefaults boolForKey:kiCloudKey];
+        _autoUpDate = [_userDefaults boolForKey:kAutoUpDate];
         _passWordOfFingerprint = [_userDefaults boolForKey:kpassWordOfFingerprintKey];
         _sportTypeImageMale = [_userDefaults boolForKey:ksportTypeImageMaleKey];
         _iconBadgeNumber = [_userDefaults boolForKey:kIconBadgeNumber];
@@ -86,6 +89,12 @@ static NSString *const kIconBadgeNumber = @"IconBadgeNumber";
 {
     _iCloud = iCloud;
     [self.userDefaults setBool:iCloud forKey:kiCloudKey];
+}
+
+- (void)setAutoUpDate:(BOOL)autoUpDate
+{
+    _autoUpDate = autoUpDate;
+    [self.userDefaults setBool:autoUpDate forKey:kAutoUpDate];
 }
 
 - (void)setPassWordOfFingerprint:(BOOL)passWordOfFingerprint

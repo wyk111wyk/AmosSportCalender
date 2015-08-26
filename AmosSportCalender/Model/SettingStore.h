@@ -16,6 +16,7 @@
 @property (nonatomic, strong)NSString *age;
 @property (nonatomic, strong)NSString *gender;
 
+@property (nonatomic)BOOL autoUpDate;
 @property (nonatomic)BOOL iCloud;
 @property (nonatomic)BOOL passWordOfFingerprint;
 @property (nonatomic)BOOL sportTypeImageMale;
