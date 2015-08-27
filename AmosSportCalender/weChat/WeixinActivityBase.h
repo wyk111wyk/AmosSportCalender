@@ -7,13 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <TencentOpenAPI/QQApiInterface.h>
+#import <TencentOpenAPI/TencentOAuth.h>
+
 #import "WXApi.h"
 
-@interface WeixinActivityBase : UIActivity {
+@interface WeixinActivityBase : UIActivity <TencentSessionDelegate>
+
+{
     NSString *title;
     UIImage *image;
     NSURL *url;
     enum WXScene scene;
+    BOOL isQQ;
+    BOOL isQQzone;
+    BOOL isWeiXin;
 }
 
 - (void)setThumbImage:(SendMessageToWXReq *)req;

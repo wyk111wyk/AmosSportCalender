@@ -10,6 +10,16 @@
 
 @implementation WeixinSessionActivity
 
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        scene = WXSceneSession;
+        isWeiXin = YES;
+    }
+    return self;
+}
+
 - (UIImage *)activityImage
 {
     return [[[UIDevice currentDevice] systemVersion] intValue] >= 8 ? [UIImage imageNamed:@"icon_session-8.png"] : [UIImage imageNamed:@"icon_session.png"];

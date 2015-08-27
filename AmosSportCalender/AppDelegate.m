@@ -6,6 +6,7 @@
 //  Copyright © 2015年 Amos Wu. All rights reserved.
 //
 #import <PgySDK/PgyManager.h>
+#import "CommonMarco.h"
 
 #import "AppDelegate.h"
 #import "ViewController.h"
@@ -15,12 +16,10 @@
 #import "DMPasscode.h"
 #import "LeftMenuViewController.h"
 #import "RESideMenu.h"
-#import "WXApi.h"
-#import "MobClick.h"
 
-#define PGY_APP_ID @"1694170a8f87c44a10201ef6c8831931"
-#define YouMen_AppKey @"55dd6364e0f55ab05b000502"
-#define WeiXin_AppKey @"wx7804e9687ad3c0bd"
+#import "WXApi.h"
+#import <TencentOpenAPI/TencentOAuth.h>
+#import "MobClick.h"
 
 @interface AppDelegate ()<RESideMenuDelegate, WXApiDelegate>
 @end
@@ -33,19 +32,7 @@ NSArray *sportTypes;
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 //    NSLog(@"application didFinishLaunchingWithOptions");
     
-    //注册友盟的API
-    [MobClick startWithAppkey:YouMen_AppKey reportPolicy:BATCH  channelId:@""];
-    NSDictionary *infoDictionary =[[NSBundle mainBundle]infoDictionary];
-    NSString *infoStr = [NSString stringWithFormat:@"V %@.%@", [infoDictionary objectForKey:@"CFBundleShortVersionString"], [infoDictionary objectForKey:@"CFBundleVersion"]];
-    [MobClick setAppVersion:infoStr]; //app版本设置
-    [MobClick setEncryptEnabled:YES]; //日子传输加密
-    [MobClick setLogEnabled:YES]; //是否开启调试日志
-    [MobClick setCrashReportEnabled:YES]; //是否报告崩溃记录
-    
-    //蒲公英SDK提供的方法
-    [[PgyManager sharedPgyManager] startManagerWithAppId:PGY_APP_ID];
-    [[PgyManager sharedPgyManager] setEnableFeedback:NO];
-    [[PgyManager sharedPgyManager] setEnableDebugLog:NO]; //是否开启调试日志
+    [self registerTherdSDK];
     
     //重绘状态栏
     [application setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
@@ -83,10 +70,6 @@ NSArray *sportTypes;
     
     self.window.rootViewController = drawer;
     [self.window makeKeyAndVisible];
-    
-    //向微信注册
-    BOOL weChatSuccess = [WXApi registerApp:WeiXin_AppKey withDescription:@"Amos运动日记"];
-    NSLog(@"%@", weChatSuccess ? @"微信注册成功" : @"register Fail");
     
     //开机画面的显示时间
     [NSThread sleepForTimeInterval:1.8];
@@ -133,18 +116,28 @@ NSArray *sportTypes;
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
+    if ([[url absoluteString] hasPrefix:@"tencent"]) {
+        
+        return [TencentOAuth HandleOpenURL:url];
+        
+    }
+    
     return  [WXApi handleOpenURL:url delegate:self];
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
+    if ([[url absoluteString] hasPrefix:@"tencent"]) {
+        
+        return [TencentOAuth HandleOpenURL:url];
+        
+    }
+    
     return  [WXApi handleOpenURL:url delegate:self];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
-//    NSLog(@"applicationWillResignActive");
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
@@ -159,7 +152,10 @@ NSArray *sportTypes;
     localNotification.timeZone = [NSTimeZone defaultTimeZone];
     
     int i = arc4random() % 100;
-    NSString *str = [NSString stringWithFormat:@"%@，又五天没有运动了，恭喜您又长了1.%i斤肉~", personal.name, i];
+    NSString *str = @"又五天没有运动了，恭喜您又长了1.%i斤肉~";
+    if (personal.name.length > 0) {
+        str = [NSString stringWithFormat:@"%@，又五天没有运动了，恭喜您又长了1.%i斤肉~", personal.name, i];
+    }
     localNotification.alertBody = str;
     localNotification.alertAction = NSLocalizedString(@"立即开始计划运动吧！", nil);
     localNotification.soundName= UILocalNotificationDefaultSoundName;
@@ -179,13 +175,6 @@ NSArray *sportTypes;
     }else{
         NSLog(@"退出程序后的储存失败！");
     }
-    
-//    dispatch_queue_t queue = dispatch_queue_create("myQueue",DISPATCH_QUEUE_SERIAL);
-//    dispatch_async(queue, ^{
-////        [NSThread sleepForTimeInterval:1]; //5分钟后锁定
-//        setting.passWordOfFingerprint = NO;
-//        NSLog(@"TouchID 已打开");
-//    });
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -205,6 +194,34 @@ NSArray *sportTypes;
     
     [self saveContext];
 }
+
+- (void)registerTherdSDK
+{
+    //注册友盟的API
+    [MobClick startWithAppkey:YouMen_AppKey reportPolicy:BATCH  channelId:@""];
+    NSDictionary *infoDictionary =[[NSBundle mainBundle]infoDictionary];
+    NSString *infoStr = [NSString stringWithFormat:@"V %@.%@", [infoDictionary objectForKey:@"CFBundleShortVersionString"], [infoDictionary objectForKey:@"CFBundleVersion"]];
+    [MobClick setAppVersion:infoStr]; //app版本设置
+    [MobClick setEncryptEnabled:YES]; //日子传输加密
+    [MobClick setLogEnabled:NO]; //是否开启调试日志
+    [MobClick setCrashReportEnabled:YES]; //是否报告崩溃记录
+    
+    //蒲公英SDK提供的方法
+    [[PgyManager sharedPgyManager] startManagerWithAppId:PGY_APP_ID];
+    [[PgyManager sharedPgyManager] setEnableFeedback:NO];
+    [[PgyManager sharedPgyManager] setEnableDebugLog:NO]; //是否开启调试日志
+    
+    //向微信注册
+    BOOL weChatSuccess = [WXApi registerApp:WeiXin_AppKey withDescription:@"Amos运动日记"];
+    NSLog(@"%@", weChatSuccess ? @"weChat-微信注册成功" : @"register Fail");
+    
+    
+    //注册微博
+//    [WeiboSDK enableDebugMode:YES];
+//    BOOL weiBoSuccess = [WeiboSDK registerApp:APP_KEY_WEIBO];
+//    NSLog(@"%@", weiBoSuccess ? @"sina-微博注册成功" : @"微博Fail");
+}
+
 
 #pragma mark - Core Data stack
 

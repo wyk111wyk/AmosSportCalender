@@ -9,6 +9,13 @@
 /* Begin PBXBuildFile section */
 		B00D87A51B857CF00044BF85 /* LeftMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B00D87A41B857CF00044BF85 /* LeftMenuViewController.m */; };
 		B025CF471B84599000FB1A22 /* TouchIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B025CF461B84599000FB1A22 /* TouchIDViewController.m */; };
+		B02A98961B8EF9A200F19EDC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B02A98951B8EF9A200F19EDC /* CoreGraphics.framework */; };
+		B02A98981B8EF9B800F19EDC /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B02A98971B8EF9B800F19EDC /* ImageIO.framework */; };
+		B02A989A1B8EF9C000F19EDC /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B02A98991B8EF9C000F19EDC /* CoreText.framework */; };
+		B02A989C1B8EF9E200F19EDC /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B02A989B1B8EF9E200F19EDC /* libstdc++.tbd */; };
+		B02A989E1B8EF9EC00F19EDC /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B02A989D1B8EF9EC00F19EDC /* libiconv.tbd */; };
+		B02A98A21B8EFF3500F19EDC /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B02A98A01B8EFF3500F19EDC /* TencentOpenAPI.framework */; };
+		B02A98A31B8EFF3500F19EDC /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B02A98A11B8EFF3500F19EDC /* TencentOpenApi_IOS_Bundle.bundle */; };
 		B048EF801B8D70E100F01530 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B048EF7F1B8D70E100F01530 /* libz.tbd */; };
 		B048EF821B8D70EB00F01530 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B048EF811B8D70EB00F01530 /* libsqlite3.0.tbd */; };
 		B048EF841B8D70F700F01530 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B048EF831B8D70F700F01530 /* libc++.tbd */; };
@@ -23,6 +30,8 @@
 		B071E69A1B859B4100133D63 /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = B071E6951B859B4100133D63 /* RECommonFunctions.m */; };
 		B071E69B1B859B4100133D63 /* RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = B071E6971B859B4100133D63 /* RESideMenu.m */; };
 		B071E69C1B859B4100133D63 /* UIViewController+RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = B071E6991B859B4100133D63 /* UIViewController+RESideMenu.m */; };
+		B071F4761B8F117500F711EA /* QQSessionAct.m in Sources */ = {isa = PBXBuildFile; fileRef = B071F4751B8F117500F711EA /* QQSessionAct.m */; };
+		B071F4791B8F45EB00F711EA /* QZoneAct.m in Sources */ = {isa = PBXBuildFile; fileRef = B071F4781B8F45EB00F711EA /* QZoneAct.m */; };
 		B0723E541B786D2D00F8A63E /* SettingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0723E531B786D2D00F8A63E /* SettingTableView.m */; };
 		B0723E5A1B78913A00F8A63E /* SettingStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B0723E591B78913A00F8A63E /* SettingStore.m */; };
 		B0723E5C1B79002900F8A63E /* sportTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0723E5B1B79002900F8A63E /* sportTypes.plist */; };
@@ -140,6 +149,14 @@
 		B00D87A41B857CF00044BF85 /* LeftMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LeftMenuViewController.m; path = Controller/LeftMenuViewController.m; sourceTree = "<group>"; };
 		B025CF451B84599000FB1A22 /* TouchIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TouchIDViewController.h; path = Controller/TouchIDViewController.h; sourceTree = "<group>"; };
 		B025CF461B84599000FB1A22 /* TouchIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TouchIDViewController.m; path = Controller/TouchIDViewController.m; sourceTree = "<group>"; };
+		B02A98941B8EF5B000F19EDC /* CommonMarco.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonMarco.h; sourceTree = "<group>"; };
+		B02A98951B8EF9A200F19EDC /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		B02A98971B8EF9B800F19EDC /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		B02A98991B8EF9C000F19EDC /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		B02A989B1B8EF9E200F19EDC /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
+		B02A989D1B8EF9EC00F19EDC /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
+		B02A98A01B8EFF3500F19EDC /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
+		B02A98A11B8EFF3500F19EDC /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
 		B048EF7F1B8D70E100F01530 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		B048EF811B8D70EB00F01530 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		B048EF831B8D70F700F01530 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -163,6 +180,10 @@
 		B071E6971B859B4100133D63 /* RESideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RESideMenu.m; sourceTree = "<group>"; };
 		B071E6981B859B4100133D63 /* UIViewController+RESideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+RESideMenu.h"; sourceTree = "<group>"; };
 		B071E6991B859B4100133D63 /* UIViewController+RESideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+RESideMenu.m"; sourceTree = "<group>"; };
+		B071F4741B8F117500F711EA /* QQSessionAct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QQSessionAct.h; path = AmosSportCalender/QQSessionAct.h; sourceTree = SOURCE_ROOT; };
+		B071F4751B8F117500F711EA /* QQSessionAct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QQSessionAct.m; path = AmosSportCalender/QQSessionAct.m; sourceTree = SOURCE_ROOT; };
+		B071F4771B8F45EB00F711EA /* QZoneAct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QZoneAct.h; sourceTree = "<group>"; };
+		B071F4781B8F45EB00F711EA /* QZoneAct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QZoneAct.m; sourceTree = "<group>"; };
 		B0723E521B786D2D00F8A63E /* SettingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTableView.h; sourceTree = "<group>"; };
 		B0723E531B786D2D00F8A63E /* SettingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTableView.m; sourceTree = "<group>"; };
 		B0723E581B78913A00F8A63E /* SettingStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingStore.h; path = Model/SettingStore.h; sourceTree = "<group>"; };
@@ -312,6 +333,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B02A989E1B8EF9EC00F19EDC /* libiconv.tbd in Frameworks */,
+				B02A989C1B8EF9E200F19EDC /* libstdc++.tbd in Frameworks */,
+				B02A98A21B8EFF3500F19EDC /* TencentOpenAPI.framework in Frameworks */,
+				B02A989A1B8EF9C000F19EDC /* CoreText.framework in Frameworks */,
+				B02A98981B8EF9B800F19EDC /* ImageIO.framework in Frameworks */,
+				B02A98961B8EF9A200F19EDC /* CoreGraphics.framework in Frameworks */,
 				B048EF841B8D70F700F01530 /* libc++.tbd in Frameworks */,
 				B048EF821B8D70EB00F01530 /* libsqlite3.0.tbd in Frameworks */,
 				B048EF801B8D70E100F01530 /* libz.tbd in Frameworks */,
@@ -353,11 +380,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		B02A989F1B8EFF3500F19EDC /* Tencent */ = {
+			isa = PBXGroup;
+			children = (
+				B02A98A01B8EFF3500F19EDC /* TencentOpenAPI.framework */,
+				B02A98A11B8EFF3500F19EDC /* TencentOpenApi_IOS_Bundle.bundle */,
+			);
+			name = Tencent;
+			path = vendor/Tencent;
+			sourceTree = "<group>";
+		};
 		B07043E91B8C148900512A3C /* Helper */ = {
 			isa = PBXGroup;
 			children = (
-				B0BAD0901B8D9DAA00F41091 /* UMAnalytics_Sdk_3.5.11 */,
 				B07043EA1B8D708500512A3C /* weChat */,
+				B02A989F1B8EFF3500F19EDC /* Tencent */,
+				B0BAD0901B8D9DAA00F41091 /* UMAnalytics_Sdk_3.5.11 */,
 				B0B548451B84443700D42B33 /* DMPasscode */,
 				B087E0241B76F92B003D90B6 /* XYPieChart */,
 				B0854D6E1B6BA87600C1B150 /* JTCalendar */,
@@ -378,6 +416,10 @@
 				B048EF8C1B8D762F00F01530 /* WeixinSessionActivity.m */,
 				B048EF8D1B8D762F00F01530 /* WeixinTimelineActivity.h */,
 				B048EF8E1B8D762F00F01530 /* WeixinTimelineActivity.m */,
+				B071F4741B8F117500F711EA /* QQSessionAct.h */,
+				B071F4751B8F117500F711EA /* QQSessionAct.m */,
+				B071F4771B8F45EB00F711EA /* QZoneAct.h */,
+				B071F4781B8F45EB00F711EA /* QZoneAct.m */,
 				B07043EB1B8D708500512A3C /* libWeChatSDK.a */,
 				B07043EC1B8D708500512A3C /* read_me.txt */,
 				B07043ED1B8D708500512A3C /* WXApi.h */,
@@ -587,6 +629,11 @@
 		B0B548401B843EF300D42B33 /* FrameWork */ = {
 			isa = PBXGroup;
 			children = (
+				B02A989D1B8EF9EC00F19EDC /* libiconv.tbd */,
+				B02A989B1B8EF9E200F19EDC /* libstdc++.tbd */,
+				B02A98991B8EF9C000F19EDC /* CoreText.framework */,
+				B02A98971B8EF9B800F19EDC /* ImageIO.framework */,
+				B02A98951B8EF9A200F19EDC /* CoreGraphics.framework */,
 				B048EF831B8D70F700F01530 /* libc++.tbd */,
 				B048EF811B8D70EB00F01530 /* libsqlite3.0.tbd */,
 				B048EF7F1B8D70E100F01530 /* libz.tbd */,
@@ -676,6 +723,7 @@
 			children = (
 				B0FA58981B4678D400E3BE94 /* AppDelegate.h */,
 				B0FA58991B4678D400E3BE94 /* AppDelegate.m */,
+				B02A98941B8EF5B000F19EDC /* CommonMarco.h */,
 				B0854D9F1B6CA0C900C1B150 /* View */,
 				B0854D9E1B6CA0BC00C1B150 /* Model */,
 				B0854DA01B6CA0E200C1B150 /* Controller */,
@@ -838,6 +886,7 @@
 				B0DC6BEA1B7F2970009DFA5A /* FeedbackTVCell.xib in Resources */,
 				B048EF861B8D720100F01530 /* Icon@2x.png in Resources */,
 				B0C100F91B772A0700E4204B /* summaryNewTVCell.xib in Resources */,
+				B02A98A31B8EFF3500F19EDC /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				B0B9736D1B74DCF50008640E /* summaryTypeCell.xib in Resources */,
 				B0E144D61B80F6BB00934377 /* Launch Screen.storyboard in Resources */,
 				B0FA58A51B4678D400E3BE94 /* Assets.xcassets in Resources */,
@@ -881,6 +930,7 @@
 				B048EF8F1B8D762F00F01530 /* WeixinActivity.m in Sources */,
 				B0C101181B7798F600E4204B /* NameManageTableView.m in Sources */,
 				B0C100FC1B77982200E4204B /* ImageStore.m in Sources */,
+				B071F4791B8F45EB00F711EA /* QZoneAct.m in Sources */,
 				B0B548571B84443700D42B33 /* DMPasscodeInternalField.m in Sources */,
 				B0DC6BE51B7F079F009DFA5A /* FeedbackViewController.m in Sources */,
 				B0854D9C1B6BA87600C1B150 /* JTHorizontalCalendarView.m in Sources */,
@@ -898,6 +948,7 @@
 				B0C101291B77993800E4204B /* SummaryNewTVCell.m in Sources */,
 				B0FA58A31B4678D400E3BE94 /* AmosSportCalender.xcdatamodeld in Sources */,
 				B0E144F21B81C58700934377 /* TOWebViewController.m in Sources */,
+				B071F4761B8F117500F711EA /* QQSessionAct.m in Sources */,
 				B0B548541B84443700D42B33 /* DMKeychain.m in Sources */,
 				B0854D9D1B6BA87600C1B150 /* JTVerticalCalendarView.m in Sources */,
 				B071E69C1B859B4100133D63 /* UIViewController+RESideMenu.m in Sources */,
@@ -1075,6 +1126,7 @@
 					"$(PROJECT_DIR)/AmosSportCalender",
 					"$(PROJECT_DIR)/AmosSportCalender/FrameWork",
 					"$(PROJECT_DIR)/AmosSportCalender/weChat",
+					"$(PROJECT_DIR)/AmosSportCalender/vendor/Tencent",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				INFOPLIST_FILE = AmosSportCalender/Info.plist;
@@ -1084,7 +1136,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/AmosSportCalender/weChat",
 					"$(PROJECT_DIR)/AmosSportCalender/UMAnalytics_Sdk_3.5.11",
+					"$(PROJECT_DIR)/AmosSportCalender/vendor/libWeiboSDK",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AKSocialLab.AmosSportDiary;
 				PRODUCT_NAME = AmosSportDiary;
 				PROVISIONING_PROFILE = "55c80013-95e7-4b27-ad02-dfcdfbce9c46";
@@ -1105,6 +1159,7 @@
 					"$(PROJECT_DIR)/AmosSportCalender",
 					"$(PROJECT_DIR)/AmosSportCalender/FrameWork",
 					"$(PROJECT_DIR)/AmosSportCalender/weChat",
+					"$(PROJECT_DIR)/AmosSportCalender/vendor/Tencent",
 				);
 				INFOPLIST_FILE = AmosSportCalender/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
@@ -1113,7 +1168,9 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/AmosSportCalender/weChat",
 					"$(PROJECT_DIR)/AmosSportCalender/UMAnalytics_Sdk_3.5.11",
+					"$(PROJECT_DIR)/AmosSportCalender/vendor/libWeiboSDK",
 				);
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AKSocialLab.AmosSportDiary;
 				PRODUCT_NAME = AmosSportDiary;
 				PROVISIONING_PROFILE = "55c80013-95e7-4b27-ad02-dfcdfbce9c46";

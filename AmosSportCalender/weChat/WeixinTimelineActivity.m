@@ -15,6 +15,7 @@
     self = [super init];
     if (self) {
         scene = WXSceneTimeline;
+        isWeiXin = YES;
     }
     return self;
 }

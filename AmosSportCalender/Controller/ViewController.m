@@ -10,11 +10,6 @@
 // MARK: [something]
 // FIXME: [something]
 
-#define screenWidth ([UIScreen mainScreen].bounds.size.width)
-#define screenHeight ([UIScreen mainScreen].bounds.size.height)
-#define screenScale ([UIScreen mainScreen].scale)
-#define screenSize ([UIScreen mainScreen].bounds.size)
-
 #import <EventKit/EventKit.h>
 #import <EventKitUI/EventKitUI.h>
 #import <PgySDK/PgyManager.h>
@@ -22,6 +17,7 @@
 #import <Security/Security.h>
 #import <QuartzCore/QuartzCore.h>
 
+#import "CommonMarco.h"
 #import "DMPasscode.h"
 #import "ViewController.h"
 #import "NewEvevtViewController.h"
@@ -35,8 +31,6 @@
 #import "RESideMenu.h"
 #import "WXApi.h"
 #import "MobClick.h"
-
-#define IS_IOS8 ([[UIDevice currentDevice].systemVersion doubleValue] >= 8.0)
 
 @interface ViewController ()<UITableViewDataSource, UITableViewDelegate, EKEventEditViewDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate, WXApiDelegate>
 {
@@ -1184,7 +1178,13 @@
 - (void)alertForShare
 {
     UIImage *bottomImage = [self scaleTheImage:[UIImage imageNamed:@"shareButtonImage"]];
-    _activity = @[[[WeixinSessionActivity alloc] init], [[WeixinTimelineActivity alloc] init]];
+    
+    WeixinSessionActivity *weixinSession = [[WeixinSessionActivity alloc] init];
+    WeixinTimelineActivity *weixinTimeLine = [[WeixinTimelineActivity alloc] init];
+    QQSessionAct *QQSession = [[QQSessionAct alloc] init];
+    QZoneAct *Qzone = [[QZoneAct alloc] init];
+    
+    _activity = @[weixinSession, weixinTimeLine, QQSession, Qzone];
     
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"您想要分享什么"
                                                                    message:@""
@@ -1219,7 +1219,7 @@
 - (void)shareThePersonalInfo:(UIImage *)img
 {
     UIActivityViewController *activityViewController =
-    [[UIActivityViewController alloc] initWithActivityItems:@[img]
+    [[UIActivityViewController alloc] initWithActivityItems:@[img, @"我的运动情况"]
                                       applicationActivities:_activity];
     
     //不需要显示的部分
