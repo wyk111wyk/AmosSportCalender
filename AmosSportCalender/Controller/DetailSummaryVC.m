@@ -63,7 +63,7 @@ static NSString * const YKSummaryCellReuseId = @"summaryNewTVCell";
     self.sportTypeLabel.text = self.sportTypeStr;
     
     if (self.eventsByDateForTable.count > 0) {
-        self.timesLabel.text = [NSString stringWithFormat:@"%lu次", self.eventsByDateForTable.count];
+        self.timesLabel.text = [NSString stringWithFormat:@"%@次", @(self.eventsByDateForTable.count)];
         
         NSDate *date = [[self dateFormatter] dateFromString:[self.dateArray lastObject]];
         NSString *titleStr = [[self dateFormatterStart] stringFromDate:date];

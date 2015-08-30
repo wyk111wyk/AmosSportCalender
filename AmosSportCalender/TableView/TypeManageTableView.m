@@ -95,7 +95,7 @@ static NSString* const typeManageCellReuseId = @"typeManageCell";
     cell.sportTypeLabel.textColor = [self colorForsportType:tempStr];
     [cell.sportTypeLabel sizeToFit];
     
-    cell.sportNameNumberLabel.text = [NSString stringWithFormat:@"包含数目：%lu 项", [[[self.sportTypes objectAtIndex:indexPath.row] objectForKey:@"sportName"] count]];
+    cell.sportNameNumberLabel.text = [NSString stringWithFormat:@"包含数目：%@ 项", @([[[self.sportTypes objectAtIndex:indexPath.row] objectForKey:@"sportName"] count])];
     [cell.sportNameNumberLabel sizeToFit];
     
     return cell;

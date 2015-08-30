@@ -167,7 +167,7 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     
     //设置UI显示的属性
     //1-1总计天数
-    self.theWholeNumber.text =[NSString stringWithFormat:@"%lu", (unsigned long)[self.eventsByDate count]];
+    self.theWholeNumber.text =[NSString stringWithFormat:@"%@", @([self.eventsByDate count])];
     //1-2总时间
     int timelastMin = 0;
     for (NSString *key in self.sortedKeyArray){
@@ -195,7 +195,7 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     float avegTimesAWeek = self.eventsByDate.count / (betweenDays/7.);
         
         if (betweenDays < 8) {
-            self.aveTimesAWeek.text = [NSString stringWithFormat:@"%lu", self.eventsByDate.count];
+            self.aveTimesAWeek.text = [NSString stringWithFormat:@"%@", @(self.eventsByDate.count)];
         }else{
             self.aveTimesAWeek.text = [NSString stringWithFormat:@"%.1f", avegTimesAWeek];
         }

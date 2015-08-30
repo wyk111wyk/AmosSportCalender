@@ -67,6 +67,12 @@
     return [self.privateEvents copy];
 }
 
+- (void)updateAllData
+{
+    NSString *path = [self itemArchivePath];
+    self.privateEvents = [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+}
+
 - (Event *)createItem
 {
     Event *event = [[Event alloc] init];

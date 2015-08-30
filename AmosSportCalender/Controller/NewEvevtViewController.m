@@ -109,9 +109,11 @@
     if (self.createNewEvent) {
         NSArray *createButtons = [[NSArray alloc] initWithObjects:createNewButton, addOneMoreButton, nil];
         self.navigationItem.rightBarButtonItems = createButtons;
+        self.navigationItem.title = @"新建事件";
     }else{
-        NSArray *editButtons = [[NSArray alloc] initWithObjects:editEventButton, addOneMoreButton, nil];
-        self.navigationItem.rightBarButtonItems = editButtons;
+//        NSArray *editButtons = [[NSArray alloc] initWithObjects:editEventButton, addOneMoreButton, nil];
+        self.navigationItem.rightBarButtonItem = editEventButton;
+        self.navigationItem.title = @"修改事件";
     }
     
     //datePick初始化
@@ -174,9 +176,8 @@
     self.sportNameTextField.tintColor = [UIColor clearColor];
     
     //设置UI显示的属性值
-    NSString *dateStr = [NSString stringWithFormat:@"%@", self.date];
-    NSString *newStr = [dateStr substringToIndex:10];
-    self.navigationItem.title = newStr;
+//    NSString *dateStr = [NSString stringWithFormat:@"%@", self.date];
+//    NSString *newStr = [dateStr substringToIndex:10];
     
     NSString *showStr = [[self dateFormatter] stringFromDate:self.date];
     NSString *compareStr = [[self dateFormatter] stringFromDate:[NSDate date]];
@@ -185,11 +186,20 @@
     } else{
     self.dateTextField.text = showStr;
     }
-    
     [self.dateTextField sizeToFit];
     
+    //当重复新建的时候，载入上次的选项
+    if (self.event.sportType.length > 0) {
+        self.sportTypeTextField.text = self.event.sportType;
+    }else{
     self.sportTypeTextField.text = _personal.defaultSportType;
+    }
+    if (self.event.sportName.length > 0) {
+        self.sportNameTextField.text = self.event.sportName;
+    }else{
     self.sportNameTextField.text = _personal.defaultSportName;
+    }
+    
     self.timelastFeild.text = [NSString stringWithFormat:@"%d", self.event.timelast];
     
     //根据选项重新设置不同属性的值

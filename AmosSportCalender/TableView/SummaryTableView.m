@@ -96,11 +96,11 @@ static NSString * const YKSummaryCellReuseId = @"summaryCell";
     if (self.sortedKeyArray.count == 0){
         self.underTableLabel.text = @"还没有任何运动记录，赶快开始运动吧！";
     }else if (self.sortedKeyArray.count > 0){
-        self.underTableLabel.text = [NSString stringWithFormat:@"总计运动天数：%lu天", (unsigned long)self.sortedKeyArray.count];
+        self.underTableLabel.text = [NSString stringWithFormat:@"总计运动天数：%@天", @(self.sortedKeyArray.count)];
     }
     
     //设置标题
-    self.navigationItem.title = [NSString stringWithFormat:@"完成列表（共计：%lu天）", (unsigned long)self.sortedKeyArray.count];
+    self.navigationItem.title = [NSString stringWithFormat:@"完成列表（共计：%@天）", @(self.sortedKeyArray.count)];
 
 }
 

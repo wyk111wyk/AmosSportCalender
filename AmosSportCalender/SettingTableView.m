@@ -284,10 +284,15 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
             if (indexPath.row == 0) {
                 //检查是否有新版本
                 [[PgyManager sharedPgyManager] checkUpdateWithDelegete:self selector:@selector(updateMethod:)];
-            }else if (indexPath.row == 2){
+            }
+            break;
+        case 3:
+            if (indexPath.row == 0){
+                
+            }else if (indexPath.row == 1){
                 //重置运动项目为默认
                 [self alertForResetSportType];
-            }else if (indexPath.row == 3){
+            }else if (indexPath.row == 2){
                 //清空所有数据
                 [self alertForClearAllData];
             }

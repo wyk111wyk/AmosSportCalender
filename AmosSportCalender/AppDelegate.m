@@ -43,6 +43,8 @@ NSArray *sportTypes;
     //取消所有通知
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
     
+    
+    
     [self createAllSportTypeArray];
     
     UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];

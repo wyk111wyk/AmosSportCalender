@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		B00D87A51B857CF00044BF85 /* LeftMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B00D87A41B857CF00044BF85 /* LeftMenuViewController.m */; };
+		B00E23221B92104500649AC9 /* ConflictTV.m in Sources */ = {isa = PBXBuildFile; fileRef = B00E23211B92104500649AC9 /* ConflictTV.m */; settings = {ASSET_TAGS = (); }; };
 		B025CF471B84599000FB1A22 /* TouchIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B025CF461B84599000FB1A22 /* TouchIDViewController.m */; };
 		B02A98961B8EF9A200F19EDC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B02A98951B8EF9A200F19EDC /* CoreGraphics.framework */; };
 		B02A98981B8EF9B800F19EDC /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B02A98971B8EF9B800F19EDC /* ImageIO.framework */; };
@@ -35,6 +36,10 @@
 		B0723E541B786D2D00F8A63E /* SettingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0723E531B786D2D00F8A63E /* SettingTableView.m */; };
 		B0723E5A1B78913A00F8A63E /* SettingStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B0723E591B78913A00F8A63E /* SettingStore.m */; };
 		B0723E5C1B79002900F8A63E /* sportTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0723E5B1B79002900F8A63E /* sportTypes.plist */; };
+		B07F43891B8FFE9500FE0D25 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B07F43881B8FFE9500FE0D25 /* CloudKit.framework */; };
+		B07F438E1B9184B900FE0D25 /* ICACloud.m in Sources */ = {isa = PBXBuildFile; fileRef = B07F438D1B9184B900FE0D25 /* ICACloud.m */; settings = {ASSET_TAGS = (); }; };
+		B07F43921B918E9100FE0D25 /* iCloud.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B07F43911B918E9100FE0D25 /* iCloud.framework */; settings = {ASSET_TAGS = (); }; };
+		B07F43961B919B2600FE0D25 /* iCloudStorageTV.m in Sources */ = {isa = PBXBuildFile; fileRef = B07F43951B919B2600FE0D25 /* iCloudStorageTV.m */; settings = {ASSET_TAGS = (); }; };
 		B0854D921B6BA87600C1B150 /* JTCalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D721B6BA87600C1B150 /* JTCalendarManager.m */; };
 		B0854D931B6BA87600C1B150 /* JTCalendarSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D741B6BA87600C1B150 /* JTCalendarSettings.m */; };
 		B0854D941B6BA87600C1B150 /* JTDateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D761B6BA87600C1B150 /* JTDateHelper.m */; };
@@ -147,6 +152,8 @@
 /* Begin PBXFileReference section */
 		B00D87A31B857CF00044BF85 /* LeftMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeftMenuViewController.h; path = Controller/LeftMenuViewController.h; sourceTree = "<group>"; };
 		B00D87A41B857CF00044BF85 /* LeftMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LeftMenuViewController.m; path = Controller/LeftMenuViewController.m; sourceTree = "<group>"; };
+		B00E23201B92104500649AC9 /* ConflictTV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConflictTV.h; path = TableView/ConflictTV.h; sourceTree = "<group>"; };
+		B00E23211B92104500649AC9 /* ConflictTV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ConflictTV.m; path = TableView/ConflictTV.m; sourceTree = "<group>"; };
 		B025CF451B84599000FB1A22 /* TouchIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TouchIDViewController.h; path = Controller/TouchIDViewController.h; sourceTree = "<group>"; };
 		B025CF461B84599000FB1A22 /* TouchIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TouchIDViewController.m; path = Controller/TouchIDViewController.m; sourceTree = "<group>"; };
 		B02A98941B8EF5B000F19EDC /* CommonMarco.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonMarco.h; sourceTree = "<group>"; };
@@ -189,6 +196,12 @@
 		B0723E581B78913A00F8A63E /* SettingStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingStore.h; path = Model/SettingStore.h; sourceTree = "<group>"; };
 		B0723E591B78913A00F8A63E /* SettingStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingStore.m; path = Model/SettingStore.m; sourceTree = "<group>"; };
 		B0723E5B1B79002900F8A63E /* sportTypes.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = sportTypes.plist; sourceTree = "<group>"; };
+		B07F43881B8FFE9500FE0D25 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		B07F438C1B9184B900FE0D25 /* ICACloud.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ICACloud.h; sourceTree = "<group>"; };
+		B07F438D1B9184B900FE0D25 /* ICACloud.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ICACloud.m; sourceTree = "<group>"; };
+		B07F43911B918E9100FE0D25 /* iCloud.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iCloud.framework; path = AmosSportCalender/FrameWork/iCloud.framework; sourceTree = "<group>"; };
+		B07F43941B919B2600FE0D25 /* iCloudStorageTV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = iCloudStorageTV.h; path = TableView/iCloudStorageTV.h; sourceTree = "<group>"; };
+		B07F43951B919B2600FE0D25 /* iCloudStorageTV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = iCloudStorageTV.m; path = TableView/iCloudStorageTV.m; sourceTree = "<group>"; };
 		B0854D6F1B6BA87600C1B150 /* JTCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendar.h; sourceTree = "<group>"; };
 		B0854D701B6BA87600C1B150 /* JTCalendarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarDelegate.h; sourceTree = "<group>"; };
 		B0854D711B6BA87600C1B150 /* JTCalendarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarManager.h; sourceTree = "<group>"; };
@@ -238,6 +251,7 @@
 		B09DB2931B84E5E0007458C1 /* LeftMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LeftMenuView.m; path = Controller/LeftMenuView.m; sourceTree = "<group>"; };
 		B09DB2E21B857207007458C1 /* pop.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = pop.framework; path = AmosSportCalender/FrameWork/pop.framework; sourceTree = "<group>"; };
 		B09DB2E71B857437007458C1 /* LeftMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LeftMenuViewController.xib; path = View/LeftMenuViewController.xib; sourceTree = "<group>"; };
+		B0A084341B8F5A1D0054EA0F /* AmosSportDiary.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = AmosSportDiary.entitlements; sourceTree = "<group>"; };
 		B0B548411B843F2400D42B33 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		B0B548431B843F2A00D42B33 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		B0B548471B84443700D42B33 /* DMKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMKeychain.h; sourceTree = "<group>"; };
@@ -354,7 +368,9 @@
 				B0BAD0941B8D9DAA00F41091 /* libMobClickLibrary.a in Frameworks */,
 				B09DB2E41B85738A007458C1 /* pop.framework in Frameworks */,
 				B09DB2811B84A396007458C1 /* CoreTelephony.framework in Frameworks */,
+				B07F43891B8FFE9500FE0D25 /* CloudKit.framework in Frameworks */,
 				B0B548441B843F2A00D42B33 /* LocalAuthentication.framework in Frameworks */,
+				B07F43921B918E9100FE0D25 /* iCloud.framework in Frameworks */,
 				B0B548421B843F2400D42B33 /* Security.framework in Frameworks */,
 				B06594C31B7F62E100ACFD66 /* MessageUI.framework in Frameworks */,
 				B087E0291B76FFF2003D90B6 /* QuartzCore.framework in Frameworks */,
@@ -393,6 +409,7 @@
 		B07043E91B8C148900512A3C /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				B07F438B1B9184B900FE0D25 /* iCloud */,
 				B07043EA1B8D708500512A3C /* weChat */,
 				B02A989F1B8EFF3500F19EDC /* Tencent */,
 				B0BAD0901B8D9DAA00F41091 /* UMAnalytics_Sdk_3.5.11 */,
@@ -441,6 +458,38 @@
 			name = RESideMenu;
 			path = AmosSportCalender/RESideMenu;
 			sourceTree = SOURCE_ROOT;
+		};
+		B07F438B1B9184B900FE0D25 /* iCloud */ = {
+			isa = PBXGroup;
+			children = (
+				B07F438C1B9184B900FE0D25 /* ICACloud.h */,
+				B07F438D1B9184B900FE0D25 /* ICACloud.m */,
+			);
+			path = iCloud;
+			sourceTree = "<group>";
+		};
+		B07F43971B919FBC00FE0D25 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				B0C101091B7798C000E4204B /* ViewController.h */,
+				B0C1010A1B7798C000E4204B /* ViewController.m */,
+				B0C101071B7798C000E4204B /* SummaryViewController.h */,
+				B0C101081B7798C000E4204B /* SummaryViewController.m */,
+				B0C101031B7798C000E4204B /* DetailSummaryVC.h */,
+				B0C101041B7798C000E4204B /* DetailSummaryVC.m */,
+				B0C101051B7798C000E4204B /* NewEvevtViewController.h */,
+				B0C101061B7798C000E4204B /* NewEvevtViewController.m */,
+				B0DC6BE31B7F079F009DFA5A /* FeedbackViewController.h */,
+				B0DC6BE41B7F079F009DFA5A /* FeedbackViewController.m */,
+				B0E144D71B81BD6000934377 /* AboutViewController.h */,
+				B0E144D81B81BD6000934377 /* AboutViewController.m */,
+				B025CF451B84599000FB1A22 /* TouchIDViewController.h */,
+				B025CF461B84599000FB1A22 /* TouchIDViewController.m */,
+				B00D87A31B857CF00044BF85 /* LeftMenuViewController.h */,
+				B00D87A41B857CF00044BF85 /* LeftMenuViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
 		};
 		B0854D6E1B6BA87600C1B150 /* JTCalendar */ = {
 			isa = PBXGroup;
@@ -541,22 +590,7 @@
 		B0854DA01B6CA0E200C1B150 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				B0C101091B7798C000E4204B /* ViewController.h */,
-				B0C1010A1B7798C000E4204B /* ViewController.m */,
-				B0C101071B7798C000E4204B /* SummaryViewController.h */,
-				B0C101081B7798C000E4204B /* SummaryViewController.m */,
-				B0C101031B7798C000E4204B /* DetailSummaryVC.h */,
-				B0C101041B7798C000E4204B /* DetailSummaryVC.m */,
-				B0C101051B7798C000E4204B /* NewEvevtViewController.h */,
-				B0C101061B7798C000E4204B /* NewEvevtViewController.m */,
-				B0DC6BE31B7F079F009DFA5A /* FeedbackViewController.h */,
-				B0DC6BE41B7F079F009DFA5A /* FeedbackViewController.m */,
-				B0E144D71B81BD6000934377 /* AboutViewController.h */,
-				B0E144D81B81BD6000934377 /* AboutViewController.m */,
-				B025CF451B84599000FB1A22 /* TouchIDViewController.h */,
-				B025CF461B84599000FB1A22 /* TouchIDViewController.m */,
-				B00D87A31B857CF00044BF85 /* LeftMenuViewController.h */,
-				B00D87A41B857CF00044BF85 /* LeftMenuViewController.m */,
+				B07F43971B919FBC00FE0D25 /* Controller */,
 				B08875EB1B711EE3008DF5D4 /* TableView */,
 				B08875EF1B711F19008DF5D4 /* Cell */,
 			);
@@ -585,6 +619,10 @@
 				B0C101121B7798F600E4204B /* NameManageTableView.m */,
 				B0723E521B786D2D00F8A63E /* SettingTableView.h */,
 				B0723E531B786D2D00F8A63E /* SettingTableView.m */,
+				B07F43941B919B2600FE0D25 /* iCloudStorageTV.h */,
+				B07F43951B919B2600FE0D25 /* iCloudStorageTV.m */,
+				B00E23201B92104500649AC9 /* ConflictTV.h */,
+				B00E23211B92104500649AC9 /* ConflictTV.m */,
 				B0BAD0951B8DD63F00F41091 /* PersonalInfoTableView.h */,
 				B0BAD0961B8DD64000F41091 /* PersonalInfoTableView.m */,
 			);
@@ -629,15 +667,16 @@
 		B0B548401B843EF300D42B33 /* FrameWork */ = {
 			isa = PBXGroup;
 			children = (
+				B07F43911B918E9100FE0D25 /* iCloud.framework */,
 				B02A989D1B8EF9EC00F19EDC /* libiconv.tbd */,
 				B02A989B1B8EF9E200F19EDC /* libstdc++.tbd */,
-				B02A98991B8EF9C000F19EDC /* CoreText.framework */,
-				B02A98971B8EF9B800F19EDC /* ImageIO.framework */,
-				B02A98951B8EF9A200F19EDC /* CoreGraphics.framework */,
 				B048EF831B8D70F700F01530 /* libc++.tbd */,
 				B048EF811B8D70EB00F01530 /* libsqlite3.0.tbd */,
 				B048EF7F1B8D70E100F01530 /* libz.tbd */,
-				B09DB28E1B84A3E5007458C1 /* PGY */,
+				B07F43881B8FFE9500FE0D25 /* CloudKit.framework */,
+				B02A98991B8EF9C000F19EDC /* CoreText.framework */,
+				B02A98971B8EF9B800F19EDC /* ImageIO.framework */,
+				B02A98951B8EF9A200F19EDC /* CoreGraphics.framework */,
 				B09DB2E21B857207007458C1 /* pop.framework */,
 				B0B548431B843F2A00D42B33 /* LocalAuthentication.framework */,
 				B0B548411B843F2400D42B33 /* Security.framework */,
@@ -646,6 +685,7 @@
 				B0B973651B74808F0008640E /* EventKit.framework */,
 				B0B973661B74808F0008640E /* EventKitUI.framework */,
 				B09DB2901B84A8C0007458C1 /* PgySDK.framework */,
+				B09DB28E1B84A3E5007458C1 /* PGY */,
 			);
 			name = FrameWork;
 			sourceTree = "<group>";
@@ -699,6 +739,7 @@
 		B0FA58891B4678D400E3BE94 = {
 			isa = PBXGroup;
 			children = (
+				B0A084341B8F5A1D0054EA0F /* AmosSportDiary.entitlements */,
 				B048EF851B8D720100F01530 /* Icon@2x.png */,
 				B0B548401B843EF300D42B33 /* FrameWork */,
 				B0FA58941B4678D400E3BE94 /* AmosSportCalender */,
@@ -834,7 +875,7 @@
 						DevelopmentTeam = D3FXKEY64K;
 						SystemCapabilities = {
 							com.apple.iCloud = {
-								enabled = 0;
+								enabled = 1;
 							};
 						};
 					};
@@ -923,6 +964,7 @@
 				B09DB2941B84E5E0007458C1 /* LeftMenuView.m in Sources */,
 				B048EF921B8D762F00F01530 /* WeixinTimelineActivity.m in Sources */,
 				B0C1010E1B7798C000E4204B /* ViewController.m in Sources */,
+				B00E23221B92104500649AC9 /* ConflictTV.m in Sources */,
 				B0E144F01B81C58700934377 /* TOActivityChrome.m in Sources */,
 				B0C1012A1B77993800E4204B /* SummaryTVCell.m in Sources */,
 				B0C1010C1B7798C000E4204B /* NewEvevtViewController.m in Sources */,
@@ -962,6 +1004,7 @@
 				B087E0271B76F92B003D90B6 /* XYPieChart.m in Sources */,
 				B0854D951B6BA87600C1B150 /* JTCalendarDelegateManager.m in Sources */,
 				B0C1010D1B7798C000E4204B /* SummaryViewController.m in Sources */,
+				B07F43961B919B2600FE0D25 /* iCloudStorageTV.m in Sources */,
 				B0854D991B6BA87600C1B150 /* JTCalendarPageView.m in Sources */,
 				B0B548581B84443700D42B33 /* DMPasscodeInternalNavigationController.m in Sources */,
 				B0854D961B6BA87600C1B150 /* JTCalendarScrollManager.m in Sources */,
@@ -979,6 +1022,7 @@
 				B0FA589A1B4678D400E3BE94 /* AppDelegate.m in Sources */,
 				B0C101191B7798F600E4204B /* SummaryTableView.m in Sources */,
 				B025CF471B84599000FB1A22 /* TouchIDViewController.m in Sources */,
+				B07F438E1B9184B900FE0D25 /* ICACloud.m in Sources */,
 				B0FA58971B4678D400E3BE94 /* main.m in Sources */,
 				B071E69A1B859B4100133D63 /* RECommonFunctions.m in Sources */,
 			);
@@ -1117,9 +1161,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: yuke wu (BBLAS4A9A3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuke wu (BBLAS4A9A3)";
+				CODE_SIGN_ENTITLEMENTS = AmosSportDiary.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1141,7 +1185,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AKSocialLab.AmosSportDiary;
 				PRODUCT_NAME = AmosSportDiary;
-				PROVISIONING_PROFILE = "55c80013-95e7-4b27-ad02-dfcdfbce9c46";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1150,9 +1194,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = "";
-				CODE_SIGN_IDENTITY = "iPhone Developer: yuke wu (BBLAS4A9A3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuke wu (BBLAS4A9A3)";
+				CODE_SIGN_ENTITLEMENTS = AmosSportDiary.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1173,7 +1217,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AKSocialLab.AmosSportDiary;
 				PRODUCT_NAME = AmosSportDiary;
-				PROVISIONING_PROFILE = "55c80013-95e7-4b27-ad02-dfcdfbce9c46";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

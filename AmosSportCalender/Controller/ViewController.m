@@ -254,9 +254,9 @@
         if (self.oneDayEvents.count > [self.doneNumber intValue]) {
             
             if (personal.name.length > 0){
-            self.underTableLabel.text = [NSString stringWithFormat:@"%@，共有%lu个项目，已完成%d项，还剩%lu项", personal.name, (unsigned long)self.oneDayEvents.count, [self.doneNumber intValue], self.oneDayEvents.count - [self.doneNumber intValue]];
+            self.underTableLabel.text = [NSString stringWithFormat:@"%@，共有%@个项目，已完成%d项，还剩%lu项", personal.name, @(self.oneDayEvents.count), [self.doneNumber intValue], self.oneDayEvents.count - [self.doneNumber intValue]];
             }else{
-                self.underTableLabel.text = [NSString stringWithFormat:@"共有%lu个项目，已完成%d项，还剩%lu项", (unsigned long)self.oneDayEvents.count, [self.doneNumber intValue], self.oneDayEvents.count - [self.doneNumber intValue]];
+                self.underTableLabel.text = [NSString stringWithFormat:@"共有%@个项目，已完成%d项，还剩%lu项", @(self.oneDayEvents.count), [self.doneNumber intValue], self.oneDayEvents.count - [self.doneNumber intValue]];
             }
             if (_calendarManager.settings.weekModeEnabled) {
                 self.addToCalendarButton.hidden = NO;
@@ -387,6 +387,12 @@
         case 1:
             NSLog(@"second click");
 
+            if (_calendarManager.settings.weekModeEnabled) {
+                [self transitionExample];
+                [_calendarManager reload];
+                [self setTableViewHeadTitle:_selectedDate];
+            }
+            
             //View Changes to Today
             [self didGoTodayTouch];
             
@@ -1097,7 +1103,7 @@
         }else{
             tempAttribute = [NSString stringWithFormat:@"%d组 x %d次   %.1fkg", event.rap, event.times, event.weight];
         }
-        [notesStr appendFormat:@"%@ （%@）\n", event.sportName, tempAttribute];
+        [notesStr appendFormat:@"- %@ （%@）\n", event.sportName, tempAttribute];
         
     }
     self.ekevent.notes     = notesStr; //事件内容
@@ -1193,7 +1199,7 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"取消"
                                               style:UIAlertActionStyleCancel
                                             handler:^(UIAlertAction * action) {}]];
-    NSString *countStr = [NSString stringWithFormat:@"今日-运动项目(%lu项)", self.oneDayEvents.count];
+    NSString *countStr = [NSString stringWithFormat:@"今日-运动项目(%@项)", @(self.oneDayEvents.count)];
     [alert addAction:[UIAlertAction actionWithTitle:countStr
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction * action) {
@@ -1207,10 +1213,16 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"总结-运动概况"
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction * action) {
+                         
+//        UIImage *topImg1 = [self captureView:_calendarMenuView Rectsize:CGSizeMake(screenWidth, 50)];
+//        UIImage *topImg2 = [self captureView:_calendarContentView Rectsize:CGSizeMake(screenWidth, 300)];
+//        UIImage *topImg = [self addImageview:topImg2 toImage:topImg1];
                                                 
         UIImage *tempImg = [SummaryViewController captureView:summaryVC.view1];
-        UIImage *img = [self addImageview:bottomImage toImage:tempImg];
-        [self shareThePersonalInfo:img];
+        UIImage *bottomImg = [self addImageview:bottomImage toImage:tempImg];
+                                                
+//        UIImage *img = [self addImageview:bottomImg toImage:topImg];
+        [self shareThePersonalInfo:bottomImg];
                                             }]];
     
     [self presentViewController:alert animated:YES completion:nil];

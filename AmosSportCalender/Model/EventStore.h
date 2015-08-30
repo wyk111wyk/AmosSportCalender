@@ -28,6 +28,7 @@
                toIndex :(NSUInteger)toIndex
                    date:(NSDate *)date;
 
+- (void)updateAllData;
 - (BOOL)saveChanges;
 
 @end
