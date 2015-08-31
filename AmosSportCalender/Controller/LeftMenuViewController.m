@@ -67,9 +67,15 @@
     // 有新消息
     UMFeedback *feed = [UMFeedback sharedInstance];
     if (feed.theNewReplies != nil && feed.theNewReplies.count > 0) {
-        NSLog(@"开发者给我发新消息了！！！ %@条！", @(feed.theNewReplies.count));
+//        NSLog(@"开发者给我发新消息了！！！ %@条！", @(feed.theNewReplies.count));
         _feedbackView.nMesagePieView.hidden = NO;
-        _feedbackView.nMessageLabel.text = [NSString stringWithFormat:@"%@", @(feed.theNewReplies.count)];
+        
+        NSUInteger i = feed.theNewReplies.count;
+        if (i > 9) {
+            i = 9;
+        }
+        
+        _feedbackView.nMessageLabel.text = [NSString stringWithFormat:@"%@", @(i)];
     }
     
 //    NSLog(@"%@", NSStringFromSelector(_cmd));

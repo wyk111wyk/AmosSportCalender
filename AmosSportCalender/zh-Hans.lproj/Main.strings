@@ -1,0 +1,333 @@
+
+/* Class = "UILabel"; text = "平板卧推："; ObjectID = "0hb-0V-F9o"; */
+"0hb-0V-F9o.text" = "平板卧推：";
+
+/* Class = "UILabel"; text = "其他反馈"; ObjectID = "1Mt-9m-gs4"; */
+"1Mt-9m-gs4.text" = "其他反馈";
+
+/* Class = "UILabel"; text = "项目:"; ObjectID = "219-K0-1Q2"; */
+"219-K0-1Q2.text" = "项目:";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "2Vz-lv-hUB"; */
+"2Vz-lv-hUB.text" = "Label";
+
+/* Class = "UILabel"; text = "重置运动项目为默认"; ObjectID = "2Xc-M0-a5o"; */
+"2Xc-M0-a5o.text" = "重置运动项目为默认";
+
+/* Class = "UILabel"; text = "负重:"; ObjectID = "3jZ-b7-TG4"; */
+"3jZ-b7-TG4.text" = "负重:";
+
+/* Class = "UILabel"; text = "Detail"; ObjectID = "3tx-bi-vqK"; */
+"3tx-bi-vqK.text" = "Detail";
+
+/* Class = "UITextField"; placeholder = "在此选择性别"; ObjectID = "41S-VF-nRk"; */
+"41S-VF-nRk.placeholder" = "在此选择性别";
+
+/* Class = "UILabel"; text = "标准硬拉："; ObjectID = "44B-iV-ehi"; */
+"44B-iV-ehi.text" = "标准硬拉：";
+
+/* Class = "UILabel"; text = "游泳"; ObjectID = "546-R3-KbH"; */
+"546-R3-KbH.text" = "游泳";
+
+/* Class = "UILabel"; text = "备份数据至iCloud"; ObjectID = "5bN-ww-jTG"; */
+"5bN-ww-jTG.text" = "备份数据至iCloud";
+
+/* Class = "UILabel"; text = "胸部"; ObjectID = "6Cz-gS-CbC"; */
+"6Cz-gS-CbC.text" = "胸部";
+
+/* Class = "UISegmentedControl"; 6Fq-cs-UB0.segmentTitles[0] = "男性"; ObjectID = "6Fq-cs-UB0"; */
+"6Fq-cs-UB0.segmentTitles[0]" = "男性";
+
+/* Class = "UISegmentedControl"; 6Fq-cs-UB0.segmentTitles[1] = "女性"; ObjectID = "6Fq-cs-UB0"; */
+"6Fq-cs-UB0.segmentTitles[1]" = "女性";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "6RV-W5-NKd"; */
+"6RV-W5-NKd.text" = "Subtitle";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "6XH-uK-Eol"; */
+"6XH-uK-Eol.text" = "Label";
+
+/* Class = "UINavigationItem"; title = "完成列表"; ObjectID = "75F-tQ-8pY"; */
+"75F-tQ-8pY.title" = "完成列表";
+
+/* Class = "UIBarButtonItem"; title = "今天"; ObjectID = "75n-f0-JT3"; */
+"75n-f0-JT3.title" = "今天";
+
+/* Class = "UILabel"; text = "姓名："; ObjectID = "9mm-ja-kye"; */
+"9mm-ja-kye.text" = "姓名：";
+
+/* Class = "UITextField"; text = "哑铃侧平举"; ObjectID = "A92-4t-ugk"; */
+"A92-4t-ugk.text" = "哑铃侧平举";
+
+/* Class = "UIBarButtonItem"; title = "取消"; ObjectID = "ASw-t2-7w6"; */
+"ASw-t2-7w6.title" = "取消";
+
+/* Class = "UILabel"; text = "还没有足够数目的反馈记录，有什么想法赶快发给我吧~"; ObjectID = "Aov-XL-hEP"; */
+"Aov-XL-hEP.text" = "还没有足够数目的反馈记录，有什么想法赶快发给我吧~";
+
+/* Class = "UITextField"; placeholder = "请输入姓名或者别称"; ObjectID = "B0L-Vw-kYT"; */
+"B0L-Vw-kYT.placeholder" = "请输入姓名或者别称";
+
+/* Class = "UIBarButtonItem"; title = "发送"; ObjectID = "Ezn-K9-sHi"; */
+"Ezn-K9-sHi.title" = "发送";
+
+/* Class = "UILabel"; text = "更多"; ObjectID = "Faz-FY-dib"; */
+"Faz-FY-dib.text" = "更多";
+
+/* Class = "UILabel"; text = "Subtitle"; ObjectID = "GXD-Ue-bnK"; */
+"GXD-Ue-bnK.text" = "Subtitle";
+
+/* Class = "UITextField"; placeholder = "例：30"; ObjectID = "HD9-JF-lHO"; */
+"HD9-JF-lHO.placeholder" = "例：30";
+
+/* Class = "UILabel"; text = "你好！\n请使用指纹进行解锁。"; ObjectID = "Hfg-C2-Od4"; */
+"Hfg-C2-Od4.text" = "你好！\n请使用指纹进行解锁。";
+
+/* Class = "UILabel"; text = "自重"; ObjectID = "IpU-yD-kFu"; */
+"IpU-yD-kFu.text" = "自重";
+
+/* Class = "UILabel"; text = "在每次重启后需输入密码(TouchID)"; ObjectID = "J7m-C6-gJD"; */
+"J7m-C6-gJD.text" = "在每次重启后需输入密码(TouchID)";
+
+/* Class = "UILabel"; text = "年龄："; ObjectID = "JT0-VJ-cRE"; */
+"JT0-VJ-cRE.text" = "年龄：";
+
+/* Class = "UITableViewSection"; headerTitle = "最大负重（单位：Kg）"; ObjectID = "JgM-i5-YuP"; */
+"JgM-i5-YuP.headerTitle" = "最大负重（单位：Kg）";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "Jib-Vz-WBO"; */
+"Jib-Vz-WBO.text" = "Title";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "K6W-br-BT2"; */
+"K6W-br-BT2.text" = "Label";
+
+/* Class = "UITextField"; text = "6"; ObjectID = "Kkw-fi-a0s"; */
+"Kkw-fi-a0s.text" = "6";
+
+/* Class = "UINavigationItem"; title = "设置"; ObjectID = "L3z-Oz-pNu"; */
+"L3z-Oz-pNu.title" = "设置";
+
+/* Class = "UISegmentedControl"; LBM-g8-Kmv.segmentTitles[0] = "尽量"; ObjectID = "LBM-g8-Kmv"; */
+"LBM-g8-Kmv.segmentTitles[0]" = "尽量";
+
+/* Class = "UISegmentedControl"; LBM-g8-Kmv.segmentTitles[1] = "规律"; ObjectID = "LBM-g8-Kmv"; */
+"LBM-g8-Kmv.segmentTitles[1]" = "规律";
+
+/* Class = "UISegmentedControl"; LBM-g8-Kmv.segmentTitles[2] = "频繁"; ObjectID = "LBM-g8-Kmv"; */
+"LBM-g8-Kmv.segmentTitles[2]" = "频繁";
+
+/* Class = "UISegmentedControl"; LsA-Li-80g.segmentTitles[0] = "日历"; ObjectID = "LsA-Li-80g"; */
+"LsA-Li-80g.segmentTitles[0]" = "日历";
+
+/* Class = "UISegmentedControl"; LsA-Li-80g.segmentTitles[1] = "总结"; ObjectID = "LsA-Li-80g"; */
+"LsA-Li-80g.segmentTitles[1]" = "总结";
+
+/* Class = "UILabel"; text = "组数:"; ObjectID = "MFi-jP-YVi"; */
+"MFi-jP-YVi.text" = "组数:";
+
+/* Class = "UIButton"; normalTitle = "添加到日程"; ObjectID = "Ml2-8W-MK6"; */
+"Ml2-8W-MK6.normalTitle" = "添加到日程";
+
+/* Class = "UILabel"; text = "Min"; ObjectID = "NHZ-TC-waH"; */
+"NHZ-TC-waH.text" = "Min";
+
+/* Class = "UILabel"; text = "新功能建议"; ObjectID = "NgS-H5-At2"; */
+"NgS-H5-At2.text" = "新功能建议";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "NhE-Pc-DnX"; */
+"NhE-Pc-DnX.text" = "Label";
+
+/* Class = "UITextField"; placeholder = "例：30"; ObjectID = "O8k-Ar-TvC"; */
+"O8k-Ar-TvC.placeholder" = "例：30";
+
+/* Class = "UITableViewSection"; headerTitle = "版本更新"; ObjectID = "OKR-yF-Wd9"; */
+"OKR-yF-Wd9.headerTitle" = "版本更新";
+
+/* Class = "UITextField"; placeholder = "例：30"; ObjectID = "Olr-lm-Psd"; */
+"Olr-lm-Psd.placeholder" = "例：30";
+
+/* Class = "UILabel"; text = "点击检查是否有版本更新"; ObjectID = "QGH-1A-Uvv"; */
+"QGH-1A-Uvv.text" = "点击检查是否有版本更新";
+
+/* Class = "UILabel"; text = "时长:"; ObjectID = "QkU-AQ-cwQ"; */
+"QkU-AQ-cwQ.text" = "时长:";
+
+/* Class = "UINavigationItem"; title = "反馈"; ObjectID = "Qrk-NN-bRp"; */
+"Qrk-NN-bRp.title" = "反馈";
+
+/* Class = "UITableViewSection"; footerTitle = "全面准确的完善个人信息后，软件可智能推荐适合的重量、组数等"; ObjectID = "Ri1-A8-KER"; */
+"Ri1-A8-KER.footerTitle" = "全面准确的完善个人信息后，软件可智能推荐适合的重量、组数等";
+
+/* Class = "UITableViewSection"; headerTitle = "用户信息"; ObjectID = "Ri1-A8-KER"; */
+"Ri1-A8-KER.headerTitle" = "用户信息";
+
+/* Class = "UITextField"; placeholder = "请在此输入标题（20字以内）"; ObjectID = "TAX-6u-ZuK"; */
+"TAX-6u-ZuK.placeholder" = "请在此输入标题（20字以内）";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "TWe-aA-ecF"; */
+"TWe-aA-ecF.text" = "Title";
+
+/* Class = "UILabel"; text = "组"; ObjectID = "TaK-fe-2Vk"; */
+"TaK-fe-2Vk.text" = "组";
+
+/* Class = "UINavigationItem"; title = "iCloud备份"; ObjectID = "U7n-aR-c5C"; */
+"U7n-aR-c5C.title" = "iCloud备份";
+
+/* Class = "UILabel"; text = "Amos Sport Diary  V 1.0.5"; ObjectID = "UMG-Bv-EW9"; */
+"UMG-Bv-EW9.text" = "Amos Sport Diary  V 1.0.5";
+
+/* Class = "UILabel"; text = "训练目标"; ObjectID = "VPg-k4-YaL"; */
+"VPg-k4-YaL.text" = "训练目标";
+
+/* Class = "UILabel"; text = "  Copyright © 2015年 Amos Wu. All rights reserved."; ObjectID = "W0d-c6-U6C"; */
+"W0d-c6-U6C.text" = "  Copyright © 2015年 Amos Wu. All rights reserved.";
+
+/* Class = "UITableViewSection"; footerTitle = "*软件可以根据填写的信息智能推荐所选运动的组数或者负重，然而却无法推荐运动类型或是频率，这一点需要用户自行学习和判断。"; ObjectID = "W1D-lP-fAx"; */
+"W1D-lP-fAx.footerTitle" = "*软件可以根据填写的信息智能推荐所选运动的组数或者负重，然而却无法推荐运动类型或是频率，这一点需要用户自行学习和判断。";
+
+/* Class = "UITableViewSection"; headerTitle = "其他信息"; ObjectID = "W1D-lP-fAx"; */
+"W1D-lP-fAx.headerTitle" = "其他信息";
+
+/* Class = "UILabel"; text = "欢迎使用Amos运动日记！\n\n这是一款强大的健身协助软件，通过记录、回顾、计划，清晰的了解自己的状态和已经完成的工作。\n\n所以欢迎大家在使用后给我反馈和心得，包括交流运动的经验等。（左转点“反馈”）"; ObjectID = "XI4-QL-M4R"; */
+"XI4-QL-M4R.text" = "欢迎使用Amos运动日记！\n\n这是一款强大的健身协助软件，通过记录、回顾、计划，清晰的了解自己的状态和已经完成的工作。\n\n所以欢迎大家在使用后给我反馈和心得，包括交流运动的经验等。（左转点“反馈”）";
+
+/* Class = "UITextField"; placeholder = "联系方式（选填）"; ObjectID = "YFT-x6-Gwd"; */
+"YFT-x6-Gwd.placeholder" = "联系方式（选填）";
+
+/* Class = "UITextField"; text = "200"; ObjectID = "YKn-iP-5BK"; */
+"YKn-iP-5BK.text" = "200";
+
+/* Class = "UILabel"; text = "启用Touch ID"; ObjectID = "YcS-BT-7uK"; */
+"YcS-BT-7uK.text" = "启用Touch ID";
+
+/* Class = "UILabel"; text = "更改运动图片类型"; ObjectID = "ZEm-cF-RG1"; */
+"ZEm-cF-RG1.text" = "更改运动图片类型";
+
+/* Class = "UITextField"; placeholder = "例：30"; ObjectID = "ZM3-OD-bMw"; */
+"ZM3-OD-bMw.placeholder" = "例：30";
+
+/* Class = "UISegmentedControl"; a0s-U3-Cuh.segmentTitles[0] = "减脂"; ObjectID = "a0s-U3-Cuh"; */
+"a0s-U3-Cuh.segmentTitles[0]" = "减脂";
+
+/* Class = "UISegmentedControl"; a0s-U3-Cuh.segmentTitles[1] = "力量"; ObjectID = "a0s-U3-Cuh"; */
+"a0s-U3-Cuh.segmentTitles[1]" = "力量";
+
+/* Class = "UISegmentedControl"; a0s-U3-Cuh.segmentTitles[2] = "维度"; ObjectID = "a0s-U3-Cuh"; */
+"a0s-U3-Cuh.segmentTitles[2]" = "维度";
+
+/* Class = "UISegmentedControl"; a0s-U3-Cuh.segmentTitles[3] = "保持"; ObjectID = "a0s-U3-Cuh"; */
+"a0s-U3-Cuh.segmentTitles[3]" = "保持";
+
+/* Class = "UILabel"; text = "清空所有用户数据（慎重）"; ObjectID = "aGv-Oy-EZ5"; */
+"aGv-Oy-EZ5.text" = "清空所有用户数据（慎重）";
+
+/* Class = "UITextView"; text = "请在此输入反馈的具体内容。\n文明用语，客观描述问题，提高沟通效率。\n一起让软件更好的改善我们的运动生活。"; ObjectID = "aP9-3e-ihC"; */
+"aP9-3e-ihC.text" = "请在此输入反馈的具体内容。\n文明用语，客观描述问题，提高沟通效率。\n一起让软件更好的改善我们的运动生活。";
+
+/* Class = "UILabel"; text = "性别："; ObjectID = "bJn-Zq-C23"; */
+"bJn-Zq-C23.text" = "性别：";
+
+/* Class = "UIButton"; normalTitle = "保存为默认"; ObjectID = "duh-xM-hJU"; */
+"duh-xM-hJU.normalTitle" = "保存为默认";
+
+/* Class = "UINavigationItem"; title = "发生冲突"; ObjectID = "fAS-HQ-MUJ"; */
+"fAS-HQ-MUJ.title" = "发生冲突";
+
+/* Class = "UILabel"; text = "Title"; ObjectID = "gbe-0E-TN9"; */
+"gbe-0E-TN9.text" = "Title";
+
+/* Class = "UILabel"; text = "日期:"; ObjectID = "hWD-7F-WPZ"; */
+"hWD-7F-WPZ.text" = "日期:";
+
+/* Class = "UILabel"; text = "哑铃弯举："; ObjectID = "hb7-JE-OWj"; */
+"hb7-JE-OWj.text" = "哑铃弯举：";
+
+/* Class = "UILabel"; text = "程序错误"; ObjectID = "hcS-RC-0bm"; */
+"hcS-RC-0bm.text" = "程序错误";
+
+/* Class = "UILabel"; text = "25分钟"; ObjectID = "hxN-Xp-2Ab"; */
+"hxN-Xp-2Ab.text" = "25分钟";
+
+/* Class = "UILabel"; text = "重复"; ObjectID = "hxc-DL-9vQ"; */
+"hxc-DL-9vQ.text" = "重复";
+
+/* Class = "UISegmentedControl"; j6u-st-wsf.segmentTitles[0] = "入门"; ObjectID = "j6u-st-wsf"; */
+"j6u-st-wsf.segmentTitles[0]" = "入门";
+
+/* Class = "UISegmentedControl"; j6u-st-wsf.segmentTitles[1] = "正常"; ObjectID = "j6u-st-wsf"; */
+"j6u-st-wsf.segmentTitles[1]" = "正常";
+
+/* Class = "UISegmentedControl"; j6u-st-wsf.segmentTitles[2] = "强悍"; ObjectID = "j6u-st-wsf"; */
+"j6u-st-wsf.segmentTitles[2]" = "强悍";
+
+/* Class = "UITextField"; text = "28"; ObjectID = "jBn-JD-O39"; */
+"jBn-JD-O39.text" = "28";
+
+/* Class = "UILabel"; text = "杠铃深蹲："; ObjectID = "jUS-Qa-r9b"; */
+"jUS-Qa-r9b.text" = "杠铃深蹲：";
+
+/* Class = "UILabel"; text = "总计运动：5项"; ObjectID = "krh-YA-tDi"; */
+"krh-YA-tDi.text" = "总计运动：5项";
+
+/* Class = "UILabel"; text = "胸"; ObjectID = "lIl-3V-Jh0"; */
+"lIl-3V-Jh0.text" = "胸";
+
+/* Class = "UILabel"; text = "次/组"; ObjectID = "lhR-gb-eSQ"; */
+"lhR-gb-eSQ.text" = "次/组";
+
+/* Class = "UIBarButtonItem"; title = "取消"; ObjectID = "m2g-zu-CqF"; */
+"m2g-zu-CqF.title" = "取消";
+
+/* Class = "UINavigationItem"; title = "信息完善"; ObjectID = "nEa-e1-BIp"; */
+"nEa-e1-BIp.title" = "信息完善";
+
+/* Class = "UILabel"; text = "反馈排名"; ObjectID = "nSw-7Y-Kq7"; */
+"nSw-7Y-Kq7.text" = "反馈排名";
+
+/* Class = "UILabel"; text = "完成:"; ObjectID = "p2g-wk-tzF"; */
+"p2g-wk-tzF.text" = "完成:";
+
+/* Class = "UILabel"; text = "锻炼频率"; ObjectID = "pio-GH-kh6"; */
+"pio-GH-kh6.text" = "锻炼频率";
+
+/* Class = "UINavigationItem"; title = "类型管理"; ObjectID = "tQH-fQ-H87"; */
+"tQH-fQ-H87.title" = "类型管理";
+
+/* Class = "UILabel"; text = "类别:"; ObjectID = "vUV-Cc-yw8"; */
+"vUV-Cc-yw8.text" = "类别:";
+
+/* Class = "UILabel"; text = "启动时自动搜索更新"; ObjectID = "vVB-hn-hAg"; */
+"vVB-hn-hAg.text" = "启动时自动搜索更新";
+
+/* Class = "UILabel"; text = "优先解决最靠前的问题"; ObjectID = "vbi-py-HHb"; */
+"vbi-py-HHb.text" = "优先解决最靠前的问题";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "xfS-2e-26G"; */
+"xfS-2e-26G.text" = "Label";
+
+/* Class = "UILabel"; text = "开启桌面图标小圆点"; ObjectID = "xjP-VV-UrC"; */
+"xjP-VV-UrC.text" = "开启桌面图标小圆点";
+
+/* Class = "UITextField"; text = "16"; ObjectID = "xjm-Om-Lm0"; */
+"xjm-Om-Lm0.text" = "16";
+
+/* Class = "UITextField"; placeholder = "在此输入年龄"; ObjectID = "xnl-4C-dPa"; */
+"xnl-4C-dPa.placeholder" = "在此输入年龄";
+
+/* Class = "UILabel"; text = "现有功能改善"; ObjectID = "ySG-dj-fdO"; */
+"ySG-dj-fdO.text" = "现有功能改善";
+
+/* Class = "UILabel"; text = "min"; ObjectID = "z5A-LW-S06"; */
+"z5A-LW-S06.text" = "min";
+
+/* Class = "UITableViewSection"; headerTitle = "数据管理"; ObjectID = "z5a-9E-aPv"; */
+"z5a-9E-aPv.headerTitle" = "数据管理";
+
+/* Class = "UILabel"; text = "体能水准"; ObjectID = "zPg-AS-T2h"; */
+"zPg-AS-T2h.text" = "体能水准";
+
+/* Class = "UINavigationItem"; title = "关于"; ObjectID = "zYt-cH-mxi"; */
+"zYt-cH-mxi.title" = "关于";
+
+/* Class = "UITableViewSection"; headerTitle = "功能设置"; ObjectID = "zdi-Qa-zIh"; */
+"zdi-Qa-zIh.headerTitle" = "功能设置";

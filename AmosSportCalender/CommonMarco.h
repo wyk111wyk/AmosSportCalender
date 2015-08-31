@@ -31,4 +31,9 @@
 
 #define IS_IOS8 ([[UIDevice currentDevice].systemVersion doubleValue] >= 8.0)
 
+//国际化
+#define kFEEDBACK_LOCALIZABLE_TABLE @"AmosSportDiaryLocalizable"
+#define Local(key) NSLocalizedStringFromTable(key, kFEEDBACK_LOCALIZABLE_TABLE, nil)
+
+
 #endif /* CommonMarco_h */

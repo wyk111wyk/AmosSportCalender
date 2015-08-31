@@ -18,18 +18,20 @@
 "Yesterday" = "昨天";
 "The day before yesterday" = "前天";
 
-"Update info" = "完善联系信息";
+"Update info" = "点击完善信息";
 "Save" = "保存";
 
+"Name" = "称呼";
 "Phone" = "电话";
 "Email" = "邮箱";
 "Other" = "其他";
 
-"Name: %@ \nPhone: %@ Email: %@" = "称呼: %@ \n电话: %@ Email: %@";
+"Name: %@ \nPhone: %@ \nEmail: %@" = "称呼: %@ \n电话: %@ \nEmail: %@";
 
 "Cancel" = "取消";
-"Send" = "发送";
+"Send" = "确定";
 
+"for your name" = "请问怎么称呼";
 "for QQ number" = "请输入QQ号";
 "for phone number" = "请输入手机号";
 "for email address" = "请输入邮箱";

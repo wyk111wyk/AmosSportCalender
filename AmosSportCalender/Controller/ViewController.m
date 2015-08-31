@@ -129,7 +129,7 @@
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"plus"] style:UIBarButtonItemStylePlain target:self action:@selector(addNewEvent:)];
-    UIBarButtonItem *todayButton = [[UIBarButtonItem alloc] initWithTitle:@"今天" style:UIBarButtonItemStylePlain target:self action:@selector(didGoTodayTouch)];
+    UIBarButtonItem *todayButton = [[UIBarButtonItem alloc] initWithTitle:Local(@"Today") style:UIBarButtonItemStylePlain target:self action:@selector(didGoTodayTouch)];
     _rightButtons = [[NSArray alloc] initWithObjects: addButton, todayButton, nil];
     self.navigationItem.rightBarButtonItems = _rightButtons;
     
@@ -254,9 +254,9 @@
         if (self.oneDayEvents.count > [self.doneNumber intValue]) {
             
             if (personal.name.length > 0){
-            self.underTableLabel.text = [NSString stringWithFormat:@"%@，共有%@个项目，已完成%d项，还剩%lu项", personal.name, @(self.oneDayEvents.count), [self.doneNumber intValue], self.oneDayEvents.count - [self.doneNumber intValue]];
+            self.underTableLabel.text = [NSString stringWithFormat:Local(@"%@，all %@ events，now %d done，%lu more left"), personal.name, @(self.oneDayEvents.count), [self.doneNumber intValue], self.oneDayEvents.count - [self.doneNumber intValue]];
             }else{
-                self.underTableLabel.text = [NSString stringWithFormat:@"共有%@个项目，已完成%d项，还剩%lu项", @(self.oneDayEvents.count), [self.doneNumber intValue], self.oneDayEvents.count - [self.doneNumber intValue]];
+                self.underTableLabel.text = [NSString stringWithFormat:Local(@"all %@ events，now %d done，%lu more left"), @(self.oneDayEvents.count), [self.doneNumber intValue], self.oneDayEvents.count - [self.doneNumber intValue]];
             }
             if (_calendarManager.settings.weekModeEnabled) {
                 self.addToCalendarButton.hidden = NO;
@@ -265,9 +265,9 @@
             }
         }else if (self.oneDayEvents.count == [self.doneNumber intValue]){
             if (personal.name.length > 0) {
-                self.underTableLabel.text = [NSString stringWithFormat:@"今天的运动已经全部完成，%@，干得好！", personal.name];
+                self.underTableLabel.text = [NSString stringWithFormat:Local(@"All events have done today，%@，well done!"), personal.name];
             }else{
-                self.underTableLabel.text = [NSString stringWithFormat:@"今天的运动已经全部完成，干得好！"];
+                self.underTableLabel.text = [NSString stringWithFormat:Local(@"All events have done today，well done!")];
             }
             self.addToCalendarButton.hidden = YES;
         }
@@ -374,7 +374,7 @@
 
     switch ([sender selectedSegmentIndex]) {
         case 0:
-            NSLog(@"first click");
+//            NSLog(@"first click");
             
             [[self.view.subviews lastObject] removeFromSuperview];
             self.navigationItem.rightBarButtonItem = nil;
@@ -385,7 +385,7 @@
             break;
             
         case 1:
-            NSLog(@"second click");
+//            NSLog(@"second click");
 
             if (_calendarManager.settings.weekModeEnabled) {
                 [self transitionExample];
@@ -727,12 +727,12 @@
 
 - (void)calendarDidLoadNextPage:(JTCalendarManager *)calendar
 {
-        NSLog(@"Next page loaded");
+//        NSLog(@"Next page loaded");
 }
 
 - (void)calendarDidLoadPreviousPage:(JTCalendarManager *)calendar
 {
-        NSLog(@"Previous page loaded");
+//        NSLog(@"Previous page loaded");
 }
 
 #pragma mark - tableview
@@ -870,7 +870,7 @@
     //删除的方法
     UITableViewRowAction *deleteAction = [UITableViewRowAction
        rowActionWithStyle:UITableViewRowActionStyleDestructive
-       title:@"删除"
+       title:Local(@"Delete")
        handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
          Event *event = self.oneDayEvents[indexPath.row];
          [[EventStore sharedStore] removeItem:event date:self.selectedDate];
@@ -897,7 +897,7 @@
     //修改内容的方法
     UITableViewRowAction *editAction = [UITableViewRowAction
       rowActionWithStyle:UITableViewRowActionStyleNormal
-      title:@"修改"
+      title:Local(@"Edit")
       handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
           self.tempEvent = self.oneDayEvents[indexPath.row];
           
@@ -1095,13 +1095,13 @@
         
         NSString *tempAttribute;
         if (event.weight == 0 && event.times > 0) {
-            tempAttribute = [NSString stringWithFormat:@"%d组 x %d次", event.rap, event.times];
+            tempAttribute = [NSString stringWithFormat:Local(@"%d times x %d RM"), event.rap, event.times];
         }else if (event.weight == 220 && event.times > 0){
-            tempAttribute = [NSString stringWithFormat:@"%d组 x %d次  自身重量", event.rap, event.times];
+            tempAttribute = [NSString stringWithFormat:Local(@"%d times x %d RM  self-Weight"), event.rap, event.times];
         }else if (event.times == 0 && event.rap == 0){
-            tempAttribute = [NSString stringWithFormat:@"%d分钟", event.timelast];
+            tempAttribute = [NSString stringWithFormat:Local(@"%d min"), event.timelast];
         }else{
-            tempAttribute = [NSString stringWithFormat:@"%d组 x %d次   %.1fkg", event.rap, event.times, event.weight];
+            tempAttribute = [NSString stringWithFormat:Local(@"%d times x %d RM   %.1fkg"), event.rap, event.times, event.weight];
         }
         [notesStr appendFormat:@"- %@ （%@）\n", event.sportName, tempAttribute];
         
@@ -1192,14 +1192,14 @@
     
     _activity = @[weixinSession, weixinTimeLine, QQSession, Qzone];
     
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"您想要分享什么"
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:Local(@"What you wanna share with")
                                                                    message:@""
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"取消"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Cancel")
                                               style:UIAlertActionStyleCancel
                                             handler:^(UIAlertAction * action) {}]];
-    NSString *countStr = [NSString stringWithFormat:@"今日-运动项目(%@项)", @(self.oneDayEvents.count)];
+    NSString *countStr = [NSString stringWithFormat:Local(@"Today's events(%@)"), @(self.oneDayEvents.count)];
     [alert addAction:[UIAlertAction actionWithTitle:countStr
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction * action) {
@@ -1210,7 +1210,7 @@
         UIImage *img = [self addImageview:bottomImage toImage:tempImg];
         [self shareThePersonalInfo:img];
                                             }]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"总结-运动概况"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Summary")
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction * action) {
                          

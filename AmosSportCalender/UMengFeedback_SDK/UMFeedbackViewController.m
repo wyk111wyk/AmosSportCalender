@@ -435,7 +435,7 @@ const CGFloat kMessagesInputToolbarHeightDefault = 44.0f;
                 self.mTableView.frame = CGRectMake(0, 0, viewWidth, _feedbackView.frame.size.height - inputToolbarHeight);
             }
 
-            self.infoButton.frame = CGRectMake(viewWidth - 100, 0, 100, 40);
+            self.infoButton.frame = CGRectMake(viewWidth - 100, 8, 100, 40);
             break;
         }
         case UIInterfaceOrientationLandscapeLeft:
@@ -455,7 +455,7 @@ const CGFloat kMessagesInputToolbarHeightDefault = 44.0f;
             } else {
                 self.inputToolBar.frame = CGRectMake(0, _feedbackView.frame.size.height - 44, viewWidth, 44);
             }
-            self.infoButton.frame = CGRectMake(_feedbackView.frame.size.width - 100, 0, 100, 40);
+            self.infoButton.frame = CGRectMake(_feedbackView.frame.size.width - 100, 8, 100, 40);
 
             CGFloat inputToolbarHeight = self.inputToolBar.frame.size.height;
             if (self.modalStyle) {
@@ -478,6 +478,8 @@ const CGFloat kMessagesInputToolbarHeightDefault = 44.0f;
 {
     [super viewDidLoad];
 
+    [self.sideMenuViewController setPanFromEdge:NO];
+    
     // Do any additional setup after loading the view.
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrameAction:) name:UIKeyboardWillChangeFrameNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -507,7 +509,7 @@ const CGFloat kMessagesInputToolbarHeightDefault = 44.0f;
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    NSLog(@"topic and replies count: %@", @(self.topicAndReplies.count));
+//    NSLog(@"topic and replies count: %@", @(self.topicAndReplies.count));
 
     self.feedback.delegate = self;
     self.mTableView.delegate = self;
@@ -519,7 +521,7 @@ const CGFloat kMessagesInputToolbarHeightDefault = 44.0f;
     PersonInfoStore *personal = [PersonInfoStore sharedSetting];
     
     self.inputToolBar.contactInfo = [self mutableDeepCopy:[[UMFeedback sharedInstance] getUserInfo]];
-    self.infoLabel.text = [NSString stringWithFormat:UM_Local(@"Name: %@ \nPhone: %@ Email: %@"),
+    self.infoLabel.text = [NSString stringWithFormat:UM_Local(@"Name: %@ \nPhone: %@ \nEmail: %@"),
                            personal.name,
                            [self.inputToolBar.contactInfo valueForKeyPath:@"contact.phone"],
                            [self.inputToolBar.contactInfo valueForKeyPath:@"contact.email"]];
@@ -577,6 +579,23 @@ const CGFloat kMessagesInputToolbarHeightDefault = 44.0f;
 }
 
 - (NSMutableArray *)topicAndReplies {
+    PersonInfoStore *personal = [PersonInfoStore sharedSetting];
+    
+    NSString *welcomeInfo = [NSString stringWithFormat:@"Hi~ %@\n我是这款软件的开发者Amos，很高兴认识你。\n在这里，随时可以提出包括“软件错误”、“新功能建议”、“现有功能改善”等的任何反馈意见，当然最好可以附上截图。\n另外，完善个人信息也可以使沟通更高效。\n甚至，有关于健身、减肥方面的问题也欢迎询问和交流。\n我会不定期的查看和回复，祝您有一个健康、美丽的好身材！", personal.name];
+    NSMutableDictionary *welcomeDic = [NSMutableDictionary dictionary];
+    
+    if (self.feedback.topicAndReplies.count == 0) {
+        
+//        welcomeDic = [self.feedback.topicAndReplies objectAtIndex:0];
+        welcomeDic[@"content"] = welcomeInfo;
+        welcomeDic[@"type"] = @"dev_reply";
+        welcomeDic[@"is_failed"] = 0;
+        welcomeDic[@"created_at"] = @(round([[NSDate date] timeIntervalSince1970] * 1000));
+        welcomeDic[@"reply_id"] = @"55e3cf5cec12c656f9145507";
+        
+        [self.feedback.topicAndReplies addObject:welcomeDic];
+    }
+    
     return self.feedback.topicAndReplies;
 }
 
@@ -634,7 +653,7 @@ const CGFloat kMessagesInputToolbarHeightDefault = 44.0f;
     UIImagePickerController *imagePicker = [UIImagePickerController new];
     imagePicker.delegate = self;
     imagePicker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum | UIImagePickerControllerSourceTypePhotoLibrary;
-    [self presentModalViewController:imagePicker animated:YES];
+    [self presentViewController:imagePicker animated:YES completion:nil];
     
 }
 
@@ -649,23 +668,29 @@ const CGFloat kMessagesInputToolbarHeightDefault = 44.0f;
         
         [_feedback post:@{UMFeedbackMediaTypeImage: image}];
         
-        [picker dismissModalViewControllerAnimated:YES];
+        [picker dismissViewControllerAnimated:YES completion:nil];
     }
     
 }
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-    [picker dismissModalViewControllerAnimated:YES];
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)sendButtonPressed:(UIButton *)button {
     if (self.inputToolBar.isEditMode) {
         [self setIsEditMode:NO];
         
-        self.infoLabel.text = [NSString stringWithFormat:UM_Local(@"Name: %@ \nPhone: %@ Email: %@"),
+        self.infoLabel.text = [NSString stringWithFormat:UM_Local(@"Name: %@ \nPhone: %@ \nEmail: %@"),
                           [self.inputToolBar.contactInfo valueForKeyPath:@"contact.qq"],
                           [self.inputToolBar.contactInfo valueForKeyPath:@"contact.phone"],
                           [self.inputToolBar.contactInfo valueForKeyPath:@"contact.email"]];
+        
+        //收集性别、年龄等信息
+        PersonInfoStore *personal = [PersonInfoStore sharedSetting];
+        NSString *tempStr = [NSString stringWithFormat:@"%@ %@岁", personal.gender, personal.age];
+        [self.inputToolBar.contactInfo setValue:tempStr forKeyPath:@"contact.plain"];
+        
         [self.inputToolBar cleanInputText];
         if ([self.delegate respondsToSelector:@selector(updateUserInfo:)]) {
             [self.delegate updateUserInfo:self.inputToolBar.contactInfo];
@@ -1134,17 +1159,22 @@ const CGFloat kMessagesInputToolbarHeightDefault = 44.0f;
     return self.infoView;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 55;
+}
+
 - (UIView *)infoView {
     if (_infoView == nil) {
         UIView *view = [UIView new];
         view.backgroundColor = UM_UIColorFromRGB(238.0, 238.0, 238.0);
-        UILabel *infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 5, _feedbackView.frame.size.width - 80 - 10, 30)];
+        UILabel *infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 5, _feedbackView.frame.size.width - 80 - 10, 45)];
         infoLabel.numberOfLines = 0;
         infoLabel.backgroundColor = [UIColor clearColor];
         infoLabel.font = [UIFont systemFontOfSize:12.0];
         
         PersonInfoStore *personal = [PersonInfoStore sharedSetting];
-        infoLabel.text = [NSString stringWithFormat:UM_Local(@"Name: %@ \nPhone: %@ Email: %@"),
+        infoLabel.text = [NSString stringWithFormat:UM_Local(@"Name: %@ \nPhone: %@ \nEmail: %@"),
                           personal.name,
                           [self.inputToolBar.contactInfo valueForKeyPath:@"contact.phone"],
                           [self.inputToolBar.contactInfo valueForKeyPath:@"contact.email"]];
@@ -1156,12 +1186,13 @@ const CGFloat kMessagesInputToolbarHeightDefault = 44.0f;
         self.infoLabel = infoLabel;
         [view addSubview:infoLabel];
 
-        UIButton *infoButton = [[UIButton alloc] initWithFrame:CGRectMake(_feedbackView.frame.size.width - 100, 0, 100, 40)];
+        UIButton *infoButton = [[UIButton alloc] initWithFrame:CGRectMake(_feedbackView.frame.size.width - 100, 8, 100, 40)];
         infoButton.backgroundColor = [UIColor clearColor];
         infoButton.titleLabel.font = [UIFont systemFontOfSize:15.0];
+        
         infoButton.titleLabel.numberOfLines = 0;
         [infoButton setTitle:UM_Local(@"Update info") forState:UIControlStateNormal];
-        [infoButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [infoButton setTitleColor:[UIColor colorWithRed:0.0000 green:0.5608 blue:0.5176 alpha:.8] forState:UIControlStateNormal];
         [infoButton addTarget:self action:@selector(sectionTapped:) forControlEvents:UIControlEventTouchUpInside];
         self.infoButton = infoButton;
         [view addSubview:infoButton];
@@ -1172,10 +1203,6 @@ const CGFloat kMessagesInputToolbarHeightDefault = 44.0f;
         _infoView = view;
     }
     return _infoView;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 40;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

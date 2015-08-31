@@ -1,0 +1,26 @@
+/* 
+  AmosSportDiaryLocalizable.strings
+  AmosSportDiary
+
+  Created by Amos Wu on 15/8/31.
+  Copyright © 2015年 Amos Wu. All rights reserved.
+*/
+
+"Today" = "今天";
+"Delete" = "删除";
+"Edit" = "修改";
+"Cancel" = "取消";
+
+"What you wanna share with" = "您想要分享什么";
+"Today's events(%@)" = "今日-运动项目(%@项)";
+"Summary" = "总结-运动概况";
+
+"%@，all %@ events，now %d done，%lu more left" = "%@，共有%@个项目，已完成%d项，还剩%lu项";
+"all %@ events，now %d done，%lu more left" = "共有%@个项目，已完成%d项，还剩%lu项";
+"All events have done today，%@，well done!" = "今天的运动已经全部完成，%@，干得好！";
+"All events have done today，well done!" = "今天的运动已经全部完成，干得好！";
+
+"%d times x %d RM" = "%d组 x %d次";
+"%d times x %d RM  self-Weight" = "%d组 x %d次  自身重量";
+"%d min" = "%d分钟";
+"%d times x %d RM   %.1fkg" = "%d组 x %d次   %.1fkg";

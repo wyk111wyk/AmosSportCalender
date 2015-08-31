@@ -46,7 +46,7 @@
     _nMesagePieView.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) + 60, 12, 18, 18);
     _nMesagePieView.layer.cornerRadius = 9;
     _nMesagePieView.layer.masksToBounds = YES;
-    _nMesagePieView.backgroundColor = [UIColor redColor];
+    _nMesagePieView.backgroundColor = [UIColor colorWithRed:0.0000 green:0.5608 blue:0.5176 alpha:1];
     [self addSubview:_nMesagePieView];
     
     _nMessageLabel.frame = CGRectMake(0, 0, 15, 18);

@@ -153,7 +153,7 @@
 
 - (UISegmentedControl *)segmentedControl {
     if (_segmentedControl == nil) {
-        _segmentedControl = [[UISegmentedControl alloc] initWithItems:@[@"称呼", UM_Local(@"Phone"), UM_Local(@"Email")]];
+        _segmentedControl = [[UISegmentedControl alloc] initWithItems:@[UM_Local(@"Name"), UM_Local(@"Phone"), UM_Local(@"Email")]];
         _segmentedControl.tintColor = [UIColor grayColor];
         _segmentedControl.selectedSegmentIndex = 0;
         [_segmentedControl addTarget:self
@@ -242,8 +242,8 @@
     switch (index) {
         case 0:
             self.inputTextView.text = personal.name;
-            self.inputTextView.keyboardType = UIKeyboardTypeNumberPad;
-            self.inputTextView.placeholder = @"请问怎么称呼";
+            self.inputTextView.keyboardType = UIKeyboardTypeDefault;
+            self.inputTextView.placeholder = UM_Local(@"for your name");;
             break;
         case 1:
             self.inputTextView.text = [self.contactInfo valueForKeyPath:@"contact.phone"];
@@ -408,6 +408,7 @@
 - (void)didChangeTextViewText:(NSNotification *)notification
 {
     UMTextView *textView = (UMTextView *)notification.object;
+    PersonInfoStore *personal =[PersonInfoStore sharedSetting];
     
     // Skips this it's not the expected textView.
     if (![textView isEqual:self.inputTextView]) {
@@ -422,6 +423,7 @@
 
     switch (self.segmentedControl.selectedSegmentIndex) {
         case 0:
+            personal.name = textView.text;
             [self.contactInfo setValue:textView.text forKeyPath:@"contact.qq"];
             break;
         case 1:

@@ -34,6 +34,7 @@
 		B019BEF81B935C0B00D2D8F6 /* UMPostTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B019BEDC1B935C0B00D2D8F6 /* UMPostTableViewCell.m */; settings = {ASSET_TAGS = (); }; };
 		B019BEF91B935C0B00D2D8F6 /* UMRadialView.m in Sources */ = {isa = PBXBuildFile; fileRef = B019BEDE1B935C0B00D2D8F6 /* UMRadialView.m */; settings = {ASSET_TAGS = (); }; };
 		B019BEFA1B935C0B00D2D8F6 /* UMTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = B019BEE01B935C0B00D2D8F6 /* UMTextView.m */; settings = {ASSET_TAGS = (); }; };
+		B019BEFD1B9472D700D2D8F6 /* AmosSportDiaryLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B019BEFF1B9472D700D2D8F6 /* AmosSportDiaryLocalizable.strings */; };
 		B025CF471B84599000FB1A22 /* TouchIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B025CF461B84599000FB1A22 /* TouchIDViewController.m */; };
 		B02A98961B8EF9A200F19EDC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B02A98951B8EF9A200F19EDC /* CoreGraphics.framework */; };
 		B02A98981B8EF9B800F19EDC /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B02A98971B8EF9B800F19EDC /* ImageIO.framework */; };
@@ -216,6 +217,9 @@
 		B019BEDF1B935C0B00D2D8F6 /* UMTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMTextView.h; sourceTree = "<group>"; };
 		B019BEE01B935C0B00D2D8F6 /* UMTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UMTextView.m; sourceTree = "<group>"; };
 		B019BEE11B935C0B00D2D8F6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/UMFeedbackLocalizable.strings"; sourceTree = "<group>"; };
+		B019BEFE1B9472D700D2D8F6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/AmosSportDiaryLocalizable.strings"; sourceTree = "<group>"; };
+		B019BF001B9472DF00D2D8F6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = Base; path = Base.lproj/AmosSportDiaryLocalizable.strings; sourceTree = "<group>"; };
+		B019BF021B9479A900D2D8F6 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
 		B025CF451B84599000FB1A22 /* TouchIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TouchIDViewController.h; path = Controller/TouchIDViewController.h; sourceTree = "<group>"; };
 		B025CF461B84599000FB1A22 /* TouchIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TouchIDViewController.m; path = Controller/TouchIDViewController.m; sourceTree = "<group>"; };
 		B02A98941B8EF5B000F19EDC /* CommonMarco.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonMarco.h; sourceTree = "<group>"; };
@@ -537,7 +541,7 @@
 			path = vendor/Tencent;
 			sourceTree = "<group>";
 		};
-		B07043E91B8C148900512A3C /* Helper */ = {
+		B07043E91B8C148900512A3C /* Vender */ = {
 			isa = PBXGroup;
 			children = (
 				B019BEB81B935C0B00D2D8F6 /* UMengFeedback_SDK */,
@@ -551,7 +555,7 @@
 				B071E6931B859B4100133D63 /* RESideMenu */,
 				B0E144DA1B81C58700934377 /* TOWebViewController */,
 			);
-			name = Helper;
+			name = Vender;
 			sourceTree = "<group>";
 		};
 		B07043EA1B8D708500512A3C /* weChat */ = {
@@ -902,7 +906,7 @@
 				B0854DA01B6CA0E200C1B150 /* Controller */,
 				B0FA58A41B4678D400E3BE94 /* Assets.xcassets */,
 				B0FA58951B4678D400E3BE94 /* Supporting Files */,
-				B07043E91B8C148900512A3C /* Helper */,
+				B07043E91B8C148900512A3C /* Vender */,
 			);
 			path = AmosSportCalender;
 			sourceTree = "<group>";
@@ -911,6 +915,7 @@
 			isa = PBXGroup;
 			children = (
 				B0FA58A91B4678D400E3BE94 /* Info.plist */,
+				B019BEFF1B9472D700D2D8F6 /* AmosSportDiaryLocalizable.strings */,
 				B0FA58961B4678D400E3BE94 /* main.m */,
 				B0723E5B1B79002900F8A63E /* sportTypes.plist */,
 				B0B973641B747CFF0008640E /* PrefixHeader.pch */,
@@ -1074,6 +1079,7 @@
 				B0FA58A01B4678D400E3BE94 /* Main.storyboard in Resources */,
 				B019BEE21B935C0B00D2D8F6 /* UMFeedbackLocalizable.strings in Resources */,
 				B019BEED1B935C0B00D2D8F6 /* umeng_fb_audio_dialog_cancel@2x.png in Resources */,
+				B019BEFD1B9472D700D2D8F6 /* AmosSportDiaryLocalizable.strings in Resources */,
 				B087E02E1B7716E8003D90B6 /* DetailSummaryVC.xib in Resources */,
 				B019BEEA1B935C0B00D2D8F6 /* ToolViewInputVoice@2x.png in Resources */,
 				B019BEEF1B935C0B00D2D8F6 /* umeng_fb_audio_play_01@2x.png in Resources */,
@@ -1224,10 +1230,20 @@
 			name = UMFeedbackLocalizable.strings;
 			sourceTree = "<group>";
 		};
+		B019BEFF1B9472D700D2D8F6 /* AmosSportDiaryLocalizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B019BEFE1B9472D700D2D8F6 /* zh-Hans */,
+				B019BF001B9472DF00D2D8F6 /* Base */,
+			);
+			name = AmosSportDiaryLocalizable.strings;
+			sourceTree = "<group>";
+		};
 		B0FA589E1B4678D400E3BE94 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				B0FA589F1B4678D400E3BE94 /* Base */,
+				B019BF021B9479A900D2D8F6 /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
