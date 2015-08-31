@@ -23,6 +23,9 @@
     _titleLabel = [[UILabel alloc]initWithFrame:CGRectZero];
     _pieView = [[UIView alloc]initWithFrame:CGRectZero];
     
+    _nMesagePieView = [[UIView alloc] initWithFrame:CGRectZero];
+    _nMessageLabel = [[UILabel alloc] initWithFrame:CGRectZero];
+    
     self.pieView.frame = CGRectMake(10, (CGRectGetHeight(self.bounds) - 28) / 2, 30, 30);
     self.pieView.layer.cornerRadius = 14;
     self.pieView.layer.masksToBounds = YES;
@@ -37,7 +40,24 @@
     _titleLabel.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) + 20, 0, 120, CGRectGetHeight(self.bounds));
     _titleLabel.font = [UIFont fontWithName:@"Arial" size:18];
     _titleLabel.textColor = [UIColor colorWithWhite:0.95 alpha:1];
+//    [_titleLabel sizeToFit];
     [self addSubview:_titleLabel];
+    
+    _nMesagePieView.frame = CGRectMake(CGRectGetMaxX(self.imageView.frame) + 60, 12, 18, 18);
+    _nMesagePieView.layer.cornerRadius = 9;
+    _nMesagePieView.layer.masksToBounds = YES;
+    _nMesagePieView.backgroundColor = [UIColor redColor];
+    [self addSubview:_nMesagePieView];
+    
+    _nMessageLabel.frame = CGRectMake(0, 0, 15, 18);
+    _nMessageLabel.center = _nMesagePieView.center;
+    _nMessageLabel.font = [UIFont fontWithName:@"Arial" size:14];
+    _nMessageLabel.textColor = [UIColor whiteColor];
+    _nMessageLabel.text = @"";
+    _nMessageLabel.textAlignment = NSTextAlignmentCenter;
+    [self addSubview:_nMessageLabel];
+    
+    _nMesagePieView.hidden = YES;
     
     return self;
 }

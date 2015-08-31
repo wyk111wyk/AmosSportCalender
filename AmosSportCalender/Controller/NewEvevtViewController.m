@@ -138,7 +138,7 @@
     [self.sportSearchBar sizeToFit];
     self.sportSearchBar.returnKeyType = UIReturnKeySearch;
     self.sportSearchBar.placeholder = @"搜索或者新建运动项目";
-    [self getSportPickerData];
+    [self getSportPickerData: 0];
 
     //sportTypePicker初始化
     self.sportTypePicker = [[UIPickerView alloc] initWithFrame:CGRectZero];
@@ -209,11 +209,10 @@
     self.doneSwitchButton.on = self.event.done;
     
     //图片显示
-    NSString *itemKey = self.event.itemKey;
-    if ([[ImageStore shareStore] imageForKey:itemKey]) {
-    UIImage *imageToDisplay = [[ImageStore shareStore] imageForKey:itemKey];
+//    int picNum = arc4random() % 6;
+    UIImage *imageToDisplay = [UIImage imageNamed:[NSString stringWithFormat:@"funPic%i", 4]];
     if (imageToDisplay) {self.imageView.image = imageToDisplay;};
-    }
+    
     
     //重量的UI显示
     if ([self.weightTextFeild.text isEqualToString:@"220"]) {
@@ -671,7 +670,7 @@
     if (row1 == 9999) {
         [self actionAlertForNotSearchResult: searchBar.text];
     }else{
-        NSLog(@"row1 = %i, row2 = %i", row1, row2);
+//        NSLog(@"row1 = %i, row2 = %i", row1, row2);
         [self.sportPicker selectRow:(NSInteger)row1 inComponent:0 animated:YES];
         self.sportNames = [[self.sportTypes objectAtIndex:row1] objectForKey:@"sportName"];
         [self.sportPicker reloadComponent:1];
@@ -701,8 +700,8 @@
 - (void)alertForTips
 {
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Tips:根据运动目的的不同"
-                                                                   message:@"\n1.减脂\n先做些大肌群的中等重量复合动作训练，比如空杆的深蹲，蹲跳等。无氧后采用强度和时间都相对长的HIIT。\n\n2.紧致的线条\n可以采用多组数（20组以上），多次数（每组20次以上），中等重量（最大负重的50%）的循环力量训练。搭配强度较大，时间中等的HIIT。\n\n3.增加某部位肌肉\n大重量小组数，下落时候要有控制的非常慢，也就是注意离心收缩。"
-                                                            preferredStyle:UIAlertControllerStyleActionSheet];
+       message:@"\n1.减脂\n先做些大肌群的中等重量复合动作训练，比如空杆的深蹲，蹲跳等。无氧后采用强度和时间都相对长的HIIT。\n\n2.紧致的线条\n可以采用多组数（20组以上），多次数（每组20次以上），中等重量（最大负重的50%）的循环力量训练。搭配强度较大，时间中等的HIIT。\n\n3.增加某部位肌肉\n大重量小组数，下落时候要有控制的非常慢，也就是注意离心收缩。"
+       preferredStyle:UIAlertControllerStyleActionSheet];
     
     [alert addAction:[UIAlertAction actionWithTitle:@"Go！"
                                               style:UIAlertActionStyleCancel
@@ -732,6 +731,7 @@
     
     self.searchBarType = alert.textFields[0];
     self.searchBarType.delegate = self;
+    [self.sportTypePicker selectRow:0 inComponent:0 animated:NO];
     
     UITextField *sportNameField = alert.textFields[1];
     self.sportNameTemps = [NSMutableArray array];
@@ -743,8 +743,14 @@
                                                 
     [self.sportNameTemps addObject:sportNameField.text];
     [self saveTheDate];
-    [self getSportPickerData];
-    [self.sportPicker reloadAllComponents];
+                           
+    [self.sportPicker selectRow:self.indexRow inComponent:0 animated:NO];
+    [self getSportPickerData: self.indexRow];
+    [self.sportPicker reloadComponent:1];
+    [self.sportPicker selectRow:self.sportNames.count inComponent:1 animated:YES];
+                                                
+    self.sportTypeTextField.text = self.searchBarType.text;
+    self.sportNameTextField.text = sportNameField.text;
                                             }]];
     
     [alert addAction:[UIAlertAction actionWithTitle:@"取消"
@@ -861,7 +867,7 @@
 
 #pragma mark - data sources
 
-- (void)getSportPickerData{
+- (void)getSportPickerData: (NSUInteger)index{
     //设置sportPicker的属性
     NSFileManager * defaultManager = [NSFileManager defaultManager];
     NSURL * documentPath = [[defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask]firstObject];
@@ -874,7 +880,7 @@
     if (!self.sportNames) {
         self.sportNames = [NSArray array];
     }
-    self.sportNames = [[self.sportTypes objectAtIndex:0] objectForKey:@"sportName"];
+    self.sportNames = [[self.sportTypes objectAtIndex:index] objectForKey:@"sportName"];
 }
 
 - (void)saveTheDate

@@ -20,6 +20,8 @@
 #import "WXApi.h"
 #import <TencentOpenAPI/TencentOAuth.h>
 #import "MobClick.h"
+#import "UMFeedback.h"
+#import "UMOpus.h"
 
 @interface AppDelegate ()<RESideMenuDelegate, WXApiDelegate>
 @end
@@ -204,9 +206,13 @@ NSArray *sportTypes;
     NSDictionary *infoDictionary =[[NSBundle mainBundle]infoDictionary];
     NSString *infoStr = [NSString stringWithFormat:@"V %@.%@", [infoDictionary objectForKey:@"CFBundleShortVersionString"], [infoDictionary objectForKey:@"CFBundleVersion"]];
     [MobClick setAppVersion:infoStr]; //app版本设置
-    [MobClick setEncryptEnabled:YES]; //日子传输加密
+    [MobClick setEncryptEnabled:YES]; //日志传输加密
     [MobClick setLogEnabled:NO]; //是否开启调试日志
     [MobClick setCrashReportEnabled:YES]; //是否报告崩溃记录
+    
+    //友盟的用户反馈功能
+    [UMFeedback setAppkey:YouMen_AppKey];
+    [UMOpus setAudioEnable:YES]; //开启反馈时的语音功能
     
     //蒲公英SDK提供的方法
     [[PgyManager sharedPgyManager] startManagerWithAppId:PGY_APP_ID];
@@ -216,7 +222,6 @@ NSArray *sportTypes;
     //向微信注册
     BOOL weChatSuccess = [WXApi registerApp:WeiXin_AppKey withDescription:@"Amos运动日记"];
     NSLog(@"%@", weChatSuccess ? @"weChat-微信注册成功" : @"register Fail");
-    
     
     //注册微博
 //    [WeiboSDK enableDebugMode:YES];

@@ -74,7 +74,7 @@ static NSString* const typeManageCellReuseId = @"typeManageCell";
     UILabel *headText = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 22)];
     headText.textColor = [UIColor darkGrayColor];
     [headText setFont:[UIFont fontWithName:@"Arial" size:12]];
-    headText.text = @"点击项目以编辑运动种类，类型暂时无法编辑";
+    headText.text = @"点击项目以编辑运动种类，类型根据身体部位区分，暂时无法编辑";
     [headText sizeToFit];
     headText.center = headerView.center;
     [headerView addSubview:headText];

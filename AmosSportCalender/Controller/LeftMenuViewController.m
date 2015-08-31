@@ -9,6 +9,7 @@
 #import "LeftMenuViewController.h"
 #import "LeftMenuView.h"
 #import "RESideMenu.h"
+#import "UMFeedback.h"
 
 @interface LeftMenuViewController ()
 
@@ -55,6 +56,23 @@
     _aboutView.isSelected = NO;
     _aboutView.titleLabel.text = _menuName[5];
     _aboutView.imageView.image = [UIImage imageNamed:@"about"];
+    
+//    NSLog(@"%@", NSStringFromSelector(_cmd));
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // 有新消息
+    UMFeedback *feed = [UMFeedback sharedInstance];
+    if (feed.theNewReplies != nil && feed.theNewReplies.count > 0) {
+        NSLog(@"开发者给我发新消息了！！！ %@条！", @(feed.theNewReplies.count));
+        _feedbackView.nMesagePieView.hidden = NO;
+        _feedbackView.nMessageLabel.text = [NSString stringWithFormat:@"%@", @(feed.theNewReplies.count)];
+    }
+    
+//    NSLog(@"%@", NSStringFromSelector(_cmd));
 }
 
 - (IBAction)menuSelected:(LeftMenuView *)sender {
@@ -82,7 +100,13 @@
             [self.sideMenuViewController setContentViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"settingNav"] animated:YES];
         }else if (sender == _feedbackView){
             NSLog(@"click 5");
-            [self.sideMenuViewController setContentViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"feedbackNav"] animated:YES];
+//            [self.sideMenuViewController setContentViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"feedbackNav"] animated:YES];
+            
+            UINavigationController *feedbackNav = [[UINavigationController alloc] initWithRootViewController:[UMFeedback feedbackViewController]];
+            feedbackNav.navigationBar.tintColor = [UIColor colorWithRed:0.0000 green:0.5608 blue:0.5176 alpha:1];
+            
+            [self.sideMenuViewController setContentViewController:feedbackNav animated:YES];
+            
         }else if (sender == _aboutView){
             NSLog(@"click 6");
             [self.sideMenuViewController setContentViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"aboutNav"] animated:YES];

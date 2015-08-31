@@ -13,6 +13,10 @@
 @property (nonatomic, strong)UIImageView *imageView; ///<menu图标
 @property (nonatomic, strong)UILabel *titleLabel; ///<menu文字
 @property (nonatomic, strong)UIView *pieView;
+
+@property (nonatomic, strong)UIView *nMesagePieView;
+@property (nonatomic, strong)UILabel *nMessageLabel;
+
 @property (nonatomic)BOOL isSelected;
 
 @end

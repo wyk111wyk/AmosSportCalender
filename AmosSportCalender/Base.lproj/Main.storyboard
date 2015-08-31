@@ -272,7 +272,7 @@
                             </connections>
                         </segmentedControl>
                         <rightBarButtonItems>
-                            <barButtonItem image="A3D158D3-B412-4602-BF7E-12EA661E73FF" id="Q0d-93-jot">
+                            <barButtonItem image="E1FD2C95-8DC9-453D-8219-6AD68C007EE7" id="Q0d-93-jot">
                                 <inset key="imageInsets" minX="0.0" minY="0.0" maxX="-5" maxY="0.0"/>
                                 <connections>
                                     <segue destination="PQc-Sa-kkZ" kind="modal" identifier="newEvent" id="Eyv-e8-k6G"/>
@@ -442,7 +442,7 @@
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <animations/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -473,6 +473,7 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="liK-F3-dKn">
                                                     <rect key="frame" x="303" y="6" width="51" height="31"/>
                                                     <animations/>
+                                                    <color key="onTintColor" red="0.0" green="0.56429483979999995" blue="0.52211750599999995" alpha="1" colorSpace="calibratedRGB"/>
                                                     <connections>
                                                         <action selector="changeSwitchView:" destination="lBI-rL-J1K" eventType="valueChanged" id="gaq-QX-xKy"/>
                                                     </connections>
@@ -513,6 +514,7 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bqb-tf-qaF">
                                                     <rect key="frame" x="303" y="6" width="51" height="31"/>
                                                     <animations/>
+                                                    <color key="onTintColor" red="0.0" green="0.56429483979999995" blue="0.52211750599999995" alpha="1" colorSpace="calibratedRGB"/>
                                                     <connections>
                                                         <action selector="changeSwitchView:" destination="lBI-rL-J1K" eventType="valueChanged" id="pm0-9p-RzZ"/>
                                                     </connections>
@@ -548,6 +550,7 @@
                                                         <segment title="男性"/>
                                                         <segment title="女性"/>
                                                     </segments>
+                                                    <color key="tintColor" red="0.0" green="0.56429483979999995" blue="0.52211750599999995" alpha="1" colorSpace="calibratedRGB"/>
                                                     <connections>
                                                         <action selector="switchValueChange:" destination="lBI-rL-J1K" eventType="valueChanged" id="Ood-R3-syf"/>
                                                     </connections>
@@ -612,6 +615,7 @@
                                                 <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p7n-EM-VFJ">
                                                     <rect key="frame" x="303" y="6" width="51" height="31"/>
                                                     <animations/>
+                                                    <color key="onTintColor" red="0.0" green="0.56429483979999995" blue="0.52211750599999995" alpha="1" colorSpace="calibratedRGB"/>
                                                     <connections>
                                                         <action selector="changeSwitchView:" destination="lBI-rL-J1K" eventType="valueChanged" id="wPE-HC-epA"/>
                                                     </connections>
@@ -1950,7 +1954,7 @@
                                     <action selector="backgroundTapped:" destination="WTf-Hi-5yk" eventType="touchUpInside" id="NN8-Dv-ydf"/>
                                 </connections>
                             </view>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="深蹲" translatesAutoresizingMaskIntoConstraints="NO" id="Wcs-4W-02b">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="funPic4" translatesAutoresizingMaskIntoConstraints="NO" id="Wcs-4W-02b">
                                 <rect key="frame" x="20" y="320" width="335" height="293"/>
                                 <animations/>
                             </imageView>
@@ -1961,7 +1965,7 @@
                                     <constraint firstAttribute="height" constant="44" id="ece-Pu-TJV"/>
                                 </constraints>
                                 <items>
-                                    <barButtonItem systemItem="camera" id="oFJ-pR-Ec2">
+                                    <barButtonItem id="oFJ-pR-Ec2">
                                         <connections>
                                             <action selector="cameraButtonClick:" destination="WTf-Hi-5yk" id="HnY-rb-IPI"/>
                                         </connections>
@@ -2095,6 +2099,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
+                        <color key="tintColor" red="0.0" green="0.56429483979999995" blue="0.52211750599999995" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="HzY-Gw-Yk3">
@@ -2118,6 +2123,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
+                        <color key="tintColor" red="0.0" green="0.56429483979999995" blue="0.52211750599999995" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="mOf-1y-G7W">
@@ -2142,6 +2148,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
+                        <color key="tintColor" red="0.0" green="0.56429483979999995" blue="0.52211750599999995" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -2162,6 +2169,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
+                        <color key="tintColor" red="0.0" green="0.56429483979999995" blue="0.52211750599999995" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -2181,6 +2189,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
+                        <color key="tintColor" red="0.0" green="0.56429483979999995" blue="0.52211750599999995" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <connections>
                         <segue destination="zWi-TJ-Loi" kind="relationship" relationship="rootViewController" id="HvS-RS-Hfa"/>
@@ -2513,6 +2522,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
+                        <color key="tintColor" red="0.0" green="0.56429483979999995" blue="0.52211750599999995" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -2533,6 +2543,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
+                        <color key="tintColor" red="0.0" green="0.56429483979999995" blue="0.52211750599999995" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -2552,6 +2563,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
+                        <color key="tintColor" red="0.0" green="0.56429483979999995" blue="0.52211750599999995" alpha="1" colorSpace="calibratedRGB"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -2564,7 +2576,10 @@
         </scene>
     </scenes>
     <resources>
-        <image name="A3D158D3-B412-4602-BF7E-12EA661E73FF" width="24" height="24">
+        <image name="Amos运动日记Icon" width="150" height="150"/>
+        <image name="DonePic" width="350" height="180"/>
+        <image name="DonePicHorizontal" width="350" height="180"/>
+        <image name="E1FD2C95-8DC9-453D-8219-6AD68C007EE7" width="24" height="24">
             <mutableData key="keyedArchiveRepresentation">
 YnBsaXN0MDDUAQIDBAUGOjtYJHZlcnNpb25YJG9iamVjdHNZJGFyY2hpdmVyVCR0b3ASAAGGoK0HCBEW
 GxwgISgrLjQ3VSRudWxs1AkKCwwNDg8QViRjbGFzc1xOU0ltYWdlRmxhZ3NWTlNSZXBzV05TQ29sb3KA
@@ -2612,7 +2627,7 @@ AAMAAAABABgAAAEBAAMAAAABABgAAAECAAMAAAAEAAAJtgEDAAMAAAABAAEAAAEGAAMAAAABAAIAAAER
 AAQAAAABAAAACAESAAMAAAABAAEAAAEVAAMAAAABAAQAAAEWAAMAAAABABgAAAEXAAQAAAABAAAJAAEc
 AAMAAAABAAEAAAFSAAMAAAABAAIAAAFTAAMAAAAEAAAJvodzAAcAAAxIAAAJxgAAAAAACAAIAAgACAAB
 AAEAAQABAAAMSExpbm8CEAAAbW50clJHQiBYWVogB84AAgAJAAYAMQAAYWNzcE1TRlQAAAAASUVDIHNS
-R0IAAAAAAAAAAAAAAAAAAPbWAAEAAAAA0y1IUCAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+R0IAAAAAAAAAAAAAAAEAAPbWAAEAAAAA0y1IUCAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAAAAAAAAAAAAAAAAAAAARY3BydAAAAVAAAAAzZGVzYwAAAYQAAABsd3RwdAAAAfAAAAAUYmtwdAAA
 AgQAAAAUclhZWgAAAhgAAAAUZ1hZWgAAAiwAAAAUYlhZWgAAAkAAAAAUZG1uZAAAAlQAAABwZG1kZAAA
 AsQAAACIdnVlZAAAA0wAAACGdmlldwAAA9QAAAAkbHVtaQAAA/gAAAAUbWVhcwAABAwAAAAkdGVjaAAA
@@ -2672,17 +2687,14 @@ yBbaFt8W6hbzFwYXChcVFx4XIxcrFy4XMxdCF0YXTRdVF2IXZxdpF2sXcBd4F3sXgBeIF4sXnRegF6UA
 AAAAAAACAQAAAAAAAAA+AAAAAAAAAAAAAAAAAAAXpw
 </mutableData>
         </image>
-        <image name="Amos运动日记Icon" width="150" height="150"/>
-        <image name="DonePic" width="350" height="180"/>
-        <image name="DonePicHorizontal" width="350" height="180"/>
         <image name="Touch_ID_Blue200" width="200" height="200"/>
-        <image name="add1" width="512" height="512"/>
+        <image name="add1" width="200" height="200"/>
         <image name="check" width="20" height="20"/>
+        <image name="funPic4" width="178" height="134"/>
         <image name="info" width="25" height="25"/>
         <image name="menuIcon" width="24" height="24"/>
         <image name="plus" width="24" height="24"/>
         <image name="search" width="25" height="25"/>
         <image name="uncheck" width="20" height="20"/>
-        <image name="深蹲" width="500" height="400"/>
     </resources>
 </document>
