@@ -31,6 +31,7 @@
 #import "RESideMenu.h"
 #import "WXApi.h"
 #import "MobClick.h"
+#import "NYSegmentedControl.h"
 
 @interface ViewController ()<UITableViewDataSource, UITableViewDelegate, EKEventEditViewDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate, WXApiDelegate>
 {
@@ -40,11 +41,14 @@
     NSDate *_minDate;
     NSDate *_maxDate;
 }
+@property NYSegmentedControl *segmentedControl;
+
 @property (strong, nonatomic)NSMutableDictionary *eventsMostByDate;
 @property (strong, nonatomic)NSMutableArray *sportTypes;
 @property (strong, nonatomic)NSArray *homeStrLists;
 @property (strong, nonatomic)NSArray *rightButtons;
 
+@property (strong, nonatomic) IBOutlet UIView *rootView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *menuButton;
 @property (weak, nonatomic) IBOutlet UILabel *underTableLabel;
@@ -124,15 +128,31 @@
     [[UIApplication sharedApplication] registerUserNotificationSettings:setting];
     }
     
+    //TableView初始化
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
+    //NavBar初始化
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"plus"] style:UIBarButtonItemStylePlain target:self action:@selector(addNewEvent:)];
     UIBarButtonItem *todayButton = [[UIBarButtonItem alloc] initWithTitle:Local(@"Today") style:UIBarButtonItemStylePlain target:self action:@selector(didGoTodayTouch)];
     _rightButtons = [[NSArray alloc] initWithObjects: addButton, todayButton, nil];
     self.navigationItem.rightBarButtonItems = _rightButtons;
     
+    self.segmentedControl = [[NYSegmentedControl alloc] initWithItems:@[Local(@"Cal"), Local(@"Sum")]];
+    [self.segmentedControl addTarget:self action:@selector(segmentedControl:) forControlEvents:UIControlEventValueChanged];
+    self.segmentedControl.backgroundColor = [UIColor colorWithWhite:0.9f alpha:1.0f];
+    self.segmentedControl.segmentIndicatorBackgroundColor = [UIColor whiteColor];
+    self.segmentedControl.segmentIndicatorInset = 0.0f;
+    self.segmentedControl.titleTextColor = [UIColor lightGrayColor];
+    self.segmentedControl.selectedTitleTextColor = [UIColor darkGrayColor];
+    self.segmentedControl.usesSpringAnimations = YES;
+    self.segmentedControl.selectedSegmentIndex = 0;
+    
+    [self.segmentedControl sizeToFit];
+    self.navigationItem.titleView = self.segmentedControl;
+    
+    //日历初始化
     _calendarManager = [JTCalendarManager new];
     _calendarManager.delegate = self;
     _calendarManager.settings.weekDayFormat = JTCalendarWeekDayFormatShort;
@@ -404,6 +424,7 @@
             
             self.addEventButton.enabled = NO;
             [self.view addSubview:summaryVC.view];
+            
             break;
             
         default:
@@ -601,9 +622,9 @@
 - (void)calendar:(JTCalendarManager *)calendar prepareDayView:(JTCalendarDayView *)dayView
 {
 //    NSLog(@"prepareDayView");
-    NSTimeZone *localZone=[NSTimeZone localTimeZone];
-    NSInteger interval=[localZone secondsFromGMTForDate:dayView.date];
-    NSDate *mydate=[dayView.date dateByAddingTimeInterval:interval];
+    NSTimeZone *localZone = [NSTimeZone localTimeZone];
+    NSInteger interval = [localZone secondsFromGMTForDate:dayView.date];
+    NSDate *mydate = [dayView.date dateByAddingTimeInterval:interval];
     
     [self setUnderTableLabelWithDifferentDay:mydate];
     
@@ -1002,11 +1023,6 @@
 
 #pragma mark - Helper methods
 
-- (void)shareThePersonalInfo
-{
-    
-}
-
 /** @brief Returns a customized snapshot of a given view. */
 - (UIView *)customSnapshoFromView:(UIView *)inputView {
     
@@ -1215,14 +1231,14 @@
                                             handler:^(UIAlertAction * action) {
                          
 //        UIImage *topImg1 = [self captureView:_calendarMenuView Rectsize:CGSizeMake(screenWidth, 50)];
-//        UIImage *topImg2 = [self captureView:_calendarContentView Rectsize:CGSizeMake(screenWidth, 300)];
+        UIImage *topImg2 = [SummaryViewController captureView:summaryVC.view4];
 //        UIImage *topImg = [self addImageview:topImg2 toImage:topImg1];
                                                 
         UIImage *tempImg = [SummaryViewController captureView:summaryVC.view1];
-        UIImage *bottomImg = [self addImageview:bottomImage toImage:tempImg];
+        UIImage *bottomImg = [self addImageview:topImg2 toImage:tempImg];
                                                 
-//        UIImage *img = [self addImageview:bottomImg toImage:topImg];
-        [self shareThePersonalInfo:bottomImg];
+        UIImage *img = [self addImageview:bottomImage toImage:bottomImg];
+        [self shareThePersonalInfo:img];
                                             }]];
     
     [self presentViewController:alert animated:YES completion:nil];

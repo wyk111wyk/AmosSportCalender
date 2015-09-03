@@ -120,7 +120,7 @@ static NSString * const YKSummaryCellReuseId = @"summaryNewTVCell";
     if (setting.sportTypeImageMale) {
         self.imageView.image = [UIImage imageNamed:self.sportTypeStr];
     }else{
-        NSString *femaleImage = [NSString stringWithFormat:@"女%@", _sportTypeStr];
+        NSString *femaleImage = [NSString stringWithFormat:@"女%@", self.sportTypeStr];
         self.imageView.image = [UIImage imageNamed:femaleImage];
     }
 }

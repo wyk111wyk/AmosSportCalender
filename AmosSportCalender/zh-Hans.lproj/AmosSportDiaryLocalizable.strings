@@ -11,6 +11,13 @@
 "Edit" = "修改";
 "Cancel" = "取消";
 
+"D" = "天";
+"H" = "时";
+"M" = "分";
+
+"Cal" = "日历";
+"Sum" = "总结";
+
 "What you wanna share with" = "您想要分享什么";
 "Today's events(%@)" = "今日-运动项目(%@项)";
 "Summary" = "总结-运动概况";
@@ -24,3 +31,11 @@
 "%d times x %d RM  self-Weight" = "%d组 x %d次  自身重量";
 "%d min" = "%d分钟";
 "%d times x %d RM   %.1fkg" = "%d组 x %d次   %.1fkg";
+
+"Mon" = "周一";
+"Tue" = "周二";
+"Wed" = "周三";
+"Thu" = "周四";
+"Fri" = "周五";
+"Sat" = "周六";
+"Sun" = "周日";

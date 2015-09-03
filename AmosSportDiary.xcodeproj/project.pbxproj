@@ -43,6 +43,16 @@
 		B02A989E1B8EF9EC00F19EDC /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B02A989D1B8EF9EC00F19EDC /* libiconv.tbd */; };
 		B02A98A21B8EFF3500F19EDC /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B02A98A01B8EFF3500F19EDC /* TencentOpenAPI.framework */; };
 		B02A98A31B8EFF3500F19EDC /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B02A98A11B8EFF3500F19EDC /* TencentOpenApi_IOS_Bundle.bundle */; };
+		B02CCEB21B98000F00936FB5 /* NYSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = B02CCEAB1B98000F00936FB5 /* NYSegment.m */; settings = {ASSET_TAGS = (); }; };
+		B02CCEB31B98000F00936FB5 /* NYSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = B02CCEAD1B98000F00936FB5 /* NYSegmentedControl.m */; settings = {ASSET_TAGS = (); }; };
+		B02CCEB41B98000F00936FB5 /* NYSegmentIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = B02CCEAF1B98000F00936FB5 /* NYSegmentIndicator.m */; settings = {ASSET_TAGS = (); }; };
+		B02CCEB51B98000F00936FB5 /* NYSegmentLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B02CCEB11B98000F00936FB5 /* NYSegmentLabel.m */; settings = {ASSET_TAGS = (); }; };
+		B02CCEC31B98172300936FB5 /* UUBar.m in Sources */ = {isa = PBXBuildFile; fileRef = B02CCEB81B98172300936FB5 /* UUBar.m */; settings = {ASSET_TAGS = (); }; };
+		B02CCEC41B98172300936FB5 /* UUBarChart.m in Sources */ = {isa = PBXBuildFile; fileRef = B02CCEBA1B98172300936FB5 /* UUBarChart.m */; settings = {ASSET_TAGS = (); }; };
+		B02CCEC51B98172300936FB5 /* UUChart.m in Sources */ = {isa = PBXBuildFile; fileRef = B02CCEBC1B98172300936FB5 /* UUChart.m */; settings = {ASSET_TAGS = (); }; };
+		B02CCEC61B98172300936FB5 /* UUChartLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B02CCEBE1B98172300936FB5 /* UUChartLabel.m */; settings = {ASSET_TAGS = (); }; };
+		B02CCEC71B98172300936FB5 /* UUColor.m in Sources */ = {isa = PBXBuildFile; fileRef = B02CCEC01B98172300936FB5 /* UUColor.m */; settings = {ASSET_TAGS = (); }; };
+		B02CCEC81B98172300936FB5 /* UULineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = B02CCEC21B98172300936FB5 /* UULineChart.m */; settings = {ASSET_TAGS = (); }; };
 		B048EF801B8D70E100F01530 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B048EF7F1B8D70E100F01530 /* libz.tbd */; };
 		B048EF821B8D70EB00F01530 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B048EF811B8D70EB00F01530 /* libsqlite3.0.tbd */; };
 		B048EF841B8D70F700F01530 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B048EF831B8D70F700F01530 /* libc++.tbd */; };
@@ -51,6 +61,7 @@
 		B048EF901B8D762F00F01530 /* WeixinActivityBase.m in Sources */ = {isa = PBXBuildFile; fileRef = B048EF8A1B8D762F00F01530 /* WeixinActivityBase.m */; };
 		B048EF911B8D762F00F01530 /* WeixinSessionActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = B048EF8C1B8D762F00F01530 /* WeixinSessionActivity.m */; };
 		B048EF921B8D762F00F01530 /* WeixinTimelineActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = B048EF8E1B8D762F00F01530 /* WeixinTimelineActivity.m */; };
+		B049AC781B95E1880002A0BC /* SearchResultTV.m in Sources */ = {isa = PBXBuildFile; fileRef = B049AC771B95E1880002A0BC /* SearchResultTV.m */; settings = {ASSET_TAGS = (); }; };
 		B06594C31B7F62E100ACFD66 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B06594C21B7F62E100ACFD66 /* MessageUI.framework */; };
 		B07043EF1B8D708500512A3C /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B07043EB1B8D708500512A3C /* libWeChatSDK.a */; };
 		B07043F01B8D708500512A3C /* read_me.txt in Resources */ = {isa = PBXBuildFile; fileRef = B07043EC1B8D708500512A3C /* read_me.txt */; };
@@ -230,6 +241,26 @@
 		B02A989D1B8EF9EC00F19EDC /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
 		B02A98A01B8EFF3500F19EDC /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
 		B02A98A11B8EFF3500F19EDC /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
+		B02CCEAA1B98000F00936FB5 /* NYSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYSegment.h; sourceTree = "<group>"; };
+		B02CCEAB1B98000F00936FB5 /* NYSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYSegment.m; sourceTree = "<group>"; };
+		B02CCEAC1B98000F00936FB5 /* NYSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYSegmentedControl.h; sourceTree = "<group>"; };
+		B02CCEAD1B98000F00936FB5 /* NYSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYSegmentedControl.m; sourceTree = "<group>"; };
+		B02CCEAE1B98000F00936FB5 /* NYSegmentIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYSegmentIndicator.h; sourceTree = "<group>"; };
+		B02CCEAF1B98000F00936FB5 /* NYSegmentIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYSegmentIndicator.m; sourceTree = "<group>"; };
+		B02CCEB01B98000F00936FB5 /* NYSegmentLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYSegmentLabel.h; sourceTree = "<group>"; };
+		B02CCEB11B98000F00936FB5 /* NYSegmentLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYSegmentLabel.m; sourceTree = "<group>"; };
+		B02CCEB71B98172300936FB5 /* UUBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUBar.h; sourceTree = "<group>"; };
+		B02CCEB81B98172300936FB5 /* UUBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUBar.m; sourceTree = "<group>"; };
+		B02CCEB91B98172300936FB5 /* UUBarChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUBarChart.h; sourceTree = "<group>"; };
+		B02CCEBA1B98172300936FB5 /* UUBarChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUBarChart.m; sourceTree = "<group>"; };
+		B02CCEBB1B98172300936FB5 /* UUChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUChart.h; sourceTree = "<group>"; };
+		B02CCEBC1B98172300936FB5 /* UUChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUChart.m; sourceTree = "<group>"; };
+		B02CCEBD1B98172300936FB5 /* UUChartLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUChartLabel.h; sourceTree = "<group>"; };
+		B02CCEBE1B98172300936FB5 /* UUChartLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUChartLabel.m; sourceTree = "<group>"; };
+		B02CCEBF1B98172300936FB5 /* UUColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UUColor.h; sourceTree = "<group>"; };
+		B02CCEC01B98172300936FB5 /* UUColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUColor.m; sourceTree = "<group>"; };
+		B02CCEC11B98172300936FB5 /* UULineChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UULineChart.h; sourceTree = "<group>"; };
+		B02CCEC21B98172300936FB5 /* UULineChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UULineChart.m; sourceTree = "<group>"; };
 		B048EF7F1B8D70E100F01530 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		B048EF811B8D70EB00F01530 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		B048EF831B8D70F700F01530 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -242,6 +273,8 @@
 		B048EF8C1B8D762F00F01530 /* WeixinSessionActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeixinSessionActivity.m; sourceTree = "<group>"; };
 		B048EF8D1B8D762F00F01530 /* WeixinTimelineActivity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeixinTimelineActivity.h; sourceTree = "<group>"; };
 		B048EF8E1B8D762F00F01530 /* WeixinTimelineActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeixinTimelineActivity.m; sourceTree = "<group>"; };
+		B049AC761B95E1880002A0BC /* SearchResultTV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultTV.h; sourceTree = "<group>"; };
+		B049AC771B95E1880002A0BC /* SearchResultTV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultTV.m; sourceTree = "<group>"; };
 		B06594C21B7F62E100ACFD66 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		B07043EB1B8D708500512A3C /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		B07043EC1B8D708500512A3C /* read_me.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = read_me.txt; sourceTree = "<group>"; };
@@ -541,9 +574,47 @@
 			path = vendor/Tencent;
 			sourceTree = "<group>";
 		};
+		B02CCEA91B98000F00936FB5 /* NYSegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				B02CCEAA1B98000F00936FB5 /* NYSegment.h */,
+				B02CCEAB1B98000F00936FB5 /* NYSegment.m */,
+				B02CCEAC1B98000F00936FB5 /* NYSegmentedControl.h */,
+				B02CCEAD1B98000F00936FB5 /* NYSegmentedControl.m */,
+				B02CCEAE1B98000F00936FB5 /* NYSegmentIndicator.h */,
+				B02CCEAF1B98000F00936FB5 /* NYSegmentIndicator.m */,
+				B02CCEB01B98000F00936FB5 /* NYSegmentLabel.h */,
+				B02CCEB11B98000F00936FB5 /* NYSegmentLabel.m */,
+			);
+			name = NYSegmentedControl;
+			path = vendor/NYSegmentedControl;
+			sourceTree = "<group>";
+		};
+		B02CCEB61B98172300936FB5 /* UUChart */ = {
+			isa = PBXGroup;
+			children = (
+				B02CCEB71B98172300936FB5 /* UUBar.h */,
+				B02CCEB81B98172300936FB5 /* UUBar.m */,
+				B02CCEB91B98172300936FB5 /* UUBarChart.h */,
+				B02CCEBA1B98172300936FB5 /* UUBarChart.m */,
+				B02CCEBB1B98172300936FB5 /* UUChart.h */,
+				B02CCEBC1B98172300936FB5 /* UUChart.m */,
+				B02CCEBD1B98172300936FB5 /* UUChartLabel.h */,
+				B02CCEBE1B98172300936FB5 /* UUChartLabel.m */,
+				B02CCEBF1B98172300936FB5 /* UUColor.h */,
+				B02CCEC01B98172300936FB5 /* UUColor.m */,
+				B02CCEC11B98172300936FB5 /* UULineChart.h */,
+				B02CCEC21B98172300936FB5 /* UULineChart.m */,
+			);
+			name = UUChart;
+			path = vendor/UUChart;
+			sourceTree = "<group>";
+		};
 		B07043E91B8C148900512A3C /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				B02CCEB61B98172300936FB5 /* UUChart */,
+				B02CCEA91B98000F00936FB5 /* NYSegmentedControl */,
 				B019BEB81B935C0B00D2D8F6 /* UMengFeedback_SDK */,
 				B07F438B1B9184B900FE0D25 /* iCloud */,
 				B07043EA1B8D708500512A3C /* weChat */,
@@ -761,6 +832,8 @@
 				B00E23211B92104500649AC9 /* ConflictTV.m */,
 				B0BAD0951B8DD63F00F41091 /* PersonalInfoTableView.h */,
 				B0BAD0961B8DD64000F41091 /* PersonalInfoTableView.m */,
+				B049AC761B95E1880002A0BC /* SearchResultTV.h */,
+				B049AC771B95E1880002A0BC /* SearchResultTV.m */,
 			);
 			name = TableView;
 			sourceTree = "<group>";
@@ -1128,6 +1201,7 @@
 				B048EF8F1B8D762F00F01530 /* WeixinActivity.m in Sources */,
 				B0C101181B7798F600E4204B /* NameManageTableView.m in Sources */,
 				B0C100FC1B77982200E4204B /* ImageStore.m in Sources */,
+				B02CCEB51B98000F00936FB5 /* NYSegmentLabel.m in Sources */,
 				B071F4791B8F45EB00F711EA /* QZoneAct.m in Sources */,
 				B0B548571B84443700D42B33 /* DMPasscodeInternalField.m in Sources */,
 				B0DC6BE51B7F079F009DFA5A /* FeedbackViewController.m in Sources */,
@@ -1135,15 +1209,18 @@
 				B0C1012C1B77993800E4204B /* TypeManageTVCell.m in Sources */,
 				B0C101011B77984300E4204B /* Event.m in Sources */,
 				B0DC6BE91B7F2970009DFA5A /* FeedbackTVCell.m in Sources */,
+				B02CCEC61B98172300936FB5 /* UUChartLabel.m in Sources */,
 				B048EF911B8D762F00F01530 /* WeixinSessionActivity.m in Sources */,
 				B048EF901B8D762F00F01530 /* WeixinActivityBase.m in Sources */,
 				B0C1010B1B7798C000E4204B /* DetailSummaryVC.m in Sources */,
 				B019BEF31B935C0B00D2D8F6 /* UMFeedbackViewController.m in Sources */,
 				B0854D9A1B6BA87600C1B150 /* JTCalendarWeekDayView.m in Sources */,
 				B019BEFA1B935C0B00D2D8F6 /* UMTextView.m in Sources */,
+				B049AC781B95E1880002A0BC /* SearchResultTV.m in Sources */,
 				B0854D921B6BA87600C1B150 /* JTCalendarManager.m in Sources */,
 				B0B548561B84443700D42B33 /* DMPasscodeConfig.m in Sources */,
 				B0854D941B6BA87600C1B150 /* JTDateHelper.m in Sources */,
+				B02CCEC31B98172300936FB5 /* UUBar.m in Sources */,
 				B0854D9B1B6BA87600C1B150 /* JTCalendarWeekView.m in Sources */,
 				B0C101291B77993800E4204B /* SummaryNewTVCell.m in Sources */,
 				B0FA58A31B4678D400E3BE94 /* AmosSportCalender.xcdatamodeld in Sources */,
@@ -1155,10 +1232,13 @@
 				B0B548591B84443700D42B33 /* DMPasscodeInternalViewController.m in Sources */,
 				B0E144F31B81C58700934377 /* UIImage+TOWebViewControllerIcons.m in Sources */,
 				B0C101271B77993800E4204B /* NameManageTVCell.m in Sources */,
+				B02CCEB41B98000F00936FB5 /* NYSegmentIndicator.m in Sources */,
 				B0C1011A1B7798F600E4204B /* TypeManageTableView.m in Sources */,
 				B019BEF71B935C0B00D2D8F6 /* UMFullScreenPhotoView.m in Sources */,
 				B019BEF91B935C0B00D2D8F6 /* UMRadialView.m in Sources */,
+				B02CCEB21B98000F00936FB5 /* NYSegment.m in Sources */,
 				B071E69B1B859B4100133D63 /* RESideMenu.m in Sources */,
+				B02CCEC81B98172300936FB5 /* UULineChart.m in Sources */,
 				B0854D971B6BA87600C1B150 /* JTCalendarDayView.m in Sources */,
 				B0E144D91B81BD6000934377 /* AboutViewController.m in Sources */,
 				B087E0271B76F92B003D90B6 /* XYPieChart.m in Sources */,
@@ -1174,12 +1254,16 @@
 				B0BAD09A1B8DD67600F41091 /* PersonInfoStore.m in Sources */,
 				B0B548551B84443700D42B33 /* DMPasscode.m in Sources */,
 				B0723E541B786D2D00F8A63E /* SettingTableView.m in Sources */,
+				B02CCEC71B98172300936FB5 /* UUColor.m in Sources */,
 				B0854D981B6BA87600C1B150 /* JTCalendarMenuView.m in Sources */,
+				B02CCEC51B98172300936FB5 /* UUChart.m in Sources */,
 				B0C101021B77984300E4204B /* EventStore.m in Sources */,
 				B0C1012B1B77993800E4204B /* summaryTypeCell.m in Sources */,
 				B0BAD0971B8DD64000F41091 /* PersonalInfoTableView.m in Sources */,
+				B02CCEC41B98172300936FB5 /* UUBarChart.m in Sources */,
 				B0E144F11B81C58700934377 /* TOActivitySafari.m in Sources */,
 				B019BEF81B935C0B00D2D8F6 /* UMPostTableViewCell.m in Sources */,
+				B02CCEB31B98000F00936FB5 /* NYSegmentedControl.m in Sources */,
 				B0FA589A1B4678D400E3BE94 /* AppDelegate.m in Sources */,
 				B0C101191B7798F600E4204B /* SummaryTableView.m in Sources */,
 				B025CF471B84599000FB1A22 /* TouchIDViewController.m in Sources */,

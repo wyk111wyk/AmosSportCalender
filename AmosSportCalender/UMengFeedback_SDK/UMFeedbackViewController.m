@@ -248,7 +248,7 @@ const CGFloat kMessagesInputToolbarHeightDefault = 44.0f;
         self.navigationItem.leftBarButtonItem =  [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menuIcon"] style:UIBarButtonItemStylePlain target:self action:@selector(closeAndOpenDrower:)];
     }
     [self setHidesBottomBarWhenPushed:YES];
-    [self updateLayoutWithOrientation:self.interfaceOrientation];
+    [self updateLayoutWithOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
     
     /*
     [self.radialView.closeButton addTarget:self
@@ -532,7 +532,7 @@ const CGFloat kMessagesInputToolbarHeightDefault = 44.0f;
     insets.bottom = 0;
     self.mTableView.contentInset = insets;
     [self.view endEditing:YES];
-    [self updateLayoutWithOrientation:self.interfaceOrientation];
+    [self updateLayoutWithOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -581,7 +581,7 @@ const CGFloat kMessagesInputToolbarHeightDefault = 44.0f;
 - (NSMutableArray *)topicAndReplies {
     PersonInfoStore *personal = [PersonInfoStore sharedSetting];
     
-    NSString *welcomeInfo = [NSString stringWithFormat:@"Hi~ %@\n我是这款软件的开发者Amos，很高兴认识你。\n在这里，随时可以提出包括“软件错误”、“新功能建议”、“现有功能改善”等的任何反馈意见，当然最好可以附上截图。\n另外，完善个人信息也可以使沟通更高效。\n甚至，有关于健身、减肥方面的问题也欢迎询问和交流。\n我会不定期的查看和回复，祝您有一个健康、美丽的好身材！", personal.name];
+    NSString *welcomeInfo = [NSString stringWithFormat:@"Hi~ %@\n我是这款软件的开发者Amos，很高兴认识你。\n在这里，随时欢迎提出包括“软件错误”、“新功能建议”、“现有功能改善”等的任何反馈意见，当然最好能够附上截图。\n另外，完善个人信息也可以使沟通更加高效。\n甚至，有关于健身、减肥方面的问题也欢迎交流。\n我会定期的查看和回复，祝您有一个健康、美丽的好身材！", personal.name];
     NSMutableDictionary *welcomeDic = [NSMutableDictionary dictionary];
     
     if (self.feedback.topicAndReplies.count == 0) {
@@ -620,7 +620,7 @@ const CGFloat kMessagesInputToolbarHeightDefault = 44.0f;
 - (void)setIsEditMode:(BOOL)isEditMode {
     [self.inputToolBar setIsEditMode:isEditMode];
     [self.inputToolBar.inputTextView resignFirstResponder];
-    [self updateLayoutWithOrientation:self.interfaceOrientation];
+    [self updateLayoutWithOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
     if (isEditMode) {
         [self.inputToolBar.inputTextView becomeFirstResponder];
     } else {
@@ -1236,7 +1236,8 @@ const CGFloat kMessagesInputToolbarHeightDefault = 44.0f;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *content = self.topicAndReplies[indexPath.row][@"content"];
     if (content.length > 0) {
-        CGSize labelSize = [content sizeWithFont:[UIFont systemFontOfSize:14.0f]
+        CGSize labelSize =
+                [content sizeWithFont:[UIFont systemFontOfSize:14.0f]
                                constrainedToSize:CGSizeMake(self.mTableView.frame.size.width - 40, MAXFLOAT)
                                    lineBreakMode:NSLineBreakByWordWrapping];
         return labelSize.height + 28;

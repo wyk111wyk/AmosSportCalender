@@ -19,12 +19,17 @@
 #import "SettingStore.h"
 #import "DMPasscode.h"
 #import "MobClick.h"
+#import "UUChart.h"
+#import "CommonMarco.h"
 
 static NSString * const summaryCellReuseId = @"summaryTypeCell";
 
-@interface SummaryViewController ()<UITableViewDataSource, UITableViewDelegate, XYPieChartDelegate, XYPieChartDataSource>
+@interface SummaryViewController ()<UITableViewDataSource, UITableViewDelegate, XYPieChartDelegate, XYPieChartDataSource, UUChartDataSource>
 
 @property (strong, nonatomic) IBOutlet UIView *viewBackground;
+
+@property (weak, nonatomic) IBOutlet UIView *contantView;
+@property (strong, nonatomic) UUChart *chartView;
 @property (strong, nonatomic) IBOutlet UIView *view2;
 @property (strong, nonatomic) IBOutlet UIView *view3;
 @property (weak, nonatomic) IBOutlet UIView *vLineView;
@@ -43,12 +48,14 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
 @property (weak, nonatomic) IBOutlet UILabel *aveTimesAWeek;
 @property (weak, nonatomic) IBOutlet UILabel *aveTime;
 @property (weak, nonatomic) IBOutlet UILabel *percentageLabel;
+@property (strong ,nonatomic) UILabel *expLabel;
 
 @property (nonatomic, strong)NSMutableDictionary *eventsByDate;
 @property (nonatomic, strong)NSArray *sortedKeyArray;
 @property (nonatomic, strong)NSArray *sortedTypeArray; ///<tableView使用的数据源
 @property (nonatomic, strong)NSDictionary *eventsDetailByType;
 
+@property (nonatomic, strong)NSDate *firstDayofMonth; ///<这个月的第一天的日子
 @property (nonatomic)BOOL isDay;
 @end
 
@@ -61,85 +68,7 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //TableView初始化
-    UINib *nib = [UINib nibWithNibName:summaryCellReuseId bundle:nil];
-    [self.tableView registerNib:nib forCellReuseIdentifier:summaryCellReuseId];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = [UIColor clearColor];
-    self.isDay = YES;
-    
-    //View的初始化
-    self.view.backgroundColor = [UIColor colorWithRed:0.9529 green:0.9529 blue:0.9529 alpha:1];
-    _viewBackground.frame = CGRectMake(0, 0, screenWidth, screenHeight);
-    
-    self.scrollView.frame = CGRectMake(0, 64, screenWidth, screenHeight);
-    
-    self.view1.frame = CGRectMake(0, 0, screenWidth, 167);
-    
-    self.view2.frame = CGRectMake(0, self.view1.frame.size.height, screenWidth, 152);
-    if (screenWidth == 320)
-    { self.view2.frame = CGRectMake(0, self.view1.frame.size.height, screenWidth, 129.5); }
-    else if (screenWidth == 414)
-    { self.view2.frame = CGRectMake(0, self.view1.frame.size.height, screenWidth, 167.5); }
-    
-    self.tableView.frame = CGRectMake(0, 0, self.tableView.bounds.size.width, 376);
-    
-    self.view3.frame = CGRectMake(0, self.view1.frame.size.height + self.view2.frame.size.height, screenWidth, 384);
-    if (screenWidth == 320) {
-        self.view3.frame = CGRectMake(0, self.view1.frame.size.height + self.view2.frame.size.height, screenWidth, 360);
-    }
-    
-//    NSLog(@"tableview: %g, view3: %g", self.tableView.frame.size.height, _view3.frame.size.height);
-    
-   CGFloat contentHight = self.view1.frame.size.height + self.view2.frame.size.height + self.view3.frame.size.height;
-    self.scrollView.contentSize = CGSizeMake(screenWidth, contentHight);
-    self.scrollView.bounces = YES;
-    self.scrollView.showsVerticalScrollIndicator = YES;
-    self.scrollView.scrollEnabled = YES;
-    
-    [self.scrollView addSubview:self.view1];
-    [self.scrollView addSubview:self.view2];
-    [self.scrollView addSubview:self.view3];
-    
-//    NSLog(@"1 screenWidth is %g, screen hight %g, contentHight is %g", screenWidth, screenHeight, contentHight);
-    
-    //图表View的初始化
-    self.pieChartView.delegate = self;
-    [self.pieChartView setDataSource:self];
-    
-     //optional
-    [self.pieChartView setStartPieAngle:M_PI_2];
-    [self.pieChartView setAnimationSpeed:0.8];
-    [self.pieChartView setLabelFont:[UIFont fontWithName:@"ArialMT" size:11]];
-    [self.pieChartView setLabelRadius:50];
-    [self.pieChartView setShowPercentage:NO];
-    [self.pieChartView setPieBackgroundColor:[UIColor colorWithWhite:0.95 alpha:1]];
-    [self.pieChartView setUserInteractionEnabled:YES];
-    [self.pieChartView setLabelShadowColor:[UIColor darkGrayColor]];
-    
-    //设置阴影
-    [[self.shadoView1 layer] setShadowOffset:CGSizeMake(1, 1)]; // 阴影的范围
-    [[self.shadoView1 layer] setShadowRadius:2];                // 阴影扩散的范围控制
-    [[self.shadoView1 layer] setShadowOpacity:1];               // 阴影透明度
-    [[self.shadoView1 layer] setShadowColor:[UIColor colorWithWhite:0.2 alpha:0.55].CGColor]; // 阴影的颜色
-    
-    [[self.shadoView21 layer] setShadowOffset:CGSizeMake(1, 1)]; // 阴影的范围
-    [[self.shadoView21 layer] setShadowRadius:2];                // 阴影扩散的范围控制
-    [[self.shadoView21 layer] setShadowOpacity:1];               // 阴影透明度
-    [[self.shadoView21 layer] setShadowColor:[UIColor colorWithWhite:0.2 alpha:0.55].CGColor]; // 阴影的颜色
-    
-    [[self.shadoView22 layer] setShadowOffset:CGSizeMake(1, 1)]; // 阴影的范围
-    [[self.shadoView22 layer] setShadowRadius:2];                // 阴影扩散的范围控制
-    [[self.shadoView22 layer] setShadowOpacity:1];               // 阴影透明度
-    [[self.shadoView22 layer] setShadowColor:[UIColor colorWithWhite:0.2 alpha:0.55].CGColor]; // 阴影的颜色
-    
-//    [[self.tableView layer] setShadowOffset:CGSizeMake(2, 2)]; // 阴影的范围
-//    [[self.tableView layer] setShadowRadius:2];                // 阴影扩散的范围控制
-//    [[self.tableView layer] setShadowOpacity:1];               // 阴影透明度
-//    [[self.tableView layer] setShadowColor:[UIColor colorWithWhite:0.2 alpha:0.45].CGColor]; // 阴影的颜色
-    
-    [self.percentageLabel.layer setCornerRadius:22];
-    [self.percentageLabel setText:@"100%"];
+    [self initTheFrames];
     
     //初始化数据
     self.eventsByDate = [[NSMutableDictionary alloc] initWithDictionary:[[EventStore sharedStore] allItems] copyItems:NO];
@@ -165,58 +94,12 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
         NSLog(@"数组Detail的数据已载入");
     });
     
-    //设置UI显示的属性
-    //1-1总计天数
-    self.theWholeNumber.text =[NSString stringWithFormat:@"%@", @([self.eventsByDate count])];
-    //1-2总时间
-    int timelastMin = 0;
-    for (NSString *key in self.sortedKeyArray){
-        int tempTimelast = 0;
-        for (Event *event in self.eventsByDate[key]){
-            tempTimelast = tempTimelast + event.timelast;
-        }
-        timelastMin = timelastMin + tempTimelast;
-    }
-    float timelastHour = (float)timelastMin / 60.;
-    self.theWholeTime.text = [NSString stringWithFormat:@"%.0f", timelastHour];
-    //1-3平均每次多少时间
-    if (self.eventsByDate.count > 0) {
-        float avegTimeMin = (float)timelastMin / self.eventsByDate.count;
-        self.aveTime.text = [NSString stringWithFormat:@"%.0f", avegTimeMin];
-    }else{self.aveTime.text = @"0";}
+    [self setView1NumberLabel];
+    [self.chartView showInView:self.contantView];
+    [self.contantView bringSubviewToFront:self.expLabel];
     
-    //1-4平均每周几次
-    if (self.eventsByDate.count > 0){
-        
-    NSDate *firstDate = [[self dateFormatter] dateFromString:[self.sortedKeyArray lastObject]];
-    NSDate *lastDate = [[self dateFormatter] dateFromString:self.sortedKeyArray[0]];
-    NSTimeInterval betweenTime = [lastDate timeIntervalSinceDate:firstDate];
-    float betweenDays = ((int)betweenTime)/(3600*24); //记录第一天和最后一天的间隔时间，单位：天
-    float avegTimesAWeek = self.eventsByDate.count / (betweenDays/7.);
-        
-        if (betweenDays < 8) {
-            self.aveTimesAWeek.text = [NSString stringWithFormat:@"%@", @(self.eventsByDate.count)];
-        }else{
-            self.aveTimesAWeek.text = [NSString stringWithFormat:@"%.1f", avegTimesAWeek];
-        }
-    
-    }else{self.aveTimesAWeek.text = @"0";}
-    
-    //iphone5的话字体缩小
-    if (screenWidth == 320) {
-        UIFont *font = [UIFont systemFontOfSize:22];
-        [_theWholeNumber setFont:font];
-        [_theWholeTime setFont:font];
-        [_aveTime setFont:font];
-        [_aveTimesAWeek setFont:font];
-        
-        _tableView.rowHeight = 44;
-    }
-    
-    [self.theWholeNumber sizeToFit];
-    [self.theWholeTime sizeToFit];
-    [self.aveTime sizeToFit];
-    [self.aveTimesAWeek sizeToFit];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(makeLabelDisappear)];
+    [self.chartView addGestureRecognizer:tap];
     
     //2-1图片
     SettingStore *setting = [SettingStore sharedSetting];
@@ -234,7 +117,103 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
             self.leastTypeImageView.image = [UIImage imageNamed:femaleImageLeast];
         }
     };
+}
+
+- (void)initTheFrames
+{
+    //TableView初始化
+    UINib *nib = [UINib nibWithNibName:summaryCellReuseId bundle:nil];
+    [self.tableView registerNib:nib forCellReuseIdentifier:summaryCellReuseId];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.isDay = YES;
     
+    //View的初始化
+    self.view.backgroundColor = [UIColor colorWithRed:0.9529 green:0.9529 blue:0.9529 alpha:1];
+    _viewBackground.frame = CGRectMake(0, 0, screenWidth, screenHeight);
+    self.scrollView.frame = CGRectMake(0, 64, screenWidth, screenHeight);
+    self.view1.frame = CGRectMake(0, 0, screenWidth, 167);
+    
+    self.view4.frame = CGRectMake(0, self.view1.frame.size.height, screenWidth, 165);
+    self.chartView = [[UUChart alloc]initwithUUChartDataFrame:CGRectMake(0, 14, screenWidth - 24, self.contantView.frame.size.height - 19)
+                                                   withSource:self
+                                                    withStyle:UUChartLineStyle];
+    
+    NSString *monthStr = [[self dateFormatterForMonth] stringFromDate:[NSDate date]];
+    NSString *subStr = [monthStr substringToIndex:2];
+    NSString *labelStr = [NSString stringWithFormat:@"%@月每周运动天数", subStr];
+    self.expLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.contantView.frame.size.width - 125, 105, 0, 0)];
+    self.expLabel.text = labelStr;
+    self.expLabel.font = [UIFont fontWithName:@"AvenirNext-Medium" size:12.0f];
+    self.expLabel.textColor = [UIColor colorWithWhite:0.2 alpha:0.3];
+    [self.expLabel sizeToFit];
+    self.expLabel.center = CGPointMake(screenWidth/2, 11);
+    [self.contantView addSubview:self.expLabel];
+    
+    self.view2.frame = CGRectMake(0, self.view1.frame.size.height + self.view4.frame.size.height, screenWidth, 152);
+    if (screenWidth == 320)
+    { self.view2.frame = CGRectMake(0, self.view1.frame.size.height + self.view4.frame.size.height, screenWidth, 129.5); }
+    else if (screenWidth == 414)
+    { self.view2.frame = CGRectMake(0, self.view1.frame.size.height + self.view4.frame.size.height, screenWidth, 167.5); }
+    
+    self.tableView.frame = CGRectMake(0, 0, self.tableView.bounds.size.width, 376);
+    self.view3.frame = CGRectMake(0, self.view1.frame.size.height + self.view2.frame.size.height + self.view4.frame.size.height, screenWidth, 384);
+    if (screenWidth == 320) {
+        self.view3.frame = CGRectMake(0, self.view1.frame.size.height + self.view2.frame.size.height + self.view4.frame.size.height, screenWidth, 360);
+    }
+    
+    //    NSLog(@"tableview: %g, view3: %g", self.tableView.frame.size.height, _view3.frame.size.height);
+    
+    CGFloat contentHight = self.view1.frame.size.height + self.view2.frame.size.height + self.view3.frame.size.height + self.view4.frame.size.height;
+    self.scrollView.contentSize = CGSizeMake(screenWidth, contentHight);
+    self.scrollView.bounces = YES;
+    self.scrollView.showsVerticalScrollIndicator = YES;
+    self.scrollView.scrollEnabled = YES;
+    
+    [self.scrollView addSubview:self.view1];
+    [self.scrollView addSubview:self.view4];
+    [self.scrollView addSubview:self.view2];
+    [self.scrollView addSubview:self.view3];
+    
+    //    NSLog(@"1 screenWidth is %g, screen hight %g, contentHight is %g", screenWidth, screenHeight, contentHight);
+    
+    //图表View的初始化
+    self.pieChartView.delegate = self;
+    [self.pieChartView setDataSource:self];
+    
+    //optional
+    [self.pieChartView setStartPieAngle:M_PI_2];
+    [self.pieChartView setAnimationSpeed:0.8];
+    [self.pieChartView setLabelFont:[UIFont fontWithName:@"ArialMT" size:11]];
+    [self.pieChartView setLabelRadius:50];
+    [self.pieChartView setShowPercentage:NO];
+    [self.pieChartView setPieBackgroundColor:[UIColor colorWithWhite:0.95 alpha:1]];
+    [self.pieChartView setUserInteractionEnabled:YES];
+    [self.pieChartView setLabelShadowColor:[UIColor darkGrayColor]];
+    
+    //设置阴影
+    [[self.shadoView1 layer] setShadowOffset:CGSizeMake(1, 1)]; // 阴影的范围
+    [[self.shadoView1 layer] setShadowRadius:2];                // 阴影扩散的范围控制
+    [[self.shadoView1 layer] setShadowOpacity:1];               // 阴影透明度
+    [[self.shadoView1 layer] setShadowColor:[UIColor colorWithWhite:0.2 alpha:0.55].CGColor]; // 阴影的颜色
+    
+    [[self.shadoView21 layer] setShadowOffset:CGSizeMake(1, 1)]; // 阴影的范围
+    [[self.shadoView21 layer] setShadowRadius:2];                // 阴影扩散的范围控制
+    [[self.shadoView21 layer] setShadowOpacity:1];               // 阴影透明度
+    [[self.shadoView21 layer] setShadowColor:[UIColor colorWithWhite:0.2 alpha:0.55].CGColor]; // 阴影的颜色
+    
+    [[self.shadoView22 layer] setShadowOffset:CGSizeMake(1, 1)]; // 阴影的范围
+    [[self.shadoView22 layer] setShadowRadius:2];                // 阴影扩散的范围控制
+    [[self.shadoView22 layer] setShadowOpacity:1];               // 阴影透明度
+    [[self.shadoView22 layer] setShadowColor:[UIColor colorWithWhite:0.2 alpha:0.55].CGColor]; // 阴影的颜色
+    
+    [[self.contantView layer] setShadowOffset:CGSizeMake(2, 2)]; // 阴影的范围
+    [[self.contantView layer] setShadowRadius:2];                // 阴影扩散的范围控制
+    [[self.contantView layer] setShadowOpacity:1];               // 阴影透明度
+    [[self.contantView layer] setShadowColor:[UIColor colorWithWhite:0.2 alpha:0.45].CGColor]; // 阴影的颜色
+    
+    [self.percentageLabel.layer setCornerRadius:22];
+    [self.percentageLabel setText:@"100%"];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -290,6 +269,15 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     }];
 }
 
+- (void)makeLabelDisappear
+{
+    if (!self.expLabel.hidden) {
+        self.expLabel.hidden = YES;
+    }else{
+        self.expLabel.hidden = NO;
+    }
+    
+}
 #pragma mark - 用于计算数据的方法
 
 - (NSArray *)sortKeyFromDate: (NSMutableArray *)tempArray
@@ -392,6 +380,7 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     return [tempMuDic0 copy];
 }
 
+//数组中最大的一个数
 - (int)findMaxInArray:(NSArray *)array
 {
     int max = 0;
@@ -404,6 +393,109 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     return max;
 }
 
+//这个月1号是星期几
+- (int)weekOfParticularDay
+{
+    NSString *monthStr = [[self dateFormatterForMonth] stringFromDate:[NSDate date]];
+    NSDate *firstDayofMonth = [[self dateFormatter] dateFromString:[NSString stringWithFormat:@"01-%@", monthStr]];
+    
+    //调个时差
+    NSTimeZone *localZone = [NSTimeZone localTimeZone];
+    NSInteger interval = [localZone secondsFromGMTForDate:firstDayofMonth];
+    self.firstDayofMonth = [firstDayofMonth dateByAddingTimeInterval:interval];
+    
+    //找到星期
+    NSString *weekStr = [[self dateFormatterForWeek] stringFromDate:self.firstDayofMonth];
+    int weekNum = 0;
+    
+    if ([weekStr isEqualToString:Local(@"Mon")]) {
+        weekNum = 0;
+    }else if ([weekStr isEqualToString:Local(@"Tue")]){
+        weekNum = 1;
+    }else if ([weekStr isEqualToString:Local(@"Wed")]){
+        weekNum = 2;
+    }else if ([weekStr isEqualToString:Local(@"Thu")]){
+        weekNum = 3;
+    }else if ([weekStr isEqualToString:Local(@"Fri")]){
+        weekNum = 4;
+    }else if ([weekStr isEqualToString:Local(@"Sat")]){
+        weekNum = 5;
+    }else if ([weekStr isEqualToString:Local(@"Sun")]){
+        weekNum = 6;
+    }
+    
+    return weekNum;
+}
+
+//生成用于表格的数据（每周的运动次数）
+- (NSArray *)arrayForChartData
+{
+    //本月第一天星期几的代表数字 (0 - 6)
+    int weekDay = [self weekOfParticularDay];
+    //还有几天到下个周一
+    int toNextMonday = 7 - weekDay;
+    if (toNextMonday == 7) {
+        toNextMonday = 0;
+    }
+    //计算上个月最后一周的所有日期
+    NSMutableArray *lastMonthLastWeek = [NSMutableArray array];
+    for (int i = 0 ; i < weekDay; i++) {
+        NSInteger interval = - (i+1)*24*60*60;
+        NSDate *veryFirstDay = [self.firstDayofMonth dateByAddingTimeInterval:interval];
+        NSString *veryFirstDayStr = [[self dateFormatter] stringFromDate:veryFirstDay];
+        [lastMonthLastWeek addObject:veryFirstDayStr];
+    }
+    for (int i = 0; i <= 6 - weekDay; i++) {
+        NSInteger interval =  i*24*60*60;
+        NSDate *veryFirstDay = [self.firstDayofMonth dateByAddingTimeInterval:interval];
+        NSString *veryFirstDayStr = [[self dateFormatter] stringFromDate:veryFirstDay];
+        [lastMonthLastWeek addObject:veryFirstDayStr];
+    }
+    //除去和上个月相关联的第一周，先把这个月的下个周一起的运动天数统计出来
+    //首先要把这个月所有的运动具体天数统计出来
+    NSMutableArray *thisMonthSportDates = [NSMutableArray array];
+    for (NSString *date in self.sortedKeyArray){
+        NSString *dayStr = [date substringWithRange:NSMakeRange(3, 2)];
+        NSString *subStr = [[[self dateFormatterForMonth] stringFromDate:self.firstDayofMonth] substringToIndex:2];
+        if ([dayStr isEqualToString:subStr]) {
+            [thisMonthSportDates addObject:date];
+        }
+    }
+    //接着根据7天为一个周期进行划分
+    NSMutableArray *array0 = [NSMutableArray arrayWithCapacity:0];
+    NSMutableArray *array1 = [NSMutableArray arrayWithCapacity:0];
+    NSMutableArray *array2 = [NSMutableArray arrayWithCapacity:0];
+    NSMutableArray *array3 = [NSMutableArray arrayWithCapacity:0];
+    NSMutableArray *array4 = [NSMutableArray arrayWithCapacity:0];
+    NSMutableArray *array5 = [NSMutableArray arrayWithCapacity:0];
+    for (NSString *date in thisMonthSportDates){
+        NSString *dayStr = [date substringToIndex:2];
+        int day = [dayStr intValue];
+        //计算下个周一是几号(最晚是7)
+        int nextMondayDate = 1 + toNextMonday;
+        //根据周期进行划分
+        for (int i = 0; i < 5; i++) {
+            if (day >= nextMondayDate + i*7 && day < nextMondayDate + 7 + i*7) {
+                if (i == 0) {[array1 addObject:date];
+                }else if (i == 1){[array2 addObject:date];
+                }else if (i == 2){[array3 addObject:date];
+                }else if (i == 3){[array4 addObject:date];
+                }else if (i == 4){[array5 addObject:date];
+                }
+            }
+        }
+    }
+    //获取第一周的运动天数
+    for (NSString *date in lastMonthLastWeek){
+        if ([self.sortedKeyArray containsObject:date]) {
+            [array0 addObject:date];
+        }
+    }
+    
+    NSArray *chartData = @[@(array0.count), @(array1.count), @(array2.count), @(array3.count), @(array4.count), @(array5.count)];
+    
+    return chartData;
+}
 
 - (NSDateFormatter *)dateFormatter
 {
@@ -414,6 +506,85 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     }
     
     return dateFormatter;
+}
+
+- (NSDateFormatter *)dateFormatterForMonth
+{
+    static NSDateFormatter *dateFormatter;
+    if(!dateFormatter){
+        dateFormatter = [NSDateFormatter new];
+        dateFormatter.dateFormat = @"MM-yyyy";
+    }
+    
+    return dateFormatter;
+}
+
+- (NSDateFormatter *)dateFormatterForWeek
+{
+    static NSDateFormatter *dateFormatter;
+    if(!dateFormatter){
+        dateFormatter = [NSDateFormatter new];
+        dateFormatter.dateFormat = @"EEE";
+    }
+    
+    return dateFormatter;
+}
+
+//计算主页的4个数字
+- (void)setView1NumberLabel
+{
+    //设置UI显示的属性
+    //1-1总计天数
+    self.theWholeNumber.text =[NSString stringWithFormat:@"%@", @([self.eventsByDate count])];
+    //1-2总时间
+    int timelastMin = 0;
+    for (NSString *key in self.sortedKeyArray){
+        int tempTimelast = 0;
+        for (Event *event in self.eventsByDate[key]){
+            tempTimelast = tempTimelast + event.timelast;
+        }
+        timelastMin = timelastMin + tempTimelast;
+    }
+    float timelastHour = (float)timelastMin / 60.;
+    self.theWholeTime.text = [NSString stringWithFormat:@"%.0f", timelastHour];
+    //1-3平均每次多少时间
+    if (self.eventsByDate.count > 0) {
+        float avegTimeMin = (float)timelastMin / self.eventsByDate.count;
+        self.aveTime.text = [NSString stringWithFormat:@"%.0f", avegTimeMin];
+    }else{self.aveTime.text = @"0";}
+    
+    //1-4平均每周几次
+    if (self.eventsByDate.count > 0){
+        
+        NSDate *firstDate = [[self dateFormatter] dateFromString:[self.sortedKeyArray lastObject]];
+        NSDate *lastDate = [[self dateFormatter] dateFromString:self.sortedKeyArray[0]];
+        NSTimeInterval betweenTime = [lastDate timeIntervalSinceDate:firstDate];
+        float betweenDays = ((int)betweenTime)/(3600*24); //记录第一天和最后一天的间隔时间，单位：天
+        float avegTimesAWeek = self.eventsByDate.count / (betweenDays/7.);
+        
+        if (betweenDays < 8) {
+            self.aveTimesAWeek.text = [NSString stringWithFormat:@"%@", @(self.eventsByDate.count)];
+        }else{
+            self.aveTimesAWeek.text = [NSString stringWithFormat:@"%.1f", avegTimesAWeek];
+        }
+        
+    }else{self.aveTimesAWeek.text = @"0";}
+    
+    //iphone5的话字体缩小
+    if (screenWidth == 320) {
+        UIFont *font = [UIFont systemFontOfSize:22];
+        [_theWholeNumber setFont:font];
+        [_theWholeTime setFont:font];
+        [_aveTime setFont:font];
+        [_aveTimesAWeek setFont:font];
+        
+        _tableView.rowHeight = 44;
+    }
+    
+    [self.theWholeNumber sizeToFit];
+    [self.theWholeTime sizeToFit];
+    [self.aveTime sizeToFit];
+    [self.aveTimesAWeek sizeToFit];
 }
 #pragma mark - TableView Delegate
 
@@ -523,6 +694,60 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
 //    NSLog(@"did select slice at index %lu",index);
 }
 
+#pragma mark - 设置表格的方法
+- (NSArray *)getXTitles:(int)num
+{
+    NSMutableArray *xTitles = [NSMutableArray array];
+    NSString *monthStr = [[self dateFormatterForChart] stringFromDate:[NSDate date]];
+    for (int i=0; i<num; i++) {
+        NSString * str = [NSString stringWithFormat:@"%@:%d",monthStr ,i+1];
+        [xTitles addObject:str];
+    }
+    return xTitles;
+}
+
+//横坐标标题数组
+- (NSArray *)UUChart_xLableArray:(UUChart *)chart
+{
+    return [self getXTitles:6];
+}
+
+//用以显示的数值：多重数组
+- (NSArray *)UUChart_yValueArray:(UUChart *)chart
+{
+    return @[[self arrayForChartData]];
+}
+
+//颜色数组
+- (NSArray *)UUChart_ColorArray:(UUChart *)chart
+{
+    return @[UUGreen];
+}
+
+//显示数值范围
+- (CGRange)UUChartChooseRangeInLineChart:(UUChart *)chart
+{
+    return CGRangeMake(7, 0);
+}
+
+//标记数值区域
+- (CGRange)UUChartMarkRangeInLineChart:(UUChart *)chart
+{
+    return CGRangeMake(4, 6);
+}
+
+//判断显示横线条
+- (BOOL)UUChart:(UUChart *)chart ShowHorizonLineAtIndex:(NSInteger)index
+{
+    return YES;
+}
+
+//判断显示最大最小值
+- (BOOL)UUChart:(UUChart *)chart ShowMaxMinAtIndex:(NSInteger)index
+{
+    return NO;
+}
+
 #pragma mark - 判断cell文字颜色的方法
 - (UIColor *)colorForsportType:(NSString *)sportType
 {
@@ -557,6 +782,17 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     UIGraphicsEndImageContext();
     
     return img;
+}
+
+- (NSDateFormatter *)dateFormatterForChart
+{
+    static NSDateFormatter *dateFormatter;
+    if(!dateFormatter){
+        dateFormatter = [NSDateFormatter new];
+        dateFormatter.dateFormat = @"MMM";
+    }
+    
+    return dateFormatter;
 }
 
 @end

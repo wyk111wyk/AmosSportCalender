@@ -9,6 +9,7 @@
             <connections>
                 <outlet property="aveTime" destination="Vzi-Pc-QlD" id="tWI-y8-kYu"/>
                 <outlet property="aveTimesAWeek" destination="Ycq-X6-Fdd" id="zyR-xh-V27"/>
+                <outlet property="contantView" destination="ozj-Sk-yjx" id="i3l-2n-tzM"/>
                 <outlet property="hLineView" destination="WrH-3C-VmK" id="6aA-ES-yW3"/>
                 <outlet property="leastTypeImageView" destination="C5f-wO-NBL" id="M9F-Li-ig6"/>
                 <outlet property="mostTypeImageView" destination="aG8-YE-nMc" id="aVf-Lf-rgq"/>
@@ -26,6 +27,7 @@
                 <outlet property="view1" destination="JNa-m3-jBU" id="2zc-eh-rkr"/>
                 <outlet property="view2" destination="M90-8j-bvN" id="d72-6Q-S7m"/>
                 <outlet property="view3" destination="KtI-al-x2i" id="GQM-mE-B1E"/>
+                <outlet property="view4" destination="kId-bg-XZG" id="8zp-iE-D99"/>
                 <outlet property="viewBackground" destination="i5M-Pr-FkT" id="v2h-TD-cJ0"/>
             </connections>
         </placeholder>
@@ -364,7 +366,7 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="760.5" y="-317.5"/>
+            <point key="canvasLocation" x="760.5" y="-561.5"/>
         </view>
         <view contentMode="scaleToFill" id="M90-8j-bvN">
             <rect key="frame" x="0.0" y="0.0" width="375" height="152"/>
@@ -506,6 +508,28 @@
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="760.5" y="219.5"/>
+        </view>
+        <view contentMode="scaleToFill" id="kId-bg-XZG">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="165"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ozj-Sk-yjx">
+                    <rect key="frame" x="8" y="0.0" width="359" height="157"/>
+                    <animations/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+            </subviews>
+            <animations/>
+            <color key="backgroundColor" red="0.94060968140000001" green="0.94060968140000001" blue="0.94060968140000001" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="ozj-Sk-yjx" secondAttribute="bottom" constant="8" id="WkX-BZ-YvW"/>
+                <constraint firstAttribute="trailing" secondItem="ozj-Sk-yjx" secondAttribute="trailing" constant="8" id="XaO-Cz-Yz4"/>
+                <constraint firstItem="ozj-Sk-yjx" firstAttribute="leading" secondItem="kId-bg-XZG" secondAttribute="leading" constant="8" id="nIK-ss-B8d"/>
+                <constraint firstItem="ozj-Sk-yjx" firstAttribute="top" secondItem="kId-bg-XZG" secondAttribute="top" id="uMv-2a-V73"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="760.5" y="-329.5"/>
         </view>
     </objects>
     <resources>

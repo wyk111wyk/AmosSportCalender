@@ -9,6 +9,7 @@
 #import <EventKit/EventKit.h>
 #import <EventKitUI/EventKitUI.h>
 
+#import "CommonMarco.h"
 #import "NewEvevtViewController.h"
 #import "Event.h"
 #import "EventStore.h"
@@ -17,8 +18,10 @@
 #import "SettingStore.h"
 #import "MobClick.h"
 #import "PersonInfoStore.h"
+#import "SearchResultTV.h"
+#import "NYSegmentedControl.h"
 
-@interface NewEvevtViewController ()<UIPickerViewDelegate,UIPickerViewDataSource,UITextFieldDelegate, UISearchBarDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface NewEvevtViewController ()<UIPickerViewDelegate,UIPickerViewDataSource,UITextFieldDelegate, UISearchBarDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UISearchResultsUpdating, UISearchControllerDelegate>
 
 @property (strong, nonatomic)PersonInfoStore *personal;
 
@@ -27,6 +30,7 @@
 @property (nonatomic) NSInteger indexRow;
 @property (strong, nonatomic) NSArray *numberArray; ///<numberPicker的数据
 @property (strong, nonatomic) NSString *selectedNumber; ///<numberPicker点选后的值
+@property (strong, nonatomic) NSMutableArray *searchTempDateArray; ///>搜索时临时存放供挑选的数据
 
 //TextField
 @property (weak, nonatomic) IBOutlet UITextField *dateTextField;
@@ -47,9 +51,11 @@
 
 @property (strong, nonatomic) UISearchBar *sportSearchBar;
 @property (nonatomic, strong) UISearchController *searchController;
-@property (strong, nonatomic) UITableViewController *searchTVC;
+@property (strong, nonatomic) SearchResultTV *searchTVC;
 
 @property (weak, nonatomic) IBOutlet UISwitch *swithButton;
+@property NYSegmentedControl *closeWeights;
+
 @property (weak, nonatomic) IBOutlet UISwitch *doneSwitchButton;
 @property (weak, nonatomic) IBOutlet UISlider *weightSlider;
 @property (weak, nonatomic) IBOutlet UISlider *timelastSlider;
@@ -84,6 +90,23 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    //初始化搜索页面
+    UINavigationController *searchResultsController = [[self storyboard] instantiateViewControllerWithIdentifier:@"searchResultNav"];
+    _searchController = [[UISearchController alloc] initWithSearchResultsController:searchResultsController];
+    
+    _searchController.searchResultsUpdater = self;
+    _searchController.delegate = self;
+    _searchController.dimsBackgroundDuringPresentation = NO;
+    _searchController.hidesNavigationBarDuringPresentation = YES;
+    _searchController.searchBar.frame = CGRectMake(self.searchController.searchBar.frame.origin.x, self.searchController.searchBar.frame.origin.y, self.searchController.searchBar.frame.size.width, 44.0);
+    
+    self.sportSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, 0, screenWidth, 44)];
+    self.sportSearchBar.delegate = self;
+    self.sportSearchBar.returnKeyType = UIReturnKeySearch;
+    self.sportSearchBar.placeholder = @"搜索 or 新建";
+    
+    self.definesPresentationContext = YES;
+    
     //智能推荐的部分
     _personal = [PersonInfoStore sharedSetting];
     
@@ -102,6 +125,7 @@
         self.outsideView.layer.borderColor = [[UIColor colorWithRed:0.2000 green:0.6235 blue:0.9882 alpha:1] CGColor];
     }
     
+    //初始化NavBar
     UIBarButtonItem *addOneMoreButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"plusOneMore"] style:UIBarButtonItemStylePlain target:self action:@selector(createOneMoreEvent:)];
     UIBarButtonItem *createNewButton = [[UIBarButtonItem alloc] initWithTitle:@"新建" style:UIBarButtonItemStylePlain target:self action:@selector(finishAndCreateEvent:)];
     UIBarButtonItem *editEventButton = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(finishAndCreateEvent:)];
@@ -115,6 +139,23 @@
         self.navigationItem.rightBarButtonItem = editEventButton;
         self.navigationItem.title = @"修改事件";
     }
+    
+    self.closeWeights = [[NYSegmentedControl alloc] initWithItems:@[@"On", @"Off"]];
+    self.closeWeights.borderWidth = 0.2f;
+    self.closeWeights.segmentIndicatorBackgroundColor = [UIColor colorWithRed:0.0000 green:0.5608 blue:0.5176 alpha:0.88];
+    self.closeWeights.titleFont = [UIFont fontWithName:@"AvenirNext-Medium" size:10.0f];
+    self.closeWeights.titleTextColor = [UIColor lightGrayColor];
+    self.closeWeights.selectedTitleFont = [UIFont fontWithName:@"AvenirNext-DemiBold" size:10.0f];
+    self.closeWeights.selectedTitleTextColor = [UIColor colorWithWhite:0.9f alpha:1.0f];
+
+    self.closeWeights.segmentIndicatorAnimationDuration = 0.2f;
+    self.closeWeights.segmentIndicatorInset = 1.0f;
+    self.closeWeights.segmentIndicatorBorderWidth = 0.0f;
+    self.closeWeights.frame = CGRectMake(0, 0, 58.0f, 29.0f);
+    self.closeWeights.cornerRadius = CGRectGetHeight(self.closeWeights.frame) / 2.0f;
+    self.closeWeights.center = self.swithButton.center;
+    [self.closeWeights addTarget:self action:@selector(NotHaveRapAndTimes:) forControlEvents:UIControlEventValueChanged];
+    [_outsideView addSubview:self.closeWeights];
     
     //datePick初始化
     NSString *minDate = @"1990-01-01";
@@ -133,11 +174,6 @@
     self.sportPicker = [[UIPickerView alloc] initWithFrame:CGRectZero];
     self.sportPicker.delegate = self;
     
-    self.sportSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, 44.)];
-    self.sportSearchBar.delegate = self;
-    [self.sportSearchBar sizeToFit];
-    self.sportSearchBar.returnKeyType = UIReturnKeySearch;
-    self.sportSearchBar.placeholder = @"搜索或者新建运动项目";
     [self getSportPickerData: 0];
 
     //sportTypePicker初始化
@@ -213,7 +249,6 @@
     UIImage *imageToDisplay = [UIImage imageNamed:[NSString stringWithFormat:@"funPic%i", 4]];
     if (imageToDisplay) {self.imageView.image = imageToDisplay;};
     
-    
     //重量的UI显示
     if ([self.weightTextFeild.text isEqualToString:@"220"]) {
         self.weightTextFeild.textColor = [UIColor clearColor];
@@ -224,6 +259,7 @@
         self.weightUnitLabel.text = @"Kg";
         self.weightUnitLabel.textAlignment = NSTextAlignmentRight;
     }
+    
 }
 
 - (NSDateFormatter *)dateFormatter
@@ -281,8 +317,9 @@
     }
 }
 
-- (IBAction)NotHaveRapAndTimes:(UISwitch *)sender {
-    if (!self.swithButton.isOn){
+- (IBAction)NotHaveRapAndTimes:(NYSegmentedControl *)sender {
+    switch ([sender selectedSegmentIndex]) {
+        case 1:
         //关
         [self weightChangeValue:self.weightSlider];
         self.weightUnitLabel.text = @"Kg";
@@ -304,7 +341,9 @@
         
         self.rapLabel.textColor = [UIColor lightGrayColor];
         self.weightLabel.textColor = [UIColor lightGrayColor];
-    }else{
+        break;
+        
+    case 0:
         //开
         self.timesFeild.textColor = [UIColor blackColor];
         self.timesFeild.enabled = YES;
@@ -324,6 +363,10 @@
         self.weightLabel.textColor = [UIColor darkGrayColor];
         
         [self weightChangeValue:self.weightSlider];
+        break;
+        
+    default:
+        break;
     }
     
 }
@@ -623,65 +666,104 @@
 #pragma mark - searchBar
 - (BOOL)searchBarShouldBeginEditing:(nonnull UISearchBar *)searchBar
 {
-    self.sportSearchBar.showsCancelButton = YES;
-    return YES;
-}
-
-- (BOOL)searchBarShouldEndEditing:(nonnull UISearchBar *)searchBar
-{
-    return YES;
-}
-
-- (void)searchBarCancelButtonClicked:(nonnull UISearchBar *)searchBar
-{
-    self.sportSearchBar.text = @"";
-    [self.sportSearchBar resignFirstResponder];
-}
-
-- (void)searchBarSearchButtonClicked:(nonnull UISearchBar *)searchBar
-{
-    [searchBar resignFirstResponder];
+    if (!self.searchTempDateArray) {
+        self.searchTempDateArray = [NSMutableArray array];
+    }
     
-    if (searchBar.text.length > 0) {
+    if (self.searchController.searchResultsController) {
         
-    NSString *searchResult = searchBar.text;
-    unsigned long index = 0;
-    int row1 = 9999;
-    int row2 = 0;
+        [self presentViewController:_searchController animated:YES completion:nil];
+    }
+    
+//    self.sportSearchBar.text = @"";
+//    self.sportSearchBar.showsCancelButton = YES;
+    return YES;
+}
+
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
+{
+
+    NSString *searchString = _searchController.searchBar.text;
+    
+    [self updateFilteredContentForSport:searchString];
+    
+    if (self.searchController.searchResultsController) {
+        UINavigationController *navController = (UINavigationController *)self.searchController.searchResultsController;
+        _searchTVC = (SearchResultTV *)navController.topViewController;
+        if (_searchTempDateArray.count == 0) {
+            _searchTVC.theNewStr = searchString;
+        }else{
+            _searchTVC.searchTempDatas = _searchTempDateArray;
+        }
+        
+        //Block的方法
+        
+        __weak NewEvevtViewController *newVC = self;
+        
+        _searchTVC.changeValueBlock = ^(NSDictionary * dic){
+            newVC.sportTypeTextField.text = [[dic allValues] firstObject];
+            newVC.sportNameTextField.text = [[dic allKeys] firstObject];
+            newVC.searchController.searchBar.text = @"";
+        };
+        
+        _searchTVC.createNewBlock = ^(NSString *str){
+            [newVC alertForNotSearchResult:str];
+            newVC.searchController.searchBar.text = @"";
+        };
+        
+        [_searchTVC.tableView reloadData];
+    }
+    
+//    NSLog(@"updateSearchResultsForSearchController");
+}
+
+- (void)updateFilteredContentForSport:(NSString *)searchResult
+{
+    [_searchTempDateArray removeAllObjects];
     
     //搜索方法
     for (int i = 0; i < self.sportTypes.count; i++){
+        NSArray *tepArray = [[self.sportTypes objectAtIndex:i] objectForKey:@"sportName"];
+        NSString *tempType = [[self.sportTypes objectAtIndex:i] objectForKey:@"sportType"];
+        
+        for (NSString *sTemp in tepArray)
+        {
+            NSRange titleResultsRange = [sTemp rangeOfString:searchResult options:NSCaseInsensitiveSearch];
+            NSMutableDictionary *tempDic = [NSMutableDictionary dictionary];
+            
+            if (titleResultsRange.length > 0){
+                [tempDic setObject:tempType forKey:sTemp];
+                [_searchTempDateArray addObject:tempDic];
+            }
+        }
+    }
+}
+
+- (void)setTheSportPicker: (NSString *)sportName
+{
+    unsigned long index = 0;
+    int row1 = 0;
+    int row2 = 0;
+    
+    for (int i = 0; i < self.sportTypes.count; i++){
         NSArray *tepArray =[[self.sportTypes objectAtIndex:i] objectForKey:@"sportName"];
-        if ([tepArray containsObject:searchResult]){
-            index = [tepArray indexOfObject:searchResult];
+        
+        if ([tepArray containsObject:sportName]){
+            index = [tepArray indexOfObject:sportName];
             row1 = i;
             row2 = (int)index;
             break;
         }
-        for (int k = 0; k < tepArray.count; k++) {
-            if ([tepArray[k] hasPrefix:searchResult]) {
-                row1 = i;
-                row2 = k;
-                break;
-            }
-        }
     }
     
-    if (row1 == 9999) {
-        [self actionAlertForNotSearchResult: searchBar.text];
-    }else{
-//        NSLog(@"row1 = %i, row2 = %i", row1, row2);
-        [self.sportPicker selectRow:(NSInteger)row1 inComponent:0 animated:YES];
-        self.sportNames = [[self.sportTypes objectAtIndex:row1] objectForKey:@"sportName"];
-        [self.sportPicker reloadComponent:1];
-        [self.sportPicker selectRow:(NSInteger)row2 inComponent:1 animated:YES];
-        
-        self.sportTypeTextField.text = [[self.sportTypes objectAtIndex:row1] objectForKey:@"sportType"];
-        self.sportNameTextField.text = [self.sportNames objectAtIndex:row2];
-    }
-    }
+    [self.sportPicker selectRow:(NSInteger)row1 inComponent:0 animated:YES];
+    self.sportNames = [[self.sportTypes objectAtIndex:row1] objectForKey:@"sportName"];
+    [self.sportPicker reloadComponent:1];
+    [self.sportPicker selectRow:(NSInteger)row2 inComponent:1 animated:YES];
+    
+    self.sportTypeTextField.text = [[self.sportTypes objectAtIndex:row1] objectForKey:@"sportType"];
+    self.sportNameTextField.text = [self.sportNames objectAtIndex:row2];
 }
-
 #pragma mark - alert Method
 
 - (void)alertForOverLimit
@@ -710,7 +792,7 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
-- (void)actionAlertForNotSearchResult: (NSString *)searchResult
+- (void)alertForNotSearchResult: (NSString *)searchResult
 {
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"新建"
                                                                    message:@"不好意思，没有收录名称相同的项目。根据需要，可以新建运动项目。"
@@ -973,11 +1055,11 @@
     
     //如果选择了体力类别，则关闭组数等选项
     if ([self.sportTypeTextField.text isEqualToString:@"体力"]) {
-        [self.swithButton setOn:NO animated:YES];
-        [self NotHaveRapAndTimes:self.swithButton];
+        [self.closeWeights setSelectedSegmentIndex:1 animated:YES];
+        [self NotHaveRapAndTimes:self.closeWeights];
     }else if (![self.sportTypeTextField.text isEqualToString:@"体力"]){
-        [self.swithButton setOn:YES animated:YES];
-        [self NotHaveRapAndTimes:self.swithButton];
+        [self.closeWeights setSelectedSegmentIndex:0 animated:YES];
+        [self NotHaveRapAndTimes:self.closeWeights];
     }
 }
 
