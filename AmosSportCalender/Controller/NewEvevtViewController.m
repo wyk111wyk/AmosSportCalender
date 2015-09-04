@@ -9,6 +9,7 @@
 #import <EventKit/EventKit.h>
 #import <EventKitUI/EventKitUI.h>
 
+#import "KVNProgress.h"
 #import "CommonMarco.h"
 #import "NewEvevtViewController.h"
 #import "Event.h"
@@ -89,6 +90,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    //初始化和设置HUB
+    KVNProgressConfiguration *configuration = [[KVNProgressConfiguration alloc] init];
+    configuration.minimumSuccessDisplayTime = .8f;
+    configuration.circleSize = 100.f;
+//    configuration.successColor = [UIColor blueColor];
+    [KVNProgress setConfiguration:configuration];
+    
     //初始化搜索页面
     UINavigationController *searchResultsController = [[self storyboard] instantiateViewControllerWithIdentifier:@"searchResultNav"];
     _searchController = [[UISearchController alloc] initWithSearchResultsController:searchResultsController];
@@ -315,6 +323,9 @@
         self.outsideView.layer.borderWidth = 1.5;
         self.outsideView.layer.borderColor = [[UIColor colorWithRed:0.2000 green:0.6235 blue:0.9882 alpha:1] CGColor];
 //        self.view.backgroundColor = [UIColor colorWithRed:0.5216 green:0.8549 blue:0.9111 alpha:0.7];
+        
+        //开启HUD
+        [KVNProgress showSuccessWithStatus:@"完成"];
     }
 }
 

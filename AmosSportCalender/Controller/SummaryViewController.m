@@ -11,6 +11,7 @@
 #define screenSize ([UIScreen mainScreen].bounds.size)
 
 #import <QuartzCore/QuartzCore.h>
+
 #import "SummaryViewController.h"
 #import "summaryTypeCell.h"
 #import "EventStore.h"

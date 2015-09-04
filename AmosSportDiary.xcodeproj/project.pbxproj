@@ -62,6 +62,12 @@
 		B048EF911B8D762F00F01530 /* WeixinSessionActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = B048EF8C1B8D762F00F01530 /* WeixinSessionActivity.m */; };
 		B048EF921B8D762F00F01530 /* WeixinTimelineActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = B048EF8E1B8D762F00F01530 /* WeixinTimelineActivity.m */; };
 		B049AC781B95E1880002A0BC /* SearchResultTV.m in Sources */ = {isa = PBXBuildFile; fileRef = B049AC771B95E1880002A0BC /* SearchResultTV.m */; settings = {ASSET_TAGS = (); }; };
+		B061FA4D1B99FF300082FBA1 /* UIColor+KVNContrast.m in Sources */ = {isa = PBXBuildFile; fileRef = B061FA411B99FF300082FBA1 /* UIColor+KVNContrast.m */; settings = {ASSET_TAGS = (); }; };
+		B061FA4E1B99FF300082FBA1 /* UIImage+KVNEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = B061FA431B99FF300082FBA1 /* UIImage+KVNEmpty.m */; settings = {ASSET_TAGS = (); }; };
+		B061FA4F1B99FF300082FBA1 /* UIImage+KVNImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = B061FA451B99FF300082FBA1 /* UIImage+KVNImageEffects.m */; settings = {ASSET_TAGS = (); }; };
+		B061FA501B99FF300082FBA1 /* KVNProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = B061FA481B99FF300082FBA1 /* KVNProgress.m */; settings = {ASSET_TAGS = (); }; };
+		B061FA511B99FF300082FBA1 /* KVNProgressConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = B061FA4A1B99FF300082FBA1 /* KVNProgressConfiguration.m */; settings = {ASSET_TAGS = (); }; };
+		B061FA521B99FF300082FBA1 /* KVNProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B061FA4C1B99FF300082FBA1 /* KVNProgressView.xib */; settings = {ASSET_TAGS = (); }; };
 		B06594C31B7F62E100ACFD66 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B06594C21B7F62E100ACFD66 /* MessageUI.framework */; };
 		B07043EF1B8D708500512A3C /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B07043EB1B8D708500512A3C /* libWeChatSDK.a */; };
 		B07043F01B8D708500512A3C /* read_me.txt in Resources */ = {isa = PBXBuildFile; fileRef = B07043EC1B8D708500512A3C /* read_me.txt */; };
@@ -275,6 +281,17 @@
 		B048EF8E1B8D762F00F01530 /* WeixinTimelineActivity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WeixinTimelineActivity.m; sourceTree = "<group>"; };
 		B049AC761B95E1880002A0BC /* SearchResultTV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultTV.h; sourceTree = "<group>"; };
 		B049AC771B95E1880002A0BC /* SearchResultTV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultTV.m; sourceTree = "<group>"; };
+		B061FA401B99FF300082FBA1 /* UIColor+KVNContrast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+KVNContrast.h"; sourceTree = "<group>"; };
+		B061FA411B99FF300082FBA1 /* UIColor+KVNContrast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+KVNContrast.m"; sourceTree = "<group>"; };
+		B061FA421B99FF300082FBA1 /* UIImage+KVNEmpty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+KVNEmpty.h"; sourceTree = "<group>"; };
+		B061FA431B99FF300082FBA1 /* UIImage+KVNEmpty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+KVNEmpty.m"; sourceTree = "<group>"; };
+		B061FA441B99FF300082FBA1 /* UIImage+KVNImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+KVNImageEffects.h"; sourceTree = "<group>"; };
+		B061FA451B99FF300082FBA1 /* UIImage+KVNImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+KVNImageEffects.m"; sourceTree = "<group>"; };
+		B061FA471B99FF300082FBA1 /* KVNProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVNProgress.h; sourceTree = "<group>"; };
+		B061FA481B99FF300082FBA1 /* KVNProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVNProgress.m; sourceTree = "<group>"; };
+		B061FA491B99FF300082FBA1 /* KVNProgressConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVNProgressConfiguration.h; sourceTree = "<group>"; };
+		B061FA4A1B99FF300082FBA1 /* KVNProgressConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVNProgressConfiguration.m; sourceTree = "<group>"; };
+		B061FA4C1B99FF300082FBA1 /* KVNProgressView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KVNProgressView.xib; sourceTree = "<group>"; };
 		B06594C21B7F62E100ACFD66 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		B07043EB1B8D708500512A3C /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		B07043EC1B8D708500512A3C /* read_me.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = read_me.txt; sourceTree = "<group>"; };
@@ -610,9 +627,53 @@
 			path = vendor/UUChart;
 			sourceTree = "<group>";
 		};
+		B061FA3E1B99FF300082FBA1 /* KVNProgress */ = {
+			isa = PBXGroup;
+			children = (
+				B061FA3F1B99FF300082FBA1 /* Categories */,
+				B061FA461B99FF300082FBA1 /* Classes */,
+				B061FA4B1B99FF300082FBA1 /* Resources */,
+			);
+			name = KVNProgress;
+			path = vendor/KVNProgress;
+			sourceTree = "<group>";
+		};
+		B061FA3F1B99FF300082FBA1 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				B061FA401B99FF300082FBA1 /* UIColor+KVNContrast.h */,
+				B061FA411B99FF300082FBA1 /* UIColor+KVNContrast.m */,
+				B061FA421B99FF300082FBA1 /* UIImage+KVNEmpty.h */,
+				B061FA431B99FF300082FBA1 /* UIImage+KVNEmpty.m */,
+				B061FA441B99FF300082FBA1 /* UIImage+KVNImageEffects.h */,
+				B061FA451B99FF300082FBA1 /* UIImage+KVNImageEffects.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		B061FA461B99FF300082FBA1 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				B061FA471B99FF300082FBA1 /* KVNProgress.h */,
+				B061FA481B99FF300082FBA1 /* KVNProgress.m */,
+				B061FA491B99FF300082FBA1 /* KVNProgressConfiguration.h */,
+				B061FA4A1B99FF300082FBA1 /* KVNProgressConfiguration.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		B061FA4B1B99FF300082FBA1 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B061FA4C1B99FF300082FBA1 /* KVNProgressView.xib */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		B07043E91B8C148900512A3C /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				B061FA3E1B99FF300082FBA1 /* KVNProgress */,
 				B02CCEB61B98172300936FB5 /* UUChart */,
 				B02CCEA91B98000F00936FB5 /* NYSegmentedControl */,
 				B019BEB81B935C0B00D2D8F6 /* UMengFeedback_SDK */,
@@ -1159,6 +1220,7 @@
 				B08875E11B6F9AF3008DF5D4 /* SummaryViewController.xib in Resources */,
 				B07043F01B8D708500512A3C /* read_me.txt in Resources */,
 				B019BEE61B935C0B00D2D8F6 /* microphone@2x.png in Resources */,
+				B061FA521B99FF300082FBA1 /* KVNProgressView.xib in Resources */,
 				B09DB2E81B857437007458C1 /* LeftMenuViewController.xib in Resources */,
 				B019BEF11B935C0B00D2D8F6 /* umeng_fb_audio_play_03@2x.png in Resources */,
 				B019BEEE1B935C0B00D2D8F6 /* umeng_fb_audio_dialog_content@2x.png in Resources */,
@@ -1192,6 +1254,7 @@
 				B09DB2941B84E5E0007458C1 /* LeftMenuView.m in Sources */,
 				B048EF921B8D762F00F01530 /* WeixinTimelineActivity.m in Sources */,
 				B0C1010E1B7798C000E4204B /* ViewController.m in Sources */,
+				B061FA501B99FF300082FBA1 /* KVNProgress.m in Sources */,
 				B00E23221B92104500649AC9 /* ConflictTV.m in Sources */,
 				B0E144F01B81C58700934377 /* TOActivityChrome.m in Sources */,
 				B0C1012A1B77993800E4204B /* SummaryTVCell.m in Sources */,
@@ -1203,11 +1266,13 @@
 				B0C100FC1B77982200E4204B /* ImageStore.m in Sources */,
 				B02CCEB51B98000F00936FB5 /* NYSegmentLabel.m in Sources */,
 				B071F4791B8F45EB00F711EA /* QZoneAct.m in Sources */,
+				B061FA4E1B99FF300082FBA1 /* UIImage+KVNEmpty.m in Sources */,
 				B0B548571B84443700D42B33 /* DMPasscodeInternalField.m in Sources */,
 				B0DC6BE51B7F079F009DFA5A /* FeedbackViewController.m in Sources */,
 				B0854D9C1B6BA87600C1B150 /* JTHorizontalCalendarView.m in Sources */,
 				B0C1012C1B77993800E4204B /* TypeManageTVCell.m in Sources */,
 				B0C101011B77984300E4204B /* Event.m in Sources */,
+				B061FA4D1B99FF300082FBA1 /* UIColor+KVNContrast.m in Sources */,
 				B0DC6BE91B7F2970009DFA5A /* FeedbackTVCell.m in Sources */,
 				B02CCEC61B98172300936FB5 /* UUChartLabel.m in Sources */,
 				B048EF911B8D762F00F01530 /* WeixinSessionActivity.m in Sources */,
@@ -1245,6 +1310,8 @@
 				B0854D951B6BA87600C1B150 /* JTCalendarDelegateManager.m in Sources */,
 				B0C1010D1B7798C000E4204B /* SummaryViewController.m in Sources */,
 				B07F43961B919B2600FE0D25 /* iCloudStorageTV.m in Sources */,
+				B061FA4F1B99FF300082FBA1 /* UIImage+KVNImageEffects.m in Sources */,
+				B061FA511B99FF300082FBA1 /* KVNProgressConfiguration.m in Sources */,
 				B0854D991B6BA87600C1B150 /* JTCalendarPageView.m in Sources */,
 				B0B548581B84443700D42B33 /* DMPasscodeInternalNavigationController.m in Sources */,
 				B0854D961B6BA87600C1B150 /* JTCalendarScrollManager.m in Sources */,
