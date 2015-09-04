@@ -157,9 +157,15 @@
     _calendarManager.delegate = self;
     _calendarManager.settings.weekDayFormat = JTCalendarWeekDayFormatShort;
     _calendarManager.dateHelper.calendar.locale = [NSLocale currentLocale];
+    //每周的第一天是星期几
+    SettingStore *setting = [SettingStore sharedSetting];
+    if (setting.firstDayOfWeek) {
+        [_calendarManager.dateHelper.calendar setFirstWeekday:1];
+    }else{
+        [_calendarManager.dateHelper.calendar setFirstWeekday:2];
+    };
     
     _todayDate = [NSDate date];
-    
     [_calendarManager setMenuView:_calendarMenuView];
     [_calendarManager setContentView:_calendarContentView];
     [_calendarManager setDate:_todayDate];
@@ -168,7 +174,7 @@
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureRecognized:)];
     [self.tableView addGestureRecognizer:longPress];
 
-    //init
+    //初始数据
     self.selectedDate = [NSDate date];
     self.doneNumbers = [NSMutableDictionary dictionary];
     
@@ -1247,7 +1253,7 @@
 - (void)shareThePersonalInfo:(UIImage *)img
 {
     UIActivityViewController *activityViewController =
-    [[UIActivityViewController alloc] initWithActivityItems:@[img, @"我的运动情况"]
+    [[UIActivityViewController alloc] initWithActivityItems:@[img]
                                       applicationActivities:_activity];
     
     //不需要显示的部分

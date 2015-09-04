@@ -49,6 +49,9 @@
         
         _finishView.backgroundColor = [UIColor clearColor];
         _finishView.hidden = YES;
+        
+        _finishView.layer.rasterizationScale = [UIScreen mainScreen].scale;
+        _finishView.layer.shouldRasterize = YES;
     }
     
     {
@@ -57,6 +60,9 @@
         
         _circleView.backgroundColor = [UIColor colorWithRed:0x33/256. green:0xB3/256. blue:0xEC/256. alpha:.5];
         _circleView.hidden = YES;
+        
+        _circleView.layer.rasterizationScale = [UIScreen mainScreen].scale;
+        _circleView.layer.shouldRasterize = YES;
     }
     
     {
@@ -65,6 +71,8 @@
         
         _dotView.backgroundColor = [UIColor redColor];
         _dotView.hidden = YES;
+        _dotView.layer.rasterizationScale = [UIScreen mainScreen].scale;
+        _dotView.layer.shouldRasterize = YES;
     }
     
     {

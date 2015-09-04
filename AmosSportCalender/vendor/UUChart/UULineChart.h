@@ -13,7 +13,7 @@
 #define chartMargin     10
 #define xLabelMargin    15
 #define yLabelMargin    15
-#define UULabelHeight    8
+#define UULabelHeight    10
 #define UUYLabelwidth     24
 #define UUTagLabelwidth     80
 

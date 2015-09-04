@@ -26,7 +26,7 @@
     if (self) {
         // Initialization code
         self.clipsToBounds = YES;
-        myScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(UUYLabelwidth, 0, frame.size.width-UUYLabelwidth, frame.size.height)];
+        myScrollView = [[UIScrollView alloc]initWithFrame:CGRectMake(UUBLabelwidth, 0, frame.size.width-UUBLabelwidth, frame.size.height)];
         [self addSubview:myScrollView];
     }
     return self;
@@ -73,7 +73,7 @@
     CGFloat levelHeight = chartCavanHeight /4.0;
     
     for (int i=0; i<5; i++) {
-        UUChartLabel * label = [[UUChartLabel alloc] initWithFrame:CGRectMake(0.0,chartCavanHeight-i*levelHeight+5, UUYLabelwidth, UULabelHeight)];
+        UUChartLabel * label = [[UUChartLabel alloc] initWithFrame:CGRectMake(0.0,chartCavanHeight-i*levelHeight+5, UUBLabelwidth, UULabelHeight)];
 		label.text = [NSString stringWithFormat:@"%.1f",level * i+_yValueMin];
 		[self addSubview:label];
     }

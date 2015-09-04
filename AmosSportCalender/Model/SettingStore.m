@@ -9,7 +9,7 @@
 #import "SettingStore.h"
 
 static NSString *const kAutoUpDate = @"autoUpDate";
-static NSString *const kiCloudKey = @"iCloud";
+static NSString *const kfirstDayOfWeekKey = @"firstDayOfWeek";
 static NSString *const kpassWordOfFingerprintKey = @"passWordOfFingerprint";
 static NSString *const ksportTypeImageMaleKey = @"sportTypeImageMale";
 static NSString *const kIconBadgeNumber = @"IconBadgeNumber";
@@ -42,13 +42,13 @@ static NSString *const kIconBadgeNumber = @"IconBadgeNumber";
     if (self) {
         _userDefaults = [NSUserDefaults standardUserDefaults];
         
-        [_userDefaults registerDefaults:@{kiCloudKey: @NO,
+        [_userDefaults registerDefaults:@{kfirstDayOfWeekKey: @YES,
                                           kAutoUpDate: @YES,
                                           kpassWordOfFingerprintKey: @NO,
                                           ksportTypeImageMaleKey: @YES,
                                           kIconBadgeNumber: @YES}];
         
-        _iCloud = [_userDefaults boolForKey:kiCloudKey];
+        _firstDayOfWeek = [_userDefaults boolForKey:kfirstDayOfWeekKey];
         _autoUpDate = [_userDefaults boolForKey:kAutoUpDate];
         _passWordOfFingerprint = [_userDefaults boolForKey:kpassWordOfFingerprintKey];
         _sportTypeImageMale = [_userDefaults boolForKey:ksportTypeImageMaleKey];
@@ -57,10 +57,10 @@ static NSString *const kIconBadgeNumber = @"IconBadgeNumber";
     return self;
 }
 
-- (void)setICloud:(BOOL)iCloud
+- (void)setFirstDayOfWeek:(BOOL)firstDayOfWeek
 {
-    _iCloud = iCloud;
-    [self.userDefaults setBool:iCloud forKey:kiCloudKey];
+    _firstDayOfWeek = firstDayOfWeek;
+    [self.userDefaults setBool:firstDayOfWeek forKey:kfirstDayOfWeekKey];
 }
 
 - (void)setAutoUpDate:(BOOL)autoUpDate

@@ -13,7 +13,7 @@
 #define xLabelMargin    15
 #define yLabelMargin    15
 #define UULabelHeight   10
-#define UUYLabelwidth   30
+#define UUBLabelwidth   30
 
 @interface UUBarChart : UIView
 

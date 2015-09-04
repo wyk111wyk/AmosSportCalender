@@ -12,9 +12,11 @@
                 <outlet property="contantView" destination="ozj-Sk-yjx" id="i3l-2n-tzM"/>
                 <outlet property="hLineView" destination="WrH-3C-VmK" id="6aA-ES-yW3"/>
                 <outlet property="leastTypeImageView" destination="C5f-wO-NBL" id="M9F-Li-ig6"/>
+                <outlet property="leftAButton" destination="CEL-9c-eyw" id="TdE-9M-aNg"/>
                 <outlet property="mostTypeImageView" destination="aG8-YE-nMc" id="aVf-Lf-rgq"/>
                 <outlet property="percentageLabel" destination="rNF-Zc-25k" id="UAD-pn-ntG"/>
                 <outlet property="pieChartView" destination="g75-TY-Agv" id="qfc-cm-mAm"/>
+                <outlet property="rightAButton" destination="tAF-n3-Khi" id="Zbj-2Z-1to"/>
                 <outlet property="scrollView" destination="G13-md-gv0" id="Lk9-gq-Ayd"/>
                 <outlet property="shadoView1" destination="XLG-Z5-z1C" id="KuO-17-bih"/>
                 <outlet property="shadoView21" destination="r73-11-Tnf" id="Une-wX-hAR"/>
@@ -515,8 +517,34 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ozj-Sk-yjx">
                     <rect key="frame" x="8" y="0.0" width="359" height="157"/>
+                    <subviews>
+                        <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CEL-9c-eyw">
+                            <rect key="frame" x="25" y="29" width="45" height="100"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="100" id="8cG-z2-cCC"/>
+                                <constraint firstAttribute="width" constant="45" id="Nsi-f1-Hvv"/>
+                            </constraints>
+                            <state key="normal" image="leftA"/>
+                        </button>
+                        <button opaque="NO" alpha="0.59999999999999998" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tAF-n3-Khi">
+                            <rect key="frame" x="289" y="29" width="45" height="100"/>
+                            <animations/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="100" id="4fz-eR-ZWH"/>
+                                <constraint firstAttribute="width" constant="45" id="HVi-pw-kxy"/>
+                            </constraints>
+                            <state key="normal" image="rightA"/>
+                        </button>
+                    </subviews>
                     <animations/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="trailing" secondItem="tAF-n3-Khi" secondAttribute="trailing" constant="25" id="Nfa-Wy-M2h"/>
+                        <constraint firstItem="CEL-9c-eyw" firstAttribute="centerY" secondItem="ozj-Sk-yjx" secondAttribute="centerY" id="aUM-rt-2zV"/>
+                        <constraint firstItem="CEL-9c-eyw" firstAttribute="leading" secondItem="ozj-Sk-yjx" secondAttribute="leading" constant="25" id="ayK-2z-ZJW"/>
+                        <constraint firstItem="tAF-n3-Khi" firstAttribute="centerY" secondItem="ozj-Sk-yjx" secondAttribute="centerY" id="x7c-gC-hs3"/>
+                    </constraints>
                 </view>
             </subviews>
             <animations/>
@@ -533,6 +561,8 @@
         </view>
     </objects>
     <resources>
+        <image name="leftA" width="35" height="94"/>
+        <image name="rightA" width="35" height="94"/>
         <image name="胸部" width="315" height="242"/>
         <image name="腿部" width="487" height="373"/>
     </resources>

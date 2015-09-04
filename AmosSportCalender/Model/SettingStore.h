@@ -13,7 +13,7 @@
 + (instancetype)sharedSetting;
 
 @property (nonatomic)BOOL autoUpDate;
-@property (nonatomic)BOOL iCloud;
+@property (nonatomic)BOOL firstDayOfWeek;
 @property (nonatomic)BOOL passWordOfFingerprint;
 @property (nonatomic)BOOL sportTypeImageMale;
 @property (nonatomic)BOOL iconBadgeNumber;

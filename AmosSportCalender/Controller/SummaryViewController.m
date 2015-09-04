@@ -49,6 +49,8 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
 @property (weak, nonatomic) IBOutlet UILabel *aveTime;
 @property (weak, nonatomic) IBOutlet UILabel *percentageLabel;
 @property (strong ,nonatomic) UILabel *expLabel;
+@property (strong, nonatomic) IBOutlet UIButton *leftAButton;
+@property (strong, nonatomic) IBOutlet UIButton *rightAButton;
 
 @property (nonatomic, strong)NSMutableDictionary *eventsByDate;
 @property (nonatomic, strong)NSArray *sortedKeyArray;
@@ -56,7 +58,13 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
 @property (nonatomic, strong)NSDictionary *eventsDetailByType;
 
 @property (nonatomic, strong)NSDate *firstDayofMonth; ///<这个月的第一天的日子
+@property (nonatomic, strong)NSArray *chartDataArray;
+@property (nonatomic, strong)NSString *monthAndYear;
+@property (nonatomic, strong)UITapGestureRecognizer *tap;
 @property (nonatomic)BOOL isDay;
+
+@property (nonatomic, strong) NSTimer *timer;
+
 @end
 
 @implementation SummaryViewController
@@ -69,6 +77,10 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     [super viewDidLoad];
     
     [self initTheFrames];
+    [self initButtons];
+    
+    //设置当前的月份和年份
+    self.monthAndYear = [[self dateFormatterForMonth] stringFromDate:[NSDate date]];
     
     //初始化数据
     self.eventsByDate = [[NSMutableDictionary alloc] initWithDictionary:[[EventStore sharedStore] allItems] copyItems:NO];
@@ -91,15 +103,20 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     //3.1.执行3次循环
     dispatch_async(queue, ^{
         self.eventsDetailByType = [self sortForTypeDetail];
-        NSLog(@"数组Detail的数据已载入");
+//        NSLog(@"数组Detail的数据已载入");
     });
     
     [self setView1NumberLabel];
-    [self.chartView showInView:self.contantView];
-    [self.contantView bringSubviewToFront:self.expLabel];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(makeLabelDisappear)];
-    [self.chartView addGestureRecognizer:tap];
+    [self arrayForChartData: [NSDate date]];
+    [self.chartView showInView:self.contantView];
+    
+    [self.contantView bringSubviewToFront:self.expLabel];
+    [self.contantView bringSubviewToFront:self.leftAButton];
+    [self.contantView bringSubviewToFront:self.rightAButton];
+    
+    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(makeButtonDisappear)];
+    [self.chartView addGestureRecognizer:self.tap];
     
     //2-1图片
     SettingStore *setting = [SettingStore sharedSetting];
@@ -140,14 +157,15 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
                                                     withStyle:UUChartLineStyle];
     
     NSString *monthStr = [[self dateFormatterForMonth] stringFromDate:[NSDate date]];
-    NSString *subStr = [monthStr substringToIndex:2];
-    NSString *labelStr = [NSString stringWithFormat:@"%@月每周运动天数", subStr];
+    NSString *subStr1 = [monthStr substringFromIndex:3];
+    NSString *subStr2 = [monthStr substringToIndex:2];
+    NSString *labelStr = [NSString stringWithFormat:@"%@年%@月-每周运动天数",subStr1, subStr2];
     self.expLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.contantView.frame.size.width - 125, 105, 0, 0)];
     self.expLabel.text = labelStr;
     self.expLabel.font = [UIFont fontWithName:@"AvenirNext-Medium" size:12.0f];
     self.expLabel.textColor = [UIColor colorWithWhite:0.2 alpha:0.3];
     [self.expLabel sizeToFit];
-    self.expLabel.center = CGPointMake(screenWidth/2, 11);
+    self.expLabel.center = CGPointMake(screenWidth/2, 13);
     [self.contantView addSubview:self.expLabel];
     
     self.view2.frame = CGRectMake(0, self.view1.frame.size.height + self.view4.frame.size.height, screenWidth, 152);
@@ -180,7 +198,6 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     //图表View的初始化
     self.pieChartView.delegate = self;
     [self.pieChartView setDataSource:self];
-    
     //optional
     [self.pieChartView setStartPieAngle:M_PI_2];
     [self.pieChartView setAnimationSpeed:0.8];
@@ -214,6 +231,14 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     
     [self.percentageLabel.layer setCornerRadius:22];
     [self.percentageLabel setText:@"100%"];
+}
+
+- (void)initButtons
+{
+    [self.leftAButton addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.rightAButton addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
+    self.leftAButton.hidden = YES;
+    self.rightAButton.hidden = YES;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -269,14 +294,65 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     }];
 }
 
-- (void)makeLabelDisappear
+- (void)makeButtonDisappear
 {
-    if (!self.expLabel.hidden) {
-        self.expLabel.hidden = YES;
+    if (!self.rightAButton.hidden) {
+        //提前直接隐藏buttons
+        [self.timer fire];
     }else{
-        self.expLabel.hidden = NO;
+        self.rightAButton.hidden = NO;
+        self.leftAButton.hidden = NO;
+        
+        //设置3秒钟后，隐藏buttons
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(makeButtonOnlyDisappear) userInfo:nil repeats:NO];
     }
+}
+
+- (void)makeButtonOnlyDisappear
+{
+    self.rightAButton.hidden = YES;
+    self.leftAButton.hidden = YES;
+}
+
+- (void)buttonClicked: (UIButton *)sender
+{
+//    NSLog(@"%li", self.contantView.subviews.count);
     
+    //重新设置自动消失buttons的时间为3秒
+    [self.timer setFireDate:[[NSDate date] dateByAddingTimeInterval:3]];
+    
+    //删除当下的图表
+    [[self.contantView.subviews firstObject] removeFromSuperview];
+    
+    if (sender == self.leftAButton) {
+        //重绘上月数据的图表
+        NSString * lastMonthAndYear = [self lastMonthFrom:self.monthAndYear];
+        NSDate *lastMonth = [[self dateFormatterForMonth] dateFromString:lastMonthAndYear];
+        [self arrayForChartData:lastMonth];
+        self.monthAndYear = lastMonthAndYear;
+    }else if (sender == self.rightAButton) {
+        //重绘下月数据的图表
+        NSString * nextMonthAndYear = [self nextMonthFrom:self.monthAndYear];
+        NSDate *nextMonth = [[self dateFormatterForMonth] dateFromString:nextMonthAndYear];
+        [self arrayForChartData:nextMonth];
+        self.monthAndYear = nextMonthAndYear;
+    }
+
+    //更新title的月份显示
+    NSString *subStr1 = [self.monthAndYear substringFromIndex:3];
+    NSString *subStr2 = [self.monthAndYear substringToIndex:2];
+    NSString *labelStr = [NSString stringWithFormat:@"%@年%@月-每周运动天数",subStr1, subStr2];
+    self.expLabel.text = labelStr;
+    
+    //重绘chart图表
+    self.chartView = [[UUChart alloc]initwithUUChartDataFrame:CGRectMake(0, 14, screenWidth - 24, self.contantView.frame.size.height - 19)
+                                                   withSource:self
+                                                    withStyle:UUChartLineStyle];
+    [self.chartView showInView:self.contantView];
+    [self.chartView addGestureRecognizer:self.tap];
+    [self.contantView bringSubviewToFront:self.expLabel];
+    [self.contantView bringSubviewToFront:self.leftAButton];
+    [self.contantView bringSubviewToFront:self.rightAButton];
 }
 #pragma mark - 用于计算数据的方法
 
@@ -393,10 +469,10 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     return max;
 }
 
-//这个月1号是星期几
-- (int)weekOfParticularDay
+//某个月1号是星期几
+- (int)weekOfFirstDay: (NSDate *)today
 {
-    NSString *monthStr = [[self dateFormatterForMonth] stringFromDate:[NSDate date]];
+    NSString *monthStr = [[self dateFormatterForMonth] stringFromDate:today];
     NSDate *firstDayofMonth = [[self dateFormatter] dateFromString:[NSString stringWithFormat:@"01-%@", monthStr]];
     
     //调个时差
@@ -405,7 +481,13 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     self.firstDayofMonth = [firstDayofMonth dateByAddingTimeInterval:interval];
     
     //找到星期
-    NSString *weekStr = [[self dateFormatterForWeek] stringFromDate:self.firstDayofMonth];
+    
+    return [self weekOfParticularDay:self.firstDayofMonth];
+}
+
+- (int)weekOfParticularDay: (NSDate *)date
+{
+    NSString *weekStr = [[self dateFormatterForWeek] stringFromDate:date];
     int weekNum = 0;
     
     if ([weekStr isEqualToString:Local(@"Mon")]) {
@@ -428,11 +510,18 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
 }
 
 //生成用于表格的数据（每周的运动次数）
-- (NSArray *)arrayForChartData
+- (void)arrayForChartData: (NSDate *)date
 {
     //本月第一天星期几的代表数字 (0 - 6)
-    int weekDay = [self weekOfParticularDay];
-    //还有几天到下个周一
+    int weekDay = [self weekOfFirstDay:date];
+    //还有几天到下个周一(周日)
+    SettingStore *setting = [SettingStore sharedSetting];
+    if (setting.firstDayOfWeek) {
+        weekDay += 1;
+        if (weekDay == 7) {
+            weekDay = 0;
+        }
+    }
     int toNextMonday = 7 - weekDay;
     if (toNextMonday == 7) {
         toNextMonday = 0;
@@ -451,12 +540,38 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
         NSString *veryFirstDayStr = [[self dateFormatter] stringFromDate:veryFirstDay];
         [lastMonthLastWeek addObject:veryFirstDayStr];
     }
+    //计算这个月最后一周的所有日期
+    NSMutableArray *thisMonthLastWeek = [NSMutableArray array];
+    NSDate *lastDayOfThisMonthDate = [self thisMonthLastDay:date];
+    int lastWeekDay = [self weekOfParticularDay:lastDayOfThisMonthDate];
+    if (setting.firstDayOfWeek) {
+        lastWeekDay += 1;
+        if (lastWeekDay == 7) {
+            lastWeekDay = 0;
+        }
+    }
+    int toLastMonday = 7 - lastWeekDay;
+    if (toLastMonday == 7) {
+        toLastMonday = 0;
+    }
+    for (int i = 0 ; i <= lastWeekDay; i++) {
+        NSInteger interval = - (i+1)*24*60*60;
+        NSDate *veryFirstDay = [lastDayOfThisMonthDate dateByAddingTimeInterval:interval];
+        NSString *veryFirstDayStr = [[self dateFormatter] stringFromDate:veryFirstDay];
+        [thisMonthLastWeek addObject:veryFirstDayStr];
+    }
+    for (int i = 0; i < 6 - lastWeekDay; i++) {
+        NSInteger interval =  i*24*60*60;
+        NSDate *veryFirstDay = [lastDayOfThisMonthDate dateByAddingTimeInterval:interval];
+        NSString *veryFirstDayStr = [[self dateFormatter] stringFromDate:veryFirstDay];
+        [thisMonthLastWeek addObject:veryFirstDayStr];
+    }
     //除去和上个月相关联的第一周，先把这个月的下个周一起的运动天数统计出来
     //首先要把这个月所有的运动具体天数统计出来
     NSMutableArray *thisMonthSportDates = [NSMutableArray array];
     for (NSString *date in self.sortedKeyArray){
-        NSString *dayStr = [date substringWithRange:NSMakeRange(3, 2)];
-        NSString *subStr = [[[self dateFormatterForMonth] stringFromDate:self.firstDayofMonth] substringToIndex:2];
+        NSString *dayStr = [date substringFromIndex:3];
+        NSString *subStr = [[self dateFormatterForMonth] stringFromDate:self.firstDayofMonth];
         if ([dayStr isEqualToString:subStr]) {
             [thisMonthSportDates addObject:date];
         }
@@ -480,7 +595,6 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
                 }else if (i == 1){[array2 addObject:date];
                 }else if (i == 2){[array3 addObject:date];
                 }else if (i == 3){[array4 addObject:date];
-                }else if (i == 4){[array5 addObject:date];
                 }
             }
         }
@@ -491,10 +605,78 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
             [array0 addObject:date];
         }
     }
+    //获取最后一周的运动天数
+    for (NSString *date in thisMonthLastWeek){
+        if ([self.sortedKeyArray containsObject:date]) {
+            [array5 insertObject:date atIndex:0];
+        }
+    }
+    
+    //筛选这个月是否有第五周
+    if ([array4 isEqualToArray: array5]) {
+        [array5 removeAllObjects];
+    }
     
     NSArray *chartData = @[@(array0.count), @(array1.count), @(array2.count), @(array3.count), @(array4.count), @(array5.count)];
     
-    return chartData;
+    self.chartDataArray = chartData;
+}
+
+- (NSString *)lastMonthFrom: (NSString *)dateStr
+{
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    NSDateComponents *compoents = [cal components:(NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:[[self dateFormatterForMonth] dateFromString:dateStr]];
+    
+    NSInteger thisMonth = compoents.month;
+    NSInteger thisYear = compoents.year;
+    if (thisMonth == 1) {
+        thisMonth = 13;
+        thisYear -= 1;
+    }
+    
+    NSString *monthAndYear = [NSString stringWithFormat:@"%li-%li",(long)thisMonth - 1,(long)thisYear];
+    
+    if (thisMonth < 11) {
+        monthAndYear = [NSString stringWithFormat:@"0%li-%li",(long)thisMonth - 1,(long)thisYear];
+    }
+    return monthAndYear;
+}
+
+- (NSString *)nextMonthFrom: (NSString *)dateStr
+{
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    NSDateComponents *compoents = [cal components:(NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:[[self dateFormatterForMonth] dateFromString:dateStr]];
+    
+    NSInteger thisMonth = compoents.month;
+    NSInteger thisYear = compoents.year;
+    if (thisMonth == 12) {
+        thisMonth = 0;
+        thisYear += 1;
+    }
+    
+    NSString *monthAndYear = [NSString stringWithFormat:@"%li-%li",(long)thisMonth + 1,(long)thisYear];
+    
+    if (thisMonth < 9) {
+        monthAndYear = [NSString stringWithFormat:@"0%li-%li",(long)thisMonth + 1,(long)thisYear];
+    }
+    return monthAndYear;
+}
+
+- (NSDate *)thisMonthLastDay: (NSDate *)date
+{
+    NSString *thisMonth = [[self dateFormatterForMonth] stringFromDate:date];
+    NSString *nextMonthAndYear = [self nextMonthFrom:thisMonth];
+    
+    NSDate *nextMonthFirstDay = [[self dateFormatter] dateFromString:[NSString stringWithFormat:@"01-%@", nextMonthAndYear]];
+    //调个时差
+    NSTimeZone *localZone = [NSTimeZone localTimeZone];
+    NSInteger interval = [localZone secondsFromGMTForDate:nextMonthFirstDay];
+    NSDate *nextMonthFirstDayNew = [nextMonthFirstDay dateByAddingTimeInterval:interval];
+    //减去一天
+    NSInteger intervalToLastDay = - 24*60*60;
+    NSDate *lastMonthLastDay = [nextMonthFirstDayNew dateByAddingTimeInterval:intervalToLastDay];
+    
+    return lastMonthLastDay;
 }
 
 - (NSDateFormatter *)dateFormatter
@@ -525,6 +707,18 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     if(!dateFormatter){
         dateFormatter = [NSDateFormatter new];
         dateFormatter.dateFormat = @"EEE";
+    }
+    
+    return dateFormatter;
+}
+
+
+- (NSDateFormatter *)dateFormatterForChart
+{
+    static NSDateFormatter *dateFormatter;
+    if(!dateFormatter){
+        dateFormatter = [NSDateFormatter new];
+        dateFormatter.dateFormat = @"MMM";
     }
     
     return dateFormatter;
@@ -698,7 +892,9 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
 - (NSArray *)getXTitles:(int)num
 {
     NSMutableArray *xTitles = [NSMutableArray array];
-    NSString *monthStr = [[self dateFormatterForChart] stringFromDate:[NSDate date]];
+    NSDate *date = [[self dateFormatterForMonth] dateFromString:self.monthAndYear];
+    NSString *monthStr = [[self dateFormatterForChart] stringFromDate:date];
+    
     for (int i=0; i<num; i++) {
         NSString * str = [NSString stringWithFormat:@"%@:%d",monthStr ,i+1];
         [xTitles addObject:str];
@@ -715,13 +911,13 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
 //用以显示的数值：多重数组
 - (NSArray *)UUChart_yValueArray:(UUChart *)chart
 {
-    return @[[self arrayForChartData]];
+    return @[self.chartDataArray];
 }
 
 //颜色数组
 - (NSArray *)UUChart_ColorArray:(UUChart *)chart
 {
-    return @[UUGreen];
+    return @[UUGreen, UURed];
 }
 
 //显示数值范围
@@ -782,17 +978,6 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     UIGraphicsEndImageContext();
     
     return img;
-}
-
-- (NSDateFormatter *)dateFormatterForChart
-{
-    static NSDateFormatter *dateFormatter;
-    if(!dateFormatter){
-        dateFormatter = [NSDateFormatter new];
-        dateFormatter.dateFormat = @"MMM";
-    }
-    
-    return dateFormatter;
 }
 
 @end

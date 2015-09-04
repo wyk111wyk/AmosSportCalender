@@ -77,9 +77,9 @@
     
     if (scene == WXSceneSession) {
         req.message.title = [NSString stringWithFormat:NSLocalizedString(@"%@ 分享",nil), NSLocalizedStringFromTable(@"AmosSportDiary", @"InfoPlist", @"快来看看吧")];
-        req.message.description = title;
-    } else {
         req.message.title = title;
+    } else {
+        req.message.description = title;
     }
     [self setThumbImage:req];
     

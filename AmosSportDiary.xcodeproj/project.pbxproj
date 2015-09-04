@@ -1444,7 +1444,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/AmosSportCalender/weChat",
 					"$(PROJECT_DIR)/AmosSportCalender/UMAnalytics_Sdk_3.5.11",
-					"$(PROJECT_DIR)/AmosSportCalender/vendor/libWeiboSDK",
 					"$(PROJECT_DIR)/AmosSportCalender/UMengFeedback_SDK",
 					"$(PROJECT_DIR)/AmosSportCalender/UMengFeedback_SDK/UMOpus",
 				);
@@ -1478,7 +1477,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/AmosSportCalender/weChat",
 					"$(PROJECT_DIR)/AmosSportCalender/UMAnalytics_Sdk_3.5.11",
-					"$(PROJECT_DIR)/AmosSportCalender/vendor/libWeiboSDK",
 					"$(PROJECT_DIR)/AmosSportCalender/UMengFeedback_SDK",
 					"$(PROJECT_DIR)/AmosSportCalender/UMengFeedback_SDK/UMOpus",
 				);

@@ -93,19 +93,19 @@
         UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
         
         if (sender == _sportCalendarView) {
-            NSLog(@"click 1");
+//            NSLog(@"click 1");
             [self.sideMenuViewController setContentViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"nav"] animated:YES];
         }else if (sender == _finishedListView){
-            NSLog(@"click 2");
+//            NSLog(@"click 2");
             [self.sideMenuViewController setContentViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"summaryTableNav"] animated:YES];
         }else if (sender == _typeManageView){
-            NSLog(@"click 3");
+//            NSLog(@"click 3");
             [self.sideMenuViewController setContentViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"typeManageNav"] animated:YES];
         }else if (sender == _settingView){
-            NSLog(@"click 4");
+//            NSLog(@"click 4");
             [self.sideMenuViewController setContentViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"settingNav"] animated:YES];
         }else if (sender == _feedbackView){
-            NSLog(@"click 5");
+//            NSLog(@"click 5");
 //            [self.sideMenuViewController setContentViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"feedbackNav"] animated:YES];
             
             UINavigationController *feedbackNav = [[UINavigationController alloc] initWithRootViewController:[UMFeedback feedbackViewController]];
@@ -114,7 +114,7 @@
             [self.sideMenuViewController setContentViewController:feedbackNav animated:YES];
             
         }else if (sender == _aboutView){
-            NSLog(@"click 6");
+//            NSLog(@"click 6");
             [self.sideMenuViewController setContentViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"aboutNav"] animated:YES];
         }
         

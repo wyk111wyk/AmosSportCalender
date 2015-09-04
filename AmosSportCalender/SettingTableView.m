@@ -27,14 +27,15 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
 @property (weak, nonatomic) IBOutlet UITextField *ageTextField;
 @property (weak, nonatomic) IBOutlet UITextField *genderTextField;
 
-@property (weak, nonatomic) IBOutlet UILabel *iCloudLabel;
 @property (weak, nonatomic) IBOutlet UILabel *passwordLabel;
 @property (weak, nonatomic) IBOutlet UILabel *imageTypeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *firstDayOfWeekLabel;
 @property (weak, nonatomic) IBOutlet UILabel *iconBadgeNumberLabel;
 @property (weak, nonatomic) IBOutlet UILabel *autoUpDateLabel;
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *imageTypeSegment;
-@property (weak, nonatomic) IBOutlet UISwitch *iCloudSwitch;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *firstDayOfWeekSegment;
+
 @property (weak, nonatomic) IBOutlet UISwitch *passwordSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *iconBadgeNumberSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *autoUpDateSwitch;
@@ -88,7 +89,6 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
     _ageTextField.text = personal.age;
     _genderTextField.text = personal.gender;
     
-    _iCloudSwitch.on = setting.iCloud;
     _autoUpDateSwitch.on = setting.autoUpDate;
     _iconBadgeNumberSwitch.on = setting.iconBadgeNumber;
     
@@ -96,6 +96,12 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
         _imageTypeSegment.selectedSegmentIndex = 0;
     }else{
         _imageTypeSegment.selectedSegmentIndex = 1;
+    }
+    
+    if (setting.firstDayOfWeek) {
+        _firstDayOfWeekSegment.selectedSegmentIndex = 0;
+    }else{
+        _firstDayOfWeekSegment.selectedSegmentIndex = 1;
     }
     
     if ([DMPasscode isPasscodeSet]) {
@@ -184,10 +190,17 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
 
 - (IBAction)switchValueChange:(UISegmentedControl *)sender {
     SettingStore *setting = [SettingStore sharedSetting];
-    if (_imageTypeSegment.selectedSegmentIndex == 0) {
+    //图片类型选择
+    if (_imageTypeSegment.selectedSegmentIndex == 0){
         setting.sportTypeImageMale = YES;
     }else if(_imageTypeSegment.selectedSegmentIndex == 1){
         setting.sportTypeImageMale = NO;
+    }
+    //每周第一天的选择
+    if (_firstDayOfWeekSegment.selectedSegmentIndex == 0){
+        setting.firstDayOfWeek = YES; //周日
+    }else if(_firstDayOfWeekSegment.selectedSegmentIndex == 1){
+        setting.firstDayOfWeek = NO;  //周一
     }
 }
 

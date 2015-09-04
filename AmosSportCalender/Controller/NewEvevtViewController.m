@@ -53,7 +53,6 @@
 @property (nonatomic, strong) UISearchController *searchController;
 @property (strong, nonatomic) SearchResultTV *searchTVC;
 
-@property (weak, nonatomic) IBOutlet UISwitch *swithButton;
 @property NYSegmentedControl *closeWeights;
 
 @property (weak, nonatomic) IBOutlet UISwitch *doneSwitchButton;
@@ -127,8 +126,8 @@
     
     //初始化NavBar
     UIBarButtonItem *addOneMoreButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"plusOneMore"] style:UIBarButtonItemStylePlain target:self action:@selector(createOneMoreEvent:)];
-    UIBarButtonItem *createNewButton = [[UIBarButtonItem alloc] initWithTitle:@"新建" style:UIBarButtonItemStylePlain target:self action:@selector(finishAndCreateEvent:)];
-    UIBarButtonItem *editEventButton = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(finishAndCreateEvent:)];
+    UIBarButtonItem *createNewButton = [[UIBarButtonItem alloc] initWithTitle:Local(@"New") style:UIBarButtonItemStylePlain target:self action:@selector(finishAndCreateEvent:)];
+    UIBarButtonItem *editEventButton = [[UIBarButtonItem alloc] initWithTitle:Local(@"Done") style:UIBarButtonItemStylePlain target:self action:@selector(finishAndCreateEvent:)];
     
     if (self.createNewEvent) {
         NSArray *createButtons = [[NSArray alloc] initWithObjects:createNewButton, addOneMoreButton, nil];
@@ -151,9 +150,9 @@
     self.closeWeights.segmentIndicatorAnimationDuration = 0.2f;
     self.closeWeights.segmentIndicatorInset = 1.0f;
     self.closeWeights.segmentIndicatorBorderWidth = 0.0f;
-    self.closeWeights.frame = CGRectMake(0, 0, 58.0f, 29.0f);
+    self.closeWeights.frame = CGRectMake(screenWidth - 96, self.rapFeild.frame.origin.y, 58.0f, 29.0f);
     self.closeWeights.cornerRadius = CGRectGetHeight(self.closeWeights.frame) / 2.0f;
-    self.closeWeights.center = self.swithButton.center;
+//    self.closeWeights.center = self.swithButton.center;
     [self.closeWeights addTarget:self action:@selector(NotHaveRapAndTimes:) forControlEvents:UIControlEventValueChanged];
     [_outsideView addSubview:self.closeWeights];
     
@@ -218,7 +217,7 @@
     NSString *showStr = [[self dateFormatter] stringFromDate:self.date];
     NSString *compareStr = [[self dateFormatter] stringFromDate:[NSDate date]];
     if ([showStr isEqualToString:compareStr]) {
-        self.dateTextField.text = @"今天";
+        self.dateTextField.text = Local(@"Today");
     } else{
     self.dateTextField.text = showStr;
     }
@@ -295,7 +294,7 @@
     NSString *compareStr = [[self dateFormatter] stringFromDate:[NSDate date]];
     
     if ([newStr isEqualToString:compareStr]) {
-        self.dateTextField.text = @"今天";
+        self.dateTextField.text = Local(@"Today");
     } else{
         self.dateTextField.text = newStr;
     }
@@ -309,11 +308,13 @@
         self.doneLabel.textColor = [UIColor lightGrayColor];
         self.outsideView.layer.borderWidth = 1.;
         self.outsideView.layer.borderColor = [[UIColor colorWithWhite:0.7 alpha:0.7] CGColor];
+//        self.view.backgroundColor = [UIColor whiteColor];
     }else{
         //开
         self.doneLabel.textColor = [UIColor blackColor];
         self.outsideView.layer.borderWidth = 1.5;
         self.outsideView.layer.borderColor = [[UIColor colorWithRed:0.2000 green:0.6235 blue:0.9882 alpha:1] CGColor];
+//        self.view.backgroundColor = [UIColor colorWithRed:0.5216 green:0.8549 blue:0.9111 alpha:0.7];
     }
 }
 
@@ -341,6 +342,7 @@
         
         self.rapLabel.textColor = [UIColor lightGrayColor];
         self.weightLabel.textColor = [UIColor lightGrayColor];
+            
         break;
         
     case 0:
