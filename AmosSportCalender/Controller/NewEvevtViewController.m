@@ -90,13 +90,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-    //初始化和设置HUB
-    KVNProgressConfiguration *configuration = [[KVNProgressConfiguration alloc] init];
-    configuration.minimumSuccessDisplayTime = .8f;
-    configuration.circleSize = 100.f;
-//    configuration.successColor = [UIColor blueColor];
-    [KVNProgress setConfiguration:configuration];
+    _personal = [PersonInfoStore sharedSetting];
     
+    [self initSearchPart];
+    [self initViewFrame];
+    [self initTextAndLabel];
+    
+}
+
+- (void)initSearchPart
+{
     //初始化搜索页面
     UINavigationController *searchResultsController = [[self storyboard] instantiateViewControllerWithIdentifier:@"searchResultNav"];
     _searchController = [[UISearchController alloc] initWithSearchResultsController:searchResultsController];
@@ -113,9 +116,16 @@
     self.sportSearchBar.placeholder = @"搜索 or 新建";
     
     self.definesPresentationContext = YES;
-    
-    //智能推荐的部分
-    _personal = [PersonInfoStore sharedSetting];
+}
+
+- (void)initViewFrame
+{
+    //初始化和设置HUB
+    KVNProgressConfiguration *configuration = [[KVNProgressConfiguration alloc] init];
+    configuration.minimumSuccessDisplayTime = .8f;
+    configuration.circleSize = 100.f;
+    //    configuration.successColor = [UIColor blueColor];
+    [KVNProgress setConfiguration:configuration];
     
     //UIView的初始化
     self.outsideView.layer.cornerRadius = 8;
@@ -142,7 +152,7 @@
         self.navigationItem.rightBarButtonItems = createButtons;
         self.navigationItem.title = @"新建事件";
     }else{
-//        NSArray *editButtons = [[NSArray alloc] initWithObjects:editEventButton, addOneMoreButton, nil];
+        //        NSArray *editButtons = [[NSArray alloc] initWithObjects:editEventButton, addOneMoreButton, nil];
         self.navigationItem.rightBarButtonItem = editEventButton;
         self.navigationItem.title = @"修改事件";
     }
@@ -154,16 +164,20 @@
     self.closeWeights.titleTextColor = [UIColor lightGrayColor];
     self.closeWeights.selectedTitleFont = [UIFont fontWithName:@"AvenirNext-DemiBold" size:10.0f];
     self.closeWeights.selectedTitleTextColor = [UIColor colorWithWhite:0.9f alpha:1.0f];
-
+    
     self.closeWeights.segmentIndicatorAnimationDuration = 0.2f;
     self.closeWeights.segmentIndicatorInset = 1.0f;
     self.closeWeights.segmentIndicatorBorderWidth = 0.0f;
     self.closeWeights.frame = CGRectMake(screenWidth - 96, self.rapFeild.frame.origin.y, 58.0f, 29.0f);
     self.closeWeights.cornerRadius = CGRectGetHeight(self.closeWeights.frame) / 2.0f;
-//    self.closeWeights.center = self.swithButton.center;
+    //    self.closeWeights.center = self.swithButton.center;
     [self.closeWeights addTarget:self action:@selector(NotHaveRapAndTimes:) forControlEvents:UIControlEventValueChanged];
     [_outsideView addSubview:self.closeWeights];
     
+}
+
+- (void)initTextAndLabel
+{
     //datePick初始化
     NSString *minDate = @"1990-01-01";
     NSString *maxDate = @"2030-01-01";
@@ -182,11 +196,11 @@
     self.sportPicker.delegate = self;
     
     [self getSportPickerData: 0];
-
+    
     //sportTypePicker初始化
     self.sportTypePicker = [[UIPickerView alloc] initWithFrame:CGRectZero];
     self.sportTypePicker.delegate = self;
-
+    
     //numberPicker初始化
     self.numberPicker = [[UIPickerView alloc] initWithFrame:CGRectZero];
     self.numberPicker.delegate = self;
@@ -219,15 +233,15 @@
     self.sportNameTextField.tintColor = [UIColor clearColor];
     
     //设置UI显示的属性值
-//    NSString *dateStr = [NSString stringWithFormat:@"%@", self.date];
-//    NSString *newStr = [dateStr substringToIndex:10];
+    //    NSString *dateStr = [NSString stringWithFormat:@"%@", self.date];
+    //    NSString *newStr = [dateStr substringToIndex:10];
     
     NSString *showStr = [[self dateFormatter] stringFromDate:self.date];
     NSString *compareStr = [[self dateFormatter] stringFromDate:[NSDate date]];
     if ([showStr isEqualToString:compareStr]) {
         self.dateTextField.text = Local(@"Today");
     } else{
-    self.dateTextField.text = showStr;
+        self.dateTextField.text = showStr;
     }
     [self.dateTextField sizeToFit];
     
@@ -235,24 +249,20 @@
     if (self.event.sportType.length > 0) {
         self.sportTypeTextField.text = self.event.sportType;
     }else{
-    self.sportTypeTextField.text = _personal.defaultSportType;
+        self.sportTypeTextField.text = _personal.defaultSportType;
     }
+    
     if (self.event.sportName.length > 0) {
         self.sportNameTextField.text = self.event.sportName;
     }else{
-    self.sportNameTextField.text = _personal.defaultSportName;
+        self.sportNameTextField.text = _personal.defaultSportName;
     }
-    
-    self.timelastFeild.text = [NSString stringWithFormat:@"%d", self.event.timelast];
     
     //根据选项重新设置不同属性的值
     [self setSportsValue];
     
-    self.timelastSlider.value = self.event.timelast;
-    self.doneSwitchButton.on = self.event.done;
-    
     //图片显示
-//    int picNum = arc4random() % 6;
+    //    int picNum = arc4random() % 6;
     UIImage *imageToDisplay = [UIImage imageNamed:[NSString stringWithFormat:@"funPic%i", 4]];
     if (imageToDisplay) {self.imageView.image = imageToDisplay;};
     
@@ -266,7 +276,6 @@
         self.weightUnitLabel.text = @"Kg";
         self.weightUnitLabel.textAlignment = NSTextAlignmentRight;
     }
-    
 }
 
 - (NSDateFormatter *)dateFormatter
@@ -1057,7 +1066,7 @@
     return smallImage;
 }
 
-#pragma mark - 智能推荐的方法
+#pragma mark - 智能推荐(给各个field赋值)的方法
 
 - (void)setSportsValue
 {
@@ -1074,6 +1083,10 @@
         [self.closeWeights setSelectedSegmentIndex:0 animated:YES];
         [self NotHaveRapAndTimes:self.closeWeights];
     }
+    
+    self.timelastFeild.text = [NSString stringWithFormat:@"%d", self.event.timelast];
+    self.timelastSlider.value = self.event.timelast;
+    self.doneSwitchButton.on = self.event.done;
 }
 
 - (float)weightValue
@@ -1116,16 +1129,19 @@
 - (int)timesValue
 {
     int times = self.event.times;
-    int i = arc4random() % 5;
     
-    if (_personal.purpose == 0){
-        times = 15 + i;
-    }else if (_personal.purpose == 1){
-        times = 10 + i;
-    }else if (_personal.purpose == 3){
-        times = 5 + i;
-    }else if (_personal.purpose == 4){
-        times = 9 + i;
+    if (self.createNewEvent) {
+        int i = arc4random() % 5;
+        
+        if (_personal.purpose == 0){
+            times = 15 + i;
+        }else if (_personal.purpose == 1){
+            times = 10 + i;
+        }else if (_personal.purpose == 3){
+            times = 5 + i;
+        }else if (_personal.purpose == 4){
+            times = 9 + i;
+        }
     }
     
     return times;
@@ -1141,6 +1157,10 @@
         
     }else if (_personal.stamina == 2) {
         raps += 1;
+    }
+    
+    if (!self.createNewEvent) {
+        raps = self.event.rap;
     }
     
     return raps;

@@ -555,13 +555,13 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     if (toLastMonday == 7) {
         toLastMonday = 0;
     }
-    for (int i = 0 ; i <= lastWeekDay; i++) {
+    for (int i = 0 ; i < lastWeekDay; i++) {
         NSInteger interval = - (i+1)*24*60*60;
         NSDate *veryFirstDay = [lastDayOfThisMonthDate dateByAddingTimeInterval:interval];
         NSString *veryFirstDayStr = [[self dateFormatter] stringFromDate:veryFirstDay];
         [thisMonthLastWeek addObject:veryFirstDayStr];
     }
-    for (int i = 0; i < 6 - lastWeekDay; i++) {
+    for (int i = 0; i <= 6 - lastWeekDay; i++) {
         NSInteger interval =  i*24*60*60;
         NSDate *veryFirstDay = [lastDayOfThisMonthDate dateByAddingTimeInterval:interval];
         NSString *veryFirstDayStr = [[self dateFormatter] stringFromDate:veryFirstDay];
@@ -613,12 +613,12 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
         }
     }
     
+    NSArray *chartData = @[@(array0.count), @(array1.count), @(array2.count), @(array3.count), @(array4.count), @(array5.count)];
+    
     //筛选这个月是否有第五周
     if ([array4 isEqualToArray: array5]) {
-        [array5 removeAllObjects];
+        chartData = @[@(array0.count), @(array1.count), @(array2.count), @(array3.count), @(array4.count)];
     }
-    
-    NSArray *chartData = @[@(array0.count), @(array1.count), @(array2.count), @(array3.count), @(array4.count), @(array5.count)];
     
     self.chartDataArray = chartData;
 }
@@ -890,14 +890,14 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
 }
 
 #pragma mark - 设置表格的方法
-- (NSArray *)getXTitles:(int)num
+- (NSArray *)getXTitles:(NSUInteger)num
 {
     NSMutableArray *xTitles = [NSMutableArray array];
     NSDate *date = [[self dateFormatterForMonth] dateFromString:self.monthAndYear];
     NSString *monthStr = [[self dateFormatterForChart] stringFromDate:date];
     
     for (int i=0; i<num; i++) {
-        NSString * str = [NSString stringWithFormat:@"%@:%d",monthStr ,i+1];
+        NSString * str = [NSString stringWithFormat:@"%@(%d)",monthStr ,i+1];
         [xTitles addObject:str];
     }
     return xTitles;
@@ -906,7 +906,7 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
 //横坐标标题数组
 - (NSArray *)UUChart_xLableArray:(UUChart *)chart
 {
-    return [self getXTitles:6];
+    return [self getXTitles:self.chartDataArray.count];
 }
 
 //用以显示的数值：多重数组

@@ -45,16 +45,26 @@ NSArray *sportTypes;
     //取消所有通知
     [[UIApplication sharedApplication] cancelAllLocalNotifications];
     
-    
-    
+    //假如第一次启动软件，则创建运动项目类
     [self createAllSportTypeArray];
     
+    //初始化侧边栏
+    [self initNavAndDrawer];
+    
+    //开机画面的显示时间
+    [NSThread sleepForTimeInterval:1.f];
+    
+    return YES;
+}
+
+- (void)initNavAndDrawer
+{
     UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
     LeftMenuViewController *leftMenu = [[LeftMenuViewController alloc]init];
     
     RESideMenu *drawer = [[RESideMenu alloc] initWithContentViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"nav"]
-                                                                    leftMenuViewController:leftMenu
-                                                                   rightMenuViewController:nil];
+                                                    leftMenuViewController:leftMenu
+                                                   rightMenuViewController:nil];
     
     drawer.delegate = self;
     drawer.panGestureEnabled = YES;
@@ -74,11 +84,6 @@ NSArray *sportTypes;
     
     self.window.rootViewController = drawer;
     [self.window makeKeyAndVisible];
-    
-    //开机画面的显示时间
-    [NSThread sleepForTimeInterval:1.f];
-    
-    return YES;
 }
 
 - (void)createAllSportTypeArray
@@ -203,6 +208,7 @@ NSArray *sportTypes;
 {
     //注册友盟的API
     [MobClick startWithAppkey:YouMen_AppKey reportPolicy:BATCH  channelId:@""];
+    
     NSDictionary *infoDictionary =[[NSBundle mainBundle]infoDictionary];
     NSString *infoStr = [NSString stringWithFormat:@"V %@.%@", [infoDictionary objectForKey:@"CFBundleShortVersionString"], [infoDictionary objectForKey:@"CFBundleVersion"]];
     [MobClick setAppVersion:infoStr]; //app版本设置

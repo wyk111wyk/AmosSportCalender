@@ -72,14 +72,13 @@
     SendMessageToWXReq *req = [[SendMessageToWXReq alloc] init];
     
     req.scene = scene;
-//    req.bText = NO;
+    req.bText = NO;
     req.message = WXMediaMessage.message;
     
     if (scene == WXSceneSession) {
-        req.message.title = [NSString stringWithFormat:NSLocalizedString(@"%@ 分享",nil), NSLocalizedStringFromTable(@"AmosSportDiary", @"InfoPlist", @"快来看看吧")];
-        req.message.title = title;
+        req.message.title = [NSString stringWithFormat:NSLocalizedString(@"%@分享",nil), NSLocalizedStringFromTable(@"AmosSportDiary", @"InfoPlist", @"快来看看吧")];
     } else {
-        req.message.description = title;
+        req.message.title = title;
     }
     [self setThumbImage:req];
     
