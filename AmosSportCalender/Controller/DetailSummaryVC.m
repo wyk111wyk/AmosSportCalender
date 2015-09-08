@@ -223,7 +223,7 @@ static NSString * const YKSummaryCellReuseId = @"summaryNewTVCell";
                 cell.backgroundColor = [UIColor whiteColor];
             } else if (event.done == YES){
                 cell.doneImageView.hidden = NO;
-                cell.backgroundColor = [UIColor colorWithWhite:0.9 alpha:0.6];
+                cell.backgroundColor = [UIColor colorWithWhite:0.97 alpha:0.8];
             }
         }}
             

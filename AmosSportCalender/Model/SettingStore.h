@@ -17,5 +17,7 @@
 @property (nonatomic)BOOL passWordOfFingerprint;
 @property (nonatomic)BOOL sportTypeImageMale;
 @property (nonatomic)BOOL iconBadgeNumber;
+@property (nonatomic)BOOL alertForSport;
+@property (nonatomic)NSInteger alertForDays;
 
 @end

@@ -154,10 +154,14 @@ NSArray *sportTypes;
     SettingStore *setting = [SettingStore sharedSetting];
     PersonInfoStore *personal = [PersonInfoStore sharedSetting];
     
+    if (setting.alertForSport) {
+
     //注册五天不使用的本地通知
     UILocalNotification *localNotification = UILocalNotification.new;
     
-    localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:5*24*60*60];
+    NSInteger ii = setting.alertForDays;
+    
+    localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:ii*24*60*60];
     localNotification.timeZone = [NSTimeZone defaultTimeZone];
     
     int i = arc4random() % 100;
@@ -172,6 +176,8 @@ NSArray *sportTypes;
     // 设定通知的userInfo，用来标识该通知:不会
     
     [application scheduleLocalNotification:localNotification];
+    
+    }
     
     if (!setting.iconBadgeNumber) {
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
@@ -207,7 +213,7 @@ NSArray *sportTypes;
 - (void)registerTherdSDK
 {
     //注册友盟的API
-    [MobClick startWithAppkey:YouMen_AppKey reportPolicy:BATCH  channelId:@""];
+//    [MobClick startWithAppkey:YouMen_AppKey reportPolicy:BATCH  channelId:@""];
     
     NSDictionary *infoDictionary =[[NSBundle mainBundle]infoDictionary];
     NSString *infoStr = [NSString stringWithFormat:@"V %@.%@", [infoDictionary objectForKey:@"CFBundleShortVersionString"], [infoDictionary objectForKey:@"CFBundleVersion"]];
@@ -226,8 +232,8 @@ NSArray *sportTypes;
     [[PgyManager sharedPgyManager] setEnableDebugLog:NO]; //是否开启调试日志
     
     //向微信注册
-    BOOL weChatSuccess = [WXApi registerApp:WeiXin_AppKey withDescription:@"Amos运动日记"];
-    NSLog(@"%@", weChatSuccess ? @"weChat-微信注册成功" : @"register Fail");
+    __unused BOOL weChatSuccess = [WXApi registerApp:WeiXin_AppKey withDescription:@"Amos运动日记"];
+//    NSLog(@"%@", weChatSuccess ? @"weChat-微信注册成功" : @"register Fail");
     
     //注册微博
 //    [WeiboSDK enableDebugMode:YES];

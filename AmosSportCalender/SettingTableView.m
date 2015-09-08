@@ -32,6 +32,7 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
 @property (weak, nonatomic) IBOutlet UILabel *firstDayOfWeekLabel;
 @property (weak, nonatomic) IBOutlet UILabel *iconBadgeNumberLabel;
 @property (weak, nonatomic) IBOutlet UILabel *autoUpDateLabel;
+@property (weak, nonatomic) IBOutlet UILabel *alertDayLabel;
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *imageTypeSegment;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *firstDayOfWeekSegment;
@@ -119,6 +120,20 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
     
     _lastestEdtionLabel.text = infoStr;
     _lastestEdtionLabel.textColor = [UIColor lightGrayColor];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    SettingStore *setting = [SettingStore sharedSetting];
+    
+    if (setting.alertForSport) {
+        self.alertDayLabel.text = [NSString stringWithFormat:@"%@天", @(setting.alertForDays)];
+    }else{
+        self.alertDayLabel.text = [NSString stringWithFormat:@"当前没有提醒"];
+    }
+    
+    [self.alertDayLabel sizeToFit];
 }
 
 - (void)setLabelStatus: (SettingStore *)setting

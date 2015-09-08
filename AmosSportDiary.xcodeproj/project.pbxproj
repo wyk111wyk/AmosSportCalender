@@ -143,6 +143,7 @@
 		B0C1012A1B77993800E4204B /* SummaryTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C101221B77993800E4204B /* SummaryTVCell.m */; };
 		B0C1012B1B77993800E4204B /* summaryTypeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C101241B77993800E4204B /* summaryTypeCell.m */; };
 		B0C1012C1B77993800E4204B /* TypeManageTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0C101261B77993800E4204B /* TypeManageTVCell.m */; };
+		B0D1DE821B9ED67900DB7FDE /* AlertTV.m in Sources */ = {isa = PBXBuildFile; fileRef = B0D1DE811B9ED67900DB7FDE /* AlertTV.m */; settings = {ASSET_TAGS = (); }; };
 		B0DC6BE51B7F079F009DFA5A /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DC6BE41B7F079F009DFA5A /* FeedbackViewController.m */; };
 		B0DC6BE91B7F2970009DFA5A /* FeedbackTVCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B0DC6BE71B7F2970009DFA5A /* FeedbackTVCell.m */; };
 		B0DC6BEA1B7F2970009DFA5A /* FeedbackTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0DC6BE81B7F2970009DFA5A /* FeedbackTVCell.xib */; };
@@ -426,6 +427,8 @@
 		B0C101241B77993800E4204B /* summaryTypeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = summaryTypeCell.m; path = Cell/summaryTypeCell.m; sourceTree = "<group>"; };
 		B0C101251B77993800E4204B /* TypeManageTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TypeManageTVCell.h; path = Cell/TypeManageTVCell.h; sourceTree = "<group>"; };
 		B0C101261B77993800E4204B /* TypeManageTVCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TypeManageTVCell.m; path = Cell/TypeManageTVCell.m; sourceTree = "<group>"; };
+		B0D1DE801B9ED67900DB7FDE /* AlertTV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertTV.h; sourceTree = "<group>"; };
+		B0D1DE811B9ED67900DB7FDE /* AlertTV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertTV.m; sourceTree = "<group>"; };
 		B0DC6BE31B7F079F009DFA5A /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedbackViewController.h; path = Controller/FeedbackViewController.h; sourceTree = "<group>"; };
 		B0DC6BE41B7F079F009DFA5A /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = FeedbackViewController.m; path = Controller/FeedbackViewController.m; sourceTree = "<group>"; };
 		B0DC6BE61B7F2970009DFA5A /* FeedbackTVCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FeedbackTVCell.h; path = Cell/FeedbackTVCell.h; sourceTree = "<group>"; };
@@ -887,6 +890,8 @@
 				B0C101121B7798F600E4204B /* NameManageTableView.m */,
 				B0723E521B786D2D00F8A63E /* SettingTableView.h */,
 				B0723E531B786D2D00F8A63E /* SettingTableView.m */,
+				B0D1DE801B9ED67900DB7FDE /* AlertTV.h */,
+				B0D1DE811B9ED67900DB7FDE /* AlertTV.m */,
 				B07F43941B919B2600FE0D25 /* iCloudStorageTV.h */,
 				B07F43951B919B2600FE0D25 /* iCloudStorageTV.m */,
 				B00E23201B92104500649AC9 /* ConflictTV.h */,
@@ -1272,6 +1277,7 @@
 				B0854D9C1B6BA87600C1B150 /* JTHorizontalCalendarView.m in Sources */,
 				B0C1012C1B77993800E4204B /* TypeManageTVCell.m in Sources */,
 				B0C101011B77984300E4204B /* Event.m in Sources */,
+				B0D1DE821B9ED67900DB7FDE /* AlertTV.m in Sources */,
 				B061FA4D1B99FF300082FBA1 /* UIColor+KVNContrast.m in Sources */,
 				B0DC6BE91B7F2970009DFA5A /* FeedbackTVCell.m in Sources */,
 				B02CCEC61B98172300936FB5 /* UUChartLabel.m in Sources */,
