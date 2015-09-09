@@ -6,6 +6,8 @@
 //  Copyright © 2015年 Amos Wu. All rights reserved.
 //
 
+
+
 #ifndef CommonMarco_h
 #define CommonMarco_h
 
@@ -35,5 +37,16 @@
 #define kFEEDBACK_LOCALIZABLE_TABLE @"AmosSportDiaryLocalizable"
 #define Local(key) NSLocalizedStringFromTable(key, kFEEDBACK_LOCALIZABLE_TABLE, nil)
 
+//颜色
+#define basicColor [UIColor colorWithRed:0.0000 green:0.5608 blue:0.5176 alpha:1];
+
+//#define chestColor [UIColor colorWithRed:0.4000 green:0.7059 blue:0.8980 alpha:1];
+#define backColor [UIColor colorWithRed:0.1647 green:0.7451 blue:0.6863 alpha:1];
+#define shouldColor [UIColor colorWithRed:0.0039 green:0.8667 blue:0.8118 alpha:1];
+#define legColor [UIColor colorWithRed:0.8745 green:0.7765 blue:0.1412 alpha:1];
+#define staminaColor [UIColor colorWithRed:0.5882 green:0.8667 blue:0.0980 alpha:1];
+#define coreColor [UIColor colorWithRed:0.4353 green:0.5098 blue:0.8745 alpha:1];
+#define armColor [UIColor colorWithRed:0.8824 green:0.4314 blue:0.4824 alpha:1];
+#define otherColor [UIColor colorWithRed:0.8667 green:0.5451 blue:0.8980 alpha:1];
 
 #endif /* CommonMarco_h */

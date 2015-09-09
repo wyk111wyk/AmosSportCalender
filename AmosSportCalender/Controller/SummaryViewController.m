@@ -859,7 +859,11 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
 - (UIColor *)pieChart:(XYPieChart *)pieChart colorForSliceAtIndex:(NSUInteger)index
 {
     NSDictionary *cellInfoDic = self.sortedTypeArray[index];
-    return [self colorForsportType:cellInfoDic[@"type"]];
+    SettingStore *setting = [SettingStore sharedSetting];
+    NSArray *oneColor = [setting.typeColorArray objectAtIndex:[self colorForsportType:cellInfoDic[@"type"]]];
+    UIColor *pickedColor = [UIColor colorWithRed:[oneColor[0] floatValue] green:[oneColor[1] floatValue] blue:[oneColor[2] floatValue] alpha:1];
+    
+    return pickedColor;
 }
 
 - (NSString *)pieChart:(XYPieChart *)pieChart textForSliceAtIndex:(NSUInteger)index
@@ -946,27 +950,27 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
 }
 
 #pragma mark - 判断cell文字颜色的方法
-- (UIColor *)colorForsportType:(NSString *)sportType
+- (int)colorForsportType:(NSString *)sportType
 {
     if ([sportType isEqualToString:@"胸部"]) {
-        return [UIColor colorWithRed:0.5725 green:0.3216 blue:0.0667 alpha:0.8];
+        return 0;
     }else if ([sportType isEqualToString:@"背部"]){
-        return [UIColor colorWithRed:0.5725 green:0.5608 blue:0.1059 alpha:0.8];
+        return 1;
     }else if ([sportType isEqualToString:@"肩部"]){
-        return [UIColor colorWithRed:0.3176 green:0.5569 blue:0.0902 alpha:0.8];
+        return 2;
     }else if ([sportType isEqualToString:@"腿部"]){
-        return [UIColor colorWithRed:0.0824 green:0.5686 blue:0.5725 alpha:0.8];
+        return 3;
     }else if ([sportType isEqualToString:@"体力"]){
-        return [UIColor colorWithRed:0.9922 green:0.5765 blue:0.1490 alpha:0.8];
+        return 4;
     }else if ([sportType isEqualToString:@"核心"]){
-        return [UIColor colorWithRed:0.9922 green:0.2980 blue:0.9882 alpha:0.8];
+        return 5;
     }else if ([sportType isEqualToString:@"手臂"]){
-        return [UIColor colorWithRed:0.3647 green:0.4314 blue:0.9373 alpha:0.8];
+        return 6;
     }else if ([sportType isEqualToString:@"其他"]){
-        return [UIColor colorWithRed:0.6078 green:0.9255 blue:0.2980 alpha:0.8];
+        return 7;
     }
     
-    return [UIColor darkGrayColor];
+    return 0;
 }
 
 +(UIImage*)captureView: (UIView *)theView

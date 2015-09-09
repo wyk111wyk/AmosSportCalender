@@ -7,6 +7,7 @@
 //
 
 #import "summaryTypeCell.h"
+#import "SettingStore.h"
 
 @implementation summaryTypeCell
 
@@ -17,26 +18,34 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
-    if ([self.typeLabel.text isEqualToString:@"胸部"]) {
-        self.backgroundColor = [UIColor colorWithRed:0.5725 green:0.3216 blue:0.0667 alpha:0.7];
-    }else if ([self.typeLabel.text isEqualToString:@"背部"]){
-        self.backgroundColor = [UIColor colorWithRed:0.5725 green:0.5608 blue:0.1059 alpha:0.7];
-    }else if ([self.typeLabel.text isEqualToString:@"肩部"]){
-        self.backgroundColor = [UIColor colorWithRed:0.3176 green:0.5569 blue:0.0902 alpha:0.7];
-    }else if ([self.typeLabel.text isEqualToString:@"腿部"]){
-        self.backgroundColor = [UIColor colorWithRed:0.0824 green:0.5686 blue:0.5725 alpha:0.7];
-    }else if ([self.typeLabel.text isEqualToString:@"体力"]){
-        self.backgroundColor = [UIColor colorWithRed:0.9922 green:0.5765 blue:0.1490 alpha:0.7];
-    }else if ([self.typeLabel.text isEqualToString:@"核心"]){
-        self.backgroundColor = [UIColor colorWithRed:0.9922 green:0.2980 blue:0.9882 alpha:0.7];
-    }else if ([self.typeLabel.text isEqualToString:@"手臂"]){
-        self.backgroundColor = [UIColor colorWithRed:0.3647 green:0.4314 blue:0.9373 alpha:0.7];
-    }else if ([self.typeLabel.text isEqualToString:@"其他"]){
-        self.backgroundColor = [UIColor colorWithRed:0.6078 green:0.9255 blue:0.2980 alpha:0.7];
+    SettingStore *setting = [SettingStore sharedSetting];
+    NSArray *oneColor = [setting.typeColorArray objectAtIndex:[self colorForsportType:self.typeLabel.text]];
+    UIColor *pickedColor = [UIColor colorWithRed:[oneColor[0] floatValue] green:[oneColor[1] floatValue] blue:[oneColor[2] floatValue] alpha:1];
+    
+    self.backgroundColor = pickedColor;
+}
+
+- (int)colorForsportType:(NSString *)sportType
+{
+    if ([sportType isEqualToString:@"胸部"]) {
+        return 0;
+    }else if ([sportType isEqualToString:@"背部"]){
+        return 1;
+    }else if ([sportType isEqualToString:@"肩部"]){
+        return 2;
+    }else if ([sportType isEqualToString:@"腿部"]){
+        return 3;
+    }else if ([sportType isEqualToString:@"体力"]){
+        return 4;
+    }else if ([sportType isEqualToString:@"核心"]){
+        return 5;
+    }else if ([sportType isEqualToString:@"手臂"]){
+        return 6;
+    }else if ([sportType isEqualToString:@"其他"]){
+        return 7;
     }
     
-    
-    // Configure the view for the selected state
+    return 0;
 }
 
 - (IBAction)changeShowType:(UIButton *)sender {

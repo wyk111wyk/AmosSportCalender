@@ -6,6 +6,7 @@
 //  Copyright © 2015年 Amos Wu. All rights reserved.
 //
 
+#import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
 @interface SettingStore : NSObject
@@ -19,5 +20,6 @@
 @property (nonatomic)BOOL iconBadgeNumber;
 @property (nonatomic)BOOL alertForSport;
 @property (nonatomic)NSInteger alertForDays;
+@property (nonatomic, strong)NSMutableArray *typeColorArray;
 
 @end

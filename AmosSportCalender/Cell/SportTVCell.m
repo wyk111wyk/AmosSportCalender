@@ -8,6 +8,7 @@
 
 #import "SportTVCell.h"
 #import "Event.h"
+#import "SettingStore.h"
 
 @implementation SportTVCell
 
@@ -43,25 +44,14 @@
         self.sportName.textColor = [UIColor blackColor];
         self.sportPro.textColor = [UIColor darkGrayColor];
         
-    self.sportType.text = self.event.sportType;
+        self.sportType.text = self.event.sportType;
         
-    if ([self.event.sportType isEqualToString:@"胸部"]) {
-        self.sportType.textColor = [UIColor colorWithRed:0.5725 green:0.3216 blue:0.0667 alpha:1];
-    }else if ([self.event.sportType isEqualToString:@"背部"]){
-        self.sportType.textColor = [UIColor colorWithRed:0.5725 green:0.5608 blue:0.1059 alpha:1];
-    }else if ([self.event.sportType isEqualToString:@"肩部"]){
-        self.sportType.textColor = [UIColor colorWithRed:0.3176 green:0.5569 blue:0.0902 alpha:1];
-    }else if ([self.event.sportType isEqualToString:@"腿部"]){
-        self.sportType.textColor = [UIColor colorWithRed:0.0824 green:0.5686 blue:0.5725 alpha:1];
-    }else if ([self.event.sportType isEqualToString:@"体力"]){
-        self.sportType.textColor = [UIColor colorWithRed:0.9922 green:0.5765 blue:0.1490 alpha:1];
-    }else if ([self.event.sportType isEqualToString:@"核心"]){
-        self.sportType.textColor = [UIColor colorWithRed:0.9922 green:0.2980 blue:0.9882 alpha:1];
-    }else if ([self.event.sportType isEqualToString:@"手臂"]){
-        self.sportType.textColor = [UIColor colorWithRed:0.3647 green:0.4314 blue:0.9373 alpha:1];
-    }else if ([self.event.sportType isEqualToString:@"其他"]){
-        self.sportType.textColor = [UIColor colorWithRed:0.6078 green:0.9255 blue:0.2980 alpha:1];
-    }
+        SettingStore *setting = [SettingStore sharedSetting];
+        NSArray *oneColor = [setting.typeColorArray objectAtIndex:[self colorForsportType:self.event.sportType]];
+        UIColor *pickedColor = [UIColor colorWithRed:[oneColor[0] floatValue] green:[oneColor[1] floatValue] blue:[oneColor[2] floatValue] alpha:1];
+        
+        self.sportType.textColor = pickedColor;
+
     }else{
 //        NSLog(@"In cell Done");
         self.backgroundColor = [UIColor colorWithRed:0.8980 green:0.8980 blue:0.8980 alpha:0.9];
@@ -71,6 +61,29 @@
         self.sportName.textColor = [UIColor grayColor];
         self.sportPro.textColor = [UIColor grayColor];
     }
+}
+
+- (int)colorForsportType:(NSString *)sportType
+{
+    if ([sportType isEqualToString:@"胸部"]) {
+        return 0;
+    }else if ([sportType isEqualToString:@"背部"]){
+        return 1;
+    }else if ([sportType isEqualToString:@"肩部"]){
+        return 2;
+    }else if ([sportType isEqualToString:@"腿部"]){
+        return 3;
+    }else if ([sportType isEqualToString:@"体力"]){
+        return 4;
+    }else if ([sportType isEqualToString:@"核心"]){
+        return 5;
+    }else if ([sportType isEqualToString:@"手臂"]){
+        return 6;
+    }else if ([sportType isEqualToString:@"其他"]){
+        return 7;
+    }
+    
+    return 0;
 }
 
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "SettingStore.h"
+#import "CommonMarco.h"
 
 static NSString *const kAutoUpDate = @"autoUpDate";
 static NSString *const kfirstDayOfWeekKey = @"firstDayOfWeek";
@@ -15,6 +16,7 @@ static NSString *const ksportTypeImageMaleKey = @"sportTypeImageMale";
 static NSString *const kIconBadgeNumber = @"IconBadgeNumber";
 static NSString *const kalertForSport = @"alertForSport";
 static NSString *const kalertForDays = @"alertForDays";
+static NSString *const kTypeColorArray = @"TypeColorArray";
 
 @interface SettingStore()
 
@@ -41,6 +43,9 @@ static NSString *const kalertForDays = @"alertForDays";
 - (instancetype)init
 {
     self = [super init];
+    
+    [self setTheColorArray];
+    
     if (self) {
         _userDefaults = [NSUserDefaults standardUserDefaults];
         
@@ -50,8 +55,10 @@ static NSString *const kalertForDays = @"alertForDays";
                                           ksportTypeImageMaleKey: @YES,
                                           kIconBadgeNumber: @YES,
                                           kalertForDays: @1,
-                                          kalertForSport: @YES}];
+                                          kalertForSport: @YES,
+                                          kTypeColorArray: _typeColorArray}];
         
+        _typeColorArray = [_userDefaults objectForKey:kTypeColorArray];
         _firstDayOfWeek = [_userDefaults boolForKey:kfirstDayOfWeekKey];
         _autoUpDate = [_userDefaults boolForKey:kAutoUpDate];
         _passWordOfFingerprint = [_userDefaults boolForKey:kpassWordOfFingerprintKey];
@@ -61,6 +68,12 @@ static NSString *const kalertForDays = @"alertForDays";
         _alertForDays = [_userDefaults integerForKey:kalertForDays];
     }
     return self;
+}
+
+- (void)setTypeColorArray:(NSMutableArray *)typeColorArray
+{
+    _typeColorArray = typeColorArray;
+    [self.userDefaults setObject:typeColorArray forKey:kTypeColorArray];
 }
 
 - (void)setAlertForDays:(NSInteger)alertForDays
@@ -103,6 +116,33 @@ static NSString *const kalertForDays = @"alertForDays";
 {
     _iconBadgeNumber = iconBadgeNumber;
     [self.userDefaults setBool:iconBadgeNumber forKey:kIconBadgeNumber];
+}
+
+- (void)setTheColorArray
+{
+    if (!self.typeColorArray) {
+        self.typeColorArray = [NSMutableArray array];
+    }
+    
+    NSArray *colorArray = @[[UIColor colorWithRed:0.4000 green:0.7059 blue:0.8980 alpha:1],
+                            [UIColor colorWithRed:0.1647 green:0.7451 blue:0.6863 alpha:1],
+                            [UIColor colorWithRed:0.0039 green:0.8667 blue:0.8118 alpha:1],
+                            [UIColor colorWithRed:0.8745 green:0.7765 blue:0.1412 alpha:1],
+                            [UIColor colorWithRed:0.5882 green:0.8667 blue:0.0980 alpha:1],
+                            [UIColor colorWithRed:0.4353 green:0.5098 blue:0.8745 alpha:1],
+                            [UIColor colorWithRed:0.8824 green:0.4314 blue:0.4824 alpha:1],
+                            [UIColor colorWithRed:0.8667 green:0.5451 blue:0.8980 alpha:1]];
+    
+    for (UIColor *color in colorArray){
+        CGFloat red, green, blue;
+        [color getRed:&red
+                green:&green
+                 blue:&blue
+                alpha:nil];
+        NSArray *oneColor = @[@(red), @(green), @(blue)];
+        [self.typeColorArray addObject:oneColor];
+    }
+
 }
 
 @end

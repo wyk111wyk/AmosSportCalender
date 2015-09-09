@@ -164,10 +164,11 @@ NSArray *sportTypes;
     localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:ii*24*60*60];
     localNotification.timeZone = [NSTimeZone defaultTimeZone];
     
-    int i = arc4random() % 100;
-    NSString *str = @"又五天没有运动了，恭喜您又长了1.%i斤肉~";
+    float i = arc4random() % 100;
+        i = (i+100)/100 * (int)ii/5;
+    NSString *str = [NSString stringWithFormat:@"又%@天没有运动了，恭喜您又长了%.2f斤肉~", @(ii), i];
     if (personal.name.length > 0) {
-        str = [NSString stringWithFormat:@"%@，又五天没有运动了，恭喜您又长了1.%i斤肉~", personal.name, i];
+        str = [NSString stringWithFormat:@"%@，又%@天没有运动了，恭喜您又长了%.2f斤肉~", personal.name, @(ii), i];
     }
     localNotification.alertBody = str;
     localNotification.alertAction = NSLocalizedString(@"立即开始计划运动吧！", nil);
@@ -213,10 +214,10 @@ NSArray *sportTypes;
 - (void)registerTherdSDK
 {
     //注册友盟的API
-//    [MobClick startWithAppkey:YouMen_AppKey reportPolicy:BATCH  channelId:@""];
+    [MobClick startWithAppkey:YouMen_AppKey reportPolicy:BATCH  channelId:@""];
     
     NSDictionary *infoDictionary =[[NSBundle mainBundle]infoDictionary];
-    NSString *infoStr = [NSString stringWithFormat:@"V %@.%@", [infoDictionary objectForKey:@"CFBundleShortVersionString"], [infoDictionary objectForKey:@"CFBundleVersion"]];
+    NSString *infoStr = [NSString stringWithFormat:@"%@.%@", [infoDictionary objectForKey:@"CFBundleShortVersionString"], [infoDictionary objectForKey:@"CFBundleVersion"]];
     [MobClick setAppVersion:infoStr]; //app版本设置
     [MobClick setEncryptEnabled:YES]; //日志传输加密
     [MobClick setLogEnabled:NO]; //是否开启调试日志

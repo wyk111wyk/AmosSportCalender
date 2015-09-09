@@ -6,12 +6,14 @@
 //  Copyright © 2015年 Amos Wu. All rights reserved.
 //
 
+#import "CommonMarco.h"
 #import "TypeManageTableView.h"
 #import "TypeManageTVCell.h"
 #import "NameManageTableView.h"
 #import "RESideMenu.h"
 #import "DMPasscode.h"
 #import "SettingStore.h"
+#import "ColorPickerViewController.h"
 
 static NSString* const typeManageCellReuseId = @"typeManageCell";
 
@@ -33,8 +35,7 @@ static NSString* const typeManageCellReuseId = @"typeManageCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.sideMenuViewController setPanFromEdge:NO];
-//    [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+    [self.sideMenuViewController setPanFromEdge:YES];
     
     NSFileManager * defaultManager = [NSFileManager defaultManager];
     NSURL * documentPath = [[defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask]firstObject];
@@ -92,7 +93,13 @@ static NSString* const typeManageCellReuseId = @"typeManageCell";
     
     NSString *tempStr = [[self.sportTypes objectAtIndex:indexPath.row] objectForKey:@"sportType"];
     cell.sportTypeLabel.text = tempStr;
-    cell.sportTypeLabel.textColor = [self colorForsportType:tempStr];
+    
+    //字体颜色
+    SettingStore *setting = [SettingStore sharedSetting];
+    NSArray *oneColor = [setting.typeColorArray objectAtIndex:indexPath.row];
+    UIColor *pickedColor = [UIColor colorWithRed:[oneColor[0] floatValue] green:[oneColor[1] floatValue] blue:[oneColor[2] floatValue] alpha:1];
+    cell.sportTypeLabel.textColor = pickedColor;
+    
     [cell.sportTypeLabel sizeToFit];
     
     cell.sportNameNumberLabel.text = [NSString stringWithFormat:@"包含数目：%@ 项", @([[[self.sportTypes objectAtIndex:indexPath.row] objectForKey:@"sportName"] count])];
@@ -123,29 +130,42 @@ static NSString* const typeManageCellReuseId = @"typeManageCell";
 //    NSLog(@"%@", NSStringFromSelector(_cmd));
 }
 
-#pragma mark - 判断cell文字颜色的方法
-- (UIColor *)colorForsportType:(NSString *)sportType
-{
-    if ([sportType isEqualToString:@"胸部"]) {
-        return [UIColor colorWithRed:0.5725 green:0.3216 blue:0.0667 alpha:0.8];
-    }else if ([sportType isEqualToString:@"背部"]){
-        return [UIColor colorWithRed:0.5725 green:0.5608 blue:0.1059 alpha:0.8];
-    }else if ([sportType isEqualToString:@"肩部"]){
-        return [UIColor colorWithRed:0.3176 green:0.5569 blue:0.0902 alpha:0.8];
-    }else if ([sportType isEqualToString:@"腿部"]){
-        return [UIColor colorWithRed:0.0824 green:0.5686 blue:0.5725 alpha:0.8];
-    }else if ([sportType isEqualToString:@"体力"]){
-        return [UIColor colorWithRed:0.9922 green:0.5765 blue:0.1490 alpha:0.8];
-    }else if ([sportType isEqualToString:@"核心"]){
-        return [UIColor colorWithRed:0.9922 green:0.2980 blue:0.9882 alpha:0.8];
-    }else if ([sportType isEqualToString:@"手臂"]){
-        return [UIColor colorWithRed:0.3647 green:0.4314 blue:0.9373 alpha:0.8];
-    }else if ([sportType isEqualToString:@"其他"]){
-        return [UIColor colorWithRed:0.6078 green:0.9255 blue:0.2980 alpha:0.8];
-    }
-    
-    return [UIColor darkGrayColor];
+//这两个方法是必须的
+-(void)setEditing:(BOOL)editing animated:(BOOL)animated {
+    [super setEditing:editing animated:animated];
+    [self.tableView setEditing:editing animated:animated];
 }
+
+//实现协议规定的方法，需要向UITableView发送该消息
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+}
+
+//设置滑动后出现的选项
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    SettingStore *setting = [SettingStore sharedSetting];
+    
+    //删除的方法
+    UITableViewRowAction *editColorAction = [UITableViewRowAction
+                                          rowActionWithStyle:UITableViewRowActionStyleDestructive
+                                          title:@"改变颜色"
+                                          handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+              NSArray *oneColor = [setting.typeColorArray objectAtIndex:indexPath.row];
+              UIColor *pickedColor = [UIColor colorWithRed:[oneColor[0] floatValue] green:[oneColor[1] floatValue] blue:[oneColor[2] floatValue] alpha:1];
+                                              
+              ColorPickerViewController *controller;
+              controller = [[ColorPickerViewController alloc] initWithColor:pickedColor fullColor:YES];
+              controller.indexPathRow = indexPath.row;
+              [self.navigationController pushViewController:controller animated:YES];
+                                          }];
+
+    editColorAction.backgroundColor = basicColor;
+    
+    return @[editColorAction]; //与实际显示的顺序相反
+}
+
+#pragma mark - 必备的方法
 
 - (void)alertForSave
 {

@@ -185,7 +185,7 @@
         self.sportTypes[i] = [[array objectAtIndex:i] objectForKey:@"sportType"];
     }
 
-//    [self createMinAndMaxDate];
+    [self createMinAndMaxDate];
 //    NSLog(@"%@", NSStringFromSelector(_cmd));
 }
 
@@ -581,30 +581,6 @@
     
 }
 
-//设置不同完成后标记颜色的方法
-- (UIColor *)colorForDoneEventsMark:(unsigned long)index
-{
-    if (index == 0) {
-        return [UIColor colorWithRed:0.5725 green:0.3216 blue:0.0667 alpha:1];
-    }else if (index == 1){
-        return [UIColor colorWithRed:0.5725 green:0.5608 blue:0.1059 alpha:1];
-    }else if (index == 2){
-        return [UIColor colorWithRed:0.3176 green:0.5569 blue:0.0902 alpha:1];
-    }else if (index == 3){
-        return [UIColor colorWithRed:0.0824 green:0.5686 blue:0.5725 alpha:1];
-    }else if (index == 4){
-        return [UIColor colorWithRed:0.9922 green:0.5765 blue:0.1490 alpha:1];
-    }else if (index == 5){
-        return [UIColor colorWithRed:0.9922 green:0.2980 blue:0.9882 alpha:1];
-    }else if (index == 6){
-        return [UIColor colorWithRed:0.3647 green:0.4314 blue:0.9373 alpha:1];
-    }else if (index == 7){
-        return [UIColor colorWithRed:0.6078 green:0.9255 blue:0.2980 alpha:1];
-    }
-    
-    return [UIColor clearColor];
-}
-
 - (IBAction)addToCalendar:(UIButton *)sender {
     [self checkEventStoreAccessForCalendar];
     [MobClick event:@"AddToCalendar"]; //友盟统计数据：添加到日程
@@ -671,7 +647,11 @@
     unsigned long index = [self findTheMaxOfTypes:mydate];
     
     if ([self eventsAllDoneForDay:mydate]) {
-        dayView.finishView.layer.borderColor = [[self colorForDoneEventsMark:index] CGColor];
+        SettingStore *setting = [SettingStore sharedSetting];
+        NSArray *oneColor = [setting.typeColorArray objectAtIndex:index];
+        UIColor *pickedColor = [UIColor colorWithRed:[oneColor[0] floatValue] green:[oneColor[1] floatValue] blue:[oneColor[2] floatValue] alpha:1];
+        
+        dayView.finishView.layer.borderColor = [pickedColor CGColor];
         dayView.finishView.hidden = NO;
     }else{
         dayView.finishView.hidden = YES;

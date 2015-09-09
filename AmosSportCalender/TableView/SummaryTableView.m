@@ -6,11 +6,11 @@
 //  Copyright © 2015年 Amos Wu. All rights reserved.
 //
 
+#import "CommonMarco.h"
 #import "Event.h"
 #import "EventStore.h"
 #import "SummaryTableView.h"
 #import "SummaryTVCell.h"
-//#import "UIViewController+MMDrawerController.h"
 #import "RESideMenu.h"
 #import "DMPasscode.h"
 #import "SettingStore.h"
@@ -216,7 +216,12 @@ static NSString * const YKSummaryCellReuseId = @"summaryCell";
             Event *event = [self.eventsByDate[self.sortedKeyArray[i]] objectAtIndex:indexPath.row];
             //Type Label
             cell.sportTypeLabel.text = [event.sportType substringToIndex:1];
-            cell.sportTypeLabel.textColor = [self colorForsportType:event.sportType];
+            
+            SettingStore *setting = [SettingStore sharedSetting];
+            NSArray *oneColor = [setting.typeColorArray objectAtIndex:[self colorForsportType:event.sportType]];
+            UIColor *pickedColor = [UIColor colorWithRed:[oneColor[0] floatValue] green:[oneColor[1] floatValue] blue:[oneColor[2] floatValue] alpha:1];
+            
+            cell.sportTypeLabel.textColor = pickedColor;
             [cell.sportTypeLabel sizeToFit];
             
             cell.sportNameLabel.text = event.sportName;
@@ -238,27 +243,27 @@ static NSString * const YKSummaryCellReuseId = @"summaryCell";
 }
 
 #pragma mark - 判断cell显示内容的方法
-- (UIColor *)colorForsportType:(NSString *)sportType
+- (int)colorForsportType:(NSString *)sportType
 {
     if ([sportType isEqualToString:@"胸部"]) {
-        return [UIColor colorWithRed:0.5725 green:0.3216 blue:0.0667 alpha:0.7];
+        return 0;
     }else if ([sportType isEqualToString:@"背部"]){
-        return [UIColor colorWithRed:0.5725 green:0.5608 blue:0.1059 alpha:0.7];
+        return 1;
     }else if ([sportType isEqualToString:@"肩部"]){
-        return [UIColor colorWithRed:0.3176 green:0.5569 blue:0.0902 alpha:0.7];
+        return 2;
     }else if ([sportType isEqualToString:@"腿部"]){
-        return [UIColor colorWithRed:0.0824 green:0.5686 blue:0.5725 alpha:0.7];
+        return 3;
     }else if ([sportType isEqualToString:@"体力"]){
-        return [UIColor colorWithRed:0.9922 green:0.5765 blue:0.1490 alpha:0.7];
+        return 4;
     }else if ([sportType isEqualToString:@"核心"]){
-        return [UIColor colorWithRed:0.9922 green:0.2980 blue:0.9882 alpha:0.7];
+        return 5;
     }else if ([sportType isEqualToString:@"手臂"]){
-        return [UIColor colorWithRed:0.3647 green:0.4314 blue:0.9373 alpha:0.7];
+        return 6;
     }else if ([sportType isEqualToString:@"其他"]){
-        return [UIColor colorWithRed:0.6078 green:0.9255 blue:0.2980 alpha:0.7];
+        return 7;
     }
     
-    return [UIColor darkGrayColor];
+    return 0;
 }
 
 - (NSString *)setSportAttributeText: (int)times weight: (float)weight rap:(int)rap

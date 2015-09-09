@@ -160,6 +160,15 @@
 		B0FA58A51B4678D400E3BE94 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0FA58A41B4678D400E3BE94 /* Assets.xcassets */; };
 		B0FA58B31B4678D400E3BE94 /* AmosSportCalenderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FA58B21B4678D400E3BE94 /* AmosSportCalenderTests.m */; };
 		B0FA58BE1B4678D400E3BE94 /* AmosSportCalenderUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FA58BD1B4678D400E3BE94 /* AmosSportCalenderUITests.m */; };
+		B0FE06401BA0093100350420 /* HRBrightnessCursor.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FE06311BA0093100350420 /* HRBrightnessCursor.m */; settings = {ASSET_TAGS = (); }; };
+		B0FE06411BA0093100350420 /* HRBrightnessSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FE06331BA0093100350420 /* HRBrightnessSlider.m */; settings = {ASSET_TAGS = (); }; };
+		B0FE06421BA0093100350420 /* HRColorCursor.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FE06351BA0093100350420 /* HRColorCursor.m */; settings = {ASSET_TAGS = (); }; };
+		B0FE06431BA0093100350420 /* HRColorInfoView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FE06371BA0093100350420 /* HRColorInfoView.m */; settings = {ASSET_TAGS = (); }; };
+		B0FE06441BA0093100350420 /* HRColorMapView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FE06391BA0093100350420 /* HRColorMapView.m */; settings = {ASSET_TAGS = (); }; };
+		B0FE06451BA0093100350420 /* HRColorPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FE063B1BA0093100350420 /* HRColorPickerView.m */; settings = {ASSET_TAGS = (); }; };
+		B0FE06461BA0093100350420 /* HRHSVColorUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FE063D1BA0093100350420 /* HRHSVColorUtil.m */; settings = {ASSET_TAGS = (); }; };
+		B0FE06471BA0093100350420 /* UIImage+CoreGraphics.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FE063F1BA0093100350420 /* UIImage+CoreGraphics.m */; settings = {ASSET_TAGS = (); }; };
+		B0FE064A1BA0099A00350420 /* ColorPickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FE06491BA0099A00350420 /* ColorPickerViewController.m */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -459,6 +468,24 @@
 		B0FA58B91B4678D400E3BE94 /* AmosSportDiary.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AmosSportDiary.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0FA58BD1B4678D400E3BE94 /* AmosSportCalenderUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AmosSportCalenderUITests.m; sourceTree = "<group>"; };
 		B0FA58BF1B4678D400E3BE94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B0FE06301BA0093100350420 /* HRBrightnessCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRBrightnessCursor.h; sourceTree = "<group>"; };
+		B0FE06311BA0093100350420 /* HRBrightnessCursor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRBrightnessCursor.m; sourceTree = "<group>"; };
+		B0FE06321BA0093100350420 /* HRBrightnessSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRBrightnessSlider.h; sourceTree = "<group>"; };
+		B0FE06331BA0093100350420 /* HRBrightnessSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRBrightnessSlider.m; sourceTree = "<group>"; };
+		B0FE06341BA0093100350420 /* HRColorCursor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRColorCursor.h; sourceTree = "<group>"; };
+		B0FE06351BA0093100350420 /* HRColorCursor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRColorCursor.m; sourceTree = "<group>"; };
+		B0FE06361BA0093100350420 /* HRColorInfoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRColorInfoView.h; sourceTree = "<group>"; };
+		B0FE06371BA0093100350420 /* HRColorInfoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRColorInfoView.m; sourceTree = "<group>"; };
+		B0FE06381BA0093100350420 /* HRColorMapView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRColorMapView.h; sourceTree = "<group>"; };
+		B0FE06391BA0093100350420 /* HRColorMapView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRColorMapView.m; sourceTree = "<group>"; };
+		B0FE063A1BA0093100350420 /* HRColorPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRColorPickerView.h; sourceTree = "<group>"; };
+		B0FE063B1BA0093100350420 /* HRColorPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRColorPickerView.m; sourceTree = "<group>"; };
+		B0FE063C1BA0093100350420 /* HRHSVColorUtil.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HRHSVColorUtil.h; sourceTree = "<group>"; };
+		B0FE063D1BA0093100350420 /* HRHSVColorUtil.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HRHSVColorUtil.m; sourceTree = "<group>"; };
+		B0FE063E1BA0093100350420 /* UIImage+CoreGraphics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CoreGraphics.h"; sourceTree = "<group>"; };
+		B0FE063F1BA0093100350420 /* UIImage+CoreGraphics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CoreGraphics.m"; sourceTree = "<group>"; };
+		B0FE06481BA0099A00350420 /* ColorPickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ColorPickerViewController.h; sourceTree = "<group>"; };
+		B0FE06491BA0099A00350420 /* ColorPickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ColorPickerViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -676,6 +703,7 @@
 		B07043E91B8C148900512A3C /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				B0FE062F1BA0093100350420 /* ColorPicker */,
 				B061FA3E1B99FF300082FBA1 /* KVNProgress */,
 				B02CCEB61B98172300936FB5 /* UUChart */,
 				B02CCEA91B98000F00936FB5 /* NYSegmentedControl */,
@@ -886,6 +914,8 @@
 				B0C101141B7798F600E4204B /* SummaryTableView.m */,
 				B0C101151B7798F600E4204B /* TypeManageTableView.h */,
 				B0C101161B7798F600E4204B /* TypeManageTableView.m */,
+				B0FE06481BA0099A00350420 /* ColorPickerViewController.h */,
+				B0FE06491BA0099A00350420 /* ColorPickerViewController.m */,
 				B0C101111B7798F600E4204B /* NameManageTableView.h */,
 				B0C101121B7798F600E4204B /* NameManageTableView.m */,
 				B0723E521B786D2D00F8A63E /* SettingTableView.h */,
@@ -1080,6 +1110,30 @@
 			path = AmosSportCalenderUITests;
 			sourceTree = "<group>";
 		};
+		B0FE062F1BA0093100350420 /* ColorPicker */ = {
+			isa = PBXGroup;
+			children = (
+				B0FE06301BA0093100350420 /* HRBrightnessCursor.h */,
+				B0FE06311BA0093100350420 /* HRBrightnessCursor.m */,
+				B0FE06321BA0093100350420 /* HRBrightnessSlider.h */,
+				B0FE06331BA0093100350420 /* HRBrightnessSlider.m */,
+				B0FE06341BA0093100350420 /* HRColorCursor.h */,
+				B0FE06351BA0093100350420 /* HRColorCursor.m */,
+				B0FE06361BA0093100350420 /* HRColorInfoView.h */,
+				B0FE06371BA0093100350420 /* HRColorInfoView.m */,
+				B0FE06381BA0093100350420 /* HRColorMapView.h */,
+				B0FE06391BA0093100350420 /* HRColorMapView.m */,
+				B0FE063A1BA0093100350420 /* HRColorPickerView.h */,
+				B0FE063B1BA0093100350420 /* HRColorPickerView.m */,
+				B0FE063C1BA0093100350420 /* HRHSVColorUtil.h */,
+				B0FE063D1BA0093100350420 /* HRHSVColorUtil.m */,
+				B0FE063E1BA0093100350420 /* UIImage+CoreGraphics.h */,
+				B0FE063F1BA0093100350420 /* UIImage+CoreGraphics.m */,
+			);
+			name = ColorPicker;
+			path = vendor/ColorPicker;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1259,6 +1313,7 @@
 				B09DB2941B84E5E0007458C1 /* LeftMenuView.m in Sources */,
 				B048EF921B8D762F00F01530 /* WeixinTimelineActivity.m in Sources */,
 				B0C1010E1B7798C000E4204B /* ViewController.m in Sources */,
+				B0FE06401BA0093100350420 /* HRBrightnessCursor.m in Sources */,
 				B061FA501B99FF300082FBA1 /* KVNProgress.m in Sources */,
 				B00E23221B92104500649AC9 /* ConflictTV.m in Sources */,
 				B0E144F01B81C58700934377 /* TOActivityChrome.m in Sources */,
@@ -1266,8 +1321,10 @@
 				B0C1010C1B7798C000E4204B /* NewEvevtViewController.m in Sources */,
 				B019BEF51B935C0B00D2D8F6 /* UMChatTableViewCell.m in Sources */,
 				B0723E5A1B78913A00F8A63E /* SettingStore.m in Sources */,
+				B0FE06421BA0093100350420 /* HRColorCursor.m in Sources */,
 				B048EF8F1B8D762F00F01530 /* WeixinActivity.m in Sources */,
 				B0C101181B7798F600E4204B /* NameManageTableView.m in Sources */,
+				B0FE06441BA0093100350420 /* HRColorMapView.m in Sources */,
 				B0C100FC1B77982200E4204B /* ImageStore.m in Sources */,
 				B02CCEB51B98000F00936FB5 /* NYSegmentLabel.m in Sources */,
 				B071F4791B8F45EB00F711EA /* QZoneAct.m in Sources */,
@@ -1287,6 +1344,7 @@
 				B019BEF31B935C0B00D2D8F6 /* UMFeedbackViewController.m in Sources */,
 				B0854D9A1B6BA87600C1B150 /* JTCalendarWeekDayView.m in Sources */,
 				B019BEFA1B935C0B00D2D8F6 /* UMTextView.m in Sources */,
+				B0FE064A1BA0099A00350420 /* ColorPickerViewController.m in Sources */,
 				B049AC781B95E1880002A0BC /* SearchResultTV.m in Sources */,
 				B0854D921B6BA87600C1B150 /* JTCalendarManager.m in Sources */,
 				B0B548561B84443700D42B33 /* DMPasscodeConfig.m in Sources */,
@@ -1307,6 +1365,7 @@
 				B0C1011A1B7798F600E4204B /* TypeManageTableView.m in Sources */,
 				B019BEF71B935C0B00D2D8F6 /* UMFullScreenPhotoView.m in Sources */,
 				B019BEF91B935C0B00D2D8F6 /* UMRadialView.m in Sources */,
+				B0FE06471BA0093100350420 /* UIImage+CoreGraphics.m in Sources */,
 				B02CCEB21B98000F00936FB5 /* NYSegment.m in Sources */,
 				B071E69B1B859B4100133D63 /* RESideMenu.m in Sources */,
 				B02CCEC81B98172300936FB5 /* UULineChart.m in Sources */,
@@ -1318,12 +1377,16 @@
 				B07F43961B919B2600FE0D25 /* iCloudStorageTV.m in Sources */,
 				B061FA4F1B99FF300082FBA1 /* UIImage+KVNImageEffects.m in Sources */,
 				B061FA511B99FF300082FBA1 /* KVNProgressConfiguration.m in Sources */,
+				B0FE06461BA0093100350420 /* HRHSVColorUtil.m in Sources */,
 				B0854D991B6BA87600C1B150 /* JTCalendarPageView.m in Sources */,
+				B0FE06411BA0093100350420 /* HRBrightnessSlider.m in Sources */,
 				B0B548581B84443700D42B33 /* DMPasscodeInternalNavigationController.m in Sources */,
+				B0FE06431BA0093100350420 /* HRColorInfoView.m in Sources */,
 				B0854D961B6BA87600C1B150 /* JTCalendarScrollManager.m in Sources */,
 				B0C101281B77993800E4204B /* SportTVCell.m in Sources */,
 				B0854D931B6BA87600C1B150 /* JTCalendarSettings.m in Sources */,
 				B00D87A51B857CF00044BF85 /* LeftMenuViewController.m in Sources */,
+				B0FE06451BA0093100350420 /* HRColorPickerView.m in Sources */,
 				B0BAD09A1B8DD67600F41091 /* PersonInfoStore.m in Sources */,
 				B0B548551B84443700D42B33 /* DMPasscode.m in Sources */,
 				B0723E541B786D2D00F8A63E /* SettingTableView.m in Sources */,
