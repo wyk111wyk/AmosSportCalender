@@ -106,9 +106,10 @@
     //假如通过了密码，则在本次开机过程都不需输入密码
     setting.passWordOfFingerprint = YES;
     
+    //开启软件后搜索是否有更新版本
     if (setting.autoUpDate) {
-        [[PgyManager sharedPgyManager] checkUpdate];
-        [[PgyManager sharedPgyManager] updateLocalBuildNumber];
+//        [[PgyManager sharedPgyManager] checkUpdate];
+//        [[PgyManager sharedPgyManager] updateLocalBuildNumber];
     }
 }
 
@@ -135,7 +136,7 @@
     
     //NavBar初始化
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"plus"] style:UIBarButtonItemStylePlain target:self action:@selector(addNewEvent:)];
-    UIBarButtonItem *todayButton = [[UIBarButtonItem alloc] initWithTitle:Local(@"Today") style:UIBarButtonItemStylePlain target:self action:@selector(didGoTodayTouch)];
+    UIBarButtonItem *todayButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"present"]  style:UIBarButtonItemStylePlain target:self action:@selector(didGoTodayTouch)];
     _rightButtons = [[NSArray alloc] initWithObjects: addButton, todayButton, nil];
     self.navigationItem.rightBarButtonItems = _rightButtons;
     
@@ -1189,10 +1190,10 @@
     
     WeixinSessionActivity *weixinSession = [[WeixinSessionActivity alloc] init];
     WeixinTimelineActivity *weixinTimeLine = [[WeixinTimelineActivity alloc] init];
-    QQSessionAct *QQSession = [[QQSessionAct alloc] init];
-    QZoneAct *Qzone = [[QZoneAct alloc] init];
+//    QQSessionAct *QQSession = [[QQSessionAct alloc] init];
+//    QZoneAct *Qzone = [[QZoneAct alloc] init];
     
-    _activity = @[weixinSession, weixinTimeLine, QQSession, Qzone];
+    _activity = @[weixinSession, weixinTimeLine];
     
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:Local(@"What you wanna share with")
                                                                    message:@""

@@ -41,8 +41,6 @@
 		B02A989A1B8EF9C000F19EDC /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B02A98991B8EF9C000F19EDC /* CoreText.framework */; };
 		B02A989C1B8EF9E200F19EDC /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B02A989B1B8EF9E200F19EDC /* libstdc++.tbd */; };
 		B02A989E1B8EF9EC00F19EDC /* libiconv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B02A989D1B8EF9EC00F19EDC /* libiconv.tbd */; };
-		B02A98A21B8EFF3500F19EDC /* TencentOpenAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B02A98A01B8EFF3500F19EDC /* TencentOpenAPI.framework */; };
-		B02A98A31B8EFF3500F19EDC /* TencentOpenApi_IOS_Bundle.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B02A98A11B8EFF3500F19EDC /* TencentOpenApi_IOS_Bundle.bundle */; };
 		B02CCEB21B98000F00936FB5 /* NYSegment.m in Sources */ = {isa = PBXBuildFile; fileRef = B02CCEAB1B98000F00936FB5 /* NYSegment.m */; settings = {ASSET_TAGS = (); }; };
 		B02CCEB31B98000F00936FB5 /* NYSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = B02CCEAD1B98000F00936FB5 /* NYSegmentedControl.m */; settings = {ASSET_TAGS = (); }; };
 		B02CCEB41B98000F00936FB5 /* NYSegmentIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = B02CCEAF1B98000F00936FB5 /* NYSegmentIndicator.m */; settings = {ASSET_TAGS = (); }; };
@@ -74,8 +72,6 @@
 		B071E69A1B859B4100133D63 /* RECommonFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = B071E6951B859B4100133D63 /* RECommonFunctions.m */; };
 		B071E69B1B859B4100133D63 /* RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = B071E6971B859B4100133D63 /* RESideMenu.m */; };
 		B071E69C1B859B4100133D63 /* UIViewController+RESideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = B071E6991B859B4100133D63 /* UIViewController+RESideMenu.m */; };
-		B071F4761B8F117500F711EA /* QQSessionAct.m in Sources */ = {isa = PBXBuildFile; fileRef = B071F4751B8F117500F711EA /* QQSessionAct.m */; };
-		B071F4791B8F45EB00F711EA /* QZoneAct.m in Sources */ = {isa = PBXBuildFile; fileRef = B071F4781B8F45EB00F711EA /* QZoneAct.m */; };
 		B0723E541B786D2D00F8A63E /* SettingTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0723E531B786D2D00F8A63E /* SettingTableView.m */; };
 		B0723E5A1B78913A00F8A63E /* SettingStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B0723E591B78913A00F8A63E /* SettingStore.m */; };
 		B0723E5C1B79002900F8A63E /* sportTypes.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0723E5B1B79002900F8A63E /* sportTypes.plist */; };
@@ -108,9 +104,6 @@
 		B09DB28D1B84A3D9007458C1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09DB28C1B84A3D9007458C1 /* SystemConfiguration.framework */; };
 		B09DB2911B84A8C0007458C1 /* PgySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09DB2901B84A8C0007458C1 /* PgySDK.framework */; };
 		B09DB2941B84E5E0007458C1 /* LeftMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = B09DB2931B84E5E0007458C1 /* LeftMenuView.m */; };
-		B09DB2E31B857207007458C1 /* pop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09DB2E21B857207007458C1 /* pop.framework */; };
-		B09DB2E41B85738A007458C1 /* pop.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09DB2E21B857207007458C1 /* pop.framework */; };
-		B09DB2E61B85738A007458C1 /* pop.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B09DB2E21B857207007458C1 /* pop.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B09DB2E81B857437007458C1 /* LeftMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B09DB2E71B857437007458C1 /* LeftMenuViewController.xib */; };
 		B0B548421B843F2400D42B33 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B548411B843F2400D42B33 /* Security.framework */; };
 		B0B548441B843F2A00D42B33 /* LocalAuthentication.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B548431B843F2A00D42B33 /* LocalAuthentication.framework */; };
@@ -195,7 +188,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				B09DB2E61B85738A007458C1 /* pop.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -255,8 +247,6 @@
 		B02A98991B8EF9C000F19EDC /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		B02A989B1B8EF9E200F19EDC /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		B02A989D1B8EF9EC00F19EDC /* libiconv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libiconv.tbd; path = usr/lib/libiconv.tbd; sourceTree = SDKROOT; };
-		B02A98A01B8EFF3500F19EDC /* TencentOpenAPI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = TencentOpenAPI.framework; sourceTree = "<group>"; };
-		B02A98A11B8EFF3500F19EDC /* TencentOpenApi_IOS_Bundle.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = TencentOpenApi_IOS_Bundle.bundle; sourceTree = "<group>"; };
 		B02CCEAA1B98000F00936FB5 /* NYSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYSegment.h; sourceTree = "<group>"; };
 		B02CCEAB1B98000F00936FB5 /* NYSegment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYSegment.m; sourceTree = "<group>"; };
 		B02CCEAC1B98000F00936FB5 /* NYSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYSegmentedControl.h; sourceTree = "<group>"; };
@@ -313,10 +303,6 @@
 		B071E6971B859B4100133D63 /* RESideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RESideMenu.m; sourceTree = "<group>"; };
 		B071E6981B859B4100133D63 /* UIViewController+RESideMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+RESideMenu.h"; sourceTree = "<group>"; };
 		B071E6991B859B4100133D63 /* UIViewController+RESideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+RESideMenu.m"; sourceTree = "<group>"; };
-		B071F4741B8F117500F711EA /* QQSessionAct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = QQSessionAct.h; path = AmosSportCalender/QQSessionAct.h; sourceTree = SOURCE_ROOT; };
-		B071F4751B8F117500F711EA /* QQSessionAct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = QQSessionAct.m; path = AmosSportCalender/QQSessionAct.m; sourceTree = SOURCE_ROOT; };
-		B071F4771B8F45EB00F711EA /* QZoneAct.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QZoneAct.h; sourceTree = "<group>"; };
-		B071F4781B8F45EB00F711EA /* QZoneAct.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QZoneAct.m; sourceTree = "<group>"; };
 		B0723E521B786D2D00F8A63E /* SettingTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTableView.h; sourceTree = "<group>"; };
 		B0723E531B786D2D00F8A63E /* SettingTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTableView.m; sourceTree = "<group>"; };
 		B0723E581B78913A00F8A63E /* SettingStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingStore.h; path = Model/SettingStore.h; sourceTree = "<group>"; };
@@ -375,7 +361,6 @@
 		B09DB2901B84A8C0007458C1 /* PgySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PgySDK.framework; path = AmosSportCalender/FrameWork/PgySDK.framework; sourceTree = "<group>"; };
 		B09DB2921B84E5E0007458C1 /* LeftMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeftMenuView.h; path = Controller/LeftMenuView.h; sourceTree = "<group>"; };
 		B09DB2931B84E5E0007458C1 /* LeftMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LeftMenuView.m; path = Controller/LeftMenuView.m; sourceTree = "<group>"; };
-		B09DB2E21B857207007458C1 /* pop.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = pop.framework; path = AmosSportCalender/FrameWork/pop.framework; sourceTree = "<group>"; };
 		B09DB2E71B857437007458C1 /* LeftMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LeftMenuViewController.xib; path = View/LeftMenuViewController.xib; sourceTree = "<group>"; };
 		B0A084341B8F5A1D0054EA0F /* AmosSportDiary.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = AmosSportDiary.entitlements; sourceTree = "<group>"; };
 		B0B548411B843F2400D42B33 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -495,7 +480,6 @@
 			files = (
 				B02A989E1B8EF9EC00F19EDC /* libiconv.tbd in Frameworks */,
 				B02A989C1B8EF9E200F19EDC /* libstdc++.tbd in Frameworks */,
-				B02A98A21B8EFF3500F19EDC /* TencentOpenAPI.framework in Frameworks */,
 				B02A989A1B8EF9C000F19EDC /* CoreText.framework in Frameworks */,
 				B02A98981B8EF9B800F19EDC /* ImageIO.framework in Frameworks */,
 				B02A98961B8EF9A200F19EDC /* CoreGraphics.framework in Frameworks */,
@@ -512,9 +496,7 @@
 				B019BEF41B935C0B00D2D8F6 /* libUMOpus.a in Frameworks */,
 				B09DB2831B84A3A2007458C1 /* OpenGLES.framework in Frameworks */,
 				B09DB2911B84A8C0007458C1 /* PgySDK.framework in Frameworks */,
-				B09DB2E31B857207007458C1 /* pop.framework in Frameworks */,
 				B0BAD0941B8D9DAA00F41091 /* libMobClickLibrary.a in Frameworks */,
-				B09DB2E41B85738A007458C1 /* pop.framework in Frameworks */,
 				B09DB2811B84A396007458C1 /* CoreTelephony.framework in Frameworks */,
 				B07F43891B8FFE9500FE0D25 /* CloudKit.framework in Frameworks */,
 				B0B548441B843F2A00D42B33 /* LocalAuthentication.framework in Frameworks */,
@@ -611,16 +593,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		B02A989F1B8EFF3500F19EDC /* Tencent */ = {
-			isa = PBXGroup;
-			children = (
-				B02A98A01B8EFF3500F19EDC /* TencentOpenAPI.framework */,
-				B02A98A11B8EFF3500F19EDC /* TencentOpenApi_IOS_Bundle.bundle */,
-			);
-			name = Tencent;
-			path = vendor/Tencent;
-			sourceTree = "<group>";
-		};
 		B02CCEA91B98000F00936FB5 /* NYSegmentedControl */ = {
 			isa = PBXGroup;
 			children = (
@@ -710,7 +682,6 @@
 				B019BEB81B935C0B00D2D8F6 /* UMengFeedback_SDK */,
 				B07F438B1B9184B900FE0D25 /* iCloud */,
 				B07043EA1B8D708500512A3C /* weChat */,
-				B02A989F1B8EFF3500F19EDC /* Tencent */,
 				B0BAD0901B8D9DAA00F41091 /* UMAnalytics_Sdk_3.5.11 */,
 				B0B548451B84443700D42B33 /* DMPasscode */,
 				B087E0241B76F92B003D90B6 /* XYPieChart */,
@@ -732,10 +703,6 @@
 				B048EF8C1B8D762F00F01530 /* WeixinSessionActivity.m */,
 				B048EF8D1B8D762F00F01530 /* WeixinTimelineActivity.h */,
 				B048EF8E1B8D762F00F01530 /* WeixinTimelineActivity.m */,
-				B071F4741B8F117500F711EA /* QQSessionAct.h */,
-				B071F4751B8F117500F711EA /* QQSessionAct.m */,
-				B071F4771B8F45EB00F711EA /* QZoneAct.h */,
-				B071F4781B8F45EB00F711EA /* QZoneAct.m */,
 				B07043EB1B8D708500512A3C /* libWeChatSDK.a */,
 				B07043EC1B8D708500512A3C /* read_me.txt */,
 				B07043ED1B8D708500512A3C /* WXApi.h */,
@@ -982,7 +949,6 @@
 				B02A98991B8EF9C000F19EDC /* CoreText.framework */,
 				B02A98971B8EF9B800F19EDC /* ImageIO.framework */,
 				B02A98951B8EF9A200F19EDC /* CoreGraphics.framework */,
-				B09DB2E21B857207007458C1 /* pop.framework */,
 				B0B548431B843F2A00D42B33 /* LocalAuthentication.framework */,
 				B0B548411B843F2400D42B33 /* Security.framework */,
 				B06594C21B7F62E100ACFD66 /* MessageUI.framework */,
@@ -1262,7 +1228,6 @@
 				B019BEEB1B935C0B00D2D8F6 /* ToolViewInputVoiceHL@2x.png in Resources */,
 				B019BEE91B935C0B00D2D8F6 /* ToolViewInputTextHL@2x.png in Resources */,
 				B0C100F91B772A0700E4204B /* summaryNewTVCell.xib in Resources */,
-				B02A98A31B8EFF3500F19EDC /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				B0B9736D1B74DCF50008640E /* summaryTypeCell.xib in Resources */,
 				B0E144D61B80F6BB00934377 /* Launch Screen.storyboard in Resources */,
 				B019BEF01B935C0B00D2D8F6 /* umeng_fb_audio_play_02@2x.png in Resources */,
@@ -1327,7 +1292,6 @@
 				B0FE06441BA0093100350420 /* HRColorMapView.m in Sources */,
 				B0C100FC1B77982200E4204B /* ImageStore.m in Sources */,
 				B02CCEB51B98000F00936FB5 /* NYSegmentLabel.m in Sources */,
-				B071F4791B8F45EB00F711EA /* QZoneAct.m in Sources */,
 				B061FA4E1B99FF300082FBA1 /* UIImage+KVNEmpty.m in Sources */,
 				B0B548571B84443700D42B33 /* DMPasscodeInternalField.m in Sources */,
 				B0DC6BE51B7F079F009DFA5A /* FeedbackViewController.m in Sources */,
@@ -1354,7 +1318,6 @@
 				B0C101291B77993800E4204B /* SummaryNewTVCell.m in Sources */,
 				B0FA58A31B4678D400E3BE94 /* AmosSportCalender.xcdatamodeld in Sources */,
 				B0E144F21B81C58700934377 /* TOWebViewController.m in Sources */,
-				B071F4761B8F117500F711EA /* QQSessionAct.m in Sources */,
 				B0B548541B84443700D42B33 /* DMKeychain.m in Sources */,
 				B0854D9D1B6BA87600C1B150 /* JTVerticalCalendarView.m in Sources */,
 				B071E69C1B859B4100133D63 /* UIViewController+RESideMenu.m in Sources */,
@@ -1562,8 +1525,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AmosSportDiary.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: yuke wu (BBLAS4A9A3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuke wu (BBLAS4A9A3)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1583,10 +1546,10 @@
 					"$(PROJECT_DIR)/AmosSportCalender/UMengFeedback_SDK",
 					"$(PROJECT_DIR)/AmosSportCalender/UMengFeedback_SDK/UMOpus",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "-Objc";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AKSocialLab.AmosSportDiary;
 				PRODUCT_NAME = AmosSportDiary;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "55c80013-95e7-4b27-ad02-dfcdfbce9c46";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1596,8 +1559,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AmosSportDiary.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: yuke wu (BBLAS4A9A3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuke wu (BBLAS4A9A3)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1616,10 +1579,10 @@
 					"$(PROJECT_DIR)/AmosSportCalender/UMengFeedback_SDK",
 					"$(PROJECT_DIR)/AmosSportCalender/UMengFeedback_SDK/UMOpus",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = "-Objc";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AKSocialLab.AmosSportDiary;
 				PRODUCT_NAME = AmosSportDiary;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "55c80013-95e7-4b27-ad02-dfcdfbce9c46";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

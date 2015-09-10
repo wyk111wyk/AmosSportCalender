@@ -260,11 +260,15 @@
     
     //根据选项重新设置不同属性的值
     [self setSportsValue];
-    
+
     //图片显示
     //    int picNum = arc4random() % 6;
     UIImage *imageToDisplay = [UIImage imageNamed:[NSString stringWithFormat:@"funPic%i", 4]];
     if (imageToDisplay) {self.imageView.image = imageToDisplay;};
+    
+    if (screenHeight == 480) {
+        self.imageView.hidden = YES;
+    }
     
     //重量的UI显示
     if ([self.weightTextFeild.text isEqualToString:@"220"]) {
@@ -1137,9 +1141,9 @@
             times = 15 + i;
         }else if (_personal.purpose == 1){
             times = 10 + i;
-        }else if (_personal.purpose == 3){
+        }else if (_personal.purpose == 2){
             times = 5 + i;
-        }else if (_personal.purpose == 4){
+        }else if (_personal.purpose == 3){
             times = 9 + i;
         }
     }
@@ -1174,9 +1178,9 @@
         weightBase = .5;
     }else if (_personal.purpose == 1){
         weightBase = .67;
-    }else if (_personal.purpose == 3){
+    }else if (_personal.purpose == 2){
         weightBase = .85;
-    }else if (_personal.purpose == 4){
+    }else if (_personal.purpose == 3){
         weightBase = .75;
     }
     
@@ -1191,9 +1195,9 @@
         rapsBase = 6;
     }else if (_personal.purpose == 1){
         rapsBase = 4;
-    }else if (_personal.purpose == 3){
+    }else if (_personal.purpose == 2){
         rapsBase = 3;
-    }else if (_personal.purpose == 4){
+    }else if (_personal.purpose == 3){
         rapsBase = 4;
     }
     

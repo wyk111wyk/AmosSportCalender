@@ -95,41 +95,6 @@
         
     }
     
-    if (isQQ == YES) {
-
-        TencentOAuth *tencentOAuth = [[TencentOAuth alloc] initWithAppId:APP_ID_QQ andDelegate:self];
-        NSLog(@"TencentOAuth accessToken:%@", tencentOAuth.accessToken);
-        
-        NSData *imgData = UIImageJPEGRepresentation(image, 1);
-
-        
-        if(isQQzone == YES)
-        {
-            QQApiNewsObject *newsObj = [QQApiNewsObject
-                                        objectWithURL:[NSURL URLWithString:@"http://www.zhihu.com/people/amos-9"]
-                                        title:@"Amos运动日记"
-                                        description:@"分享我的运动成果"
-                                        previewImageData:imgData];
-            SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:newsObj];
-            
-            //将内容分享到qzone
-            QQApiSendResultCode sent = [QQApiInterface SendReqToQZone:req];
-            NSLog(@"QQApiSendResultCode:%d", sent);
-        }else{
-            
-            QQApiImageObject *imgObj = [QQApiImageObject objectWithData:imgData
-                                                       previewImageData:imgData
-                                                                  title:@"Amos运动日记"
-                                                            description:@"分享我的运动成果"];
-            
-            SendMessageToQQReq *req = [SendMessageToQQReq reqWithContent:imgObj];
-            
-            //将内容分享到qq
-            QQApiSendResultCode sent = [QQApiInterface sendReq:req];
-            NSLog(@"QQApiSendResultCode:%d", sent);
-        }
-    }
-    
     [self youmenAnalysis];
     
     [self activityDidFinish:YES];
@@ -152,8 +117,6 @@
     
     if (isWeiXin == YES) {
         channal = @"微信";
-    } else if (isQQ == YES) {
-        channal = @"QQ";
     }
     
     //友盟社交分享统计

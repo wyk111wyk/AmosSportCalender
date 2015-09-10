@@ -6,7 +6,6 @@
 //  Copyright © 2015年 Amos Wu. All rights reserved.
 //
 
-#import <pop/POP.h>
 #import "LeftMenuView.h"
 
 @interface LeftMenuView()
@@ -93,42 +92,42 @@
 
 - (void)zoomIn
 {
-    POPSpringAnimation *zoomInAni = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
-    zoomInAni.springBounciness = 20;
-    zoomInAni.springSpeed = 20;
-    zoomInAni.dynamicsTension = 1000;
-    zoomInAni.toValue = [NSValue valueWithCGSize:CGSizeMake(1.2, 1.2)];
-    [self.pieView pop_addAnimation:zoomInAni forKey:@"zoomAnimation"];
-    [self.imageView pop_addAnimation:zoomInAni forKey:@"zoomAnimation"];
+//    POPSpringAnimation *zoomInAni = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
+//    zoomInAni.springBounciness = 20;
+//    zoomInAni.springSpeed = 20;
+//    zoomInAni.dynamicsTension = 1000;
+//    zoomInAni.toValue = [NSValue valueWithCGSize:CGSizeMake(1.2, 1.2)];
+//    [self.pieView pop_addAnimation:zoomInAni forKey:@"zoomAnimation"];
+//    [self.imageView pop_addAnimation:zoomInAni forKey:@"zoomAnimation"];
+//    
+//    POPBasicAnimation *layerColor = [POPBasicAnimation animationWithPropertyNamed:kPOPViewBackgroundColor];
+    self.pieView.backgroundColor = [UIColor colorWithRed:0.2000 green:0.6235 blue:0.9882 alpha:0.8];
+//    [self.pieView pop_addAnimation:layerColor forKey:@"backgroundColorAnimation"];
     
-    POPBasicAnimation *layerColor = [POPBasicAnimation animationWithPropertyNamed:kPOPViewBackgroundColor];
-    layerColor.toValue = [UIColor colorWithRed:0.2000 green:0.6235 blue:0.9882 alpha:0.8];
-    [self.pieView pop_addAnimation:layerColor forKey:@"backgroundColorAnimation"];
-    
-    POPBasicAnimation *textColor = [POPBasicAnimation animationWithPropertyNamed:kPOPLabelTextColor];
-    textColor.toValue = [UIColor colorWithRed:0.2000 green:0.6235 blue:0.9882 alpha:1];
-    [self.titleLabel pop_addAnimation:textColor forKey:@"textColorAnimation"];
+//    POPBasicAnimation *textColor = [POPBasicAnimation animationWithPropertyNamed:kPOPLabelTextColor];
+    self.titleLabel.textColor = [UIColor colorWithRed:0.2000 green:0.6235 blue:0.9882 alpha:1];
+//    [self.titleLabel pop_addAnimation:textColor forKey:@"textColorAnimation"];
     
     _titleLabel.font = [UIFont fontWithName:@"Arial-BoldMT" size:19];
 }
 
 - (void)zoomOut
 {
-    POPSpringAnimation *zoomOutAni = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
-    zoomOutAni.springBounciness = 20;
-    zoomOutAni.springSpeed = 20;
-    zoomOutAni.dynamicsTension = 1000;
-    zoomOutAni.toValue = [NSValue valueWithCGSize:CGSizeMake(1., 1.)];
-    [self.pieView pop_addAnimation:zoomOutAni forKey:@"zoomAnimation"];
-    [self.imageView pop_addAnimation:zoomOutAni forKey:@"zoomAnimation"];
+//    POPSpringAnimation *zoomOutAni = [POPSpringAnimation animationWithPropertyNamed:kPOPViewScaleXY];
+//    zoomOutAni.springBounciness = 20;
+//    zoomOutAni.springSpeed = 20;
+//    zoomOutAni.dynamicsTension = 1000;
+//    zoomOutAni.toValue = [NSValue valueWithCGSize:CGSizeMake(1., 1.)];
+//    [self.pieView pop_addAnimation:zoomOutAni forKey:@"zoomAnimation"];
+//    [self.imageView pop_addAnimation:zoomOutAni forKey:@"zoomAnimation"];
+//    
+//    POPBasicAnimation *layerColor = [POPBasicAnimation animationWithPropertyNamed:kPOPViewBackgroundColor];
+    self.pieView.backgroundColor = [UIColor colorWithWhite:0.95 alpha:1];
+//    [self.pieView pop_addAnimation:layerColor forKey:@"backgroundColorAnimation"];
     
-    POPBasicAnimation *layerColor = [POPBasicAnimation animationWithPropertyNamed:kPOPViewBackgroundColor];
-    layerColor.toValue = [UIColor colorWithWhite:0.95 alpha:1];
-    [self.pieView pop_addAnimation:layerColor forKey:@"backgroundColorAnimation"];
-    
-    POPBasicAnimation *textColor = [POPBasicAnimation animationWithPropertyNamed:kPOPLabelTextColor];
-    textColor.toValue = [UIColor colorWithWhite:0.95 alpha:1];
-    [self.titleLabel pop_addAnimation:textColor forKey:@"textColorAnimation"];
+//    POPBasicAnimation *textColor = [POPBasicAnimation animationWithPropertyNamed:kPOPLabelTextColor];
+    self.titleLabel.textColor = [UIColor colorWithWhite:0.95 alpha:1];
+//    [self.titleLabel pop_addAnimation:textColor forKey:@"textColorAnimation"];
     
     _titleLabel.font = [UIFont fontWithName:@"Arial" size:18];
 }

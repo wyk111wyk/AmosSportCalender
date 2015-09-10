@@ -232,6 +232,23 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     
     [self.percentageLabel.layer setCornerRadius:22];
     [self.percentageLabel setText:@"100%"];
+    
+    //添加视差效果
+//    UIInterpolatingMotionEffect *motionEffect;
+//    motionEffect = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x"
+//       type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
+//    motionEffect.minimumRelativeValue = @(-25);
+//    motionEffect.maximumRelativeValue = @(25);
+//    [self.view1 addMotionEffect:motionEffect];
+//    [self.view4 addMotionEffect:motionEffect];
+//    [self.view2 addMotionEffect:motionEffect];
+//    
+//    motionEffect = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.y" type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
+//    motionEffect.minimumRelativeValue = @(-25);
+//    motionEffect.maximumRelativeValue = @(25);
+//    [self.view1 addMotionEffect:motionEffect];
+//    [self.view4 addMotionEffect:motionEffect];
+//    [self.view2 addMotionEffect:motionEffect];
 }
 
 - (void)initButtons

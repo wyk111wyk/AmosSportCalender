@@ -7,12 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import <TencentOpenAPI/QQApiInterface.h>
-#import <TencentOpenAPI/TencentOAuth.h>
 
 #import "WXApi.h"
 
-@interface WeixinActivityBase : UIActivity <TencentSessionDelegate>
+@interface WeixinActivityBase : UIActivity
 
 {
     NSString *title;

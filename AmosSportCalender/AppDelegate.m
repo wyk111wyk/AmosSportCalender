@@ -18,7 +18,6 @@
 #import "RESideMenu.h"
 
 #import "WXApi.h"
-#import <TencentOpenAPI/TencentOAuth.h>
 #import "MobClick.h"
 #import "UMFeedback.h"
 #import "UMOpus.h"
@@ -125,23 +124,11 @@ NSArray *sportTypes;
 
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
-    if ([[url absoluteString] hasPrefix:@"tencent"]) {
-        
-        return [TencentOAuth HandleOpenURL:url];
-        
-    }
-    
     return  [WXApi handleOpenURL:url delegate:self];
 }
 
 - (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
 {
-    if ([[url absoluteString] hasPrefix:@"tencent"]) {
-        
-        return [TencentOAuth HandleOpenURL:url];
-        
-    }
-    
     return  [WXApi handleOpenURL:url delegate:self];
 }
 

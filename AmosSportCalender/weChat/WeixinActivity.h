@@ -10,8 +10,6 @@
 
 #import "WeixinTimelineActivity.h"
 #import "WeixinSessionActivity.h"
-#import "QQSessionAct.h"
-#import "QZoneAct.h"
 
 @interface WeixinActivity : NSObject
 

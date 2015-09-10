@@ -334,8 +334,8 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
 
 - (void)updateMethod:sender
 {
-    [[PgyManager sharedPgyManager] checkUpdate];
-    [[PgyManager sharedPgyManager] updateLocalBuildNumber];
+//    [[PgyManager sharedPgyManager] checkUpdate];
+//    [[PgyManager sharedPgyManager] updateLocalBuildNumber];
 }
 
 #pragma mark - alert Method
