@@ -440,6 +440,9 @@
     
     [self dismissViewControllerAnimated:YES completion:^{
         [MobClick event:@"CreateNewEvent"]; //友盟统计数据：添加事件
+        //取消所有通知
+        [[UIApplication sharedApplication] cancelAllLocalNotifications];
+        
         BOOL success = [[EventStore sharedStore] saveChanges];
         if (success) {
             NSLog(@"新建事件后，储存数据成功");

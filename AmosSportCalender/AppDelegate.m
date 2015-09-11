@@ -41,9 +41,6 @@ NSArray *sportTypes;
     SettingStore *setting = [SettingStore sharedSetting];
     setting.passWordOfFingerprint = NO;
     
-    //取消所有通知
-    [[UIApplication sharedApplication] cancelAllLocalNotifications];
-    
     //假如第一次启动软件，则创建运动项目类
     [self createAllSportTypeArray];
     
