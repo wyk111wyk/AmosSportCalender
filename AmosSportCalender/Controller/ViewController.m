@@ -12,7 +12,6 @@
 
 #import <EventKit/EventKit.h>
 #import <EventKitUI/EventKitUI.h>
-#import <PgySDK/PgyManager.h>
 #import <LocalAuthentication/LocalAuthentication.h>
 #import <Security/Security.h>
 #import <QuartzCore/QuartzCore.h>
@@ -105,12 +104,7 @@
     }
     //假如通过了密码，则在本次开机过程都不需输入密码
     setting.passWordOfFingerprint = YES;
-    
-    //开启软件后搜索是否有更新版本
-    if (setting.autoUpDate) {
-//        [[PgyManager sharedPgyManager] checkUpdate];
-//        [[PgyManager sharedPgyManager] updateLocalBuildNumber];
-    }
+
 }
 
 - (void)viewDidLoad
@@ -345,7 +339,9 @@
     [self loadTheDateEvents];
     [self setUnderTableLabelWithDifferentDay: self.selectedDate];
     [self.tableView reloadData];
-    NSLog(@"点击了Date: %@ - %ld events, %@ done", mydate, (unsigned long)[self.oneDayEvents count], self.doneNumber);
+    
+    if (DeBugMode) {
+        NSLog(@"点击了Date: %@ - %ld events, %@ done", mydate, (unsigned long)[self.oneDayEvents count], self.doneNumber); }
 }
 
 #pragma mark - Buttons callback
@@ -735,12 +731,12 @@
 
 - (void)calendarDidLoadNextPage:(JTCalendarManager *)calendar
 {
-//        NSLog(@"Next page loaded");
+    if (DeBugMode) { NSLog(@"Next page loaded"); }
 }
 
 - (void)calendarDidLoadPreviousPage:(JTCalendarManager *)calendar
 {
-//        NSLog(@"Previous page loaded");
+    if (DeBugMode) { NSLog(@"Previous page loaded");}
 }
 
 #pragma mark - tableview
@@ -806,11 +802,13 @@
     [self.tableView reloadData];
     
     BOOL success = [[EventStore sharedStore] saveChanges];
+    
+    if (DeBugMode) {
     if (success) {
         NSLog(@"完成事件后，储存数据成功");
     }else{
         NSLog(@"完成事件后，储存数据失败！");
-    }
+    } }
 }
 
 - (nullable UIView *)tableView:(nonnull UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -895,11 +893,13 @@
          [self setTableViewHeadTitle:self.selectedDate];
            
          BOOL success = [[EventStore sharedStore] saveChanges];
+           
+           if (DeBugMode) {
          if (success) {
              NSLog(@"删除事件后，储存数据成功");
          }else{
              NSLog(@"删除事件后，储存数据失败！");
-         }
+         }}
      }];
     
     //修改内容的方法

@@ -66,6 +66,7 @@
 		B061FA501B99FF300082FBA1 /* KVNProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = B061FA481B99FF300082FBA1 /* KVNProgress.m */; settings = {ASSET_TAGS = (); }; };
 		B061FA511B99FF300082FBA1 /* KVNProgressConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = B061FA4A1B99FF300082FBA1 /* KVNProgressConfiguration.m */; settings = {ASSET_TAGS = (); }; };
 		B061FA521B99FF300082FBA1 /* KVNProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = B061FA4C1B99FF300082FBA1 /* KVNProgressView.xib */; settings = {ASSET_TAGS = (); }; };
+		B062151D1BB0DD3B001466A4 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B062151A1BB0DD3B001466A4 /* libMobClickLibrary.a */; settings = {ASSET_TAGS = (); }; };
 		B06594C31B7F62E100ACFD66 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B06594C21B7F62E100ACFD66 /* MessageUI.framework */; };
 		B07043EF1B8D708500512A3C /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B07043EB1B8D708500512A3C /* libWeChatSDK.a */; };
 		B07043F01B8D708500512A3C /* read_me.txt in Resources */ = {isa = PBXBuildFile; fileRef = B07043EC1B8D708500512A3C /* read_me.txt */; };
@@ -102,7 +103,6 @@
 		B09DB2891B84A3C2007458C1 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09DB2881B84A3C2007458C1 /* AudioToolbox.framework */; };
 		B09DB28B1B84A3CD007458C1 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09DB28A1B84A3CD007458C1 /* AVFoundation.framework */; };
 		B09DB28D1B84A3D9007458C1 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09DB28C1B84A3D9007458C1 /* SystemConfiguration.framework */; };
-		B09DB2911B84A8C0007458C1 /* PgySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09DB2901B84A8C0007458C1 /* PgySDK.framework */; };
 		B09DB2941B84E5E0007458C1 /* LeftMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = B09DB2931B84E5E0007458C1 /* LeftMenuView.m */; };
 		B09DB2E81B857437007458C1 /* LeftMenuViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B09DB2E71B857437007458C1 /* LeftMenuViewController.xib */; };
 		B0B548421B843F2400D42B33 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B548411B843F2400D42B33 /* Security.framework */; };
@@ -116,7 +116,6 @@
 		B0B973671B74808F0008640E /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B973651B74808F0008640E /* EventKit.framework */; };
 		B0B973681B74808F0008640E /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0B973661B74808F0008640E /* EventKitUI.framework */; };
 		B0B9736D1B74DCF50008640E /* summaryTypeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0B9736B1B74DCF50008640E /* summaryTypeCell.xib */; };
-		B0BAD0941B8D9DAA00F41091 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B0BAD0911B8D9DAA00F41091 /* libMobClickLibrary.a */; };
 		B0BAD0971B8DD64000F41091 /* PersonalInfoTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BAD0961B8DD64000F41091 /* PersonalInfoTableView.m */; };
 		B0BAD09A1B8DD67600F41091 /* PersonInfoStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B0BAD0991B8DD67600F41091 /* PersonInfoStore.m */; };
 		B0C100F91B772A0700E4204B /* summaryNewTVCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0C100F81B772A0700E4204B /* summaryNewTVCell.xib */; };
@@ -149,7 +148,6 @@
 		B0FA58971B4678D400E3BE94 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FA58961B4678D400E3BE94 /* main.m */; };
 		B0FA589A1B4678D400E3BE94 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FA58991B4678D400E3BE94 /* AppDelegate.m */; };
 		B0FA58A01B4678D400E3BE94 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0FA589E1B4678D400E3BE94 /* Main.storyboard */; };
-		B0FA58A31B4678D400E3BE94 /* AmosSportCalender.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B0FA58A11B4678D400E3BE94 /* AmosSportCalender.xcdatamodeld */; };
 		B0FA58A51B4678D400E3BE94 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B0FA58A41B4678D400E3BE94 /* Assets.xcassets */; };
 		B0FA58B31B4678D400E3BE94 /* AmosSportCalenderTests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FA58B21B4678D400E3BE94 /* AmosSportCalenderTests.m */; };
 		B0FA58BE1B4678D400E3BE94 /* AmosSportCalenderUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FA58BD1B4678D400E3BE94 /* AmosSportCalenderUITests.m */; };
@@ -292,6 +290,9 @@
 		B061FA491B99FF300082FBA1 /* KVNProgressConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KVNProgressConfiguration.h; sourceTree = "<group>"; };
 		B061FA4A1B99FF300082FBA1 /* KVNProgressConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KVNProgressConfiguration.m; sourceTree = "<group>"; };
 		B061FA4C1B99FF300082FBA1 /* KVNProgressView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = KVNProgressView.xib; sourceTree = "<group>"; };
+		B062151A1BB0DD3B001466A4 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
+		B062151B1BB0DD3B001466A4 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
+		B062151C1BB0DD3B001466A4 /* MobClickSocialAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickSocialAnalytics.h; sourceTree = "<group>"; };
 		B06594C21B7F62E100ACFD66 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		B07043EB1B8D708500512A3C /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
 		B07043EC1B8D708500512A3C /* read_me.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = read_me.txt; sourceTree = "<group>"; };
@@ -358,7 +359,6 @@
 		B09DB2881B84A3C2007458C1 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		B09DB28A1B84A3CD007458C1 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		B09DB28C1B84A3D9007458C1 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		B09DB2901B84A8C0007458C1 /* PgySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PgySDK.framework; path = AmosSportCalender/FrameWork/PgySDK.framework; sourceTree = "<group>"; };
 		B09DB2921B84E5E0007458C1 /* LeftMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeftMenuView.h; path = Controller/LeftMenuView.h; sourceTree = "<group>"; };
 		B09DB2931B84E5E0007458C1 /* LeftMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LeftMenuView.m; path = Controller/LeftMenuView.m; sourceTree = "<group>"; };
 		B09DB2E71B857437007458C1 /* LeftMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LeftMenuViewController.xib; path = View/LeftMenuViewController.xib; sourceTree = "<group>"; };
@@ -381,9 +381,6 @@
 		B0B973651B74808F0008640E /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
 		B0B973661B74808F0008640E /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		B0B9736B1B74DCF50008640E /* summaryTypeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = summaryTypeCell.xib; sourceTree = "<group>"; };
-		B0BAD0911B8D9DAA00F41091 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
-		B0BAD0921B8D9DAA00F41091 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
-		B0BAD0931B8D9DAA00F41091 /* MobClickSocialAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickSocialAnalytics.h; sourceTree = "<group>"; };
 		B0BAD0951B8DD63F00F41091 /* PersonalInfoTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PersonalInfoTableView.h; path = TableView/PersonalInfoTableView.h; sourceTree = "<group>"; };
 		B0BAD0961B8DD64000F41091 /* PersonalInfoTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PersonalInfoTableView.m; path = TableView/PersonalInfoTableView.m; sourceTree = "<group>"; };
 		B0BAD0981B8DD67600F41091 /* PersonInfoStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PersonInfoStore.h; path = Model/PersonInfoStore.h; sourceTree = "<group>"; };
@@ -444,7 +441,6 @@
 		B0FA58981B4678D400E3BE94 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		B0FA58991B4678D400E3BE94 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		B0FA589F1B4678D400E3BE94 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		B0FA58A21B4678D400E3BE94 /* AmosSportCalender.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = AmosSportCalender.xcdatamodel; sourceTree = "<group>"; };
 		B0FA58A41B4678D400E3BE94 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B0FA58A91B4678D400E3BE94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B0FA58AE1B4678D400E3BE94 /* AmosSportDiary.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AmosSportDiary.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -495,9 +491,8 @@
 				B09DB2851B84A3AD007458C1 /* SceneKit.framework in Frameworks */,
 				B019BEF41B935C0B00D2D8F6 /* libUMOpus.a in Frameworks */,
 				B09DB2831B84A3A2007458C1 /* OpenGLES.framework in Frameworks */,
-				B09DB2911B84A8C0007458C1 /* PgySDK.framework in Frameworks */,
-				B0BAD0941B8D9DAA00F41091 /* libMobClickLibrary.a in Frameworks */,
 				B09DB2811B84A396007458C1 /* CoreTelephony.framework in Frameworks */,
+				B062151D1BB0DD3B001466A4 /* libMobClickLibrary.a in Frameworks */,
 				B07F43891B8FFE9500FE0D25 /* CloudKit.framework in Frameworks */,
 				B0B548441B843F2A00D42B33 /* LocalAuthentication.framework in Frameworks */,
 				B07F43921B918E9100FE0D25 /* iCloud.framework in Frameworks */,
@@ -672,9 +667,21 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		B06215191BB0DD3B001466A4 /* UMAnalytics_Sdk_3.5.17 */ = {
+			isa = PBXGroup;
+			children = (
+				B062151A1BB0DD3B001466A4 /* libMobClickLibrary.a */,
+				B062151B1BB0DD3B001466A4 /* MobClick.h */,
+				B062151C1BB0DD3B001466A4 /* MobClickSocialAnalytics.h */,
+			);
+			name = UMAnalytics_Sdk_3.5.17;
+			path = vendor/UMAnalytics_Sdk_3.5.17;
+			sourceTree = "<group>";
+		};
 		B07043E91B8C148900512A3C /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				B06215191BB0DD3B001466A4 /* UMAnalytics_Sdk_3.5.17 */,
 				B0FE062F1BA0093100350420 /* ColorPicker */,
 				B061FA3E1B99FF300082FBA1 /* KVNProgress */,
 				B02CCEB61B98172300936FB5 /* UUChart */,
@@ -682,7 +689,6 @@
 				B019BEB81B935C0B00D2D8F6 /* UMengFeedback_SDK */,
 				B07F438B1B9184B900FE0D25 /* iCloud */,
 				B07043EA1B8D708500512A3C /* weChat */,
-				B0BAD0901B8D9DAA00F41091 /* UMAnalytics_Sdk_3.5.11 */,
 				B0B548451B84443700D42B33 /* DMPasscode */,
 				B087E0241B76F92B003D90B6 /* XYPieChart */,
 				B0854D6E1B6BA87600C1B150 /* JTCalendar */,
@@ -833,7 +839,6 @@
 				B0723E591B78913A00F8A63E /* SettingStore.m */,
 				B0BAD0981B8DD67600F41091 /* PersonInfoStore.h */,
 				B0BAD0991B8DD67600F41091 /* PersonInfoStore.m */,
-				B0FA58A11B4678D400E3BE94 /* AmosSportCalender.xcdatamodeld */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -939,12 +944,12 @@
 		B0B548401B843EF300D42B33 /* FrameWork */ = {
 			isa = PBXGroup;
 			children = (
-				B07F43911B918E9100FE0D25 /* iCloud.framework */,
 				B02A989D1B8EF9EC00F19EDC /* libiconv.tbd */,
 				B02A989B1B8EF9E200F19EDC /* libstdc++.tbd */,
 				B048EF831B8D70F700F01530 /* libc++.tbd */,
 				B048EF811B8D70EB00F01530 /* libsqlite3.0.tbd */,
 				B048EF7F1B8D70E100F01530 /* libz.tbd */,
+				B07F43911B918E9100FE0D25 /* iCloud.framework */,
 				B07F43881B8FFE9500FE0D25 /* CloudKit.framework */,
 				B02A98991B8EF9C000F19EDC /* CoreText.framework */,
 				B02A98971B8EF9B800F19EDC /* ImageIO.framework */,
@@ -955,7 +960,6 @@
 				B087E0281B76FFF2003D90B6 /* QuartzCore.framework */,
 				B0B973651B74808F0008640E /* EventKit.framework */,
 				B0B973661B74808F0008640E /* EventKitUI.framework */,
-				B09DB2901B84A8C0007458C1 /* PgySDK.framework */,
 				B09DB28E1B84A3E5007458C1 /* PGY */,
 			);
 			name = FrameWork;
@@ -980,16 +984,6 @@
 			name = DMPasscode;
 			path = AmosSportCalender/DMPasscode;
 			sourceTree = SOURCE_ROOT;
-		};
-		B0BAD0901B8D9DAA00F41091 /* UMAnalytics_Sdk_3.5.11 */ = {
-			isa = PBXGroup;
-			children = (
-				B0BAD0911B8D9DAA00F41091 /* libMobClickLibrary.a */,
-				B0BAD0921B8D9DAA00F41091 /* MobClick.h */,
-				B0BAD0931B8D9DAA00F41091 /* MobClickSocialAnalytics.h */,
-			);
-			path = UMAnalytics_Sdk_3.5.11;
-			sourceTree = "<group>";
 		};
 		B0E144DA1B81C58700934377 /* TOWebViewController */ = {
 			isa = PBXGroup;
@@ -1316,7 +1310,6 @@
 				B02CCEC31B98172300936FB5 /* UUBar.m in Sources */,
 				B0854D9B1B6BA87600C1B150 /* JTCalendarWeekView.m in Sources */,
 				B0C101291B77993800E4204B /* SummaryNewTVCell.m in Sources */,
-				B0FA58A31B4678D400E3BE94 /* AmosSportCalender.xcdatamodeld in Sources */,
 				B0E144F21B81C58700934377 /* TOWebViewController.m in Sources */,
 				B0B548541B84443700D42B33 /* DMKeychain.m in Sources */,
 				B0854D9D1B6BA87600C1B150 /* JTVerticalCalendarView.m in Sources */,
@@ -1451,8 +1444,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: yuke wu (BBLAS4A9A3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuke wu (BBLAS4A9A3)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1474,7 +1467,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "55c80013-95e7-4b27-ad02-dfcdfbce9c46";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1496,8 +1489,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: yuke wu (BBLAS4A9A3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuke wu (BBLAS4A9A3)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1514,7 +1507,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "55c80013-95e7-4b27-ad02-dfcdfbce9c46";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1525,8 +1518,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AmosSportDiary.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: yuke wu (BBLAS4A9A3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuke wu (BBLAS4A9A3)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1537,19 +1530,19 @@
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				INFOPLIST_FILE = AmosSportCalender/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/AmosSportCalender/weChat",
-					"$(PROJECT_DIR)/AmosSportCalender/UMAnalytics_Sdk_3.5.11",
 					"$(PROJECT_DIR)/AmosSportCalender/UMengFeedback_SDK",
 					"$(PROJECT_DIR)/AmosSportCalender/UMengFeedback_SDK/UMOpus",
+					"$(PROJECT_DIR)/AmosSportCalender/vendor/UMAnalytics_Sdk_3.5.17",
 				);
 				OTHER_LDFLAGS = "-Objc";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AKSocialLab.AmosSportDiary;
 				PRODUCT_NAME = AmosSportDiary;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "55c80013-95e7-4b27-ad02-dfcdfbce9c46";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1560,8 +1553,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AmosSportDiary.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: yuke wu (BBLAS4A9A3)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuke wu (BBLAS4A9A3)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1571,19 +1564,19 @@
 					"$(PROJECT_DIR)/AmosSportCalender/vendor/Tencent",
 				);
 				INFOPLIST_FILE = AmosSportCalender/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/AmosSportCalender/weChat",
-					"$(PROJECT_DIR)/AmosSportCalender/UMAnalytics_Sdk_3.5.11",
 					"$(PROJECT_DIR)/AmosSportCalender/UMengFeedback_SDK",
 					"$(PROJECT_DIR)/AmosSportCalender/UMengFeedback_SDK/UMOpus",
+					"$(PROJECT_DIR)/AmosSportCalender/vendor/UMAnalytics_Sdk_3.5.17",
 				);
 				OTHER_LDFLAGS = "-Objc";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AKSocialLab.AmosSportDiary;
 				PRODUCT_NAME = AmosSportDiary;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "55c80013-95e7-4b27-ad02-dfcdfbce9c46";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1677,19 +1670,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		B0FA58A11B4678D400E3BE94 /* AmosSportCalender.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				B0FA58A21B4678D400E3BE94 /* AmosSportCalender.xcdatamodel */,
-			);
-			currentVersion = B0FA58A21B4678D400E3BE94 /* AmosSportCalender.xcdatamodel */;
-			path = AmosSportCalender.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = B0FA588A1B4678D400E3BE94 /* Project object */;
 }

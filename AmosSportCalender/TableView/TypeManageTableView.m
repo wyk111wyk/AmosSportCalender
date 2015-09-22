@@ -72,15 +72,12 @@ static NSString* const typeManageCellReuseId = @"typeManageCell";
     [headerView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
     headerView.backgroundColor = [UIColor clearColor];
     
-    UILabel *headText = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, screenWidth, 35)];
+    UILabel *headText = [[UILabel alloc] initWithFrame:CGRectMake(5, 0, screenWidth - 10, 35)];
     headText.textColor = [UIColor darkGrayColor];
-    [headText setFont:[UIFont fontWithName:@"Arial" size:12]];
-    if (screenWidth == 320) {
-        [headText setFont:[UIFont fontWithName:@"Arial" size:11]];
-    }
+    [headText setFont:[UIFont fontWithName:@"Arial" size:11]];
     headText.text = @"点击项目以编辑运动种类，左划改变颜色，类型根据身体部位分类，暂时无法编辑";
     headText.numberOfLines = 0;
-    [headText sizeToFit];
+//    [headText sizeToFit];
     headText.center = headerView.center;
     [headerView addSubview:headText];
     

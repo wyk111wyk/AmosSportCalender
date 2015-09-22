@@ -106,7 +106,7 @@
     
     _searchController.searchResultsUpdater = self;
     _searchController.delegate = self;
-    _searchController.dimsBackgroundDuringPresentation = NO;
+    _searchController.dimsBackgroundDuringPresentation = YES; //给背景加一层遮盖
     _searchController.hidesNavigationBarDuringPresentation = YES;
     _searchController.searchBar.frame = CGRectMake(self.searchController.searchBar.frame.origin.x, self.searchController.searchBar.frame.origin.y, self.searchController.searchBar.frame.size.width, 44.0);
     
@@ -444,11 +444,13 @@
         [[UIApplication sharedApplication] cancelAllLocalNotifications];
         
         BOOL success = [[EventStore sharedStore] saveChanges];
+        
+        if (DeBugMode) {
         if (success) {
             NSLog(@"新建事件后，储存数据成功");
         }else{
             NSLog(@"新建事件后，储存数据失败！");
-        }
+        }}
     }];
 }
 
@@ -504,7 +506,8 @@
     if (row1 == 9999) {
         
     }else{
-        NSLog(@"row1 = %i, row2 = %i", row1, row2);
+        if (DeBugMode) {
+            NSLog(@"row1 = %i, row2 = %i", row1, row2); }
         
         [self.sportPicker selectRow:(NSInteger)row1 inComponent:0 animated:YES];
         self.sportNames = [[self.sportTypes objectAtIndex:row1] objectForKey:@"sportName"];
@@ -1008,12 +1011,12 @@
     [[[MuSportTypes objectAtIndex:self.indexRow] objectForKey:@"sportName"] addObjectsFromArray:self.sportNameTemps];
     
     BOOL successWrited = [MuSportTypes writeToFile:fileSavePath atomically:YES];
-    
+    if (DeBugMode) {
     if (successWrited) {
         NSLog(@"已更新运动项目plist数据！");
     }else{
         NSLog(@"更新失败！");
-    }
+    }}
 }
 
 //是否输入的是数字

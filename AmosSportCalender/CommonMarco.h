@@ -11,6 +11,9 @@
 #ifndef CommonMarco_h
 #define CommonMarco_h
 
+/** Debug */
+#define DeBugMode 0
+
 //社交分享
 #define WeiXin_AppKey             @"wx7804e9687ad3c0bd"
 

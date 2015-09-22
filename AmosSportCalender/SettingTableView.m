@@ -6,8 +6,6 @@
 //  Copyright © 2015年 Amos Wu. All rights reserved.
 //
 
-#import <PgySDK/PgyManager.h>
-
 #import "EventStore.h"
 #import "SettingTableView.h"
 #import "SettingStore.h"
@@ -39,7 +37,6 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
 
 @property (weak, nonatomic) IBOutlet UISwitch *passwordSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *iconBadgeNumberSwitch;
-@property (weak, nonatomic) IBOutlet UISwitch *autoUpDateSwitch;
 
 @property (strong, nonatomic) UIPickerView *agePicker;
 @property (strong, nonatomic) UIPickerView *genderPicker;
@@ -90,7 +87,6 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
     _ageTextField.text = personal.age;
     _genderTextField.text = personal.gender;
     
-    _autoUpDateSwitch.on = setting.autoUpDate;
     _iconBadgeNumberSwitch.on = setting.iconBadgeNumber;
     
     if (setting.sportTypeImageMale) {
@@ -188,13 +184,6 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
         }else{
             [DMPasscode removePasscode];
             _passwordLabel.textColor = [UIColor lightGrayColor];
-        }
-    //是否启用自动更新
-    }else if(sender == _autoUpDateSwitch){
-        if (_autoUpDateSwitch.on) {
-            setting.autoUpDate = YES;
-        }else{
-            setting.autoUpDate = NO;
         }
     }
     
@@ -309,12 +298,6 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
             
             break;
         case 2:
-            if (indexPath.row == 0) {
-                //检查是否有新版本
-                [[PgyManager sharedPgyManager] checkUpdateWithDelegete:self selector:@selector(updateMethod:)];
-            }
-            break;
-        case 3:
             if (indexPath.row == 0){
                 
             }else if (indexPath.row == 1){
@@ -330,12 +313,6 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
     }
     
     [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-- (void)updateMethod:sender
-{
-//    [[PgyManager sharedPgyManager] checkUpdate];
-//    [[PgyManager sharedPgyManager] updateLocalBuildNumber];
 }
 
 #pragma mark - alert Method

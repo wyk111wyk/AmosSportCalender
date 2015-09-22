@@ -103,9 +103,11 @@
     textLabelFrame.size.width = 215;
     self.messageLabel.frame = textLabelFrame;
 
-    CGSize labelSize = [self.messageLabel.text sizeWithFont:[UIFont systemFontOfSize:14.0f]
-                                       constrainedToSize:CGSizeMake(215, MAXFLOAT)
-                                           lineBreakMode:NSLineBreakByWordWrapping];
+    NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
+    paragraph.alignment = NSLineBreakByWordWrapping;
+    NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:14.f], NSParagraphStyleAttributeName: paragraph};
+    
+    CGSize labelSize = [self.messageLabel.text boundingRectWithSize:CGSizeMake(215, MAXFLOAT) options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attribute context:nil].size;
 
     textLabelFrame.size.height = labelSize.height + 6;
     textLabelFrame.origin.y = 20.0f;

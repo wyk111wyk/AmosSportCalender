@@ -54,7 +54,6 @@ static NSString* const SearchCellIdentifier = @"searchResultCell";
         }
         
     }else{
-//        NSLog(@"新建个啥");
         if (self.createNewBlock) {
             self.createNewBlock(_theNewStr);
         }

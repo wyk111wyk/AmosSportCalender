@@ -50,9 +50,8 @@ static NSString* const iCloudCellReuseId = @"icloudCell";
         _fileNameLists = [NSMutableArray array];
     }
     
-    refreshControl = [[UIRefreshControl alloc] init];
-    [refreshControl addTarget:self action:@selector(refreshCloudList) forControlEvents:UIControlEventValueChanged];
-    [self.tableView addSubview:refreshControl];
+    //初始化下拉刷新
+    [self initTheRefresh];
     
 }
 
@@ -96,6 +95,37 @@ static NSString* const iCloudCellReuseId = @"icloudCell";
             NSLog(@"新建iCloud备份失败: %@", error);
         }
     }];
+}
+
+#pragma mark - Pull to refresh
+
+- (void)initTheRefresh
+{
+    refreshControl = [[UIRefreshControl alloc] init];
+    refreshControl.tintColor = [UIColor lightGrayColor];
+    refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"下拉进行刷新"];
+    [refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
+    [self.tableView addSubview:refreshControl];
+}
+
+-(void)refreshView:(UIRefreshControl *)refresh
+{
+    if (refreshControl.refreshing) {
+        refreshControl.attributedTitle = [[NSAttributedString alloc]initWithString:@"正在进行刷新..."];
+        [self performSelector:@selector(handleData) withObject:nil afterDelay:2];
+    }
+}
+
+//下拉刷新的结果
+-(void)handleData
+{
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"MMM d, h:mm:ss a"];
+    NSString *lastUpdated = [NSString stringWithFormat:@"上次刷新时间: %@", [formatter stringFromDate:[NSDate date]]];
+    refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:lastUpdated];
+    
+    [refreshControl endRefreshing];
+    [[iCloud sharedCloud] updateFiles];
 }
 
 #pragma mark - Table view data source
@@ -158,9 +188,9 @@ static NSString* const iCloudCellReuseId = @"icloudCell";
     [self.tableView reloadData];
 }
 
-- (void)refreshCloudList {
-    [[iCloud sharedCloud] updateFiles];
-}
+//- (void)refreshCloudList {
+//    [[iCloud sharedCloud] updateFiles];
+//}
 
 #pragma mark - Common
 

@@ -1236,10 +1236,17 @@ const CGFloat kMessagesInputToolbarHeightDefault = 44.0f;
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *content = self.topicAndReplies[indexPath.row][@"content"];
     if (content.length > 0) {
-        CGSize labelSize =
-                [content sizeWithFont:[UIFont systemFontOfSize:14.0f]
-                               constrainedToSize:CGSizeMake(self.mTableView.frame.size.width - 40, MAXFLOAT)
-                                   lineBreakMode:NSLineBreakByWordWrapping];
+        
+        NSMutableParagraphStyle *paragraph = [[NSMutableParagraphStyle alloc] init];
+        paragraph.alignment = NSLineBreakByWordWrapping;
+        NSDictionary *attribute = @{NSFontAttributeName: [UIFont systemFontOfSize:14.f], NSParagraphStyleAttributeName: paragraph};
+        
+        CGSize labelSize = [content
+                            boundingRectWithSize:CGSizeMake(self.mTableView.frame.size.width - 40, MAXFLOAT)
+                            options:NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading
+                            attributes:attribute
+                             context:nil].size;
+        
         return labelSize.height + 28;
     } else {
         if (self.topicAndReplies[indexPath.row][@"pic_id"])

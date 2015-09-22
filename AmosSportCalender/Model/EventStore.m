@@ -83,14 +83,30 @@
 {
     if (event) {
     event.eventDate = date;
-    NSString *key = [[self dateFormatter] stringFromDate:date ? date : [NSDate date]];
-    
-    if (!self.privateEvents[key]) {
-    self.privateEvents[key] = [NSMutableArray array];
-    }
+        NSString *key = [[self dateFormatter] stringFromDate:date ? date : [NSDate date]];
+        
+        if (!self.privateEvents[key]) {
+        self.privateEvents[key] = [NSMutableArray array];
+        }
 
-    [self.privateEvents[key] insertObject:event atIndex:0];
+        int i = [self countFinishedEvents:key];
+        if (i < 0) {
+            i = 0;
+        }
+        [self.privateEvents[key] insertObject:event atIndex:i];
     }
+}
+
+//计算当天有几个已完成
+- (int)countFinishedEvents: (NSString *)key
+{
+    int i = 0;
+    for (Event *event in self.privateEvents[key]){
+        if (!event.done) {
+            i++;
+        }
+    }
+    return i;
 }
 
 //实现删除行的方法

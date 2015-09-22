@@ -5,7 +5,6 @@
 //  Created by Amos Wu on 15/7/3.
 //  Copyright © 2015年 Amos Wu. All rights reserved.
 //
-#import <PgySDK/PgyManager.h>
 #import "CommonMarco.h"
 
 #import "AppDelegate.h"
@@ -31,7 +30,9 @@ NSArray *sportTypes;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-//    NSLog(@"application didFinishLaunchingWithOptions");
+    if (DeBugMode) {
+    NSLog(@"application didFinishLaunchingWithOptions");
+    }
     
     [self registerTherdSDK];
     
@@ -111,11 +112,12 @@ NSArray *sportTypes;
         
         BOOL successWrited = [sportTypes writeToFile:fileSavePath atomically:YES];
         
+        if (DeBugMode) {
         if (successWrited) {
             NSLog(@"已写入plist数据！");
         }else{
             NSLog(@"写入失败！");
-        }
+        }}
     }
 }
 
@@ -141,27 +143,33 @@ NSArray *sportTypes;
     if (setting.alertForSport) {
 
     //注册五天不使用的本地通知
-    UILocalNotification *localNotification = UILocalNotification.new;
-    
-    NSInteger ii = setting.alertForDays;
-    
-    localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:ii*24*60*60];
-    localNotification.timeZone = [NSTimeZone defaultTimeZone];
-    
-    float i = arc4random() % 100;
-        i = (i+100)/100 * (int)ii/5;
-    NSString *str = [NSString stringWithFormat:@"又%@天没有运动了，恭喜您又长了%.2f斤肉~", @(ii), i];
-    if (personal.name.length > 0) {
-        str = [NSString stringWithFormat:@"%@，又%@天没有运动了，恭喜您又长了%.2f斤肉~", personal.name, @(ii), i];
-    }
-    localNotification.alertBody = str;
-    localNotification.alertAction = NSLocalizedString(@"立即开始计划运动吧！", nil);
-    localNotification.soundName= UILocalNotificationDefaultSoundName;
-    
-    // 设定通知的userInfo，用来标识该通知:不会
-    
-    [application scheduleLocalNotification:localNotification];
-    
+        if (DeBugMode) {
+        NSLog(@"有%@个待提醒", @([[UIApplication sharedApplication] scheduledLocalNotifications].count));
+        }
+        
+        if ([[UIApplication sharedApplication] scheduledLocalNotifications].count < 1) {
+        
+            UILocalNotification *localNotification = UILocalNotification.new;
+            
+            NSInteger ii = setting.alertForDays;
+            
+            localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:ii*24*60*60];
+            localNotification.timeZone = [NSTimeZone defaultTimeZone];
+            
+            float i = arc4random() % 100;
+                i = (i+100)/100 * (int)ii/5;
+            NSString *str = [NSString stringWithFormat:@"%@天没有运动了，恭喜您又长了%.2f斤肉~赶快来做一个运动计划吧！", @(ii), i];
+            if (personal.name.length > 0) {
+                str = [NSString stringWithFormat:@"%@，%@天没有运动了，恭喜您又长了%.2f斤肉~赶快来做一个运动计划吧！", personal.name, @(ii), i];
+                }
+            localNotification.alertBody = str;
+            localNotification.alertAction = NSLocalizedString(@"立即开始计划运动吧！", nil);
+            localNotification.soundName= UILocalNotificationDefaultSoundName;
+            
+            // 设定通知的userInfo，用来标识该通知:不会
+            [application scheduleLocalNotification:localNotification];
+        }
+        
     }
     
     if (!setting.iconBadgeNumber) {
@@ -170,11 +178,13 @@ NSArray *sportTypes;
     
     //储存所有用户数据
     BOOL success = [[EventStore sharedStore] saveChanges];
+    
+    if (DeBugMode) {
     if (success) {
         NSLog(@"退出程序后,进行了数据本地储存");
     }else{
         NSLog(@"退出程序后的储存失败！");
-    }
+    }}
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
@@ -190,9 +200,10 @@ NSArray *sportTypes;
     // Saves changes in the application's managed object context before the application terminates.
     SettingStore *setting = [SettingStore sharedSetting];
     setting.passWordOfFingerprint = NO;
-    NSLog(@"TouchID 已打开");
     
-    [self saveContext];
+    if (DeBugMode) {
+    NSLog(@"TouchID 已打开");
+    }
 }
 
 - (void)registerTherdSDK
@@ -211,100 +222,16 @@ NSArray *sportTypes;
     [UMFeedback setAppkey:YouMen_AppKey];
     [UMOpus setAudioEnable:YES]; //开启反馈时的语音功能
     
-    //蒲公英SDK提供的方法
-    [[PgyManager sharedPgyManager] startManagerWithAppId:PGY_APP_ID];
-    [[PgyManager sharedPgyManager] setEnableFeedback:NO];
-    [[PgyManager sharedPgyManager] setEnableDebugLog:NO]; //是否开启调试日志
-    
     //向微信注册
-    __unused BOOL weChatSuccess = [WXApi registerApp:WeiXin_AppKey withDescription:@"Amos运动日记"];
-//    NSLog(@"%@", weChatSuccess ? @"weChat-微信注册成功" : @"register Fail");
+    BOOL weChatSuccess = [WXApi registerApp:WeiXin_AppKey withDescription:@"Amos运动日记"];
+    
+    if (DeBugMode) {
+        NSLog(@"%@", weChatSuccess ? @"weChat-微信注册成功" : @"weChat-微信注册Fail");}
     
     //注册微博
 //    [WeiboSDK enableDebugMode:YES];
 //    BOOL weiBoSuccess = [WeiboSDK registerApp:APP_KEY_WEIBO];
 //    NSLog(@"%@", weiBoSuccess ? @"sina-微博注册成功" : @"微博Fail");
-}
-
-
-#pragma mark - Core Data stack
-
-@synthesize managedObjectContext = _managedObjectContext;
-@synthesize managedObjectModel = _managedObjectModel;
-@synthesize persistentStoreCoordinator = _persistentStoreCoordinator;
-
-- (NSURL *)applicationDocumentsDirectory {
-    // The directory the application uses to store the Core Data store file. This code uses a directory named "com.AKSocialLab.AmosSportCalender" in the application's documents directory.
-    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
-}
-
-- (NSManagedObjectModel *)managedObjectModel {
-    // The managed object model for the application. It is a fatal error for the application not to be able to find and load its model.
-    if (_managedObjectModel != nil) {
-        return _managedObjectModel;
-    }
-    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"AmosSportCalender" withExtension:@"momd"];
-    _managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];
-    return _managedObjectModel;
-}
-
-- (NSPersistentStoreCoordinator *)persistentStoreCoordinator {
-    // The persistent store coordinator for the application. This implementation creates and returns a coordinator, having added the store for the application to it.
-    if (_persistentStoreCoordinator != nil) {
-        return _persistentStoreCoordinator;
-    }
-    
-    // Create the coordinator and store
-    
-    _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
-    NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"AmosSportCalender.sqlite"];
-    NSError *error = nil;
-    NSString *failureReason = @"There was an error creating or loading the application's saved data.";
-    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:nil error:&error]) {
-        // Report any error we got.
-        NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-        dict[NSLocalizedDescriptionKey] = @"Failed to initialize the application's saved data";
-        dict[NSLocalizedFailureReasonErrorKey] = failureReason;
-        dict[NSUnderlyingErrorKey] = error;
-        error = [NSError errorWithDomain:@"YOUR_ERROR_DOMAIN" code:9999 userInfo:dict];
-        // Replace this with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-        abort();
-    }
-    
-    return _persistentStoreCoordinator;
-}
-
-
-- (NSManagedObjectContext *)managedObjectContext {
-    // Returns the managed object context for the application (which is already bound to the persistent store coordinator for the application.)
-    if (_managedObjectContext != nil) {
-        return _managedObjectContext;
-    }
-    
-    NSPersistentStoreCoordinator *coordinator = [self persistentStoreCoordinator];
-    if (!coordinator) {
-        return nil;
-    }
-    _managedObjectContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-    [_managedObjectContext setPersistentStoreCoordinator:coordinator];
-    return _managedObjectContext;
-}
-
-#pragma mark - Core Data Saving support
-
-- (void)saveContext {
-    NSManagedObjectContext *managedObjectContext = self.managedObjectContext;
-    if (managedObjectContext != nil) {
-        NSError *error = nil;
-        if ([managedObjectContext hasChanges] && ![managedObjectContext save:&error]) {
-            // Replace this implementation with code to handle the error appropriately.
-            // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-            NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
-            abort();
-        }
-    }
 }
 
 @end
