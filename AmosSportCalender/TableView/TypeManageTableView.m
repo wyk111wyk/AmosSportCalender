@@ -66,6 +66,19 @@ static NSString* const typeManageCellReuseId = @"typeManageCell";
     return 1;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 20;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return 40;
+    }
+    return 10;
+}
+
 - (nullable UIView *)tableView:(nonnull UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 30)];
@@ -91,6 +104,8 @@ static NSString* const typeManageCellReuseId = @"typeManageCell";
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
     TypeManageTVCell *cell = [tableView dequeueReusableCellWithIdentifier:typeManageCellReuseId forIndexPath:indexPath];
+    cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+    cell.selectedBackgroundView.backgroundColor = CellBackgoundColor;
     
     NSString *tempStr = [[self.sportTypes objectAtIndex:indexPath.row] objectForKey:@"sportType"];
     cell.sportTypeLabel.text = tempStr;
@@ -161,7 +176,7 @@ static NSString* const typeManageCellReuseId = @"typeManageCell";
               [self.navigationController pushViewController:controller animated:YES];
                                           }];
 
-    editColorAction.backgroundColor = basicColor;
+    editColorAction.backgroundColor = MyGreenColor;
     
     return @[editColorAction]; //与实际显示的顺序相反
 }

@@ -49,6 +49,7 @@ static NSString * const YKSummaryCellReuseId = @"summaryCell";
     
     self.datePicker = [[UIDatePicker alloc] initWithFrame:CGRectZero];
     self.datePicker.datePickerMode = UIDatePickerModeDate;
+    self.datePicker.backgroundColor = [UIColor whiteColor];
     self.datePicker.minimumDate = [limtedDateFormatter dateFromString:minDate];
     self.datePicker.maximumDate = [limtedDateFormatter dateFromString:maxDate];
     [self.datePicker setDate:[NSDate date] animated:YES];
@@ -151,7 +152,7 @@ static NSString * const YKSummaryCellReuseId = @"summaryCell";
 -(void)dateChanged:(id)sender{
     
     self.searchStr = [[self dateFormatter] stringFromDate:self.datePicker.date];
-    self.searchTextField.text = [[self dateFormatterDisplay] stringFromDate:self.datePicker.date];;
+    self.searchTextField.text = [[self dateFormatterDisplay] stringFromDate:self.datePicker.date];
 }
 
 - (IBAction)searchOneDate:(UIBarButtonItem *)sender {
@@ -183,7 +184,7 @@ static NSString * const YKSummaryCellReuseId = @"summaryCell";
 {
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 22)];
     [headerView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
-    headerView.backgroundColor = [UIColor colorWithWhite:0.45 alpha:0.55];
+    headerView.backgroundColor = [UIColor colorWithWhite:0.65 alpha:0.65];
 
     UILabel *headText = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 22)];
     headText.textColor = [UIColor whiteColor];
@@ -259,7 +260,7 @@ static NSString * const YKSummaryCellReuseId = @"summaryCell";
         return 5;
     }else if ([sportType isEqualToString:@"手臂"]){
         return 6;
-    }else if ([sportType isEqualToString:@"其他"]){
+    }else if ([sportType isEqualToString:@"综合"]){
         return 7;
     }
     

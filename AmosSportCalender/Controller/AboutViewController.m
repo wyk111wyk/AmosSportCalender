@@ -11,6 +11,7 @@
 #import "RESideMenu.h"
 #import "DMPasscode.h"
 #import "SettingStore.h"
+#import "CommonMarco.h"
 
 static NSString *const cellID = @"aboutcell";
 
@@ -64,6 +65,9 @@ static NSString *const cellID = @"aboutcell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+    
+    cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+    cell.selectedBackgroundView.backgroundColor = CellBackgoundColor;
     
     cell.textLabel.text = _tableArray[indexPath.row];
     

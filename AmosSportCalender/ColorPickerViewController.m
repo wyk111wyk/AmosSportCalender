@@ -80,24 +80,32 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStyleDone target:self action:@selector(clickToChangeColor)];
+    self.navigationItem.rightBarButtonItem = rightButton;
 }
 
-- (void)viewWillDisappear:(BOOL)animated
+- (void)clickToChangeColor
 {
-    [super viewWillDisappear:animated];
     SettingStore *setting = [SettingStore sharedSetting];
     CGFloat red, green, blue;
     [colorPickerView.color
-            getRed:&red
-            green:&green
-             blue:&blue
-            alpha:nil];
+     getRed:&red
+     green:&green
+     blue:&blue
+     alpha:nil];
     NSArray *oneColor = @[@(red), @(green), @(blue)];
     
     NSMutableArray *tempMuArray = [[NSMutableArray alloc] initWithArray:[setting.typeColorArray copy]];
     [tempMuArray replaceObjectAtIndex:self.indexPathRow withObject:oneColor];
     
     setting.typeColorArray = tempMuArray;
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
 }
 
 @end

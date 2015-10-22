@@ -79,7 +79,7 @@
         return 5;
     }else if ([sportType isEqualToString:@"手臂"]){
         return 6;
-    }else if ([sportType isEqualToString:@"其他"]){
+    }else if ([sportType isEqualToString:@"综合"]){
         return 7;
     }
     

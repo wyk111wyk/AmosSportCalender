@@ -15,15 +15,24 @@
 #import "Event.h"
 #import "EventStore.h"
 #import "ImageStore.h"
+#import "GroupStore.h"
 #import "DMPasscode.h"
 #import "SettingStore.h"
 #import "MobClick.h"
 #import "PersonInfoStore.h"
 #import "SearchResultTV.h"
 #import "NYSegmentedControl.h"
+#import "AbstractActionSheetPicker.h"
+#import "ActionSheetDatePicker.h"
+#import "ActionSheetDistancePicker.h"
 
 @interface NewEvevtViewController ()<UIPickerViewDelegate,UIPickerViewDataSource,UITextFieldDelegate, UISearchBarDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UISearchResultsUpdating, UISearchControllerDelegate>
-
+{
+    NSDate *finalSeletedDate;
+    NSString *timesSaved;
+    NSString *rapsSaved;
+    NSString *weightsSaved;
+}
 @property (strong, nonatomic)PersonInfoStore *personal;
 
 //Data
@@ -45,10 +54,8 @@
 @property (strong, nonatomic) UITextField *searchBarType;
 
 //Utility
-@property (strong, nonatomic) UIDatePicker *datePicker;
 @property (strong, nonatomic) UIPickerView *sportPicker;
 @property (strong, nonatomic) UIPickerView *sportTypePicker;
-@property (strong, nonatomic) UIPickerView *numberPicker;
 
 @property (strong, nonatomic) UISearchBar *sportSearchBar;
 @property (nonatomic, strong) UISearchController *searchController;
@@ -95,6 +102,8 @@
     [self initSearchPart];
     [self initViewFrame];
     [self initTextAndLabel];
+    
+    NSLog(@"groupEdit:%@", self.groupEdit?@"yes":@"no");
     
 }
 
@@ -146,15 +155,17 @@
     UIBarButtonItem *addOneMoreButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"plusOneMore"] style:UIBarButtonItemStylePlain target:self action:@selector(createOneMoreEvent:)];
     UIBarButtonItem *createNewButton = [[UIBarButtonItem alloc] initWithTitle:Local(@"New") style:UIBarButtonItemStylePlain target:self action:@selector(finishAndCreateEvent:)];
     UIBarButtonItem *editEventButton = [[UIBarButtonItem alloc] initWithTitle:Local(@"Done") style:UIBarButtonItemStylePlain target:self action:@selector(finishAndCreateEvent:)];
-    
-    if (self.createNewEvent) {
+    if (self.groupEdit) {
+        addOneMoreButton.enabled = NO;
+    }
+    if (self.createNewEvent || self.groupEdit) {
         NSArray *createButtons = [[NSArray alloc] initWithObjects:createNewButton, addOneMoreButton, nil];
         self.navigationItem.rightBarButtonItems = createButtons;
-        self.navigationItem.title = @"新建事件";
-    }else{
+        self.navigationItem.title = @"新建";
+    }else if (!self.createNewEvent) {
         //        NSArray *editButtons = [[NSArray alloc] initWithObjects:editEventButton, addOneMoreButton, nil];
         self.navigationItem.rightBarButtonItem = editEventButton;
-        self.navigationItem.title = @"修改事件";
+        self.navigationItem.title = @"修改";
     }
     
     self.closeWeights = [[NYSegmentedControl alloc] initWithItems:@[@"On", @"Off"]];
@@ -178,32 +189,18 @@
 
 - (void)initTextAndLabel
 {
-    //datePick初始化
-    NSString *minDate = @"1990-01-01";
-    NSString *maxDate = @"2030-01-01";
-    NSDateFormatter *limtedDateFormatter = [NSDateFormatter new];
-    limtedDateFormatter.dateFormat = @"yyyy-MM-dd";
-    
-    self.datePicker = [[UIDatePicker alloc] initWithFrame:CGRectZero];
-    self.datePicker.datePickerMode = UIDatePickerModeDate;
-    self.datePicker.minimumDate = [limtedDateFormatter dateFromString:minDate];
-    self.datePicker.maximumDate = [limtedDateFormatter dateFromString:maxDate];
-    [self.datePicker setDate:self.date animated:YES];
-    [self.datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
     
     //sportPicker初始化
     self.sportPicker = [[UIPickerView alloc] initWithFrame:CGRectZero];
     self.sportPicker.delegate = self;
+    self.sportPicker.backgroundColor = [UIColor whiteColor];
     
     [self getSportPickerData: 0];
     
     //sportTypePicker初始化
     self.sportTypePicker = [[UIPickerView alloc] initWithFrame:CGRectZero];
     self.sportTypePicker.delegate = self;
-    
-    //numberPicker初始化
-    self.numberPicker = [[UIPickerView alloc] initWithFrame:CGRectZero];
-    self.numberPicker.delegate = self;
+    self.sportTypePicker.backgroundColor = [UIColor whiteColor];
     
     NSMutableArray *tempNumberArray = [NSMutableArray array];
     for (int i = 0; i < 5000; i = i+99) {
@@ -215,15 +212,10 @@
     
     //键盘属性
     self.weightTextFeild.tintColor = [UIColor clearColor];
-    self.weightTextFeild.inputView = self.numberPicker;
     self.timelastFeild.tintColor = [UIColor clearColor];
-    self.timelastFeild.inputView = self.numberPicker;
     self.timesFeild.tintColor = [UIColor clearColor];
-    self.timesFeild.inputView = self.numberPicker;
     self.rapFeild.tintColor = [UIColor clearColor];
-    self.rapFeild.inputView = self.numberPicker;
     
-    self.dateTextField.inputView = self.datePicker;
     self.dateTextField.tintColor = [UIColor clearColor];
     self.sportTypeTextField.inputView = self.sportPicker;
     self.sportTypeTextField.inputAccessoryView = self.sportSearchBar;
@@ -236,6 +228,8 @@
     //    NSString *dateStr = [NSString stringWithFormat:@"%@", self.date];
     //    NSString *newStr = [dateStr substringToIndex:10];
     
+    if (self.date) {
+    finalSeletedDate = self.date;
     NSString *showStr = [[self dateFormatter] stringFromDate:self.date];
     NSString *compareStr = [[self dateFormatter] stringFromDate:[NSDate date]];
     if ([showStr isEqualToString:compareStr]) {
@@ -244,6 +238,15 @@
         self.dateTextField.text = showStr;
     }
     [self.dateTextField sizeToFit];
+    }else{//假如没有时间的值，也就是从组合处创建的
+        self.dateTextField.enabled = NO;
+        self.doneSwitchButton.enabled = NO;
+    }
+    
+    //如果是编辑而不是新建，那么就不允许更改时间
+    if (!_createNewEvent){
+        self.dateTextField.enabled = NO;
+    }
     
     //当重复新建的时候，载入上次的选项
     if (self.event.sportType.length > 0) {
@@ -271,7 +274,7 @@
     }
     
     //重量的UI显示
-    if ([self.weightTextFeild.text isEqualToString:@"220"]) {
+    if ([self.weightTextFeild.text isEqualToString:@"300"]) {
         self.weightTextFeild.textColor = [UIColor clearColor];
         self.weightUnitLabel.text = @"自重";
         self.weightUnitLabel.textAlignment = NSTextAlignmentLeft;
@@ -310,8 +313,29 @@
 }
 
 #pragma mark - Utility Button Method
--(void)dateChanged:(id)sender{
-    NSString *newStr = [[self dateFormatter] stringFromDate:self.datePicker.date];
+
+- (IBAction)clickToChangeDate:(UITextField *)sender {
+    [self.view endEditing:YES];
+    
+    NSString *minDate = @"2000-01-01";
+    NSString *maxDate = @"2030-01-01";
+    NSDateFormatter *limtedDateFormatter = [NSDateFormatter new];
+    limtedDateFormatter.dateFormat = @"yyyy-MM-dd";
+    
+    AbstractActionSheetPicker *newDatePicker = [[ActionSheetDatePicker alloc] initWithTitle:@"选择运动日期" datePickerMode:UIDatePickerModeDate selectedDate:_date minimumDate:[limtedDateFormatter dateFromString:minDate] maximumDate:[limtedDateFormatter dateFromString:maxDate] target:self action:@selector(dateWasSelected:) origin:self.view];
+    [newDatePicker addCustomButtonWithTitle:@"今天" value:[NSDate date]];
+    
+    newDatePicker.tapDismissAction = TapActionSuccess;
+    newDatePicker.hideCancel = YES;
+    
+    [newDatePicker showActionSheetPicker];
+}
+
+- (void)dateWasSelected:(NSDate *)selectedDate{
+    self.dateTextField.textColor = [UIColor blackColor];
+    finalSeletedDate = selectedDate;
+    
+    NSString *newStr = [[self dateFormatter] stringFromDate:selectedDate];
     NSString *compareStr = [[self dateFormatter] stringFromDate:[NSDate date]];
     
     if ([newStr isEqualToString:compareStr]) {
@@ -319,7 +343,63 @@
     } else{
         self.dateTextField.text = newStr;
     }
+}
 
+- (IBAction)clickToChangeSportAttribute:(UITextField *)sender {
+    
+    AbstractActionSheetPicker *newNumberPicker;
+    NSInteger unit = [sender.text integerValue];
+    NSInteger number = 99;
+    NSString *title = @"选择每组次数";
+    NSString *unitStr = @"次/组";
+    newNumberPicker = [[ActionSheetDistancePicker alloc] initWithTitle:title bigUnitString:unitStr bigUnitMax:number selectedBigUnit:unit target:self action:@selector(timesWasSelectedWithBigUnit:element:) origin:self.view cancelAction:@selector(cancelAction)];
+    
+    if (sender == self.rapFeild) {
+        unitStr = @"组";
+        number = 30;
+        title = @"选择组数";
+        newNumberPicker = [[ActionSheetDistancePicker alloc] initWithTitle:title bigUnitString:unitStr bigUnitMax:number selectedBigUnit:unit target:self action:@selector(rapsWasSelectedWithBigUnit:element:) origin:self.view cancelAction:@selector(cancelAction)];
+    }else if (sender == self.weightTextFeild){
+        unitStr = @"Kg";
+        number = 300;
+        title = @"选择负重";
+        newNumberPicker = [[ActionSheetDistancePicker alloc] initWithTitle:title bigUnitString:unitStr bigUnitMax:number selectedBigUnit:unit target:self action:@selector(weightsWasSelectedWithBigUnit:element:) origin:self.view cancelAction:@selector(cancelAction)];
+    }else if (sender == self.timelastFeild){
+        unitStr = @"min";
+        number = 99;
+        title = @"选择计划时间";
+        newNumberPicker = [[ActionSheetDistancePicker alloc] initWithTitle:title bigUnitString:unitStr bigUnitMax:number selectedBigUnit:unit target:self action:@selector(timeLastWasSelectedWithBigUnit:element:) origin:self.view cancelAction:@selector(cancelAction)];
+    }
+    
+    newNumberPicker.tapDismissAction = TapActionSuccess;
+    [newNumberPicker showActionSheetPicker];
+}
+
+- (void)timesWasSelectedWithBigUnit:(NSNumber *)bigUnit element:(id)element {
+    self.timesFeild.text = [NSString stringWithFormat:@"%@", bigUnit];
+    self.timesFeild.textColor = [UIColor blackColor];
+}
+- (void)rapsWasSelectedWithBigUnit:(NSNumber *)bigUnit element:(id)element {
+    self.rapFeild.text = [NSString stringWithFormat:@"%@", bigUnit];
+    self.rapFeild.textColor = [UIColor blackColor];
+}
+- (void)weightsWasSelectedWithBigUnit:(NSNumber *)bigUnit element:(id)element {
+    self.weightTextFeild.text = [NSString stringWithFormat:@"%@", bigUnit];
+    self.weightSlider.value = [bigUnit floatValue];
+    self.weightTextFeild.textColor = [UIColor blackColor];
+}
+- (void)timeLastWasSelectedWithBigUnit:(NSNumber *)bigUnit element:(id)element {
+    self.timelastFeild.text = [NSString stringWithFormat:@"%@", bigUnit];
+    self.timelastSlider.value = [bigUnit floatValue];
+    self.timelastFeild.textColor = [UIColor blackColor];
+}
+
+- (void)cancelAction
+{
+    self.timesFeild.textColor = [UIColor blackColor];
+    self.rapFeild.textColor = [UIColor blackColor];
+    self.weightTextFeild.textColor = [UIColor blackColor];
+    self.timelastFeild.textColor = [UIColor blackColor];
 }
 
 - (IBAction)isDoneOrNot:(UISwitch *)sender {
@@ -345,50 +425,63 @@
 - (IBAction)NotHaveRapAndTimes:(NYSegmentedControl *)sender {
     switch ([sender selectedSegmentIndex]) {
         case 1:
-        //关
-        [self weightChangeValue:self.weightSlider];
-        self.weightUnitLabel.text = @"Kg";
-        self.weightUnitLabel.textAlignment = NSTextAlignmentRight;
-        
-        self.timesFeild.text = @"0";
-        self.timesFeild.textColor = [UIColor lightGrayColor];
-        self.timesFeild.enabled = NO;
-        
-        self.rapFeild.text = @"0";
-        self.rapFeild.textColor = [UIColor lightGrayColor];
-        self.rapFeild.enabled = NO;
-        
-        self.weightTextFeild.text = @"0";
-        self.weightTextFeild.textColor = [UIColor lightGrayColor];
-        self.weightTextFeild.enabled = NO;
-        [self.weightSlider setValue:0 animated:YES];
-        self.weightSlider.enabled = NO;
-        
-        self.rapLabel.textColor = [UIColor lightGrayColor];
-        self.weightLabel.textColor = [UIColor lightGrayColor];
+            //关
+            weightsSaved = self.weightTextFeild.text;
+            timesSaved = self.timesFeild.text;
+            rapsSaved = self.rapFeild.text;
+            
+            [self weightChangeValue:self.weightSlider];
+            self.weightUnitLabel.text = @"Kg";
+            self.weightUnitLabel.textAlignment = NSTextAlignmentRight;
+            
+            self.timesFeild.text = @"0";
+            self.timesFeild.textColor = [UIColor lightGrayColor];
+            self.timesFeild.enabled = NO;
+            
+            self.rapFeild.text = @"0";
+            self.rapFeild.textColor = [UIColor lightGrayColor];
+            self.rapFeild.enabled = NO;
+            
+            self.weightTextFeild.text = @"0";
+            self.weightTextFeild.textColor = [UIColor lightGrayColor];
+            self.weightTextFeild.enabled = NO;
+            [self.weightSlider setValue:0 animated:YES];
+            self.weightSlider.enabled = NO;
+            
+            self.rapLabel.textColor = [UIColor lightGrayColor];
+            self.weightLabel.textColor = [UIColor lightGrayColor];
             
         break;
         
-    case 0:
-        //开
-        self.timesFeild.textColor = [UIColor blackColor];
-        self.timesFeild.enabled = YES;
-        self.timesFeild.text = [NSString stringWithFormat:@"%i", [self timesValue]];
-        
-        self.rapFeild.textColor = [UIColor blackColor];
-        self.rapFeild.enabled = YES;
-        self.rapFeild.text = [NSString stringWithFormat:@"%i", [self rapsValue]];
-        
-        self.weightTextFeild.textColor = [UIColor blackColor];
-        self.weightTextFeild.enabled = YES;
-        self.weightTextFeild.text = [NSString stringWithFormat:@"%i", (int)[self weightValue]];
-        self.weightSlider.enabled = YES;
-        [self.weightSlider setValue:[self weightValue] animated:YES];
-        
-        self.rapLabel.textColor = [UIColor darkGrayColor];
-        self.weightLabel.textColor = [UIColor darkGrayColor];
-        
-        [self weightChangeValue:self.weightSlider];
+        case 0:
+            //开
+            self.timesFeild.textColor = [UIColor blackColor];
+            self.timesFeild.enabled = YES;
+            self.timesFeild.text = [NSString stringWithFormat:@"%i", [self timesValue]];
+            if (timesSaved) {
+                self.timesFeild.text = timesSaved;
+            }
+            
+            self.rapFeild.textColor = [UIColor blackColor];
+            self.rapFeild.enabled = YES;
+            self.rapFeild.text = [NSString stringWithFormat:@"%i", [self rapsValue]];
+            if (rapsSaved) {
+                self.rapFeild.text = rapsSaved;
+            }
+            
+            self.weightTextFeild.textColor = [UIColor blackColor];
+            self.weightTextFeild.enabled = YES;
+            self.weightTextFeild.text = [NSString stringWithFormat:@"%i", (int)[self weightValue]];
+            self.weightSlider.enabled = YES;
+            [self.weightSlider setValue:[self weightValue] animated:YES];
+            if (weightsSaved) {
+                self.weightTextFeild.text = weightsSaved;
+            }
+            
+            self.rapLabel.textColor = [UIColor darkGrayColor];
+            self.weightLabel.textColor = [UIColor darkGrayColor];
+            
+            [self weightChangeValue:self.weightSlider];
         break;
         
     default:
@@ -402,7 +495,7 @@
     self.weightTextFeild.text = [NSString stringWithFormat:@"%i",i];
     }
     
-    if ([self.weightTextFeild.text isEqualToString:@"220"]) {
+    if ([self.weightTextFeild.text isEqualToString:@"300"]) {
         self.weightTextFeild.textColor = [UIColor clearColor];
         self.weightUnitLabel.text = @"自重";
         self.weightUnitLabel.textAlignment = NSTextAlignmentLeft;
@@ -425,33 +518,49 @@
     //保存更改后的值
     Event *event = self.event;
     event.sportType = self.sportTypeTextField.text;
-    event.eventDate = self.datePicker.date;
     event.sportName = self.sportNameTextField.text;
     event.weight = [self.weightTextFeild.text floatValue];
     event.timelast = [self.timelastFeild.text intValue];
     event.times = [self.timesFeild.text intValue];
     event.rap = [self.rapFeild.text intValue];
-    event.done = self.doneSwitchButton.on;
     
-    //假如是新建的事项，进行数据库新建
-    if (self.createNewEvent){
-    [[EventStore sharedStore] createItem:event date:self.event.eventDate];
-    }
-    
-    [self dismissViewControllerAnimated:YES completion:^{
-        [MobClick event:@"CreateNewEvent"]; //友盟统计数据：添加事件
-        //取消所有通知
-        [[UIApplication sharedApplication] cancelAllLocalNotifications];
+    if (!self.groupEdit) {
+        event.eventDate = finalSeletedDate;
+        event.done = self.doneSwitchButton.on;
+        //假如是新建的事项，进行数据库新建
+        if (self.createNewEvent){
+        [[EventStore sharedStore] createItem:event date:self.event.eventDate];
+        }
         
-        BOOL success = [[EventStore sharedStore] saveChanges];
+        [self dismissViewControllerAnimated:YES completion:^{
+            [MobClick event:@"CreateNewEvent"]; //友盟统计数据：添加事件
+            //取消所有通知
+            [[UIApplication sharedApplication] cancelAllLocalNotifications];
+            
+            BOOL success = [[EventStore sharedStore] saveChanges];
+            
+            if (DeBugMode) {
+            if (success) {
+                NSLog(@"新建事件后，储存数据成功");
+            }else{
+                NSLog(@"新建事件后，储存数据失败！");
+            }}
+        }];
+    }else{
+        event.done = NO;
+        [[GroupStore sharedStore] createItemInGroup:event belong:self.belong groupName:self.groupName];
         
+        //储存数据
+        BOOL success = [[GroupStore sharedStore] saveGroupData];
         if (DeBugMode) {
-        if (success) {
-            NSLog(@"新建事件后，储存数据成功");
-        }else{
-            NSLog(@"新建事件后，储存数据失败！");
-        }}
-    }];
+            if (success) {
+                NSLog(@"Group数据 - 新建事件后，储存数据成功");
+            }else{
+                NSLog(@"Group数据 - 新建事件后，储存数据失败！");
+            }}
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    }
 }
 
 - (IBAction)createOneMoreEvent:(UIBarButtonItem *)sender {
@@ -466,8 +575,12 @@
 }
 
 - (IBAction)cancelTheEvent:(UIBarButtonItem *)sender {
-    [self dismissViewControllerAnimated:YES completion:^{
-    }];
+    if (self.groupEdit) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        [self dismissViewControllerAnimated:YES completion:^{
+        }];
+    }
 }
 
 - (IBAction)backgroundTapped:(id)sender
@@ -521,9 +634,13 @@
     if (textField == self.searchBarType) {
         textField.textColor = [UIColor colorWithRed:0.0000 green:0.4784 blue:1.0000 alpha:0.8];
     }else if(textField == self.timelastFeild || textField == self.weightTextFeild || textField == self.rapFeild || textField == self.timesFeild){
+        [self.sportNameTextField resignFirstResponder];
+        [self.sportTypeTextField resignFirstResponder];
         textField.textColor = [UIColor colorWithRed:0.0000 green:0.4784 blue:1.0000 alpha:0.8];
-        int i = [textField.text intValue];
-        [self.numberPicker selectRow:(5100/2 - 50 + i) inComponent:0 animated:NO];
+        return NO;
+    }else if(textField == self.dateTextField){
+        textField.textColor = [UIColor colorWithRed:0.0000 green:0.4784 blue:1.0000 alpha:0.8];
+        return NO;
     }else{
         textField.textColor = [UIColor colorWithRed:0.0000 green:0.4784 blue:1.0000 alpha:0.8];
     }
@@ -532,7 +649,6 @@
 
 - (void)textFieldDidEndEditing:(nonnull UITextField *)textField
 {
-
     if (textField == self.searchBarType) {
         textField.textColor = [UIColor blackColor];
     }else if(textField == self.timelastFeild || textField == self.weightTextFeild || textField == self.rapFeild || textField == self.timesFeild){
@@ -600,8 +716,6 @@
         return 2;
     }else if(pickerView == self.sportTypePicker){
         return 1;
-    }else if (pickerView == self.numberPicker){
-        return 1;
     }else{
         return 1;
     }
@@ -622,8 +736,6 @@
             break;
     }}else if(pickerView == self.sportTypePicker){
         return [self.sportTypes count];
-    }else if(pickerView == self.numberPicker){
-        return 5100;
     }else{
         return 1;
     }
@@ -643,11 +755,11 @@
             default:
                 return nil;
                 break;
-        }}else if(pickerView == self.sportTypePicker){
-            return [[self.sportTypes objectAtIndex:row] objectForKey:@"sportType"];
-        }else{
-            return [self.numberArray objectAtIndex:row];
-        }
+    }}else if(pickerView == self.sportTypePicker){
+        return [[self.sportTypes objectAtIndex:row] objectForKey:@"sportType"];
+    }else{
+        return [self.numberArray objectAtIndex:row];
+    }
 }
 
 - (void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{

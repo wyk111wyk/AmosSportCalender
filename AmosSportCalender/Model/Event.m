@@ -55,6 +55,8 @@
     [aCoder encodeObject:self.sportName forKey:@"sportName"];
     [aCoder encodeObject:self.sportType forKey:@"sportType"];
     [aCoder encodeObject:self.itemKey forKey:@"itemKey"];
+    [aCoder encodeObject:self.groupBelong forKey:@"groupBelong"];
+    [aCoder encodeObject:self.groupName forKey:@"groupName"];
     
     [aCoder encodeFloat:self.weight forKey:@"weight"];
     [aCoder encodeInt:self.times forKey:@"times"]; //Int类型编码
@@ -73,6 +75,8 @@
         self.sportName = [aDecoder decodeObjectForKey:@"sportName"];
         self.sportType = [aDecoder decodeObjectForKey:@"sportType"];
         self.itemKey = [aDecoder decodeObjectForKey:@"itemKey"];
+        self.groupBelong = [aDecoder decodeObjectForKey:@"groupBelong"];
+        self.groupName = [aDecoder decodeObjectForKey:@"groupName"];
         
         self.weight = [aDecoder decodeFloatForKey:@"weight"];
         self.times = [aDecoder decodeIntForKey:@"times"];

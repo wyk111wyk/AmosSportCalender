@@ -344,14 +344,11 @@
         NSLog(@"点击了Date: %@ - %ld events, %@ done", mydate, (unsigned long)[self.oneDayEvents count], self.doneNumber); }
 }
 
-#pragma mark - Buttons callback
+#pragma mark - Create New Event
+
 - (IBAction)addNewEvent:(UIButton *)sender {
 
-    PersonInfoStore *personal = [PersonInfoStore sharedSetting];
-    personal.defaultSportType = self.sportTypes[0];
-    personal.defaultSportName = @"卧推（平板杠铃）";
-    
-    [self performSegueWithIdentifier:@"newEvent" sender:self];
+    [self alertForChooseCreate];
 }
 
 - (void)prepareForSegue:(nonnull UIStoryboardSegue *)segue sender:(nullable id)sender
@@ -388,8 +385,39 @@
         [self segmentedControl:self.segmentButton];
         }
     }
-    
 }
+
+- (void)alertForChooseCreate
+{
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"选择新建项目"
+                                                                   message:nil
+                                                            preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"一项运动"
+                                              style:UIAlertActionStyleDefault
+                                            handler:^(UIAlertAction * action) {
+                                                
+        PersonInfoStore *personal = [PersonInfoStore sharedSetting];
+        personal.defaultSportType = self.sportTypes[0];
+        personal.defaultSportName = @"卧推（平板杠铃）";
+        
+        [self performSegueWithIdentifier:@"newEvent" sender:self];
+                                            }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"精选组合"
+                                              style:UIAlertActionStyleDefault
+                                            handler:^(UIAlertAction * action) {
+                                                
+        [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"sportGroupNav"] animated:YES];
+                                            }]];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消"
+                                              style:UIAlertActionStyleCancel
+                                            handler:^(UIAlertAction * action) {}]];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+#pragma mark - Buttons callback
 
 - (IBAction)segmentedControl:(UISegmentedControl *)sender {
     
@@ -574,7 +602,7 @@
     return index;
     }
     
-    return sportTypes.count;
+    return sportTypes.count - 1;
     
 }
 

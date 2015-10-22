@@ -255,8 +255,8 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
 {
     [self.leftAButton addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
     [self.rightAButton addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    self.leftAButton.hidden = YES;
-    self.rightAButton.hidden = YES;
+    self.leftAButton.alpha = 0;
+    self.rightAButton.alpha = 0;
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -314,22 +314,28 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
 
 - (void)makeButtonDisappear
 {
-    if (!self.rightAButton.hidden) {
+    if (self.rightAButton.alpha == 0.7) {
         //提前直接隐藏buttons
         [self.timer fire];
     }else{
-        self.rightAButton.hidden = NO;
-        self.leftAButton.hidden = NO;
+        self.rightAButton.alpha = 0.7;
+        self.leftAButton.alpha = 0.7;
         
         //设置3秒钟后，隐藏buttons
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:3.0 target:self selector:@selector(makeButtonOnlyDisappear) userInfo:nil repeats:NO];
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:2.5 target:self selector:@selector(makeButtonOnlyDisappear) userInfo:nil repeats:NO];
     }
 }
 
 - (void)makeButtonOnlyDisappear
 {
-    self.rightAButton.hidden = YES;
-    self.leftAButton.hidden = YES;
+    [UIView animateWithDuration:0.5f
+                          delay:0.0f
+                        options:UIViewAnimationOptionCurveEaseIn
+                     animations:^{
+                         self.rightAButton.alpha = 0;
+                         self.leftAButton.alpha = 0;
+                     }
+                     completion:nil];
 }
 
 - (void)buttonClicked: (UIButton *)sender
@@ -983,7 +989,7 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
         return 5;
     }else if ([sportType isEqualToString:@"手臂"]){
         return 6;
-    }else if ([sportType isEqualToString:@"其他"]){
+    }else if ([sportType isEqualToString:@"综合"]){
         return 7;
     }
     

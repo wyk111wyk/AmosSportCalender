@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B00317451BC0DE4000AFAD86 /* GroupSelectTV.m in Sources */ = {isa = PBXBuildFile; fileRef = B00317441BC0DE4000AFAD86 /* GroupSelectTV.m */; settings = {ASSET_TAGS = (); }; };
+		B00317481BC1005D00AFAD86 /* GroupSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B00317471BC1005D00AFAD86 /* GroupSelectCell.m */; settings = {ASSET_TAGS = (); }; };
+		B003174B1BC10AED00AFAD86 /* GroupDetailTV.m in Sources */ = {isa = PBXBuildFile; fileRef = B003174A1BC10AED00AFAD86 /* GroupDetailTV.m */; settings = {ASSET_TAGS = (); }; };
+		B003174F1BC10D2A00AFAD86 /* GroupDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B003174D1BC10D2A00AFAD86 /* GroupDetailCell.m */; settings = {ASSET_TAGS = (); }; };
+		B00317501BC10D2A00AFAD86 /* GroupDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B003174E1BC10D2A00AFAD86 /* GroupDetailCell.xib */; settings = {ASSET_TAGS = (); }; };
 		B00D87A51B857CF00044BF85 /* LeftMenuViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B00D87A41B857CF00044BF85 /* LeftMenuViewController.m */; };
 		B00E23221B92104500649AC9 /* ConflictTV.m in Sources */ = {isa = PBXBuildFile; fileRef = B00E23211B92104500649AC9 /* ConflictTV.m */; settings = {ASSET_TAGS = (); }; };
 		B019BEE21B935C0B00D2D8F6 /* UMFeedbackLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = B019BEB91B935C0B00D2D8F6 /* UMFeedbackLocalizable.strings */; settings = {ASSET_TAGS = (); }; };
@@ -51,6 +56,7 @@
 		B02CCEC61B98172300936FB5 /* UUChartLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = B02CCEBE1B98172300936FB5 /* UUChartLabel.m */; settings = {ASSET_TAGS = (); }; };
 		B02CCEC71B98172300936FB5 /* UUColor.m in Sources */ = {isa = PBXBuildFile; fileRef = B02CCEC01B98172300936FB5 /* UUColor.m */; settings = {ASSET_TAGS = (); }; };
 		B02CCEC81B98172300936FB5 /* UULineChart.m in Sources */ = {isa = PBXBuildFile; fileRef = B02CCEC21B98172300936FB5 /* UULineChart.m */; settings = {ASSET_TAGS = (); }; };
+		B0425B041BD214DD009A55FC /* NewGroupTVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0425B021BD214DD009A55FC /* NewGroupTVViewController.m */; settings = {ASSET_TAGS = (); }; };
 		B048EF801B8D70E100F01530 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B048EF7F1B8D70E100F01530 /* libz.tbd */; };
 		B048EF821B8D70EB00F01530 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B048EF811B8D70EB00F01530 /* libsqlite3.0.tbd */; };
 		B048EF841B8D70F700F01530 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B048EF831B8D70F700F01530 /* libc++.tbd */; };
@@ -92,6 +98,23 @@
 		B0854D9B1B6BA87600C1B150 /* JTCalendarWeekView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D8D1B6BA87600C1B150 /* JTCalendarWeekView.m */; };
 		B0854D9C1B6BA87600C1B150 /* JTHorizontalCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D8F1B6BA87600C1B150 /* JTHorizontalCalendarView.m */; };
 		B0854D9D1B6BA87600C1B150 /* JTVerticalCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0854D911B6BA87600C1B150 /* JTVerticalCalendarView.m */; };
+		B085E2511BBA520E00F518A8 /* AbstractActionSheetPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = B085E23E1BBA520E00F518A8 /* AbstractActionSheetPicker.m */; settings = {ASSET_TAGS = (); }; };
+		B085E2521BBA520E00F518A8 /* ActionSheetCustomPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = B085E2401BBA520E00F518A8 /* ActionSheetCustomPicker.m */; settings = {ASSET_TAGS = (); }; };
+		B085E2531BBA520E00F518A8 /* ActionSheetDatePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = B085E2431BBA520E00F518A8 /* ActionSheetDatePicker.m */; settings = {ASSET_TAGS = (); }; };
+		B085E2541BBA520E00F518A8 /* ActionSheetDistancePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = B085E2451BBA520E00F518A8 /* ActionSheetDistancePicker.m */; settings = {ASSET_TAGS = (); }; };
+		B085E2551BBA520E00F518A8 /* ActionSheetLocalePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = B085E2471BBA520E00F518A8 /* ActionSheetLocalePicker.m */; settings = {ASSET_TAGS = (); }; };
+		B085E2561BBA520E00F518A8 /* ActionSheetMultipleStringPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = B085E2491BBA520E00F518A8 /* ActionSheetMultipleStringPicker.m */; settings = {ASSET_TAGS = (); }; };
+		B085E2571BBA520E00F518A8 /* ActionSheetStringPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = B085E24C1BBA520E00F518A8 /* ActionSheetStringPicker.m */; settings = {ASSET_TAGS = (); }; };
+		B085E2581BBA520E00F518A8 /* DistancePickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = B085E24E1BBA520E00F518A8 /* DistancePickerView.m */; settings = {ASSET_TAGS = (); }; };
+		B085E2591BBA520E00F518A8 /* SWActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = B085E2501BBA520E00F518A8 /* SWActionSheet.m */; settings = {ASSET_TAGS = (); }; };
+		B085E26C1BBA7E9E00F518A8 /* FMDatabase.m in Sources */ = {isa = PBXBuildFile; fileRef = B085E25E1BBA7E9E00F518A8 /* FMDatabase.m */; settings = {ASSET_TAGS = (); }; };
+		B085E26D1BBA7E9E00F518A8 /* FMDatabaseAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = B085E2601BBA7E9E00F518A8 /* FMDatabaseAdditions.m */; settings = {ASSET_TAGS = (); }; };
+		B085E26E1BBA7E9E00F518A8 /* FMDatabasePool.m in Sources */ = {isa = PBXBuildFile; fileRef = B085E2621BBA7E9E00F518A8 /* FMDatabasePool.m */; settings = {ASSET_TAGS = (); }; };
+		B085E26F1BBA7E9E00F518A8 /* FMDatabaseQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = B085E2641BBA7E9E00F518A8 /* FMDatabaseQueue.m */; settings = {ASSET_TAGS = (); }; };
+		B085E2701BBA7E9E00F518A8 /* FMResultSet.m in Sources */ = {isa = PBXBuildFile; fileRef = B085E2671BBA7E9E00F518A8 /* FMResultSet.m */; settings = {ASSET_TAGS = (); }; };
+		B085E2711BBA7E9E00F518A8 /* JKDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B085E2691BBA7E9E00F518A8 /* JKDBHelper.m */; settings = {ASSET_TAGS = (); }; };
+		B085E2721BBA7E9E00F518A8 /* JKDBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B085E26B1BBA7E9E00F518A8 /* JKDBModel.m */; settings = {ASSET_TAGS = (); }; };
+		B085E2751BBA802100F518A8 /* GroupStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B085E2741BBA802100F518A8 /* GroupStore.m */; settings = {ASSET_TAGS = (); }; };
 		B087E0271B76F92B003D90B6 /* XYPieChart.m in Sources */ = {isa = PBXBuildFile; fileRef = B087E0261B76F92B003D90B6 /* XYPieChart.m */; };
 		B087E0291B76FFF2003D90B6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B087E0281B76FFF2003D90B6 /* QuartzCore.framework */; };
 		B087E02E1B7716E8003D90B6 /* DetailSummaryVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B087E02C1B7716E8003D90B6 /* DetailSummaryVC.xib */; };
@@ -193,6 +216,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B00317431BC0DE4000AFAD86 /* GroupSelectTV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupSelectTV.h; sourceTree = "<group>"; };
+		B00317441BC0DE4000AFAD86 /* GroupSelectTV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupSelectTV.m; sourceTree = "<group>"; };
+		B00317461BC1005D00AFAD86 /* GroupSelectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GroupSelectCell.h; path = Cell/GroupSelectCell.h; sourceTree = "<group>"; };
+		B00317471BC1005D00AFAD86 /* GroupSelectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GroupSelectCell.m; path = Cell/GroupSelectCell.m; sourceTree = "<group>"; };
+		B00317491BC10AEC00AFAD86 /* GroupDetailTV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupDetailTV.h; sourceTree = "<group>"; };
+		B003174A1BC10AED00AFAD86 /* GroupDetailTV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupDetailTV.m; sourceTree = "<group>"; };
+		B003174C1BC10D2A00AFAD86 /* GroupDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GroupDetailCell.h; path = Cell/GroupDetailCell.h; sourceTree = "<group>"; };
+		B003174D1BC10D2A00AFAD86 /* GroupDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GroupDetailCell.m; path = Cell/GroupDetailCell.m; sourceTree = "<group>"; };
+		B003174E1BC10D2A00AFAD86 /* GroupDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = GroupDetailCell.xib; path = Cell/GroupDetailCell.xib; sourceTree = "<group>"; };
 		B00D87A31B857CF00044BF85 /* LeftMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeftMenuViewController.h; path = Controller/LeftMenuViewController.h; sourceTree = "<group>"; };
 		B00D87A41B857CF00044BF85 /* LeftMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LeftMenuViewController.m; path = Controller/LeftMenuViewController.m; sourceTree = "<group>"; };
 		B00E23201B92104500649AC9 /* ConflictTV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ConflictTV.h; path = TableView/ConflictTV.h; sourceTree = "<group>"; };
@@ -265,6 +297,8 @@
 		B02CCEC01B98172300936FB5 /* UUColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UUColor.m; sourceTree = "<group>"; };
 		B02CCEC11B98172300936FB5 /* UULineChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UULineChart.h; sourceTree = "<group>"; };
 		B02CCEC21B98172300936FB5 /* UULineChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UULineChart.m; sourceTree = "<group>"; };
+		B0425B011BD214DD009A55FC /* NewGroupTVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewGroupTVViewController.h; sourceTree = "<group>"; };
+		B0425B021BD214DD009A55FC /* NewGroupTVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewGroupTVViewController.m; sourceTree = "<group>"; };
 		B048EF7F1B8D70E100F01530 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		B048EF811B8D70EB00F01530 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		B048EF831B8D70F700F01530 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
@@ -347,6 +381,44 @@
 		B0854D8F1B6BA87600C1B150 /* JTHorizontalCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTHorizontalCalendarView.m; sourceTree = "<group>"; };
 		B0854D901B6BA87600C1B150 /* JTVerticalCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTVerticalCalendarView.h; sourceTree = "<group>"; };
 		B0854D911B6BA87600C1B150 /* JTVerticalCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTVerticalCalendarView.m; sourceTree = "<group>"; };
+		B085E23D1BBA520E00F518A8 /* AbstractActionSheetPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractActionSheetPicker.h; sourceTree = "<group>"; };
+		B085E23E1BBA520E00F518A8 /* AbstractActionSheetPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractActionSheetPicker.m; sourceTree = "<group>"; };
+		B085E23F1BBA520E00F518A8 /* ActionSheetCustomPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetCustomPicker.h; sourceTree = "<group>"; };
+		B085E2401BBA520E00F518A8 /* ActionSheetCustomPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetCustomPicker.m; sourceTree = "<group>"; };
+		B085E2411BBA520E00F518A8 /* ActionSheetCustomPickerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetCustomPickerDelegate.h; sourceTree = "<group>"; };
+		B085E2421BBA520E00F518A8 /* ActionSheetDatePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetDatePicker.h; sourceTree = "<group>"; };
+		B085E2431BBA520E00F518A8 /* ActionSheetDatePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetDatePicker.m; sourceTree = "<group>"; };
+		B085E2441BBA520E00F518A8 /* ActionSheetDistancePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetDistancePicker.h; sourceTree = "<group>"; };
+		B085E2451BBA520E00F518A8 /* ActionSheetDistancePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetDistancePicker.m; sourceTree = "<group>"; };
+		B085E2461BBA520E00F518A8 /* ActionSheetLocalePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetLocalePicker.h; sourceTree = "<group>"; };
+		B085E2471BBA520E00F518A8 /* ActionSheetLocalePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetLocalePicker.m; sourceTree = "<group>"; };
+		B085E2481BBA520E00F518A8 /* ActionSheetMultipleStringPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetMultipleStringPicker.h; sourceTree = "<group>"; };
+		B085E2491BBA520E00F518A8 /* ActionSheetMultipleStringPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetMultipleStringPicker.m; sourceTree = "<group>"; };
+		B085E24A1BBA520E00F518A8 /* ActionSheetPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetPicker.h; sourceTree = "<group>"; };
+		B085E24B1BBA520E00F518A8 /* ActionSheetStringPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActionSheetStringPicker.h; sourceTree = "<group>"; };
+		B085E24C1BBA520E00F518A8 /* ActionSheetStringPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActionSheetStringPicker.m; sourceTree = "<group>"; };
+		B085E24D1BBA520E00F518A8 /* DistancePickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DistancePickerView.h; sourceTree = "<group>"; };
+		B085E24E1BBA520E00F518A8 /* DistancePickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DistancePickerView.m; sourceTree = "<group>"; };
+		B085E24F1BBA520E00F518A8 /* SWActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWActionSheet.h; sourceTree = "<group>"; };
+		B085E2501BBA520E00F518A8 /* SWActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWActionSheet.m; sourceTree = "<group>"; };
+		B085E25A1BBA52AD00F518A8 /* CoreActionSheetPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreActionSheetPicker.h; sourceTree = "<group>"; };
+		B085E25D1BBA7E9E00F518A8 /* FMDatabase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabase.h; sourceTree = "<group>"; };
+		B085E25E1BBA7E9E00F518A8 /* FMDatabase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabase.m; sourceTree = "<group>"; };
+		B085E25F1BBA7E9E00F518A8 /* FMDatabaseAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseAdditions.h; sourceTree = "<group>"; };
+		B085E2601BBA7E9E00F518A8 /* FMDatabaseAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseAdditions.m; sourceTree = "<group>"; };
+		B085E2611BBA7E9E00F518A8 /* FMDatabasePool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabasePool.h; sourceTree = "<group>"; };
+		B085E2621BBA7E9E00F518A8 /* FMDatabasePool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabasePool.m; sourceTree = "<group>"; };
+		B085E2631BBA7E9E00F518A8 /* FMDatabaseQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDatabaseQueue.h; sourceTree = "<group>"; };
+		B085E2641BBA7E9E00F518A8 /* FMDatabaseQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMDatabaseQueue.m; sourceTree = "<group>"; };
+		B085E2651BBA7E9E00F518A8 /* FMDB.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMDB.h; sourceTree = "<group>"; };
+		B085E2661BBA7E9E00F518A8 /* FMResultSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FMResultSet.h; sourceTree = "<group>"; };
+		B085E2671BBA7E9E00F518A8 /* FMResultSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FMResultSet.m; sourceTree = "<group>"; };
+		B085E2681BBA7E9E00F518A8 /* JKDBHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKDBHelper.h; sourceTree = "<group>"; };
+		B085E2691BBA7E9E00F518A8 /* JKDBHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKDBHelper.m; sourceTree = "<group>"; };
+		B085E26A1BBA7E9E00F518A8 /* JKDBModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKDBModel.h; sourceTree = "<group>"; };
+		B085E26B1BBA7E9E00F518A8 /* JKDBModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKDBModel.m; sourceTree = "<group>"; };
+		B085E2731BBA802100F518A8 /* GroupStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GroupStore.h; path = Model/GroupStore.h; sourceTree = "<group>"; };
+		B085E2741BBA802100F518A8 /* GroupStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GroupStore.m; path = Model/GroupStore.m; sourceTree = "<group>"; };
 		B087E0251B76F92B003D90B6 /* XYPieChart.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XYPieChart.h; sourceTree = "<group>"; };
 		B087E0261B76F92B003D90B6 /* XYPieChart.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XYPieChart.m; sourceTree = "<group>"; };
 		B087E0281B76FFF2003D90B6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
@@ -681,6 +753,8 @@
 		B07043E91B8C148900512A3C /* Vender */ = {
 			isa = PBXGroup;
 			children = (
+				B085E25B1BBA7E9E00F518A8 /* DBModel */,
+				B085E23C1BBA520E00F518A8 /* Pickers */,
 				B06215191BB0DD3B001466A4 /* UMAnalytics_Sdk_3.5.17 */,
 				B0FE062F1BA0093100350420 /* ColorPicker */,
 				B061FA3E1B99FF300082FBA1 /* KVNProgress */,
@@ -751,6 +825,12 @@
 				B0C101041B7798C000E4204B /* DetailSummaryVC.m */,
 				B0C101051B7798C000E4204B /* NewEvevtViewController.h */,
 				B0C101061B7798C000E4204B /* NewEvevtViewController.m */,
+				B00317431BC0DE4000AFAD86 /* GroupSelectTV.h */,
+				B00317441BC0DE4000AFAD86 /* GroupSelectTV.m */,
+				B00317491BC10AEC00AFAD86 /* GroupDetailTV.h */,
+				B003174A1BC10AED00AFAD86 /* GroupDetailTV.m */,
+				B0425B011BD214DD009A55FC /* NewGroupTVViewController.h */,
+				B0425B021BD214DD009A55FC /* NewGroupTVViewController.m */,
 				B0DC6BE31B7F079F009DFA5A /* FeedbackViewController.h */,
 				B0DC6BE41B7F079F009DFA5A /* FeedbackViewController.m */,
 				B0E144D71B81BD6000934377 /* AboutViewController.h */,
@@ -833,6 +913,8 @@
 				B0C100FE1B77984300E4204B /* Event.m */,
 				B0C100FF1B77984300E4204B /* EventStore.h */,
 				B0C101001B77984300E4204B /* EventStore.m */,
+				B085E2731BBA802100F518A8 /* GroupStore.h */,
+				B085E2741BBA802100F518A8 /* GroupStore.m */,
 				B0C100FA1B77982200E4204B /* ImageStore.h */,
 				B0C100FB1B77982200E4204B /* ImageStore.m */,
 				B0723E581B78913A00F8A63E /* SettingStore.h */,
@@ -866,6 +948,66 @@
 				B08875EF1B711F19008DF5D4 /* Cell */,
 			);
 			name = Controller;
+			sourceTree = "<group>";
+		};
+		B085E23C1BBA520E00F518A8 /* Pickers */ = {
+			isa = PBXGroup;
+			children = (
+				B085E25A1BBA52AD00F518A8 /* CoreActionSheetPicker.h */,
+				B085E23D1BBA520E00F518A8 /* AbstractActionSheetPicker.h */,
+				B085E23E1BBA520E00F518A8 /* AbstractActionSheetPicker.m */,
+				B085E23F1BBA520E00F518A8 /* ActionSheetCustomPicker.h */,
+				B085E2401BBA520E00F518A8 /* ActionSheetCustomPicker.m */,
+				B085E2411BBA520E00F518A8 /* ActionSheetCustomPickerDelegate.h */,
+				B085E2421BBA520E00F518A8 /* ActionSheetDatePicker.h */,
+				B085E2431BBA520E00F518A8 /* ActionSheetDatePicker.m */,
+				B085E2441BBA520E00F518A8 /* ActionSheetDistancePicker.h */,
+				B085E2451BBA520E00F518A8 /* ActionSheetDistancePicker.m */,
+				B085E2461BBA520E00F518A8 /* ActionSheetLocalePicker.h */,
+				B085E2471BBA520E00F518A8 /* ActionSheetLocalePicker.m */,
+				B085E2481BBA520E00F518A8 /* ActionSheetMultipleStringPicker.h */,
+				B085E2491BBA520E00F518A8 /* ActionSheetMultipleStringPicker.m */,
+				B085E24A1BBA520E00F518A8 /* ActionSheetPicker.h */,
+				B085E24B1BBA520E00F518A8 /* ActionSheetStringPicker.h */,
+				B085E24C1BBA520E00F518A8 /* ActionSheetStringPicker.m */,
+				B085E24D1BBA520E00F518A8 /* DistancePickerView.h */,
+				B085E24E1BBA520E00F518A8 /* DistancePickerView.m */,
+				B085E24F1BBA520E00F518A8 /* SWActionSheet.h */,
+				B085E2501BBA520E00F518A8 /* SWActionSheet.m */,
+			);
+			name = Pickers;
+			path = vendor/Pickers;
+			sourceTree = "<group>";
+		};
+		B085E25B1BBA7E9E00F518A8 /* DBModel */ = {
+			isa = PBXGroup;
+			children = (
+				B085E25C1BBA7E9E00F518A8 /* FMDB */,
+				B085E2681BBA7E9E00F518A8 /* JKDBHelper.h */,
+				B085E2691BBA7E9E00F518A8 /* JKDBHelper.m */,
+				B085E26A1BBA7E9E00F518A8 /* JKDBModel.h */,
+				B085E26B1BBA7E9E00F518A8 /* JKDBModel.m */,
+			);
+			name = DBModel;
+			path = vendor/DBModel;
+			sourceTree = "<group>";
+		};
+		B085E25C1BBA7E9E00F518A8 /* FMDB */ = {
+			isa = PBXGroup;
+			children = (
+				B085E25D1BBA7E9E00F518A8 /* FMDatabase.h */,
+				B085E25E1BBA7E9E00F518A8 /* FMDatabase.m */,
+				B085E25F1BBA7E9E00F518A8 /* FMDatabaseAdditions.h */,
+				B085E2601BBA7E9E00F518A8 /* FMDatabaseAdditions.m */,
+				B085E2611BBA7E9E00F518A8 /* FMDatabasePool.h */,
+				B085E2621BBA7E9E00F518A8 /* FMDatabasePool.m */,
+				B085E2631BBA7E9E00F518A8 /* FMDatabaseQueue.h */,
+				B085E2641BBA7E9E00F518A8 /* FMDatabaseQueue.m */,
+				B085E2651BBA7E9E00F518A8 /* FMDB.h */,
+				B085E2661BBA7E9E00F518A8 /* FMResultSet.h */,
+				B085E2671BBA7E9E00F518A8 /* FMResultSet.m */,
+			);
+			path = FMDB;
 			sourceTree = "<group>";
 		};
 		B087E0241B76F92B003D90B6 /* XYPieChart */ = {
@@ -923,6 +1065,11 @@
 				B0C101261B77993800E4204B /* TypeManageTVCell.m */,
 				B0DC6BE61B7F2970009DFA5A /* FeedbackTVCell.h */,
 				B0DC6BE71B7F2970009DFA5A /* FeedbackTVCell.m */,
+				B00317461BC1005D00AFAD86 /* GroupSelectCell.h */,
+				B00317471BC1005D00AFAD86 /* GroupSelectCell.m */,
+				B003174C1BC10D2A00AFAD86 /* GroupDetailCell.h */,
+				B003174D1BC10D2A00AFAD86 /* GroupDetailCell.m */,
+				B003174E1BC10D2A00AFAD86 /* GroupDetailCell.xib */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -1221,6 +1368,7 @@
 				B019BEE41B935C0B00D2D8F6 /* bubble_min@2x.png in Resources */,
 				B019BEEB1B935C0B00D2D8F6 /* ToolViewInputVoiceHL@2x.png in Resources */,
 				B019BEE91B935C0B00D2D8F6 /* ToolViewInputTextHL@2x.png in Resources */,
+				B00317501BC10D2A00AFAD86 /* GroupDetailCell.xib in Resources */,
 				B0C100F91B772A0700E4204B /* summaryNewTVCell.xib in Resources */,
 				B0B9736D1B74DCF50008640E /* summaryTypeCell.xib in Resources */,
 				B0E144D61B80F6BB00934377 /* Launch Screen.storyboard in Resources */,
@@ -1269,9 +1417,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				B019BEF61B935C0B00D2D8F6 /* UMChatToolBar.m in Sources */,
+				B085E26F1BBA7E9E00F518A8 /* FMDatabaseQueue.m in Sources */,
 				B09DB2941B84E5E0007458C1 /* LeftMenuView.m in Sources */,
 				B048EF921B8D762F00F01530 /* WeixinTimelineActivity.m in Sources */,
 				B0C1010E1B7798C000E4204B /* ViewController.m in Sources */,
+				B085E2711BBA7E9E00F518A8 /* JKDBHelper.m in Sources */,
 				B0FE06401BA0093100350420 /* HRBrightnessCursor.m in Sources */,
 				B061FA501B99FF300082FBA1 /* KVNProgress.m in Sources */,
 				B00E23221B92104500649AC9 /* ConflictTV.m in Sources */,
@@ -1279,9 +1429,11 @@
 				B0C1012A1B77993800E4204B /* SummaryTVCell.m in Sources */,
 				B0C1010C1B7798C000E4204B /* NewEvevtViewController.m in Sources */,
 				B019BEF51B935C0B00D2D8F6 /* UMChatTableViewCell.m in Sources */,
+				B085E2591BBA520E00F518A8 /* SWActionSheet.m in Sources */,
 				B0723E5A1B78913A00F8A63E /* SettingStore.m in Sources */,
 				B0FE06421BA0093100350420 /* HRColorCursor.m in Sources */,
 				B048EF8F1B8D762F00F01530 /* WeixinActivity.m in Sources */,
+				B085E26C1BBA7E9E00F518A8 /* FMDatabase.m in Sources */,
 				B0C101181B7798F600E4204B /* NameManageTableView.m in Sources */,
 				B0FE06441BA0093100350420 /* HRColorMapView.m in Sources */,
 				B0C100FC1B77982200E4204B /* ImageStore.m in Sources */,
@@ -1292,6 +1444,7 @@
 				B0854D9C1B6BA87600C1B150 /* JTHorizontalCalendarView.m in Sources */,
 				B0C1012C1B77993800E4204B /* TypeManageTVCell.m in Sources */,
 				B0C101011B77984300E4204B /* Event.m in Sources */,
+				B085E2561BBA520E00F518A8 /* ActionSheetMultipleStringPicker.m in Sources */,
 				B0D1DE821B9ED67900DB7FDE /* AlertTV.m in Sources */,
 				B061FA4D1B99FF300082FBA1 /* UIColor+KVNContrast.m in Sources */,
 				B0DC6BE91B7F2970009DFA5A /* FeedbackTVCell.m in Sources */,
@@ -1300,12 +1453,14 @@
 				B048EF901B8D762F00F01530 /* WeixinActivityBase.m in Sources */,
 				B0C1010B1B7798C000E4204B /* DetailSummaryVC.m in Sources */,
 				B019BEF31B935C0B00D2D8F6 /* UMFeedbackViewController.m in Sources */,
+				B00317481BC1005D00AFAD86 /* GroupSelectCell.m in Sources */,
 				B0854D9A1B6BA87600C1B150 /* JTCalendarWeekDayView.m in Sources */,
 				B019BEFA1B935C0B00D2D8F6 /* UMTextView.m in Sources */,
 				B0FE064A1BA0099A00350420 /* ColorPickerViewController.m in Sources */,
 				B049AC781B95E1880002A0BC /* SearchResultTV.m in Sources */,
 				B0854D921B6BA87600C1B150 /* JTCalendarManager.m in Sources */,
 				B0B548561B84443700D42B33 /* DMPasscodeConfig.m in Sources */,
+				B085E2701BBA7E9E00F518A8 /* FMResultSet.m in Sources */,
 				B0854D941B6BA87600C1B150 /* JTDateHelper.m in Sources */,
 				B02CCEC31B98172300936FB5 /* UUBar.m in Sources */,
 				B0854D9B1B6BA87600C1B150 /* JTCalendarWeekView.m in Sources */,
@@ -1314,6 +1469,7 @@
 				B0B548541B84443700D42B33 /* DMKeychain.m in Sources */,
 				B0854D9D1B6BA87600C1B150 /* JTVerticalCalendarView.m in Sources */,
 				B071E69C1B859B4100133D63 /* UIViewController+RESideMenu.m in Sources */,
+				B085E26E1BBA7E9E00F518A8 /* FMDatabasePool.m in Sources */,
 				B0B548591B84443700D42B33 /* DMPasscodeInternalViewController.m in Sources */,
 				B0E144F31B81C58700934377 /* UIImage+TOWebViewControllerIcons.m in Sources */,
 				B0C101271B77993800E4204B /* NameManageTVCell.m in Sources */,
@@ -1331,29 +1487,42 @@
 				B0854D951B6BA87600C1B150 /* JTCalendarDelegateManager.m in Sources */,
 				B0C1010D1B7798C000E4204B /* SummaryViewController.m in Sources */,
 				B07F43961B919B2600FE0D25 /* iCloudStorageTV.m in Sources */,
+				B003174F1BC10D2A00AFAD86 /* GroupDetailCell.m in Sources */,
 				B061FA4F1B99FF300082FBA1 /* UIImage+KVNImageEffects.m in Sources */,
 				B061FA511B99FF300082FBA1 /* KVNProgressConfiguration.m in Sources */,
 				B0FE06461BA0093100350420 /* HRHSVColorUtil.m in Sources */,
 				B0854D991B6BA87600C1B150 /* JTCalendarPageView.m in Sources */,
 				B0FE06411BA0093100350420 /* HRBrightnessSlider.m in Sources */,
+				B085E2581BBA520E00F518A8 /* DistancePickerView.m in Sources */,
+				B085E2521BBA520E00F518A8 /* ActionSheetCustomPicker.m in Sources */,
 				B0B548581B84443700D42B33 /* DMPasscodeInternalNavigationController.m in Sources */,
 				B0FE06431BA0093100350420 /* HRColorInfoView.m in Sources */,
+				B0425B041BD214DD009A55FC /* NewGroupTVViewController.m in Sources */,
+				B003174B1BC10AED00AFAD86 /* GroupDetailTV.m in Sources */,
 				B0854D961B6BA87600C1B150 /* JTCalendarScrollManager.m in Sources */,
 				B0C101281B77993800E4204B /* SportTVCell.m in Sources */,
 				B0854D931B6BA87600C1B150 /* JTCalendarSettings.m in Sources */,
+				B085E2721BBA7E9E00F518A8 /* JKDBModel.m in Sources */,
 				B00D87A51B857CF00044BF85 /* LeftMenuViewController.m in Sources */,
 				B0FE06451BA0093100350420 /* HRColorPickerView.m in Sources */,
 				B0BAD09A1B8DD67600F41091 /* PersonInfoStore.m in Sources */,
+				B085E2571BBA520E00F518A8 /* ActionSheetStringPicker.m in Sources */,
 				B0B548551B84443700D42B33 /* DMPasscode.m in Sources */,
+				B085E2551BBA520E00F518A8 /* ActionSheetLocalePicker.m in Sources */,
 				B0723E541B786D2D00F8A63E /* SettingTableView.m in Sources */,
 				B02CCEC71B98172300936FB5 /* UUColor.m in Sources */,
 				B0854D981B6BA87600C1B150 /* JTCalendarMenuView.m in Sources */,
 				B02CCEC51B98172300936FB5 /* UUChart.m in Sources */,
 				B0C101021B77984300E4204B /* EventStore.m in Sources */,
+				B085E26D1BBA7E9E00F518A8 /* FMDatabaseAdditions.m in Sources */,
 				B0C1012B1B77993800E4204B /* summaryTypeCell.m in Sources */,
 				B0BAD0971B8DD64000F41091 /* PersonalInfoTableView.m in Sources */,
+				B00317451BC0DE4000AFAD86 /* GroupSelectTV.m in Sources */,
 				B02CCEC41B98172300936FB5 /* UUBarChart.m in Sources */,
 				B0E144F11B81C58700934377 /* TOActivitySafari.m in Sources */,
+				B085E2751BBA802100F518A8 /* GroupStore.m in Sources */,
+				B085E2511BBA520E00F518A8 /* AbstractActionSheetPicker.m in Sources */,
+				B085E2541BBA520E00F518A8 /* ActionSheetDistancePicker.m in Sources */,
 				B019BEF81B935C0B00D2D8F6 /* UMPostTableViewCell.m in Sources */,
 				B02CCEB31B98000F00936FB5 /* NYSegmentedControl.m in Sources */,
 				B0FA589A1B4678D400E3BE94 /* AppDelegate.m in Sources */,
@@ -1361,6 +1530,7 @@
 				B025CF471B84599000FB1A22 /* TouchIDViewController.m in Sources */,
 				B07F438E1B9184B900FE0D25 /* ICACloud.m in Sources */,
 				B0FA58971B4678D400E3BE94 /* main.m in Sources */,
+				B085E2531BBA520E00F518A8 /* ActionSheetDatePicker.m in Sources */,
 				B071E69A1B859B4100133D63 /* RECommonFunctions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1444,8 +1614,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: yuke wu (BBLAS4A9A3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuke wu (BBLAS4A9A3)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: yuke wu (D3FXKEY64K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: yuke wu (D3FXKEY64K)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -1467,7 +1637,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "55c80013-95e7-4b27-ad02-dfcdfbce9c46";
+				PROVISIONING_PROFILE = "96465778-c9b8-4d0f-b6b1-28b669174808";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1489,8 +1659,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: yuke wu (BBLAS4A9A3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuke wu (BBLAS4A9A3)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: yuke wu (D3FXKEY64K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: yuke wu (D3FXKEY64K)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -1507,7 +1677,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "55c80013-95e7-4b27-ad02-dfcdfbce9c46";
+				PROVISIONING_PROFILE = "96465778-c9b8-4d0f-b6b1-28b669174808";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1518,15 +1688,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AmosSportDiary.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: yuke wu (BBLAS4A9A3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuke wu (BBLAS4A9A3)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: yuke wu (D3FXKEY64K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: yuke wu (D3FXKEY64K)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/AmosSportCalender",
 					"$(PROJECT_DIR)/AmosSportCalender/FrameWork",
 					"$(PROJECT_DIR)/AmosSportCalender/weChat",
-					"$(PROJECT_DIR)/AmosSportCalender/vendor/Tencent",
 				);
 				GCC_PREPROCESSOR_DEFINITIONS = "DEBUG=1";
 				INFOPLIST_FILE = AmosSportCalender/Info.plist;
@@ -1542,7 +1711,7 @@
 				OTHER_LDFLAGS = "-Objc";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AKSocialLab.AmosSportDiary;
 				PRODUCT_NAME = AmosSportDiary;
-				PROVISIONING_PROFILE = "55c80013-95e7-4b27-ad02-dfcdfbce9c46";
+				PROVISIONING_PROFILE = "96465778-c9b8-4d0f-b6b1-28b669174808";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -1553,15 +1722,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AmosSportDiary.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: yuke wu (BBLAS4A9A3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuke wu (BBLAS4A9A3)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: yuke wu (D3FXKEY64K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: yuke wu (D3FXKEY64K)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/AmosSportCalender",
 					"$(PROJECT_DIR)/AmosSportCalender/FrameWork",
 					"$(PROJECT_DIR)/AmosSportCalender/weChat",
-					"$(PROJECT_DIR)/AmosSportCalender/vendor/Tencent",
 				);
 				INFOPLIST_FILE = AmosSportCalender/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
@@ -1576,7 +1744,7 @@
 				OTHER_LDFLAGS = "-Objc";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AKSocialLab.AmosSportDiary;
 				PRODUCT_NAME = AmosSportDiary;
-				PROVISIONING_PROFILE = "55c80013-95e7-4b27-ad02-dfcdfbce9c46";
+				PROVISIONING_PROFILE = "96465778-c9b8-4d0f-b6b1-28b669174808";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

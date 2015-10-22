@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "JKDBModel.h"
 
 @interface Event : NSObject<NSCoding>
 
@@ -22,5 +23,8 @@
 
 @property (nonatomic) BOOL done; ///<是否完成该事件
 @property (nonatomic, copy) NSString *itemKey; ///<储存图片用的唯一编码
+
+@property (nonatomic, copy) NSString *groupBelong; ///<属于哪一个类别
+@property (nonatomic, copy) NSString *groupName; ///<该运动组合的名称
 
 @end

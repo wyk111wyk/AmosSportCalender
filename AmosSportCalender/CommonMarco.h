@@ -41,9 +41,10 @@
 #define Local(key) NSLocalizedStringFromTable(key, kFEEDBACK_LOCALIZABLE_TABLE, nil)
 
 //颜色
-#define basicColor [UIColor colorWithRed:0.0000 green:0.5608 blue:0.5176 alpha:1];
+#define MyGreenColor [UIColor colorWithRed:0.0000 green:0.5608 blue:0.5176 alpha:1]
 
 //#define chestColor [UIColor colorWithRed:0.4000 green:0.7059 blue:0.8980 alpha:1];
+#define CellBackgoundColor [UIColor colorWithRed:0.3804 green:0.8745 blue:0.8392 alpha:0.2]
 #define backColor [UIColor colorWithRed:0.1647 green:0.7451 blue:0.6863 alpha:1];
 #define shouldColor [UIColor colorWithRed:0.0039 green:0.8667 blue:0.8118 alpha:1];
 #define legColor [UIColor colorWithRed:0.8745 green:0.7765 blue:0.1412 alpha:1];
