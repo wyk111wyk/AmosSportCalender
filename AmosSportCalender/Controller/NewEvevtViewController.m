@@ -103,8 +103,6 @@
     [self initViewFrame];
     [self initTextAndLabel];
     
-    NSLog(@"groupEdit:%@", self.groupEdit?@"yes":@"no");
-    
 }
 
 - (void)initSearchPart
@@ -155,15 +153,15 @@
     UIBarButtonItem *addOneMoreButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"plusOneMore"] style:UIBarButtonItemStylePlain target:self action:@selector(createOneMoreEvent:)];
     UIBarButtonItem *createNewButton = [[UIBarButtonItem alloc] initWithTitle:Local(@"New") style:UIBarButtonItemStylePlain target:self action:@selector(finishAndCreateEvent:)];
     UIBarButtonItem *editEventButton = [[UIBarButtonItem alloc] initWithTitle:Local(@"Done") style:UIBarButtonItemStylePlain target:self action:@selector(finishAndCreateEvent:)];
-    if (self.groupEdit) {
-        addOneMoreButton.enabled = NO;
-    }
-    if (self.createNewEvent || self.groupEdit) {
+    
+    if (self.createNewEvent) {
         NSArray *createButtons = [[NSArray alloc] initWithObjects:createNewButton, addOneMoreButton, nil];
         self.navigationItem.rightBarButtonItems = createButtons;
         self.navigationItem.title = @"新建";
+        if (self.groupEdit) {
+            addOneMoreButton.enabled = NO;
+        }
     }else if (!self.createNewEvent) {
-        //        NSArray *editButtons = [[NSArray alloc] initWithObjects:editEventButton, addOneMoreButton, nil];
         self.navigationItem.rightBarButtonItem = editEventButton;
         self.navigationItem.title = @"修改";
     }
@@ -189,7 +187,6 @@
 
 - (void)initTextAndLabel
 {
-    
     //sportPicker初始化
     self.sportPicker = [[UIPickerView alloc] initWithFrame:CGRectZero];
     self.sportPicker.delegate = self;
@@ -215,8 +212,8 @@
     self.timelastFeild.tintColor = [UIColor clearColor];
     self.timesFeild.tintColor = [UIColor clearColor];
     self.rapFeild.tintColor = [UIColor clearColor];
-    
     self.dateTextField.tintColor = [UIColor clearColor];
+    
     self.sportTypeTextField.inputView = self.sportPicker;
     self.sportTypeTextField.inputAccessoryView = self.sportSearchBar;
     self.sportTypeTextField.tintColor = [UIColor clearColor];
@@ -237,7 +234,7 @@
     } else{
         self.dateTextField.text = showStr;
     }
-    [self.dateTextField sizeToFit];
+        [self.dateTextField sizeToFit];
     }else{//假如没有时间的值，也就是从组合处创建的
         self.dateTextField.enabled = NO;
         self.doneSwitchButton.enabled = NO;
@@ -526,12 +523,14 @@
     
     if (!self.groupEdit) {
         event.eventDate = finalSeletedDate;
-        event.done = self.doneSwitchButton.on;
+        if (self.doneSwitchButton.on) {
+            event.done = self.doneSwitchButton.on;
+        }
         //假如是新建的事项，进行数据库新建
         if (self.createNewEvent){
-        [[EventStore sharedStore] createItem:event date:self.event.eventDate];
+            [[EventStore sharedStore] createItem:event date:self.event.eventDate];
         }
-        
+        //退出页面
         [self dismissViewControllerAnimated:YES completion:^{
             [MobClick event:@"CreateNewEvent"]; //友盟统计数据：添加事件
             //取消所有通知
@@ -548,8 +547,10 @@
         }];
     }else{
         event.done = NO;
-        [[GroupStore sharedStore] createItemInGroup:event belong:self.belong groupName:self.groupName];
-        
+        //假如是新建的事项，进行数据库新建
+        if (self.createNewEvent){
+            [[GroupStore sharedStore] createItemInGroup:event belong:self.belong groupName:self.groupName];
+        }
         //储存数据
         BOOL success = [[GroupStore sharedStore] saveGroupData];
         if (DeBugMode) {

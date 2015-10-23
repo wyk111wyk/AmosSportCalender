@@ -17,6 +17,7 @@
 //5. 声明一个方法和属性，分别用于创建和保存YKItem对象
 - (Event *)createItem;
 - (void)createItem:(Event *)event  date:(NSDate *)date;
+- (void)createArray:(NSArray *)eventArray date:(NSDate *)date;
 @property (nonatomic, strong)NSDictionary *allItems;
 
 //声明一个新的方法，用于删除行

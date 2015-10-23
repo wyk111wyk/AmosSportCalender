@@ -82,7 +82,7 @@
 - (void)createItem:(Event *)event  date:(NSDate *)date
 {
     if (event) {
-    event.eventDate = date;
+        event.eventDate = date;
         NSString *key = [[self dateFormatter] stringFromDate:date ? date : [NSDate date]];
         
         if (!self.privateEvents[key]) {
@@ -93,7 +93,27 @@
         if (i < 0) {
             i = 0;
         }
+        
         [self.privateEvents[key] insertObject:event atIndex:i];
+    }
+}
+
+- (void)createArray:(NSArray *)eventArray date:(NSDate *)date
+{
+    if (eventArray) {
+        
+        NSString *key = [[self dateFormatter] stringFromDate:date ? date : [NSDate date]];
+        
+        if (!self.privateEvents[key]) {
+            self.privateEvents[key] = [NSMutableArray array];
+        }
+        
+        int i = [self countFinishedEvents:key];
+        if (i < 0) {
+            i = 0;
+        }
+        
+        [self.privateEvents[key] addObjectsFromArray:eventArray];
     }
 }
 

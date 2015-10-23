@@ -844,7 +844,7 @@
     //初始化自定义View
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 20)];
     [headerView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
-    headerView.backgroundColor = [UIColor colorWithWhite:0.45 alpha:0.6];
+    headerView.backgroundColor = [UIColor colorWithWhite:0.55 alpha:0.7];
 
     //设置Header的字体
     UILabel *headText = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 22)];
@@ -1029,6 +1029,14 @@
                 [snapshot removeFromSuperview];
                 snapshot = nil;
                 
+                BOOL success = [[EventStore sharedStore] saveChanges];
+                
+                if (DeBugMode) {
+                    if (success) {
+                        NSLog(@"移动item后，储存数据成功");
+                    }else{
+                        NSLog(@"移动item后，储存数据失败！");
+                    } }
             }];
             
             break;

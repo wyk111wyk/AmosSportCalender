@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8191" systemVersion="15A284" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9059" systemVersion="15B42" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8154"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9049"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -17,14 +17,6 @@
                 <rect key="frame" x="0.0" y="0.0" width="375" height="54.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6q9-SA-Jdb" userLabel="Separator Line View">
-                        <rect key="frame" x="10" y="54" width="365" height="1"/>
-                        <animations/>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="1" id="S8L-pF-3St"/>
-                        </constraints>
-                    </view>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fX3-XS-o9z">
                         <rect key="frame" x="12" y="6" width="42" height="42"/>
                         <animations/>
@@ -60,7 +52,7 @@
                         <constraints>
                             <constraint firstAttribute="height" constant="13.5" id="A27-SK-Ftp"/>
                         </constraints>
-                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -110,13 +102,10 @@
                     <constraint firstItem="5rJ-yA-BCo" firstAttribute="leading" secondItem="F8c-7E-rYC" secondAttribute="leading" constant="13" id="Y9X-yB-GCY"/>
                     <constraint firstItem="HxF-nN-61U" firstAttribute="leading" secondItem="F8c-7E-rYC" secondAttribute="leading" constant="61" id="ZlP-H3-nn7"/>
                     <constraint firstItem="fX3-XS-o9z" firstAttribute="leading" secondItem="F8c-7E-rYC" secondAttribute="leading" constant="12" id="bea-ZD-EWb"/>
-                    <constraint firstItem="6q9-SA-Jdb" firstAttribute="leading" secondItem="F8c-7E-rYC" secondAttribute="leading" constant="10" id="cMl-28-1ig"/>
                     <constraint firstItem="5rJ-yA-BCo" firstAttribute="top" secondItem="F8c-7E-rYC" secondAttribute="top" constant="7" id="d8d-sg-f76"/>
                     <constraint firstItem="y8f-IL-RqU" firstAttribute="centerX" secondItem="5r8-5z-2Yu" secondAttribute="centerX" id="f66-en-V6e"/>
-                    <constraint firstAttribute="trailing" secondItem="6q9-SA-Jdb" secondAttribute="trailing" id="gC3-sL-Sv5"/>
                     <constraint firstItem="Zo5-5L-agP" firstAttribute="leading" secondItem="aHk-g4-m98" secondAttribute="trailing" constant="8" id="jWZ-VY-EKj"/>
                     <constraint firstItem="y8f-IL-RqU" firstAttribute="top" secondItem="5r8-5z-2Yu" secondAttribute="bottom" constant="-1" id="q7O-Ub-WZp"/>
-                    <constraint firstAttribute="bottom" secondItem="6q9-SA-Jdb" secondAttribute="bottom" id="sNG-0T-s3g"/>
                     <constraint firstAttribute="trailing" secondItem="Zo5-5L-agP" secondAttribute="trailing" constant="17" id="tL1-2X-rbh"/>
                 </constraints>
             </tableViewCellContentView>

@@ -26,7 +26,7 @@
     
     if (self.event.weight == 0 && self.event.times > 0) {
         self.sportPro.text = [NSString stringWithFormat:@"%d组 x %d次", self.event.rap, self.event.times];
-    }else if (self.event.weight == 220 && self.event.times > 0){
+    }else if (self.event.weight == 300 && self.event.times > 0){
         self.sportPro.text = [NSString stringWithFormat:@"%d组 x %d次  自身重量", self.event.rap, self.event.times];
     }else if (self.event.times == 0 && self.event.rap == 0){
         self.sportPro.text = @"Go！Go！Go！";
@@ -42,7 +42,7 @@
 //        NSLog(@"In cell Not Done");
         self.donePic.hidden = YES;
         self.sportName.textColor = [UIColor blackColor];
-        self.sportPro.textColor = [UIColor darkGrayColor];
+        self.sportPro.textColor = [UIColor lightGrayColor];
         
         self.sportType.text = self.event.sportType;
         

@@ -25,8 +25,9 @@ typedef void (^myBlock)();
 @property (nonatomic, strong)NSArray *sportNames;
 
 @property (nonatomic)BOOL createNewEvent;
-
 @property (nonatomic)BOOL groupEdit;
+@property (nonatomic)BOOL editMood;
+
 @property (nonatomic, strong)NSString *belong;
 @property (nonatomic, strong)NSString *groupName;
 
