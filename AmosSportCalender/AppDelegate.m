@@ -49,7 +49,7 @@ NSArray *sportTypes;
     [self initNavAndDrawer];
     
     //开机画面的显示时间
-    [NSThread sleepForTimeInterval:.5f];
+    [NSThread sleepForTimeInterval:0.f];
     
     return YES;
 }

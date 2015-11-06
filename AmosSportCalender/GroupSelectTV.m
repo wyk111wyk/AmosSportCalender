@@ -64,12 +64,12 @@ static NSString* const typeManageCellReuseId = @"groupManageCell";
     UIView *sepView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenWidth, 0.5)];
     sepView.backgroundColor = [UIColor lightGrayColor];
     
-    UIButton *finishButton = [[UIButton alloc] initWithFrame:CGRectMake(screenWidth - 60, 0, 60, 30)];
+    UIButton *finishButton = [[UIButton alloc] initWithFrame:CGRectMake(screenWidth - 80, 0, 60, 30)];
     [finishButton setTitle:@"完成" forState:UIControlStateNormal];
     [finishButton setTitleColor:MyGreenColor forState:UIControlStateNormal];
     finishButton.tintColor = MyGreenColor;
     [finishButton addTarget:self action:@selector(finishTyping) forControlEvents:UIControlEventTouchUpInside];
-    UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
+    UIButton *cancelButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 80, 30)];
     [cancelButton setTitle:@"取消" forState:UIControlStateNormal];
     [cancelButton setTitleColor:MyGreenColor forState:UIControlStateNormal];
     cancelButton.tintColor = MyGreenColor;
@@ -179,6 +179,7 @@ static NSString* const typeManageCellReuseId = @"groupManageCell";
     }];
     
     UITextField *groupNameField1 = alert.textFields[0];
+    groupNameField1.clearButtonMode = UITextFieldViewModeWhileEditing;
     
     [alert addAction:[UIAlertAction actionWithTitle:@"确定"
                                               style:UIAlertActionStyleDefault
