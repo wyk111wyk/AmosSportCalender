@@ -266,6 +266,9 @@ static NSString* const typeManageCellReuseId = @"groupManageCell";
                 [[EventStore sharedStore] createArray:eventArray date:selectedDate];
                 [[EventStore sharedStore] saveChanges];
                 [self.navigationController popToRootViewControllerAnimated:YES];
+                
+                //取消所有通知
+                [[UIApplication sharedApplication] cancelAllLocalNotifications];
                                             }]];
     
     [alert addAction:[UIAlertAction actionWithTitle:@"取消"

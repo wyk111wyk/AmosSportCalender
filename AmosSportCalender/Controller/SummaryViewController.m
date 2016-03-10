@@ -26,7 +26,10 @@
 static NSString * const summaryCellReuseId = @"summaryTypeCell";
 
 @interface SummaryViewController ()<UITableViewDataSource, UITableViewDelegate, XYPieChartDelegate, XYPieChartDataSource, UUChartDataSource>
-
+{
+    UISwipeGestureRecognizer *swipeGestureRight;
+    UISwipeGestureRecognizer *swipeGestureLeft;
+}
 @property (strong, nonatomic) IBOutlet UIView *viewBackground;
 
 @property (weak, nonatomic) IBOutlet UIView *contantView;
@@ -116,8 +119,19 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     [self.contantView bringSubviewToFront:self.leftAButton];
     [self.contantView bringSubviewToFront:self.rightAButton];
     
-    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(makeButtonDisappear)];
-    [self.chartView addGestureRecognizer:self.tap];
+    //添加手势
+    swipeGestureRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(buttonClicked:)];
+    swipeGestureRight.numberOfTouchesRequired = 1;// 手指个数 The default value is 1.
+    swipeGestureRight.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.chartView addGestureRecognizer:swipeGestureRight];
+    
+    swipeGestureLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(buttonClicked:)];
+    swipeGestureLeft.numberOfTouchesRequired = 1;// 手指个数 The default value is 1.
+    swipeGestureLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.chartView addGestureRecognizer:swipeGestureLeft];
+    
+//    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(makeButtonDisappear)];
+//    [self.chartView addGestureRecognizer:self.tap];
     
     //2-1图片
     SettingStore *setting = [SettingStore sharedSetting];
@@ -316,13 +330,15 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
 {
     if (self.rightAButton.alpha == 0.7) {
         //提前直接隐藏buttons
-        [self.timer fire];
+//        [self.timer fire];
+        //重新设置自动消失buttons的时间为3秒
+        [self.timer setFireDate:[[NSDate date] dateByAddingTimeInterval:3]];
     }else{
         self.rightAButton.alpha = 0.7;
         self.leftAButton.alpha = 0.7;
         
         //设置3秒钟后，隐藏buttons
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:2.5 target:self selector:@selector(makeButtonOnlyDisappear) userInfo:nil repeats:NO];
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(makeButtonOnlyDisappear) userInfo:nil repeats:NO];
     }
 }
 
@@ -338,23 +354,22 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
                      completion:nil];
 }
 
-- (void)buttonClicked: (UIButton *)sender
+- (void)buttonClicked: (id)sender
 {
 //    NSLog(@"%li", self.contantView.subviews.count);
     
-    //重新设置自动消失buttons的时间为3秒
-    [self.timer setFireDate:[[NSDate date] dateByAddingTimeInterval:3]];
+    [self makeButtonDisappear];
     
     //删除当下的图表
     [[self.contantView.subviews firstObject] removeFromSuperview];
     
-    if (sender == self.leftAButton) {
+    if (sender == swipeGestureLeft || sender == _leftAButton) {
         //重绘上月数据的图表
         NSString * lastMonthAndYear = [self lastMonthFrom:self.monthAndYear];
         NSDate *lastMonth = [[self dateFormatterForMonth] dateFromString:lastMonthAndYear];
         [self arrayForChartData:lastMonth];
         self.monthAndYear = lastMonthAndYear;
-    }else if (sender == self.rightAButton) {
+    }else if (sender == swipeGestureRight || sender == _rightAButton) {
         //重绘下月数据的图表
         NSString * nextMonthAndYear = [self nextMonthFrom:self.monthAndYear];
         NSDate *nextMonth = [[self dateFormatterForMonth] dateFromString:nextMonthAndYear];
@@ -373,7 +388,8 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
                                                    withSource:self
                                                     withStyle:UUChartLineStyle];
     [self.chartView showInView:self.contantView];
-    [self.chartView addGestureRecognizer:self.tap];
+    [self.chartView addGestureRecognizer:swipeGestureLeft];
+    [self.chartView addGestureRecognizer:swipeGestureRight];
     [self.contantView bringSubviewToFront:self.expLabel];
     [self.contantView bringSubviewToFront:self.leftAButton];
     [self.contantView bringSubviewToFront:self.rightAButton];

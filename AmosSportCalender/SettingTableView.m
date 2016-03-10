@@ -173,7 +173,7 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
        
             [DMPasscode setupPasscodeInViewController:self completion:^(BOOL success, NSError *error) {
                 if (success) {
-                    
+                    setting.isTouchIDOn = YES;
                 }else{
                     [_passwordSwitch setOn:NO animated:YES];
                     _passwordLabel.textColor = [UIColor lightGrayColor];
@@ -184,6 +184,7 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
         }else{
             [DMPasscode removePasscode];
             _passwordLabel.textColor = [UIColor lightGrayColor];
+            setting.isTouchIDOn = NO;
         }
     }
     

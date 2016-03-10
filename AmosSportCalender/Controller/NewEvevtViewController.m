@@ -241,9 +241,9 @@
     }
     
     //如果是编辑而不是新建，那么就不允许更改时间
-    if (!_createNewEvent){
-        self.dateTextField.enabled = NO;
-    }
+//    if (!_createNewEvent){
+//        self.dateTextField.enabled = NO;
+//    }
     
     //当重复新建的时候，载入上次的选项
     if (self.event.sportType.length > 0) {
@@ -723,19 +723,19 @@
 }
 
 - (NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component {
-    
     if (pickerView == self.sportPicker) {
-    switch (component) {
-        case 0:
-            return [self.sportTypes count];
-            break;
-        case 1:
-            return [self.sportNames count]?[self.sportNames count]:0;
-            break;
-        default:
-            return 0;
-            break;
-    }}else if(pickerView == self.sportTypePicker){
+        switch (component) {
+            case 0:
+                return [self.sportTypes count];
+                break;
+            case 1:
+                return [self.sportNames count]?[self.sportNames count]:0;
+                break;
+            default:
+                return 0;
+                break;
+        }
+    }else if(pickerView == self.sportTypePicker){
         return [self.sportTypes count];
     }else{
         return 1;

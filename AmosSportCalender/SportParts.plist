@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<string>胸部</string>
+	<string>背部</string>
+	<string>肩部</string>
+	<string>腿部</string>
+	<string>手臂</string>
+	<string>耐力</string>
+	<string>核心</string>
+	<string>综合</string>
+	<string>拉伸</string>
+</array>
+</plist>

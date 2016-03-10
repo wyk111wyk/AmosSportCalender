@@ -2,7 +2,7 @@
 //  MobClick.h
 //  Analytics
 //
-//  Copyright (C) 2010-2014 Umeng.com . All rights reserved.
+//  Copyright (C) 2010-2015 Umeng.com . All rights reserved.
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
@@ -11,10 +11,10 @@
 #define XcodeAppVersion [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"]
 
 /**
- REALTIME只在模拟器和DEBUG模式下生效，真机的release模式会自动改成BATCH。
+ REALTIME只在“集成测试”设备的DEBUG模式下有效，其它情况下的REALTIME会改为使用BATCH策略。
  */
 typedef enum {
-    REALTIME = 0,       //实时发送              (只在测试模式下有效)
+    REALTIME = 0,       //实时发送              (只在“集成测试”设备的DEBUG模式下有效)
     BATCH = 1,          //启动发送
     SEND_INTERVAL = 6,  //最小间隔发送           ([90-86400]s, default 90s)
     
@@ -24,9 +24,8 @@ typedef enum {
     SEND_ON_EXIT = 7    //进入后台时发送         (not avilable, will be support later)
 } ReportPolicy;
 
+
 @class CLLocation;
-
-
 @interface MobClick : NSObject <UIAlertViewDelegate>
 
 #pragma mark basics
@@ -208,28 +207,21 @@ typedef enum {
 + (void)event:(NSString *)eventId attributes:(NSDictionary *)attributes durations:(int)millisecond;
 
 
-#pragma mark Online Configure
-///---------------------------------------------------------------------------------------
-/// @name  在线参数：可以动态设定应用中的参数值
-///---------------------------------------------------------------------------------------
-
-/** 此方法会检查并下载服务端设置的在线参数,例如可在线更改SDK端发送策略。
-    请在[MobClick startWithAppkey:]方法之后调用;
-    监听在线参数更新是否完成，可注册UMOnlineConfigDidFinishedNotification通知
- @param .
+#pragma mark - user methods
+/** active user sign-in.
+ 使用sign-In函数后，如果结束该PUID的统计，需要调用sign-Off函数
+ @param puid : user's ID
+ @param provider : 不能以下划线"_"开头，使用大写字母和数字标识; 如果是上市公司，建议使用股票代码。
  @return void.
  */
-+ (void)updateOnlineConfig;
++ (void)profileSignInWithPUID:(NSString *)puid;
++ (void)profileSignInWithPUID:(NSString *)puid provider:(NSString *)provider;
 
-/** 返回已缓存的在线参数值
-    带参数的方法获取某个key的值，不带参数的获取所有的在线参数.
-    需要先调用updateOnlineConfig才能使用,如果想知道在线参数是否完成完成，请监听UMOnlineConfigDidFinishedNotification
- @param key
- @return (NSString *) .
+/** active user sign-off.
+ 停止sign-in PUID的统计
+ @return void.
  */
-+ (NSString *)getConfigParams:(NSString *)key;
-+ (NSDictionary *)getConfigParams;
-+ (NSString *)getAdURL;
++ (void)profileSignOff;
 
 ///---------------------------------------------------------------------------------------
 /// @name 地理位置设置
@@ -279,5 +271,4 @@ typedef enum {
  上述情况通常发生在某些第三方框架生成的app里，普通app不用关注该API.
  */
 + (void)startSession:(NSNotification *)notification;
-
 @end

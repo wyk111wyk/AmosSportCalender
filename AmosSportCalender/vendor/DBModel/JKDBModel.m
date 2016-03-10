@@ -229,12 +229,10 @@
 
 - (BOOL)save
 {
-    NSString *tableName = NSStringFromClass(self.class);  //@"User"
-    //@"account,name,sex,portraitPath,moblie,descn,age,height,duty"
+    NSString *tableName = NSStringFromClass(self.class);
     NSMutableString *keyString = [NSMutableString string];
-    NSMutableString *valueString = [NSMutableString string]; //@"?,?,?,?,?,?,?,?,?"
-    NSMutableArray *insertValues = [NSMutableArray array]; //需要保存的内容
-    
+    NSMutableString *valueString = [NSMutableString string];
+    NSMutableArray *insertValues = [NSMutableArray  array];
     for (int i = 0; i < self.columeNames.count; i++) {
         NSString *proname = [self.columeNames objectAtIndex:i];
         if ([proname isEqualToString:primaryId]) {
@@ -260,7 +258,6 @@
         self.pk = res?[NSNumber numberWithLongLong:db.lastInsertRowId].intValue:0;
         NSLog(res?@"插入成功":@"插入失败");
     }];
-    
     return res;
 }
 
@@ -442,7 +439,7 @@
             
             NSString *sql = [NSString stringWithFormat:@"DELETE FROM %@ WHERE %@ = ?",tableName,primaryId];
             BOOL flag = [db executeUpdate:sql withArgumentsInArray:@[primaryValue]];
-             NSLog(flag?@"删除成功":@"删除失败");
+             NSLog(flag?@"批量删除成功":@"批量删除失败");
             if (!flag) {
                 res = NO;
                 *rollback = YES;
@@ -462,7 +459,7 @@
         NSString *tableName = NSStringFromClass(self.class);
         NSString *sql = [NSString stringWithFormat:@"DELETE FROM %@ %@ ",tableName,criteria];
         res = [db executeUpdate:sql];
-        NSLog(res?@"删除成功":@"删除失败");
+        NSLog(res?@"条件删除成功":@"条件删除失败");
     }];
     return res;
 }
@@ -495,7 +492,7 @@
 /** 查询全部数据 */
 + (NSArray *)findAll
 {
-     NSLog(@"查询全部数据---%s",__func__);
+     NSLog(@"jkdb---%s",__func__);
     JKDBHelper *jkDB = [JKDBHelper shareInstance];
     NSMutableArray *users = [NSMutableArray array];
     [jkDB.dbQueue inDatabase:^(FMDatabase *db) {
@@ -519,6 +516,24 @@
     }];
     
     return users;
+}
+
++ (NSUInteger)findCounts: (NSString *)criteria
+{
+    JKDBHelper *jkDB = [JKDBHelper shareInstance];
+    if (!criteria) {
+        criteria = @"";
+    }
+    __block NSUInteger count = 0;
+    [jkDB.dbQueue inDatabase:^(FMDatabase *db) {
+        NSString *tableName = NSStringFromClass(self.class);
+        NSString *sql = [NSString stringWithFormat:@"SELECT count(*) FROM %@ %@",tableName, criteria];
+        
+//        [db open];
+        count = [db intForQuery:sql];
+    }];
+    
+    return count;
 }
 
 + (instancetype)findFirstWithFormat:(NSString *)format, ...
@@ -552,6 +567,7 @@
 {
     va_list ap;
     va_start(ap, format);
+    
     NSString *criteria = [[NSString alloc] initWithFormat:format locale:[NSLocale currentLocale] arguments:ap];
     va_end(ap);
     

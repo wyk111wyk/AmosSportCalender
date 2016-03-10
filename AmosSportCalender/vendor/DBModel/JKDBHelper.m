@@ -36,7 +36,7 @@ static JKDBHelper *_instance = nil;
     NSString *docsdir = [NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     NSFileManager *filemanage = [NSFileManager defaultManager];
     if (directoryName == nil || directoryName.length == 0) {
-        docsdir = [docsdir stringByAppendingPathComponent:@"AmosStore"]; //初始文件夹
+        docsdir = [docsdir stringByAppendingPathComponent:@"AmosData"];
     } else {
         docsdir = [docsdir stringByAppendingPathComponent:directoryName];
     }
@@ -45,7 +45,7 @@ static JKDBHelper *_instance = nil;
     if (!exit || !isDir) {
         [filemanage createDirectoryAtPath:docsdir withIntermediateDirectories:YES attributes:nil error:nil];
     }
-    NSString *dbpath = [docsdir stringByAppendingPathComponent:@"AmosData.sqlite"];
+    NSString *dbpath = [docsdir stringByAppendingPathComponent:@"AmosSportData.sqlite"];
     return dbpath;
 }
 
@@ -58,11 +58,14 @@ static JKDBHelper *_instance = nil;
 {
     if (_dbQueue == nil) {
         _dbQueue = [[FMDatabaseQueue alloc] initWithPath:[self.class dbPath]];
+        //加密数据库
+//        [FMEncryptHelper encryptDatabase:[self.class dbPath]];
+        //解密数据库
+//        [FMEncryptHelper unEncryptDatabase:[self.class dbPath]];
     }
     return _dbQueue;
 }
 
-//切换到另一个名为"directoryName"的数据库，没有的话就新建
 - (BOOL)changeDBWithDirectoryName:(NSString *)directoryName
 {
     if (_instance.dbQueue) {
@@ -86,6 +89,18 @@ static JKDBHelper *_instance = nil;
         }
         free(classes);
     }
+    
+    return YES;
+}
+
+- (BOOL)changeDBWithVenderName:(NSString *)directoryName
+{
+    if (_instance.dbQueue) {
+        _instance.dbQueue = nil;
+    }
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource:directoryName ofType:@"sqlite"];
+    _instance.dbQueue = [[FMDatabaseQueue alloc] initWithPath:path];
     
     return YES;
 }

@@ -14,17 +14,17 @@
 #define SQLREAL     @"REAL"
 #define SQLBLOB     @"BLOB"
 #define SQLNULL     @"NULL"
-
 #define PrimaryKey  @"primary key"
+
 #define primaryId   @"pk"
 
 @interface JKDBModel : NSObject
 
 /** 主键 id */
 @property (nonatomic, assign)   int        pk;
-/** 列名(该属性的命名) */
+/** 列名 */
 @property (retain, readonly, nonatomic) NSMutableArray         *columeNames;
-/** 列类型(该属性的类型) */
+/** 列类型 */
 @property (retain, readonly, nonatomic) NSMutableArray         *columeTypes;
 
 /** 
@@ -67,18 +67,26 @@
 
 /** 查询全部数据 */
 + (NSArray *)findAll;
+/** 查询数量，可以传nil */
++ (NSUInteger)findCounts: (NSString *)criteria;
+
 /** 通过主键查询 */
 + (instancetype)findByPK:(int)inPk;
-//查询第一条符合的数据
+
 + (instancetype)findFirstWithFormat:(NSString *)format, ...;
+
 /** 查找某条数据 */
 + (instancetype)findFirstByCriteria:(NSString *)criteria;
+
 + (NSArray *)findWithFormat:(NSString *)format, ...;
+
+/** 查询总共行数 */
+//+ (int)findAllCount;
+
 /** 通过条件查找数据 
  * 这样可以进行分页查询 @" WHERE pk > 5 limit 10"
  */
 + (NSArray *)findByCriteria:(NSString *)criteria;
-
 /**
  * 创建表
  * 如果已经创建，返回YES

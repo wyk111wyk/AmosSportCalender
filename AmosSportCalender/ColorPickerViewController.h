@@ -15,5 +15,6 @@
 - (id)initWithColor:(UIColor *)defaultColor fullColor:(BOOL)fullColor;
 
 @property (nonatomic)NSInteger indexPathRow;
+@property (nonatomic, strong) void(^refreshBlock)();
 
 @end

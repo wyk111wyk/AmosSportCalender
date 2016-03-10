@@ -31,6 +31,8 @@
 #import "WXApi.h"
 #import "MobClick.h"
 #import "NYSegmentedControl.h"
+#import "YYKit.h"
+#import "NewEventVC.h"
 
 @interface ViewController ()<UITableViewDataSource, UITableViewDelegate, EKEventEditViewDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate, WXApiDelegate>
 {
@@ -40,29 +42,27 @@
     NSDate *_minDate;
     NSDate *_maxDate;
 }
-@property NYSegmentedControl *segmentedControl;
 
-@property (strong, nonatomic)NSMutableDictionary *eventsMostByDate;
+@property (strong, nonatomic)NSMutableDictionary *eventsMostByDate; ///<每一天练的项目，例如胸部
 @property (strong, nonatomic)NSMutableArray *sportTypes;
-@property (strong, nonatomic)NSArray *homeStrLists;
-@property (strong, nonatomic)NSArray *rightButtons;
+@property (strong, nonatomic)NSArray *rightButtons; ///<日历页面的Menu Button Set
 
 @property (strong, nonatomic) IBOutlet UIView *rootView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *menuButton;
 @property (weak, nonatomic) IBOutlet UILabel *underTableLabel;
 @property (weak, nonatomic) IBOutlet UIButton *addEventButton;
-@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentButton;
 @property (weak, nonatomic) IBOutlet UIButton *addToCalendarButton;
 
+//Data
 @property (nonatomic, strong) NSDate* selectedDate; ///<被选择的当天日期，用作key
-@property (nonatomic, strong) NSMutableArray *oneDayEvents; ///<被选择当天的事件数组Array
+@property (nonatomic, strong) NSMutableArray *oneDayEvents; ///<选择的那一天的所有运动
 @property (nonatomic, strong) NSMutableDictionary *doneNumbers; ///<储存完成项目数的字典
 @property (nonatomic, strong) NSNumber *doneNumber; ///<已经完成的项目数
 
+@property (nonatomic, strong) NSMutableArray *allSelectDayEvents; ///<选择的那一天的所有运动
+
 @property (nonatomic, strong) ViewController *vc;
 @property (strong, nonatomic) Event *tempEvent; ///<专程用来在更改数据时临时存放的
-@property (nonatomic, weak) LeftMenuTableView *menuTable;
 
 // EKEventStore instance associated with the current Calendar application
 @property (nonatomic, strong) EKEventStore *eventStore;
@@ -71,103 +71,37 @@
 
 @property (nonatomic) NSInteger applicationIconBadgeNumber;
 
-@property (nonatomic)BOOL isEnterApp;
-
-/* Popover View Controller Handlers */
-@property (nonatomic,strong) UIPopoverController *sharingPopoverController;
-
 @end
 
 @implementation ViewController
-@synthesize summaryVC;
 
 - (void)setSelectedDate:(NSDate *)selectedDate
 {
     _selectedDate = selectedDate;
-    
 }
 
-#pragma mark - life cycle
+#pragma mark - Lift Cycle
 
 - (void)loadView
 {
     [super loadView];
-    SettingStore *setting = [SettingStore sharedSetting];
+    //侧边栏打开的手势
+    [self.sideMenuViewController setPanFromEdge:YES];
     
-    if ([DMPasscode isPasscodeSet] && !setting.passWordOfFingerprint) {
-        
-        UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
-        [self presentViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"touchid"] animated:NO completion:^{
-            
-        }];
-        
-    }
-    //假如通过了密码，则在本次开机过程都不需输入密码
-    setting.passWordOfFingerprint = YES;
-
+    //获取用户权限发送通知
+    [[ASBaseManage sharedManage] getTheAuthorityOfNofication];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    //侧边栏打开的手势
-    [self.sideMenuViewController setPanFromEdge:YES];
-    
-    //主页无计划时TableView上显示的文字
-    self.homeStrLists = [[NSArray alloc] initWithObjects:@"努力画满每一天的圈圈吧！", @"今天没有运动，做个计划吧！", @"每日的计划可以同步到系统日历里去哦", @"为过去创建的运动计划默认已完成", @"别人只看到腹肌，而我们看到了坚毅和决心", nil];
-    
-    //获取用户权限发送通知
-    if (IS_IOS8) {
-    UIUserNotificationSettings *setting=[UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert categories:nil];
-    [[UIApplication sharedApplication] registerUserNotificationSettings:setting];
-    }
-    
     //TableView初始化
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-    //NavBar初始化
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"plus"] style:UIBarButtonItemStylePlain target:self action:@selector(addNewEvent:)];
-    UIBarButtonItem *todayButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"present"]  style:UIBarButtonItemStylePlain target:self action:@selector(didGoTodayTouch)];
-    _rightButtons = [[NSArray alloc] initWithObjects: addButton, todayButton, nil];
-    self.navigationItem.rightBarButtonItems = _rightButtons;
-    
-    self.segmentedControl = [[NYSegmentedControl alloc] initWithItems:@[Local(@"Cal"), Local(@"Sum")]];
-    [self.segmentedControl addTarget:self action:@selector(segmentedControl:) forControlEvents:UIControlEventValueChanged];
-    self.segmentedControl.backgroundColor = [UIColor colorWithWhite:0.9f alpha:1.0f];
-    self.segmentedControl.segmentIndicatorBackgroundColor = [UIColor whiteColor];
-    self.segmentedControl.segmentIndicatorInset = 0.0f;
-    self.segmentedControl.titleTextColor = [UIColor lightGrayColor];
-    self.segmentedControl.selectedTitleTextColor = [UIColor darkGrayColor];
-    self.segmentedControl.usesSpringAnimations = YES;
-    self.segmentedControl.selectedSegmentIndex = 0;
-    
-    [self.segmentedControl sizeToFit];
-    self.navigationItem.titleView = self.segmentedControl;
-    
+    [self initTheTableView];
+    [self initNavBarButtons];
+    [self initTheSegmentSwitch];
     //日历初始化
-    _calendarManager = [JTCalendarManager new];
-    _calendarManager.delegate = self;
-    _calendarManager.settings.weekDayFormat = JTCalendarWeekDayFormatShort;
-    _calendarManager.dateHelper.calendar.locale = [NSLocale currentLocale];
-    //每周的第一天是星期几
-    SettingStore *setting = [SettingStore sharedSetting];
-    if (setting.firstDayOfWeek) {
-        [_calendarManager.dateHelper.calendar setFirstWeekday:1];
-    }else{
-        [_calendarManager.dateHelper.calendar setFirstWeekday:2];
-    };
-    
-    _todayDate = [NSDate date];
-    [_calendarManager setMenuView:_calendarMenuView];
-    [_calendarManager setContentView:_calendarContentView];
-    [_calendarManager setDate:_todayDate];
-    
-    //长按移动cell顺序
-    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureRecognized:)];
-    [self.tableView addGestureRecognizer:longPress];
+    [self initTheCalendarManager];
 
     //初始数据
     self.selectedDate = [NSDate date];
@@ -179,8 +113,6 @@
     for (int i = 0; i < array.count; i++){
         self.sportTypes[i] = [[array objectAtIndex:i] objectForKey:@"sportType"];
     }
-
-    [self createMinAndMaxDate];
 //    NSLog(@"%@", NSStringFromSelector(_cmd));
 }
 
@@ -209,18 +141,39 @@
     [MobClick endLogPageView:@"1_Calendar_Page"];
 }
 
+#pragma mark - 载入数据和处理
+
 - (void)loadTheDateEvents
 {
     //从数据库载入所有数据
     self.oneDayEvents = [NSMutableArray array];
     eventsByDate = [[NSMutableDictionary alloc] initWithDictionary:[[EventStore sharedStore] allItems] copyItems:NO];
-    //载入key
-    NSString *key = [[self dateFormatter] stringFromDate:self.selectedDate];
+    //载入根据时间生成的key
+    NSString *key = [[ASBaseManage dateFormatterForDMY] stringFromDate:self.selectedDate];
+    
     self.oneDayEvents = eventsByDate[key];
     
+    //计算那天完成的项目数，并且更新角标
     [self setUnderTableLabelWithDifferentDay: self.selectedDate];
     [_calendarManager reload];
     [self.tableView reloadData];
+    
+    NSArray *allSportDays = [eventsByDate allKeys];
+    dispatch_queue_t queue = dispatch_queue_create("myQueue",DISPATCH_QUEUE_SERIAL);
+    dispatch_async(queue, ^{
+        for (NSString *key in allSportDays){
+            NSDate *date = [[ASBaseManage dateFormatterForDMY] dateFromString:key];
+            //计算某一天运动最多的项目是什么
+            unsigned long index = [self findTheMaxOfTypes:date];
+            //计算每一天练的都是什么项目
+            if (!self.eventsMostByDate) {
+                self.eventsMostByDate = [NSMutableDictionary dictionary];
+            }
+            if (eventsByDate[key]) {
+                self.eventsMostByDate[key] = self.sportTypes[index];
+            }
+        }
+    });
 
 //    NSLog(@"%@", NSStringFromSelector(_cmd));
 }
@@ -229,7 +182,7 @@
 - (void)setUnderTableLabelWithDifferentDay: (NSDate *)date
 {
     int i = 0;
-    NSString *key = [[self dateFormatter] stringFromDate:date];
+    NSString *key = [[ASBaseManage dateFormatterForDMY] stringFromDate:date];
     
     //计算这一天有多少已完成的事件
     if (eventsByDate[key]) {
@@ -247,7 +200,7 @@
     SettingStore *setting = [SettingStore sharedSetting];
     if (setting.iconBadgeNumber) {
     //设置桌面的数字角标
-    NSString *todayKey = [[self dateFormatter] stringFromDate:[NSDate date]];
+    NSString *todayKey = [[ASBaseManage dateFormatterForDMY] stringFromDate:[NSDate date]];
     if ([key isEqualToString:todayKey] && eventsByDate && _doneNumbers){
         _applicationIconBadgeNumber = [eventsByDate[todayKey] count] - [_doneNumbers[todayKey] integerValue];
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber:_applicationIconBadgeNumber];
@@ -257,8 +210,7 @@
 }
 
 - (void)setTableViewHeadTitle: (NSDate *)date{
-    
-    NSString *key = [[self dateFormatter] stringFromDate:date];
+    NSString *key = [[ASBaseManage dateFormatterForDMY] stringFromDate:date];
     self.doneNumber = self.doneNumbers[key];
     
     PersonInfoStore *personal = [PersonInfoStore sharedSetting];
@@ -299,12 +251,130 @@
             self.addToCalendarButton.hidden = YES;
         }
         self.addEventButton.hidden = NO;
-        int i = arc4random() % self.homeStrLists.count;
-        self.underTableLabel.text = self.homeStrLists[i];
+        NSArray *showingTextArr = [[NSArray alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"homePageShow.plist" ofType:nil]];
+        int i = arc4random() % showingTextArr.count;
+        self.underTableLabel.text = showingTextArr[i];
     }
 }
 
-#pragma mark - click the Date
+#pragma mark - UI组件初始化
+
+- (void)initTheTableView {
+    //TableView初始化
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    //长按移动cell顺序
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureRecognized:)];
+    [self.tableView addGestureRecognizer:longPress];
+}
+
+- (void)initNavBarButtons {
+    //NavBar初始化
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"plus"] style:UIBarButtonItemStylePlain target:nil action:nil];
+    [addButton setActionBlock:^(id _Nonnull sender) {
+        [self alertForChooseCreate];
+    }];
+    [_addEventButton addBlockForControlEvents:UIControlEventTouchUpInside block:^(id  _Nonnull sender) {
+        [self alertForChooseCreate];
+    }];
+    UIBarButtonItem *todayButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"present"]  style:UIBarButtonItemStylePlain target:nil action:nil];
+    [todayButton setActionBlock:^(id _Nonnull sender) {
+        [self didGoTodayTouch];
+    }];
+    _rightButtons = [[NSArray alloc] initWithObjects: addButton, todayButton, nil];
+    self.navigationItem.rightBarButtonItems = _rightButtons;
+    
+    UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menuIcon"] style:UIBarButtonItemStylePlain target:self action:nil];
+    [menuButton setActionBlock:^(id _Nonnull sender) {
+        [self.sideMenuViewController presentLeftMenuViewController];
+    }];
+    self.navigationItem.leftBarButtonItem = menuButton;
+}
+
+- (void)initTheSegmentSwitch {
+    NYSegmentedControl *segmentedControl = [[NYSegmentedControl alloc] initWithItems:@[Local(@"Cal"), Local(@"Sum")]];
+    [segmentedControl addBlockForControlEvents:UIControlEventValueChanged block:^(id  _Nonnull sender) {
+        UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"upload"] style:UIBarButtonItemStylePlain target:self action:@selector(alertForShare)];
+        
+        switch ([sender selectedSegmentIndex]) {
+            case 0:
+                //日历页面
+                
+                [[self.view.subviews lastObject] removeFromSuperview];
+                self.navigationItem.rightBarButtonItem = nil;
+                self.navigationItem.rightBarButtonItems = self.rightButtons;
+                
+                self.addEventButton.enabled = YES;
+                [self setTableViewHeadTitle:self.selectedDate];
+                break;
+                
+            case 1:
+                //数据展示页面
+                
+                if (self.calendarManager.settings.weekModeEnabled) {
+                    [self transitionExample];
+                    [self.calendarManager reload];
+                    [self setTableViewHeadTitle:self.selectedDate];
+                }
+                
+                //View Changes to Today
+                [self didGoTodayTouch];
+                
+                self.summaryVC = [[SummaryViewController alloc] init];
+                self.summaryVC.eventsMostByDate = self.eventsMostByDate;
+                
+                self.navigationItem.rightBarButtonItems = nil;
+                self.navigationItem.rightBarButtonItem = shareButton;
+                
+                self.addEventButton.enabled = NO;
+                [self.view addSubview:self.summaryVC.view];
+                
+                break;
+                
+            default:
+                break;
+        }
+    }];
+    segmentedControl.backgroundColor = [UIColor colorWithWhite:0.9f alpha:1.0f];
+    segmentedControl.segmentIndicatorBackgroundColor = MyWhite;
+    segmentedControl.segmentIndicatorInset = 0.0f;
+    segmentedControl.titleTextColor = MyLightGray;
+    segmentedControl.selectedTitleTextColor = MyDarkGray;
+    segmentedControl.usesSpringAnimations = YES;
+    segmentedControl.selectedSegmentIndex = 0;
+    
+    [segmentedControl sizeToFit];
+    self.navigationItem.titleView = segmentedControl;
+}
+
+- (void)initTheCalendarManager {
+    //日历初始化
+    _calendarManager = [JTCalendarManager new];
+    _calendarManager.delegate = self;
+    _calendarManager.settings.weekDayFormat = JTCalendarWeekDayFormatShort;
+    _calendarManager.dateHelper.calendar.locale = [NSLocale currentLocale];
+    //每周的第一天是星期几
+    SettingStore *setting = [SettingStore sharedSetting];
+    if (setting.firstDayOfWeek) {
+        [_calendarManager.dateHelper.calendar setFirstWeekday:1];
+    }else{
+        [_calendarManager.dateHelper.calendar setFirstWeekday:2];
+    };
+    
+    _todayDate = [NSDate date];
+    [_calendarManager setMenuView:_calendarMenuView];
+    [_calendarManager setContentView:_calendarContentView];
+    [_calendarManager setDate:_todayDate];
+    
+    //载入前后几周多少数据
+    // Min date will be 2 month before today
+    _minDate = [_calendarManager.dateHelper addToDate:_todayDate months:-2];
+    // Max date will be 2 month after today
+    _maxDate = [_calendarManager.dateHelper addToDate:_todayDate months:2];
+}
+
+#pragma mark - 点击一个日期
 
 - (void)calendar:(JTCalendarManager *)calendar didTouchDayView:(JTCalendarDayView *)dayView
 {
@@ -346,11 +416,6 @@
 
 #pragma mark - Create New Event
 
-- (IBAction)addNewEvent:(UIButton *)sender {
-
-    [self alertForChooseCreate];
-}
-
 - (void)prepareForSegue:(nonnull UIStoryboardSegue *)segue sender:(nullable id)sender
 {
 //    NSLog(@"%@", NSStringFromSelector(_cmd));
@@ -364,8 +429,8 @@
         mvc.createNewEvent = self.tempEvent ? NO : YES;
         mvc.date = _selectedDate;
         
-        NSString *showStr = [[self dateFormatter] stringFromDate:self.selectedDate];
-        NSString *compareStr = [[self dateFormatter] stringFromDate:[NSDate date]];
+        NSString *showStr = [[ASBaseManage dateFormatterForDMY] stringFromDate:self.selectedDate];
+        NSString *compareStr = [[ASBaseManage dateFormatterForDMY] stringFromDate:[NSDate date]];
         
         //假如新建事项，过去的日子默认完成
         if (mvc.createNewEvent) {
@@ -379,11 +444,6 @@
             [self performSegueWithIdentifier:@"newEvent" sender:self];
         };
         
-        //新建事件前把页面切回日历视图
-        if (self.segmentButton.selectedSegmentIndex == 1) {
-        self.segmentButton.selectedSegmentIndex = 0;
-        [self segmentedControl:self.segmentButton];
-        }
     }
 }
 
@@ -397,11 +457,12 @@
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction * action) {
                                                 
-        PersonInfoStore *personal = [PersonInfoStore sharedSetting];
-        personal.defaultSportType = self.sportTypes[0];
-        personal.defaultSportName = @"卧推（平板杠铃）";
-        
-        [self performSegueWithIdentifier:@"newEvent" sender:self];
+        NewEventVC *newEvent = [[NewEventVC alloc] init];
+        SportRecordStore *recordStore = [SportRecordStore new];
+        newEvent.pageState = 0;
+        newEvent.recordStore = recordStore;
+        UINavigationController *newNav = [[UINavigationController alloc] initWithRootViewController:newEvent];
+        [self presentViewController:newNav animated:YES completion:nil];
                                             }]];
     [alert addAction:[UIAlertAction actionWithTitle:@"精选组合"
                                               style:UIAlertActionStyleDefault
@@ -419,57 +480,7 @@
 
 #pragma mark - Buttons callback
 
-- (IBAction)segmentedControl:(UISegmentedControl *)sender {
-    
-    UIBarButtonItem *shareButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"upload"] style:UIBarButtonItemStylePlain target:self action:@selector(alertForShare)];
-
-    switch ([sender selectedSegmentIndex]) {
-        case 0:
-//            NSLog(@"first click");
-            
-            [[self.view.subviews lastObject] removeFromSuperview];
-            self.navigationItem.rightBarButtonItem = nil;
-            self.navigationItem.rightBarButtonItems = _rightButtons;
-            
-            self.addEventButton.enabled = YES;
-            [self setTableViewHeadTitle:self.selectedDate];
-            break;
-            
-        case 1:
-//            NSLog(@"second click");
-
-            if (_calendarManager.settings.weekModeEnabled) {
-                [self transitionExample];
-                [_calendarManager reload];
-                [self setTableViewHeadTitle:_selectedDate];
-            }
-            
-            //View Changes to Today
-            [self didGoTodayTouch];
-            
-            summaryVC = [[SummaryViewController alloc] init];
-            summaryVC.eventsMostByDate = self.eventsMostByDate;
-            
-            self.navigationItem.rightBarButtonItems = nil;
-            self.navigationItem.rightBarButtonItem = shareButton;
-            
-            self.addEventButton.enabled = NO;
-            [self.view addSubview:summaryVC.view];
-            
-            break;
-            
-        default:
-            break;
-    }
-}
-
-- (IBAction)openAndCloseDrower:(UIBarButtonItem *)sender {
-    
-//    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
-    [self.sideMenuViewController presentLeftMenuViewController];
-}
-
-- (IBAction)didGoTodayTouch
+- (void) didGoTodayTouch
 {
     [_calendarManager setDate:_todayDate];
     _selectedDate = _todayDate;
@@ -534,7 +545,7 @@
 
 - (BOOL)haveEventForDay:(NSDate *)date
 {
-    NSString *key = [[self dateFormatter] stringFromDate:date];
+    NSString *key = [[ASBaseManage dateFormatterForDMY] stringFromDate:date];
     
     int i = [self.doneNumbers[key] intValue];
     
@@ -554,7 +565,7 @@
 
 - (BOOL)eventsAllDoneForDay:(NSDate *)date
 {
-    NSString *key = [[self dateFormatter] stringFromDate:date];
+    NSString *key = [[ASBaseManage dateFormatterForDMY] stringFromDate:date];
     
     int i = [self.doneNumbers[key] intValue];
     
@@ -575,7 +586,7 @@
 {
 //    NSLog(@"%@", NSStringFromSelector(_cmd));
     
-    NSString *key = [[self dateFormatter] stringFromDate:date];
+    NSString *key = [[ASBaseManage dateFormatterForDMY] stringFromDate:date];
     
     NSArray *sportTypes = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sportTypes" ofType:@"plist"]];
     NSUInteger k = sportTypes.count;
@@ -592,13 +603,13 @@
         [numberArray addObject:[NSNumber numberWithInt:a]];
     }
     
-    int max = [self findMaxInArray:numberArray];
-    NSNumber *maxNumber = [NSNumber numberWithInt:max];
+    int maxIndex = [[ASBaseManage sharedManage] findMaxInArray:numberArray];
+    NSNumber *maxNumber = [NSNumber numberWithInt:maxIndex];
     unsigned long index = 0;
     index = [numberArray indexOfObject:maxNumber]; //根据内容寻找下标，返回最近的值
 //    NSLog(@"最多的元素下标是: %ld", index);
     
-    if (max > 0) {
+    if (maxIndex > 0) {
     return index;
     }
     
@@ -613,19 +624,7 @@
 
 #pragma mark - CalendarManager delegate
 
-- (void)createMinAndMaxDate
-{
-    _todayDate = [NSDate date];
-    
-    // Min date will be 2 month before today
-    _minDate = [_calendarManager.dateHelper addToDate:_todayDate months:-2];
-    
-    // Max date will be 2 month after today
-    _maxDate = [_calendarManager.dateHelper addToDate:_todayDate months:2];
-}
-
-// Exemple of implementation of prepareDayView method
-// Used to customize the appearance of dayView
+//每一天的View的载入
 - (void)calendar:(JTCalendarManager *)calendar prepareDayView:(JTCalendarDayView *)dayView
 {
 //    NSLog(@"prepareDayView");
@@ -682,26 +681,19 @@
         dayView.finishView.hidden = YES;
     }
     
-    if (!self.eventsMostByDate) {
-        self.eventsMostByDate = [NSMutableDictionary dictionary];
-    }
-    NSString *key = [[self dateFormatter] stringFromDate:mydate];
-    if (eventsByDate[key]) {
-    self.eventsMostByDate[key] = self.sportTypes[index];
-    }
-    
 //    NSLog(@"%@", NSStringFromSelector(_cmd));
 }
+
 //Menu视图属性
 - (UIView *)calendarBuildMenuItemView:(JTCalendarManager *)calendar
 {
     UILabel *label = [UILabel new];
-    
     label.textAlignment = NSTextAlignmentCenter;
     label.font = [UIFont fontWithName:@"Avenir-Medium" size:18];
     
     return label;
 }
+
 //Menu视图字体
 - (void)calendar:(JTCalendarManager *)calendar prepareMenuItemView:(UILabel *)menuItemView date:(NSDate *)date
 {
@@ -730,29 +722,13 @@
     return view;
 }
 
+//每天的字体和选圈的大小
 - (UIView<JTCalendarDay> *)calendarBuildDayView:(JTCalendarManager *)calendar
 {
-//    NSLog(@"calendarBuildDayView");
-    
     JTCalendarDayView *view = [JTCalendarDayView new];
-    
     view.textLabel.font = [UIFont fontWithName:@"Avenir-Light" size:13];
-    
     view.circleRatio = .8;
-    
     return view;
-}
-
-// Used only to have a key for _eventsByDate
-- (NSDateFormatter *)dateFormatter
-{
-    static NSDateFormatter *dateFormatter;
-    if(!dateFormatter){
-        dateFormatter = [NSDateFormatter new];
-        dateFormatter.dateFormat = @"dd-MM-yyyy";
-    }
-    
-    return dateFormatter;
 }
 
 #pragma mark - CalendarManager delegate - Page mangement
@@ -767,7 +743,51 @@
     if (DeBugMode) { NSLog(@"Previous page loaded");}
 }
 
-#pragma mark - tableview
+#pragma mark - Tableview Delegate
+
+
+- (nullable UIView *)tableView:(nonnull UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    //初始化自定义View
+    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenWidth,20)];
+    [headerView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
+    // TODO: 这里可以是当天的运动的颜色
+    headerView.backgroundColor = [UIColor colorWithWhite:0.55 alpha:0.7];
+    
+    //设置Header的字体
+    UILabel *headText = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, screenWidth, 20)];
+    headText.textColor = [UIColor whiteColor];
+    headText.textAlignment = NSTextAlignmentCenter;
+    [headText setFont:[UIFont fontWithName:@"Arial" size:14]];
+    headText.text = @"text";
+    [headerView addSubview:headText];
+    
+    //设置underLabel的文字内容
+    [self setTableViewHeadTitle:self.selectedDate];
+    
+    unsigned long index = [self findTheMaxOfTypes:self.selectedDate];
+    NSArray *sportTypes = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sportTypes" ofType:@"plist"]];
+    NSString *blankStr = @"";
+    
+    NSDateFormatter *dateFormatter = [NSDateFormatter new];
+    dateFormatter.dateFormat = @"yyyy-MM-dd EEEE";
+    
+    headText.text = ([self.doneNumber intValue] > 0)
+    ?
+    [NSString stringWithFormat:@"%@ - %@",[dateFormatter stringFromDate:self.selectedDate],
+     [sportTypes[index] objectForKey:@"sportType"]?
+     [sportTypes[index] objectForKey:@"sportType"]:blankStr]
+    :
+    [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:self.selectedDate]];
+    
+    return headerView;
+
+}
+
+- (CGFloat)tableView:(nonnull UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
+{
+    return 55;
+}
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -780,9 +800,12 @@
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
-    SportTVCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+    static NSString *cellIdentifier = @"SportTVCell";
+    SportTVCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if(cell == nil) {
+        cell = [[[NSBundle mainBundle]loadNibNamed:cellIdentifier owner:nil options:nil] firstObject];
+    }
     
-//    NSLog(@"+ 重载cell");
     Event *event = self.oneDayEvents[indexPath.row];
     cell.event = event;
     
@@ -791,16 +814,12 @@
 
 - (void)tableView:(nonnull UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
-    
-//    SportTVCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
     Event *event = self.oneDayEvents[indexPath.row];
     
     if (event.done == NO){
         
         event.done = YES;
-        
         [[EventStore sharedStore] moveItemAtIndex:indexPath.row toIndex:self.oneDayEvents.count - 1 date:self.selectedDate];
-        
         NSIndexPath *fromIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
         NSUInteger row = [self.oneDayEvents count] - 1;
         NSIndexPath *toIndexPath = [NSIndexPath indexPathForRow:row inSection:0];
@@ -838,53 +857,6 @@
         NSLog(@"完成事件后，储存数据失败！");
     } }
 }
-
-- (nullable UIView *)tableView:(nonnull UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
-    //初始化自定义View
-    UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 20)];
-    [headerView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
-    headerView.backgroundColor = [UIColor colorWithWhite:0.55 alpha:0.7];
-
-    //设置Header的字体
-    UILabel *headText = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 22)];
-    headText.textColor = [UIColor whiteColor];
-    [headText setFont:[UIFont fontWithName:@"Arial" size:14]];
-    headText.text = @"text";
-    [headText sizeToFit];
-    [headerView addSubview:headText];
-    
-    //设置underLabel的文字内容
-    [self setTableViewHeadTitle:self.selectedDate];
-    
-    unsigned long index = [self findTheMaxOfTypes:self.selectedDate];
-    NSArray *sportTypes = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sportTypes" ofType:@"plist"]];
-    NSString *blankStr = @"";
-    
-    if (section == 0) {
-        NSDateFormatter *dateFormatter = [NSDateFormatter new];
-        dateFormatter.dateFormat = @"yyyy-MM-dd EEEE";
-        
-        headText.text = ([self.doneNumber intValue] > 0)
-        ?
-        [NSString stringWithFormat:@"%@ - %@",[dateFormatter stringFromDate:self.selectedDate],
-         [sportTypes[index] objectForKey:@"sportType"]?
-         [sportTypes[index] objectForKey:@"sportType"]:blankStr]
-        :
-        [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:self.selectedDate]];
-        
-        [headText sizeToFit];
-        headText.center = headerView.center;
-        
-        return headerView;
-    }
-    return headerView;
-}
-
-- (CGFloat)tableView:(nonnull UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
-{
-    return 55;
-}
 #pragma mark - TableView的操作
 
 //这两个方法是必须的
@@ -896,6 +868,7 @@
 //实现协议规定的方法，需要向UITableView发送该消息
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
 }
 
 //设置滑动后出现的选项
@@ -965,7 +938,7 @@
                 UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
                 
                 // Take a snapshot of the selected row using helper method.
-                snapshot = [self customSnapshoFromView:cell];
+                snapshot = [[ASBaseManage sharedManage] customSnapshoFromView:cell];
                 
                 // Add the snapshot as subview, centered at cell's center...
                 __block CGPoint center = cell.center;
@@ -1043,43 +1016,6 @@
         }
     }
 }
-
-#pragma mark - Helper methods
-
-/** @brief Returns a customized snapshot of a given view. */
-- (UIView *)customSnapshoFromView:(UIView *)inputView {
-    
-    // Make an image from the input view.
-    UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, NO, 0);
-    [inputView.layer renderInContext:UIGraphicsGetCurrentContext()];
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    // Create an image view.
-    UIView *snapshot = [[UIImageView alloc] initWithImage:image];
-    snapshot.layer.masksToBounds = NO;
-    snapshot.layer.cornerRadius = 0.0;
-    snapshot.layer.shadowOffset = CGSizeMake(-5.0, 0.0);
-    snapshot.layer.shadowRadius = 5.0;
-    snapshot.layer.shadowOpacity = 0.4;
-    
-    return snapshot;
-}
-
-#pragma mark - 求数组中最大值的方法
-
-- (int)findMaxInArray:(NSArray *)array
-{
-    int max = 0;
-    max = [array[0] intValue];
-    for (int i = 1; i < array.count; i++) {
-        if ([array[i] intValue] > max) {
-            max = [array[i] intValue];
-        }
-    }
-    return max;
-}
-
 
 #pragma mark - 申请日历事件的权限
 
@@ -1222,7 +1158,7 @@
 
 - (void)alertForShare
 {
-    UIImage *bottomImage = [self scaleTheImage:[UIImage imageNamed:@"shareButtonImage"]];
+    UIImage *bottomImage = [[ASBaseManage sharedManage] scaleTheImage:[UIImage imageNamed:@"shareButtonImage"]];
     
     WeixinSessionActivity *weixinSession = [[WeixinSessionActivity alloc] init];
     WeixinTimelineActivity *weixinTimeLine = [[WeixinTimelineActivity alloc] init];
@@ -1243,10 +1179,10 @@
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction * action) {
                                                 
-        UIImage *headerImg = [self captureView:_tableView Rectsize:CGSizeMake(screenWidth, 20)];
+        UIImage *headerImg = [[ASBaseManage sharedManage] captureView:_tableView Rectsize:CGSizeMake(screenWidth, 20)];
         UIImage *tableImg = [self captureTableView:_tableView];
-        UIImage *tempImg = [self addImageview:tableImg toImage:headerImg];
-        UIImage *img = [self addImageview:bottomImage toImage:tempImg];
+        UIImage *tempImg = [[ASBaseManage sharedManage] addImageview:tableImg toImage:headerImg];
+        UIImage *img = [[ASBaseManage sharedManage] addImageview:bottomImage toImage:tempImg];
         [self shareThePersonalInfo:img];
                                             }]];
     [alert addAction:[UIAlertAction actionWithTitle:Local(@"Summary")
@@ -1254,13 +1190,13 @@
                                             handler:^(UIAlertAction * action) {
                          
 //        UIImage *topImg1 = [self captureView:_calendarMenuView Rectsize:CGSizeMake(screenWidth, 50)];
-        UIImage *topImg2 = [SummaryViewController captureView:summaryVC.view4];
+        UIImage *topImg2 = [SummaryViewController captureView:self.summaryVC.view4];
 //        UIImage *topImg = [self addImageview:topImg2 toImage:topImg1];
                                                 
-        UIImage *tempImg = [SummaryViewController captureView:summaryVC.view1];
-        UIImage *bottomImg = [self addImageview:topImg2 toImage:tempImg];
+        UIImage *tempImg = [SummaryViewController captureView:self.summaryVC.view1];
+        UIImage *bottomImg = [[ASBaseManage sharedManage] addImageview:topImg2 toImage:tempImg];
                                                 
-        UIImage *img = [self addImageview:bottomImage toImage:bottomImg];
+        UIImage *img = [[ASBaseManage sharedManage] addImageview:bottomImage toImage:bottomImg];
         [self shareThePersonalInfo:img];
                                             }]];
     
@@ -1284,25 +1220,6 @@
 
 }
 
-# pragma mark - 屏幕截图处理方法
-
-//对某View进行截图
-- (UIImage*)captureView: (UIView *)theView Rectsize: (CGSize)size
-{
-    UIGraphicsBeginImageContextWithOptions(size, YES, 0.f);
-    //将view上的子view加进来
-    CGContextRef context =UIGraphicsGetCurrentContext();
-    [theView.layer renderInContext:context];
-    
-//    CGImageRef imageMasked = CGBitmapContextCreateImage(context);
-//    UIImage *img = [UIImage imageWithCGImage:imageMasked];
-    
-    UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    
-    return img;
-}
-
 //对TableView进行截图
 - (UIImage *)captureTableView:(UITableView *)tableView
 {
@@ -1310,9 +1227,9 @@
     
     //t来保存整张图的高度
     int t = 0;
-    for (int i = 0; i < [self.tableView numberOfRowsInSection:0]; ++i) {
+    for (int i = 0; i < [tableView numberOfRowsInSection:0]; ++i) {
         NSIndexPath *path = [NSIndexPath indexPathForRow:i inSection:0];
-        t += [self tableView:_tableView heightForRowAtIndexPath:path];
+        t += [self tableView:tableView heightForRowAtIndexPath:path];
     }
     //开始绘图
     UIGraphicsBeginImageContextWithOptions(CGSizeMake(screenWidth, t), YES, 0.f);
@@ -1325,7 +1242,7 @@
     float height = 0;
     
     //使用循环创建tableviewcell绘制在图形上下文之上
-    for (int i = 0; i < [self.tableView numberOfRowsInSection:0]; ++i) {
+    for (int i = 0; i < [tableView numberOfRowsInSection:0]; ++i) {
         //绘制第i个cell的时候需要下移前面所有cell高度的和
         CGContextTranslateCTM(context,.0,-lasty);
         
@@ -1333,13 +1250,13 @@
         //获取cell
         UITableViewCell *Cell = [tableView cellForRowAtIndexPath:path];
         if (Cell == nil) {
-            Cell = [self tableView:_tableView cellForRowAtIndexPath:path];
+            Cell = [self tableView:tableView cellForRowAtIndexPath:path];
         }
         
-        height += [self tableView:_tableView heightForRowAtIndexPath:path];
-        float y = height - [self tableView:_tableView heightForRowAtIndexPath:path];
+        height += [self tableView:tableView heightForRowAtIndexPath:path];
+        float y = height - [self tableView:tableView heightForRowAtIndexPath:path];
         
-        [_tableView setContentOffset:CGPointMake(0, y)];
+        [tableView setContentOffset:CGPointMake(0, y)];
         
         //绘图偏移移回最顶部
         CGContextTranslateCTM(context,.0,y);
@@ -1355,50 +1272,8 @@
     UIImage *img = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    [_tableView setContentOffset:CGPointZero];
+    [tableView setContentOffset:CGPointZero];
     return img;
-}
-
-//合并两张图片
-- (UIImage *)addImageview:(UIImage *)imageBottom toImage:(UIImage *)imageTop {
-    
-    CGSize size = CGSizeMake(imageTop.size.width, imageTop.size.height + imageBottom.size.height);
-    UIGraphicsBeginImageContextWithOptions(size, YES, 0.f);
-    
-    // Draw image1
-    [imageTop drawInRect:CGRectMake(0, 0, imageTop.size.width, imageTop.size.height)];
-    
-    // Draw image2
-    [imageBottom drawInRect:CGRectMake(0, imageTop.size.height, imageBottom.size.width, imageBottom.size.height)];
-    
-    UIImage *resultingImage = UIGraphicsGetImageFromCurrentImageContext();
-    
-    UIGraphicsEndImageContext();
-    
-    return resultingImage;
-}
-
-- (UIImage *)scaleTheImage:(UIImage *)img {
-    
-    float radio = img.size.height / img.size.width;
-    
-    float width = screenWidth;
-    float height = width * radio;
-
-    // 并把它设置成为当前正在使用的context(这里的Size是最终成品图的size)
-    UIGraphicsBeginImageContextWithOptions(CGSizeMake(width, height), YES, 0.f);
-
-    // 绘制改变大小的图片
-    [img drawInRect:CGRectMake(0, 0, width, height)];
-
-    // 从当前context中创建一个改变大小后的图片
-    UIImage* scaledImage = UIGraphicsGetImageFromCurrentImageContext();
-
-    // 使当前的context出堆栈
-    UIGraphicsEndImageContext();
-    
-    // 返回新的改变大小后的图片
-    return scaledImage;
 }
 
 

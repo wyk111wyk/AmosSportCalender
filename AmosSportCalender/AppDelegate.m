@@ -36,11 +36,25 @@ NSArray *sportTypes;
     
     [self registerTherdSDK];
     
-    //重绘状态栏
-    [application setStatusBarHidden:NO withAnimation:UIStatusBarAnimationFade];
-
-    SettingStore *setting = [SettingStore sharedSetting];
-    setting.passWordOfFingerprint = NO;
+    //数据迁移(从原来的文件传到数据库)
+    
+    NSInteger eventCount = [SportEventStore findCounts:nil];
+    if (eventCount == 0) {
+        NSArray * partArray = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"AllSystemSportEvents" ofType:@"plist"]];
+        for (NSDictionary *tempDic in partArray){
+            SportEventStore *newEvent = [SportEventStore new];
+            newEvent.isSystemMade = YES;
+            newEvent.sportName = [tempDic objectForKey:@"sportName"];
+            newEvent.sportEquipment = [tempDic objectForKey:@"sportEquipment"];
+            newEvent.muscles = [tempDic objectForKey:@"muscles"];
+            newEvent.sportPart = [tempDic objectForKey:@"sportPart"];
+            newEvent.sportSerialNum = [tempDic objectForKey:@"sportSerialNum"];
+            newEvent.sportType = [[tempDic objectForKey:@"sportType"] integerValue];
+            newEvent.imageKey = [tempDic objectForKey:@"imageKey"];
+            [newEvent save];
+        }
+    }
+    
     
     //假如第一次启动软件，则创建运动项目类
     [self createAllSportTypeArray];
@@ -48,8 +62,8 @@ NSArray *sportTypes;
     //初始化侧边栏
     [self initNavAndDrawer];
     
-    //开机画面的显示时间
-    [NSThread sleepForTimeInterval:0.f];
+    //Touch ID
+    [[ASBaseManage sharedManage] UseTouchIDForSecurity];
     
     return YES;
 }
@@ -198,12 +212,6 @@ NSArray *sportTypes;
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     // Saves changes in the application's managed object context before the application terminates.
-    SettingStore *setting = [SettingStore sharedSetting];
-    setting.passWordOfFingerprint = NO;
-    
-    if (DeBugMode) {
-    NSLog(@"TouchID 已打开");
-    }
 }
 
 - (void)registerTherdSDK

@@ -99,6 +99,9 @@
     [tempMuArray replaceObjectAtIndex:self.indexPathRow withObject:oneColor];
     
     setting.typeColorArray = tempMuArray;
+    if (self.refreshBlock) {
+        self.refreshBlock();
+    }
     
     [self.navigationController popViewControllerAnimated:YES];
 }

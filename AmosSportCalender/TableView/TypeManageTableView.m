@@ -39,7 +39,9 @@ static NSString* const typeManageCellReuseId = @"typeManageCell";
     
     NSFileManager * defaultManager = [NSFileManager defaultManager];
     NSURL * documentPath = [[defaultManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask]firstObject];
+    //文件夹
     NSString * fileContainFloder = [documentPath.path stringByAppendingPathComponent:@"sportEventData"];
+    //文件
     NSString * fileSavePath = [fileContainFloder stringByAppendingPathComponent:@"sportTypeArray.plist"];
     NSArray * array = [NSArray arrayWithContentsOfFile:fileSavePath];
     
@@ -162,7 +164,6 @@ static NSString* const typeManageCellReuseId = @"typeManageCell";
 {
     SettingStore *setting = [SettingStore sharedSetting];
     
-    //删除的方法
     UITableViewRowAction *editColorAction = [UITableViewRowAction
                                           rowActionWithStyle:UITableViewRowActionStyleDestructive
                                           title:@"改变颜色"

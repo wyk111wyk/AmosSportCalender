@@ -11,6 +11,7 @@
 #import "RESideMenu.h"
 #import "UMFeedback.h"
 #import "CommonMarco.h"
+#import "SportPartManageTV.h"
 
 @interface LeftMenuViewController ()
 
@@ -68,9 +69,7 @@
     // 有新消息
     UMFeedback *feed = [UMFeedback sharedInstance];
     if (feed.theNewReplies != nil && feed.theNewReplies.count > 0) {
-//        NSLog(@"开发者给我发新消息了！！！ %@条！", @(feed.theNewReplies.count));
         _feedbackView.nMesagePieView.hidden = NO;
-        
         NSUInteger i = feed.theNewReplies.count;
         if (i > 9) {
             i = 9;
@@ -101,13 +100,15 @@
             [self.sideMenuViewController setContentViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"summaryTableNav"] animated:YES];
         }else if (sender == _typeManageView){
             if (DeBugMode) { NSLog(@"click 3"); }
-            [self.sideMenuViewController setContentViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"typeManageNav"] animated:YES];
+            SportPartManageTV *partTV = [[SportPartManageTV alloc] initWithStyle:UITableViewStylePlain];
+            partTV.canEditEvents = YES;
+            UINavigationController *partNav = [[UINavigationController alloc] initWithRootViewController:partTV];
+            [self.sideMenuViewController setContentViewController:partNav];
         }else if (sender == _settingView){
             if (DeBugMode) { NSLog(@"click 4"); }
             [self.sideMenuViewController setContentViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"settingNav"] animated:YES];
         }else if (sender == _feedbackView){
             if (DeBugMode) { NSLog(@"click 5"); }
-//            [self.sideMenuViewController setContentViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"feedbackNav"] animated:YES];
             
             UINavigationController *feedbackNav = [[UINavigationController alloc] initWithRootViewController:[UMFeedback feedbackViewController]];
             feedbackNav.navigationBar.tintColor = [UIColor colorWithRed:0.0000 green:0.5608 blue:0.5176 alpha:1];

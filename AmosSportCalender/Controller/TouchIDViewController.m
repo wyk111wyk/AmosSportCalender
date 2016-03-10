@@ -48,11 +48,9 @@
 }
 
 - (IBAction)TouchIDButtonClick:(UIButton *)sender {
-    SettingStore *setting = [SettingStore sharedSetting];
     [DMPasscode showPasscodeInViewController:self completion:^(BOOL success, NSError *error) {
         if (success) {
             NSLog(@"TouchID success");
-            setting.passWordOfFingerprint = YES;
             
             [self dismissViewControllerAnimated:YES completion:nil];
         } else {

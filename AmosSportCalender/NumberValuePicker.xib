@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="NumberValuePicker">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="188"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XCR-Kw-mXl">
+                    <rect key="frame" x="142" y="8" width="35.5" height="21.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="29" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zb3-0h-iRv">
+                    <rect key="frame" x="94" y="41" width="66" height="67"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="56"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HeN-rq-mKI">
+                    <rect key="frame" x="180" y="79" width="31.5" height="20.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uUP-4v-x3Z">
+                    <rect key="frame" x="12" y="8" width="50" height="26"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="50" id="Yps-fF-tqj"/>
+                        <constraint firstAttribute="height" constant="26" id="sUc-xN-AIK"/>
+                    </constraints>
+                    <state key="normal" title="清空"/>
+                    <connections>
+                        <action selector="buttonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="Phr-bB-Aza"/>
+                    </connections>
+                </button>
+                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D4n-fF-R2W">
+                    <rect key="frame" x="258" y="8" width="50" height="26"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="26" id="6mY-st-HKT"/>
+                        <constraint firstAttribute="width" constant="50" id="SQK-MF-zgC"/>
+                    </constraints>
+                    <color key="tintColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal" title="自重"/>
+                    <connections>
+                        <action selector="buttonClicked:" destination="iN0-l3-epB" eventType="touchUpInside" id="LRz-la-KD4"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="HeN-rq-mKI" firstAttribute="baseline" secondItem="zb3-0h-iRv" secondAttribute="baseline" id="IbE-Zl-IRX"/>
+                <constraint firstItem="uUP-4v-x3Z" firstAttribute="centerY" secondItem="XCR-Kw-mXl" secondAttribute="centerY" constant="3" id="SQ4-dZ-GDZ"/>
+                <constraint firstItem="XCR-Kw-mXl" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Umi-Bj-iHu"/>
+                <constraint firstItem="XCR-Kw-mXl" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="cik-8A-6Q0"/>
+                <constraint firstItem="D4n-fF-R2W" firstAttribute="centerY" secondItem="XCR-Kw-mXl" secondAttribute="centerY" constant="3" id="hlL-mO-bav"/>
+                <constraint firstItem="zb3-0h-iRv" firstAttribute="top" secondItem="XCR-Kw-mXl" secondAttribute="bottom" constant="12" id="hpg-WF-Ac9"/>
+                <constraint firstItem="uUP-4v-x3Z" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="12" id="nUd-dv-4rJ"/>
+                <constraint firstAttribute="trailing" secondItem="D4n-fF-R2W" secondAttribute="trailing" constant="12" id="t18-LI-nyM"/>
+                <constraint firstItem="zb3-0h-iRv" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" constant="-33" id="vCm-Je-nAi"/>
+                <constraint firstItem="HeN-rq-mKI" firstAttribute="leading" secondItem="zb3-0h-iRv" secondAttribute="trailing" constant="20" id="wwf-2W-uHS"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="clearButton" destination="uUP-4v-x3Z" id="fs2-S6-RdY"/>
+                <outlet property="numberLabel" destination="zb3-0h-iRv" id="msQ-Lm-Aol"/>
+                <outlet property="selfWeghtButton" destination="D4n-fF-R2W" id="QRg-2A-RfX"/>
+                <outlet property="titleLabel" destination="XCR-Kw-mXl" id="sDS-m4-R86"/>
+                <outlet property="unitLabel" destination="HeN-rq-mKI" id="7Wv-lg-YDG"/>
+            </connections>
+            <point key="canvasLocation" x="324" y="283"/>
+        </view>
+    </objects>
+</document>

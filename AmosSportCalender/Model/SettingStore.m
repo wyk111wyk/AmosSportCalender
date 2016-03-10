@@ -11,12 +11,13 @@
 
 static NSString *const kAutoUpDate = @"autoUpDate";
 static NSString *const kfirstDayOfWeekKey = @"firstDayOfWeek";
-static NSString *const kpassWordOfFingerprintKey = @"passWordOfFingerprint";
+static NSString *const isTouchIDOnKey = @"isTouchIDOn";
 static NSString *const ksportTypeImageMaleKey = @"sportTypeImageMale";
 static NSString *const kIconBadgeNumber = @"IconBadgeNumber";
 static NSString *const kalertForSport = @"alertForSport";
 static NSString *const kalertForDays = @"alertForDays";
 static NSString *const kTypeColorArray = @"TypeColorArray";
+static NSString *const weightUnitKey = @"weightUnit";
 
 @interface SettingStore()
 
@@ -51,21 +52,23 @@ static NSString *const kTypeColorArray = @"TypeColorArray";
         
         [_userDefaults registerDefaults:@{kfirstDayOfWeekKey: @YES,
                                           kAutoUpDate: @YES,
-                                          kpassWordOfFingerprintKey: @NO,
+                                          isTouchIDOnKey: @NO,
                                           ksportTypeImageMaleKey: @YES,
                                           kIconBadgeNumber: @YES,
                                           kalertForDays: @1,
                                           kalertForSport: @YES,
-                                          kTypeColorArray: _typeColorArray}];
+                                          kTypeColorArray: _typeColorArray,
+                                          weightUnitKey: @0}];
         
         _typeColorArray = [_userDefaults objectForKey:kTypeColorArray];
         _firstDayOfWeek = [_userDefaults boolForKey:kfirstDayOfWeekKey];
         _autoUpDate = [_userDefaults boolForKey:kAutoUpDate];
-        _passWordOfFingerprint = [_userDefaults boolForKey:kpassWordOfFingerprintKey];
+        _isTouchIDOn = [_userDefaults boolForKey:isTouchIDOnKey];
         _sportTypeImageMale = [_userDefaults boolForKey:ksportTypeImageMaleKey];
         _iconBadgeNumber = [_userDefaults boolForKey:kIconBadgeNumber];
         _alertForSport = [_userDefaults boolForKey:kalertForSport];
         _alertForDays = [_userDefaults integerForKey:kalertForDays];
+        _weightUnit = [_userDefaults integerForKey:weightUnitKey];
     }
     return self;
 }
@@ -100,10 +103,10 @@ static NSString *const kTypeColorArray = @"TypeColorArray";
     [self.userDefaults setBool:autoUpDate forKey:kAutoUpDate];
 }
 
-- (void)setPassWordOfFingerprint:(BOOL)passWordOfFingerprint
+- (void)setIsTouchIDOn:(BOOL)isTouchIDOn
 {
-    _passWordOfFingerprint = passWordOfFingerprint;
-    [self.userDefaults setBool:passWordOfFingerprint forKey:kpassWordOfFingerprintKey];
+    _isTouchIDOn = isTouchIDOn;
+    [self.userDefaults setBool:isTouchIDOn forKey:isTouchIDOnKey];
 }
 
 - (void)setSportTypeImageMale:(BOOL)sportTypeImageMale
@@ -131,7 +134,8 @@ static NSString *const kTypeColorArray = @"TypeColorArray";
                             [UIColor colorWithRed:0.5882 green:0.8667 blue:0.0980 alpha:1],
                             [UIColor colorWithRed:0.4353 green:0.5098 blue:0.8745 alpha:1],
                             [UIColor colorWithRed:0.8824 green:0.4314 blue:0.4824 alpha:1],
-                            [UIColor colorWithRed:0.8667 green:0.5451 blue:0.8980 alpha:1]];
+                            [UIColor colorWithRed:0.8667 green:0.5451 blue:0.8980 alpha:1],
+                            [UIColor colorWithRed:0.9922 green:0.5765 blue:0.1490 alpha:1]];
     
     for (UIColor *color in colorArray){
         CGFloat red, green, blue;
@@ -142,7 +146,11 @@ static NSString *const kTypeColorArray = @"TypeColorArray";
         NSArray *oneColor = @[@(red), @(green), @(blue)];
         [self.typeColorArray addObject:oneColor];
     }
+}
 
+- (void)setWeightUnit:(NSInteger)weightUnit {
+    _weightUnit = weightUnit;
+    [self.userDefaults setInteger:weightUnit forKey:weightUnitKey];
 }
 
 @end

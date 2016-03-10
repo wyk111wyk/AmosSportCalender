@@ -11,6 +11,13 @@
 #ifndef CommonMarco_h
 #define CommonMarco_h
 
+#import "SettingStore.h"
+#import "ASBaseManage.h"
+
+#import "SportRecordStore.h"
+#import "SportEventStore.h"
+#import "DayStateStore.h"
+
 /** Debug */
 #define DeBugMode 0
 
@@ -31,7 +38,7 @@
 //屏幕
 #define screenWidth ([UIScreen mainScreen].bounds.size.width)
 #define screenHeight ([UIScreen mainScreen].bounds.size.height)
-#define screenScale ([UIScreen mainScreen].scale)
+#define screenOfScale ([UIScreen mainScreen].scale)
 #define screenSize ([UIScreen mainScreen].bounds.size)
 
 #define IS_IOS8 ([[UIDevice currentDevice].systemVersion doubleValue] >= 8.0)
@@ -42,8 +49,13 @@
 
 //颜色
 #define MyGreenColor [UIColor colorWithRed:0.0000 green:0.5608 blue:0.5176 alpha:1]
+#define MyWhite [UIColor whiteColor]
+#define MyLightGray [UIColor lightGrayColor]
+#define MyDarkGray [UIColor darkGrayColor]
+#define MYBlueColor [UIColor colorWithRed:0.2039 green:0.6980 blue:0.9647 alpha:1]
 
 //#define chestColor [UIColor colorWithRed:0.4000 green:0.7059 blue:0.8980 alpha:1];
+#define BackgroundColor [UIColor colorWithWhite:0.96 alpha:1]
 #define CellBackgoundColor [UIColor colorWithRed:0.3804 green:0.8745 blue:0.8392 alpha:0.2]
 #define backColor [UIColor colorWithRed:0.1647 green:0.7451 blue:0.6863 alpha:1];
 #define shouldColor [UIColor colorWithRed:0.0039 green:0.8667 blue:0.8118 alpha:1];
@@ -52,5 +64,7 @@
 #define coreColor [UIColor colorWithRed:0.4353 green:0.5098 blue:0.8745 alpha:1];
 #define armColor [UIColor colorWithRed:0.8824 green:0.4314 blue:0.4824 alpha:1];
 #define otherColor [UIColor colorWithRed:0.8667 green:0.5451 blue:0.8980 alpha:1];
+
+#define RefreshSportEventsNotifcation @"RefreshSportEventsNotifcation"
 
 #endif /* CommonMarco_h */

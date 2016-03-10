@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="typeManageCell" rowHeight="50" id="QcC-lm-1oA" customClass="TypeDisplayCell">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QcC-lm-1oA" id="KhP-Zo-zJR">
+                <rect key="frame" x="0.0" y="0.0" width="342" height="49.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="胸部" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vju-Ga-3cH">
+                        <rect key="frame" x="55" y="14" width="40" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="IGX-z6-6az"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="总计运动：5项" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="etf-PZ-JEV">
+                        <rect key="frame" x="241" y="15" width="93" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="19.5" id="7Lh-lG-OzB"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arm_muscles" translatesAutoresizingMaskIntoConstraints="NO" id="Aek-d6-DNv">
+                        <rect key="frame" x="12" y="11" width="28" height="28"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="28" id="GZP-B0-Qs8"/>
+                            <constraint firstAttribute="width" constant="28" id="gsc-lj-jIp"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="etf-PZ-JEV" firstAttribute="centerY" secondItem="KhP-Zo-zJR" secondAttribute="centerY" id="NHD-HV-CU8"/>
+                    <constraint firstItem="Aek-d6-DNv" firstAttribute="leading" secondItem="KhP-Zo-zJR" secondAttribute="leading" constant="12" id="NpQ-Px-Kyk"/>
+                    <constraint firstItem="Aek-d6-DNv" firstAttribute="centerY" secondItem="KhP-Zo-zJR" secondAttribute="centerY" id="RlZ-J2-Tm4"/>
+                    <constraint firstItem="vju-Ga-3cH" firstAttribute="leading" secondItem="Aek-d6-DNv" secondAttribute="trailing" constant="15" id="cA8-DU-tz0"/>
+                    <constraint firstAttribute="trailing" secondItem="etf-PZ-JEV" secondAttribute="trailing" constant="8" id="eQQ-Kn-3iR"/>
+                    <constraint firstItem="vju-Ga-3cH" firstAttribute="centerY" secondItem="KhP-Zo-zJR" secondAttribute="centerY" id="ttb-Wv-3eW"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="iconImageView" destination="Aek-d6-DNv" id="dpN-cO-Myf"/>
+                <outlet property="iconLabel" destination="vju-Ga-3cH" id="qYo-QE-tCC"/>
+                <outlet property="stateLabel" destination="etf-PZ-JEV" id="BkR-Jn-P76"/>
+            </connections>
+            <point key="canvasLocation" x="196.5" y="427"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="arm_muscles" width="25" height="25"/>
+    </resources>
+</document>

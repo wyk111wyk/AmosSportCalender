@@ -15,11 +15,12 @@
 
 @property (nonatomic)BOOL autoUpDate;
 @property (nonatomic)BOOL firstDayOfWeek;
-@property (nonatomic)BOOL passWordOfFingerprint;
+@property (nonatomic)BOOL isTouchIDOn;
 @property (nonatomic)BOOL sportTypeImageMale;
 @property (nonatomic)BOOL iconBadgeNumber;
 @property (nonatomic)BOOL alertForSport;
 @property (nonatomic)NSInteger alertForDays;
+@property (nonatomic)NSInteger weightUnit; ///<0=kg 1=lb
 @property (nonatomic, strong)NSMutableArray *typeColorArray;
 
 @end

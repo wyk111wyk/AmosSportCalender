@@ -103,7 +103,7 @@ static NSString *const cellID = @"feedbackcell";
     Class mailClass = (NSClassFromString(@"MFMailComposeViewController"));
     if (!mailClass) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"无法发送"
-                                                         message:@"当前系统版本不支持应用内发送邮件功能，您可以使用mailto方法代替"
+                                                         message:@"当前系统版本不支持应用内发送邮件功能，您需要前往邮件应用"
                                                         delegate:self
                                                cancelButtonTitle:@"好的"
                                                otherButtonTitles: nil];

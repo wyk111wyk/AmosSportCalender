@@ -18,5 +18,6 @@
 + (NSString *)dbPath;
 
 - (BOOL)changeDBWithDirectoryName:(NSString *)directoryName;
+- (BOOL)changeDBWithVenderName:(NSString *)directoryName;
 
 @end
