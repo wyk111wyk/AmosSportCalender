@@ -53,6 +53,7 @@
 @property (weak, nonatomic) IBOutlet UIView *RMSelView;
 
 @property (nonatomic, strong) NSDate *selectedDateForMark;
+@property (nonatomic) BOOL initDone; ///<刚开始是不是完成
 
 @end
 
@@ -61,6 +62,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+    _initDone = _recordStore.isDone;
+    
     [self initTheNav];
     [self initFrameUI];
     [self updateStateType];
@@ -105,15 +108,23 @@
     _recordStore.sportPart = _partField.text;
     _recordStore.muscles = _muscleField.text;
     _recordStore.timeLast = [_timeLastField.text intValue];
-    _recordStore.weight = [_weightField.text intValue];
     _recordStore.repeatSets = [_repeatTimesField.text intValue];
     _recordStore.RM = [_RMField.text intValue];
     _recordStore.sportType = _segmentedControl.selectedSegmentIndex;
+    BOOL isNew = ![@(self.pageState) boolValue];
+    _recordStore.datePart = [[ASDataManage sharedManage] getTheSportPartForRecord:_recordStore isNew:isNew];
+    if (_recordStore.isDone && _recordStore.isDone !=_initDone) {
+        [[ASDataManage sharedManage] addNewDateEventRecord:_recordStore];
+    }
+    
     if (_pageState == 0) {
         [_recordStore save];
     }else if (_pageState == 1) {
         [_recordStore update];
     }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:RefreshRootPageEventsNotifcation
+                                                        object:nil];
 }
 
 - (void)saveCurrentDataForEvent {
@@ -178,6 +189,7 @@
         _segmentedControl.enabled = NO;
         _imageButton.enabled = NO;
         
+        
         _actionSepView.backgroundColor = MYBlueColor;
         _sportNameView.backgroundColor = MYBlueColor;
         _timeLastSepView.backgroundColor = MYBlueColor;
@@ -239,13 +251,23 @@
         _segmentedControl.borderColor = MYBlueColor;
     }
     self.navigationItem.title = titleStr;
+    //判断是否是有氧
+    [self updateNotWeightSport];
 }
 
 //添加和编辑
 - (void)updateDoneImageAndDateLabel {
     if (_recordStore) {
         _selectedDateForMark = [NSDate dateWithTimeIntervalSince1970:_recordStore.eventTimeStamp];
-        _actionDateField.text = [[ASBaseManage dateFormatterForDMYE] stringFromDate:_selectedDateForMark];
+        NSString *newStr = [[ASBaseManage dateFormatterForDMYE] stringFromDate:_selectedDateForMark];
+        NSString *compareStr = [[ASBaseManage dateFormatterForDMYE] stringFromDate:[NSDate date]];
+        
+        if ([newStr isEqualToString:compareStr]) {
+            self.actionDateField.text = Local(@"Today");
+        } else{
+            self.actionDateField.text = [[ASBaseManage dateFormatterForDMYE] stringFromDate:_selectedDateForMark];
+        }
+        
         _sportNameField.text = _recordStore.sportName;
         _equipField.text = _recordStore.sportEquipment;
         _sportNameField.text = _recordStore.sportName;
@@ -262,32 +284,19 @@
             }else if (setting.weightUnit == 1) {
                 unitText = Local(@"lb");
             }
-            _weightField.text = [NSString stringWithFormat:@"%d %@", _recordStore.weight, unitText];
+            if (_recordStore.weight == 999) {
+                _weightField.text = @"自身重量";
+            }else {
+                _weightField.text = [NSString stringWithFormat:@"%d %@", _recordStore.weight, unitText];
+            }
             _repeatTimesField.text = [NSString stringWithFormat:@"%d 组", _recordStore.repeatSets];
             _RMField.text = [NSString stringWithFormat:@"%d 次/组", _recordStore.RM];
             [_segmentedControl setSelectedSegmentIndex:_recordStore.sportType animated:YES];
         }
         
-        _doneImageView.image = [UIImage imageNamed:@"DonePicHorizontal-Right"];
-        _doneImageView.image = [_doneImageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-        if (_recordStore.isDone) {
-            _doneImageView.tintColor = [UIColor redColor];
-            _rootView.layer.borderColor = MYBlueColor.CGColor;
-        }else {
-            _doneImageView.tintColor = MyLightGray;
-            _rootView.layer.borderColor = MyLightGray.CGColor;
-        }
-        
-        if (_recordStore.isSystemMade) {
-            NSString *bundlePath = [[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"SportImages.bundle"];
-            NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
-            UIImage *(^getBundleImage)(NSString *) = ^(NSString *n) {
-                return [UIImage imageWithContentsOfFile:[bundle pathForResource:n ofType:@"jpg"]];
-            };
-            
-            UIImage *myImg = getBundleImage(_recordStore.imageKey);
-            _actionImageView.image = myImg;
-        }
+        [self updateDoneState];
+        //图片
+        [self updateTheSportImage:_recordStore.imageKey isSystem:_recordStore.isSystemMade];
     }
 }
 
@@ -301,17 +310,50 @@
         _partField.text = _eventStore.sportPart;
         _muscleField.text = _eventStore.muscles;
         
-        if (_eventStore.isSystemMade) {
-            NSString *bundlePath = [[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"SportImages.bundle"];
-            NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
-            UIImage *(^getBundleImage)(NSString *) = ^(NSString *n) {
-                return [UIImage imageWithContentsOfFile:[bundle pathForResource:n ofType:@"jpg"]];
-            };
-            UIImage *myImg = getBundleImage(_eventStore.imageKey);
-            _actionImageView.image = myImg;
-        }
-        
         [_segmentedControl setSelectedSegmentIndex:_eventStore.sportType animated:YES];
+        [self updateTheSportImage: _eventStore.imageKey isSystem:_eventStore.isSystemMade];
+    }
+}
+
+- (void)updateNotWeightSport {
+    if (_recordStore.sportType == 0 || _recordStore.sportType == 2) {
+        _weightField.enabled = NO;
+        _repeatTimesField.enabled = NO;
+        _RMField.enabled = NO;
+        _weightSepView.backgroundColor = MyLightGray;
+        _repeatSepView.backgroundColor = MyLightGray;
+        _RMSelView.backgroundColor = MyLightGray;
+        
+        _weightField.text = @"";
+        _repeatTimesField.text = @"";
+        _RMField.text = @"";
+    }
+}
+
+- (void)updateTheSportImage: (NSString *)ImageKey isSystem:(BOOL) isSystem {
+    if (isSystem) {
+        NSString *bundlePath = [[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"SportImages.bundle"];
+        NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
+        UIImage *(^getBundleImage)(NSString *) = ^(NSString *n) {
+            return [UIImage imageWithContentsOfFile:[bundle pathForResource:n ofType:@"jpg"]];
+        };
+        UIImage *myImg = getBundleImage(ImageKey);
+        _actionImageView.image = myImg;
+    }
+}
+
+- (void)updateDoneState {
+    //完成
+    _doneImageView.image = [UIImage imageNamed:@"DonePicHorizontal-Right"];
+    _doneImageView.image = [_doneImageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    if (_recordStore.isDone) {
+        _doneImageView.tintColor = [UIColor redColor];
+        _rootView.layer.borderColor = MYBlueColor.CGColor;
+        _rootView.layer.borderWidth = 1.5;
+    }else {
+        _doneImageView.tintColor = MyLightGray;
+        _rootView.layer.borderColor = MyLightGray.CGColor;
+        _rootView.layer.borderWidth = 0.7;
     }
 }
 
@@ -320,13 +362,159 @@
     // Dispose of any resources that can be recreated.
 }
 
+#pragma mark - TextField Delegate
+
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
+    if (textField == _actionDateField) {
+        [self clickToChangeDate:_actionDateField];
+        return NO;
+    }else if (textField == _equipField || textField == _partField) {
+        [self clickToChangeSportAttribute:textField];
+        return NO;
+    }else if (textField == _timeLastField ||
+              textField == _weightField ||
+              textField == _repeatTimesField ||
+              textField == _RMField) {
+        NumberValuePicker *numPicker = [NumberValuePicker viewFromNib];
+        if (textField == _timeLastField) {
+            //时间的Picker
+            int initNum = 10;
+            if (_timeLastField.text.length > 0) {
+                initNum = [_timeLastField.text intValue];
+            }else {
+                _timeLastField.text = [NSString stringWithFormat:@"%d 分钟", initNum];
+            }
+            [numPicker configUITitle:textField.placeholder unit:Local(@"Min") min:0 max:90 step:1 initNum:initNum];
+            numPicker.valueChangeBlock = ^(int value) {
+                _timeLastField.text = [NSString stringWithFormat:@"%d 分钟", value];
+            };
+            numPicker.clearBlock = ^{
+                _timeLastField.text = @"";
+                [self dismissValuePicker];
+            };
+        }
+        else if (textField == _weightField) {
+            //负重
+            int initNum = 30;
+            NSString *unitText = @"";
+            SettingStore *setting = [SettingStore sharedSetting];
+            if (setting.weightUnit == 0) {
+                unitText = @"Kg";
+            }else if (setting.weightUnit == 1) {
+                unitText = Local(@"lb");
+            }
+            
+            if (_weightField.text.length > 0) {
+                initNum = [_weightField.text intValue];
+            }else {
+                _weightField.text = [NSString stringWithFormat:@"%d %@", initNum, unitText];
+            }
+            [numPicker configUITitle:textField.placeholder unit:unitText min:0 max:200 step:1 initNum:initNum];
+            numPicker.valueChangeBlock = ^(int value) {
+                _weightField.text = [NSString stringWithFormat:@"%d %@", value, unitText];
+                _recordStore.weight = value;
+            };
+            numPicker.clearBlock = ^{
+                _weightField.text = @"";
+                _recordStore.weight = 0;
+                [self dismissValuePicker];
+            };
+            numPicker.selfWeghtBlock = ^{
+                _weightField.text = @"自身重量";
+                _recordStore.weight = 999;
+                [self dismissValuePicker];
+            };
+        }
+        else if (textField == _repeatTimesField) {
+            //时间的Picker
+            int initNum = 4;
+            if (_repeatTimesField.text.length > 0) {
+                initNum = [_repeatTimesField.text intValue];
+            }else {
+                _repeatTimesField.text = [NSString stringWithFormat:@"%d 组", initNum];
+            }
+            [numPicker configUITitle:textField.placeholder unit:@"组" min:0 max:20 step:1 initNum:initNum];
+            numPicker.valueChangeBlock = ^(int value) {
+                _repeatTimesField.text = [NSString stringWithFormat:@"%d 组", value];
+            };
+            numPicker.clearBlock = ^{
+                _repeatTimesField.text = @"";
+                [self dismissValuePicker];
+            };
+        }
+        else if (textField == _RMField) {
+            //时间的Picker
+            int initNum = 12;
+            if (_RMField.text.length > 0) {
+                initNum = [_RMField.text intValue];
+            }else {
+                _RMField.text = [NSString stringWithFormat:@"%d 次/组", initNum];
+            }
+            [numPicker configUITitle:textField.placeholder unit:@"次/组" min:0 max:90 step:1 initNum:initNum];
+            numPicker.valueChangeBlock = ^(int value) {
+                _RMField.text = [NSString stringWithFormat:@"%d 次/组", value];
+            };
+            numPicker.clearBlock = ^{
+                _RMField.text = @"";
+                [self dismissValuePicker];
+            };
+        }
+        
+        _alertController = [TYAlertController alertControllerWithAlertView:numPicker preferredStyle:TYAlertControllerStyleActionSheet];
+        _alertController.backgoundTapDismissEnable = YES;
+        [self presentViewController:_alertController animated:YES completion:nil];
+        
+        return NO;
+    }
+    else if (textField == _sportNameField) {
+        //运动名称
+        if (_pageState == 0 || _pageState == 1) {
+            SportPartManageTV *partTV = [[SportPartManageTV alloc] initWithStyle:UITableViewStylePlain];
+            partTV.canEditEvents = NO;
+            partTV.chooseSportBlock = ^(SportEventStore *eventStore) {
+                _recordStore.isSystemMade = eventStore.isSystemMade;
+                _recordStore.imageKey = eventStore.imageKey;
+                _recordStore.sportType = eventStore.sportType;
+                
+                _sportNameField.text = eventStore.sportName;
+                _equipField.text = eventStore.sportEquipment;
+                _serialNumField.text = eventStore.sportSerialNum;
+                _partField.text = eventStore.sportPart;
+                _muscleField.text = eventStore.muscles;
+                [_segmentedControl setSelectedSegmentIndex:eventStore.sportType animated:YES];
+                //图片
+                [self updateTheSportImage:eventStore.imageKey isSystem:eventStore.isSystemMade];
+                
+                [self updateNotWeightSport];
+            };
+            [self.navigationController pushViewController:partTV animated:YES];
+            return NO;
+        }
+        else {
+            return YES;
+        }
+        
+    }
+    
+    return YES;
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField {
+    [self.view endEditing:YES];
+    return YES;
+}
+
+- (void)dismissValuePicker {
+    [_alertController dismissViewControllerAnimated:YES];
+}
+
 #pragma mark - Button Method
 
 - (IBAction)buttonClickedMethod:(UIButton *)sender {
     if (sender == _doneButton) {
         //完成项目
         _recordStore.isDone = !_recordStore.isDone;
-        [self updateDoneImageAndDateLabel];
+        [self updateDoneState];
         
     }else if (sender == _imageButton) {
         //更改图片
@@ -345,6 +533,7 @@
         NSString *compareStr = [[ASBaseManage dateFormatterForDMYE] stringFromDate:[NSDate date]];
         if (_recordStore) {
             _recordStore.eventTimeStamp = [selectedDate timeIntervalSince1970];
+            _recordStore.dateKey = [[ASBaseManage dateFormatterForDMY] stringFromDate:selectedDate];
         }
         
         if ([newStr isEqualToString:compareStr]) {
@@ -456,154 +645,6 @@
                                             handler:^(UIAlertAction * action) {}]];
     
     [self presentViewController:alert animated:YES completion:nil];
-}
-
-#pragma mark - TextField Delegate
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField {
-    if (textField == _actionDateField) {
-        [self clickToChangeDate:_actionDateField];
-        return NO;
-    }else if (textField == _equipField || textField == _partField) {
-        [self clickToChangeSportAttribute:textField];
-        return NO;
-    }else if (textField == _timeLastField ||
-              textField == _weightField ||
-              textField == _repeatTimesField ||
-              textField == _RMField) {
-        NumberValuePicker *numPicker = [NumberValuePicker viewFromNib];
-        if (textField == _timeLastField) {
-            //时间的Picker
-            int initNum = 10;
-            if (_timeLastField.text.length > 0) {
-                initNum = [_timeLastField.text intValue];
-            }else {
-                _timeLastField.text = [NSString stringWithFormat:@"%d 分钟", initNum];
-            }
-            [numPicker configUITitle:textField.placeholder unit:Local(@"Min") min:0 max:90 step:1 initNum:initNum];
-            numPicker.valueChangeBlock = ^(int value) {
-                _timeLastField.text = [NSString stringWithFormat:@"%d 分钟", value];
-            };
-            numPicker.clearBlock = ^{
-                _timeLastField.text = @"";
-                [self dismissValuePicker];
-            };
-        }
-        else if (textField == _weightField) {
-            //负重
-            int initNum = 30;
-            NSString *unitText = @"";
-            SettingStore *setting = [SettingStore sharedSetting];
-            if (setting.weightUnit == 0) {
-                unitText = @"Kg";
-            }else if (setting.weightUnit == 1) {
-                unitText = Local(@"lb");
-            }
-            
-            if (_weightField.text.length > 0) {
-                initNum = [_weightField.text intValue];
-            }else {
-                _weightField.text = [NSString stringWithFormat:@"%d %@", initNum, unitText];
-            }
-            [numPicker configUITitle:textField.placeholder unit:unitText min:0 max:200 step:1 initNum:initNum];
-            numPicker.valueChangeBlock = ^(int value) {
-                _weightField.text = [NSString stringWithFormat:@"%d %@", value, unitText];
-            };
-            numPicker.clearBlock = ^{
-                _weightField.text = @"";
-                [self dismissValuePicker];
-            };
-            numPicker.selfWeghtBlock = ^{
-                _weightField.text = @"自身重量";
-                [self dismissValuePicker];
-            };
-        }
-        else if (textField == _repeatTimesField) {
-            //时间的Picker
-            int initNum = 4;
-            if (_repeatTimesField.text.length > 0) {
-                initNum = [_repeatTimesField.text intValue];
-            }else {
-                _repeatTimesField.text = [NSString stringWithFormat:@"%d 组", initNum];
-            }
-            [numPicker configUITitle:textField.placeholder unit:@"组" min:0 max:20 step:1 initNum:initNum];
-            numPicker.valueChangeBlock = ^(int value) {
-                _repeatTimesField.text = [NSString stringWithFormat:@"%d 组", value];
-            };
-            numPicker.clearBlock = ^{
-                _repeatTimesField.text = @"";
-                [self dismissValuePicker];
-            };
-        }
-        else if (textField == _RMField) {
-            //时间的Picker
-            int initNum = 12;
-            if (_RMField.text.length > 0) {
-                initNum = [_RMField.text intValue];
-            }else {
-                _RMField.text = [NSString stringWithFormat:@"%d 次/组", initNum];
-            }
-            [numPicker configUITitle:textField.placeholder unit:@"次/组" min:0 max:90 step:1 initNum:initNum];
-            numPicker.valueChangeBlock = ^(int value) {
-                _RMField.text = [NSString stringWithFormat:@"%d 次/组", value];
-            };
-            numPicker.clearBlock = ^{
-                _RMField.text = @"";
-                [self dismissValuePicker];
-            };
-        }
-        
-        _alertController = [TYAlertController alertControllerWithAlertView:numPicker preferredStyle:TYAlertControllerStyleActionSheet];
-        _alertController.backgoundTapDismissEnable = YES;
-        [self presentViewController:_alertController animated:YES completion:nil];
-        
-        return NO;
-    }
-    else if (textField == _sportNameField) {
-        //运动名称
-        if (_pageState == 0 || _pageState == 1) {
-            SportPartManageTV *partTV = [[SportPartManageTV alloc] initWithStyle:UITableViewStylePlain];
-            partTV.canEditEvents = NO;
-            partTV.chooseSportBlock = ^(SportEventStore *eventStore) {
-                _recordStore.isSystemMade = eventStore.isSystemMade;
-                _recordStore.imageKey = eventStore.imageKey;
-                
-                _sportNameField.text = eventStore.sportName;
-                _equipField.text = eventStore.sportEquipment;
-                _serialNumField.text = eventStore.sportSerialNum;
-                _partField.text = eventStore.sportPart;
-                _muscleField.text = eventStore.muscles;
-                [_segmentedControl setSelectedSegmentIndex:eventStore.sportType animated:YES];
-                if (eventStore.isSystemMade) {
-                    NSString *bundlePath = [[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"SportImages.bundle"];
-                    NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
-                    UIImage *(^getBundleImage)(NSString *) = ^(NSString *n) {
-                        return [UIImage imageWithContentsOfFile:[bundle pathForResource:n ofType:@"jpg"]];
-                    };
-                    
-                    UIImage *myImg = getBundleImage(eventStore.imageKey);
-                    _actionImageView.image = myImg;
-                }
-            };
-            [self.navigationController pushViewController:partTV animated:YES];
-            return NO;
-        }
-        else {
-            return YES;
-        }
-        
-    }
-    
-    return YES;
-}
-
-- (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [self.view endEditing:YES];
-    return YES;
-}
-
-- (void)dismissValuePicker {
-    [_alertController dismissViewControllerAnimated:YES];
 }
 
 #pragma mark - Camera Utility

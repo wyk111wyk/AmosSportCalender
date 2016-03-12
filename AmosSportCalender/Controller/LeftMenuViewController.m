@@ -12,6 +12,7 @@
 #import "UMFeedback.h"
 #import "CommonMarco.h"
 #import "SportPartManageTV.h"
+#import "SummaryTableView.h"
 
 @interface LeftMenuViewController ()
 
@@ -93,22 +94,19 @@
         UIStoryboard* mainStoryboard = [UIStoryboard storyboardWithName:@"Main" bundle: nil];
         
         if (sender == _sportCalendarView) {
-            if (DeBugMode) { NSLog(@"click 1"); }
             [self.sideMenuViewController setContentViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"nav"] animated:YES];
         }else if (sender == _finishedListView){
-            if (DeBugMode) { NSLog(@"click 2"); }
-            [self.sideMenuViewController setContentViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"summaryTableNav"] animated:YES];
+            SummaryTableView *summaryTV = [[SummaryTableView alloc] initWithStyle:UITableViewStylePlain];
+            UINavigationController *summaryNav = [[UINavigationController alloc] initWithRootViewController:summaryTV];
+            [self.sideMenuViewController setContentViewController:summaryNav];
         }else if (sender == _typeManageView){
-            if (DeBugMode) { NSLog(@"click 3"); }
             SportPartManageTV *partTV = [[SportPartManageTV alloc] initWithStyle:UITableViewStylePlain];
             partTV.canEditEvents = YES;
             UINavigationController *partNav = [[UINavigationController alloc] initWithRootViewController:partTV];
             [self.sideMenuViewController setContentViewController:partNav];
         }else if (sender == _settingView){
-            if (DeBugMode) { NSLog(@"click 4"); }
             [self.sideMenuViewController setContentViewController:[mainStoryboard instantiateViewControllerWithIdentifier:@"settingNav"] animated:YES];
         }else if (sender == _feedbackView){
-            if (DeBugMode) { NSLog(@"click 5"); }
             
             UINavigationController *feedbackNav = [[UINavigationController alloc] initWithRootViewController:[UMFeedback feedbackViewController]];
             feedbackNav.navigationBar.tintColor = [UIColor colorWithRed:0.0000 green:0.5608 blue:0.5176 alpha:1];

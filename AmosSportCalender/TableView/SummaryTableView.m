@@ -7,27 +7,14 @@
 //
 
 #import "CommonMarco.h"
-#import "Event.h"
-#import "EventStore.h"
+#import "SummaryDisplayCell.h"
 #import "SummaryTableView.h"
-#import "SummaryTVCell.h"
 #import "RESideMenu.h"
-#import "DMPasscode.h"
-#import "SettingStore.h"
-#import "MobClick.h"
-
-static NSString * const YKSummaryCellReuseId = @"summaryCell";
+#import "YYKit.h"
 
 @interface SummaryTableView ()
 
-@property (nonatomic, strong)NSMutableDictionary *eventsByDate;
-@property (nonatomic, strong)NSArray *sortedKeyArray;
-@property (weak, nonatomic) IBOutlet UILabel *underTableLabel;
-@property (strong, nonatomic)UIDatePicker *datePicker;
-@property (strong, nonatomic)UITextField *searchTextField;
-@property (strong, nonatomic)NSString *searchStr;
-
-@property (nonatomic) NSInteger indexRow;
+@property (nonatomic, strong) NSMutableArray *allDateEvents;
 
 @end
 
@@ -38,146 +25,60 @@ static NSString * const YKSummaryCellReuseId = @"summaryCell";
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.allowsSelection = NO;
     
-    [self.sideMenuViewController setPanFromEdge:NO];
-//    [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
+    UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menuIcon"] style:UIBarButtonItemStylePlain target:self action:nil];
+    [menuButton setActionBlock:^(id _Nonnull sender) {
+        [self.sideMenuViewController presentLeftMenuViewController];
+    }];
+    self.navigationItem.leftBarButtonItem = menuButton;
+    menuButton.tintColor = MyGreenColor;
     
-    //datePick初始化
-    NSString *minDate = @"1990-01-01";
-    NSString *maxDate = @"2030-01-01";
-    NSDateFormatter *limtedDateFormatter = [NSDateFormatter new];
-    limtedDateFormatter.dateFormat = @"yyyy-MM-dd";
-    
-    self.datePicker = [[UIDatePicker alloc] initWithFrame:CGRectZero];
-    self.datePicker.datePickerMode = UIDatePickerModeDate;
-    self.datePicker.backgroundColor = [UIColor whiteColor];
-    self.datePicker.minimumDate = [limtedDateFormatter dateFromString:minDate];
-    self.datePicker.maximumDate = [limtedDateFormatter dateFromString:maxDate];
-    [self.datePicker setDate:[NSDate date] animated:YES];
-    [self.datePicker addTarget:self action:@selector(dateChanged:) forControlEvents:UIControlEventValueChanged];
-    
-    //初始化数据
-    self.eventsByDate = [[NSMutableDictionary alloc] initWithDictionary:[[EventStore sharedStore] allItems] copyItems:NO];
-    
-    self.sortedKeyArray = [NSArray array];
-    NSMutableArray *tempArray = [NSMutableArray array];
-    NSMutableArray *tempEventArray = [NSMutableArray array];
-    NSMutableArray *newTempArray = [NSMutableArray array];
-    
-    tempArray = [[self.eventsByDate allKeys] copy];
-    
-//    NSEnumerator * enumeratorKey = [self.eventsByDate keyEnumerator]; //objectEnumerator对value进行遍历
-//    for (NSObject *object in enumeratorKey) {
-//        NSLog(@"遍历KEY的值: %@",object);
-//        [tempArray addObject:object];
-//    }
-    
-    for (NSString *str in tempArray){
+    NSArray *allDates = [DateEventStore findByCriteria:@" ORDER BY dateKey DESC "];
+    _allDateEvents = [[NSMutableArray alloc] initWithCapacity:allDates.count];
+    for (DateEventStore *dateStore in allDates){
         NSMutableDictionary *tempDic = [NSMutableDictionary dictionary];
-        tempDic[@"year"] = [str substringWithRange:NSMakeRange(6, 4)];
-        tempDic[@"month"] = [str substringWithRange:NSMakeRange(3, 2)];
-        tempDic[@"day"] = [str substringToIndex:2];
-        [tempEventArray addObject:tempDic];
-    }
-    
-    //对日期进行排序
-    NSSortDescriptor *firstDescriptor = [[NSSortDescriptor alloc] initWithKey:@"year" ascending:NO];
-    NSSortDescriptor *secondDescriptor = [[NSSortDescriptor alloc] initWithKey:@"month" ascending:NO];
-    NSSortDescriptor *thirdDescriptor = [[NSSortDescriptor alloc] initWithKey:@"day" ascending:NO];
-    
-    NSArray *sortDescriptors = [NSArray arrayWithObjects:firstDescriptor, secondDescriptor, thirdDescriptor,nil];
-    NSArray *beforeSortedArray = [tempEventArray sortedArrayUsingDescriptors:sortDescriptors];
-    
-    for (NSMutableDictionary *temDic in beforeSortedArray){
-        NSString *tempStr = [NSString stringWithFormat:@"%@-%@-%@", temDic[@"day"], temDic[@"month"], temDic[@"year"]];
-        [newTempArray addObject:tempStr];
-    }
-    
-    self.sortedKeyArray = [newTempArray copy];
-    
-    if (self.sortedKeyArray.count == 0){
-        self.underTableLabel.text = @"还没有任何运动记录，赶快开始运动吧！";
-    }else if (self.sortedKeyArray.count > 0){
-        self.underTableLabel.text = [NSString stringWithFormat:@"总计运动天数：%@天", @(self.sortedKeyArray.count)];
+        NSString *criStr = [NSString stringWithFormat:@" WHERE dateKey = '%@' AND isDone = '1' ", dateStore.dateKey];
+        NSArray *tempArr = [SportRecordStore findByCriteria:criStr];
+        [tempDic setObject:tempArr forKey:@"data"];
+        [tempDic setObject:dateStore.dateKey forKey:@"dateKey"];
+        [_allDateEvents addObject:tempDic];
     }
     
     //设置标题
-    self.navigationItem.title = [NSString stringWithFormat:@"完成列表（共计：%@天）", @(self.sortedKeyArray.count)];
-
+    self.navigationItem.title = [NSString stringWithFormat:@"完成列表（共计%@天）", @(allDates.count)];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"2_FinishedList_Page"];
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"2_FinishedList_Page"];
+- (BOOL)checkDicObject:(NSMutableDictionary *)tempDic key:(NSString *)keyStr {
+    if ([tempDic objectForKey:keyStr]) {
+        return YES;
+    }else {
+        NSMutableArray *tempArr = [NSMutableArray array];
+        [tempDic setObject:tempArr forKey:keyStr];
+        return NO;
+    }
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
 }
 
-- (NSDateFormatter *)dateFormatter
-{
-    static NSDateFormatter *dateFormatter;
-    if(!dateFormatter){
-        dateFormatter = [NSDateFormatter new];
-        dateFormatter.dateFormat = @"dd-MM-yyyy";
-    }
-    
-    return dateFormatter;
-}
-
-- (NSDateFormatter *)dateFormatterDisplay
-{
-    static NSDateFormatter *dateFormatterDisplay;
-    if(!dateFormatterDisplay){
-        dateFormatterDisplay = [NSDateFormatter new];
-        dateFormatterDisplay.dateFormat = @"yyyy年MM月dd日 EEEE";
-        [dateFormatterDisplay setTimeZone:[NSTimeZone timeZoneWithName:@"Asia/Shanghai"]];
-    }
-    
-    return dateFormatterDisplay;
-}
-#pragma mark - Buttons
-
-- (IBAction)OpenAndCloseMenu:(UIBarButtonItem *)sender {
-//    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
-    [self.sideMenuViewController presentLeftMenuViewController];
-}
-
--(void)dateChanged:(id)sender{
-    
-    self.searchStr = [[self dateFormatter] stringFromDate:self.datePicker.date];
-    self.searchTextField.text = [[self dateFormatterDisplay] stringFromDate:self.datePicker.date];
-}
-
-- (IBAction)searchOneDate:(UIBarButtonItem *)sender {
-    
-    [self alertForSearch];
-}
-
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.sortedKeyArray.count;
+    return self.allDateEvents.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    for (int i = 0; i < self.sortedKeyArray.count; i++) {
-    
-    if (section == i) {
-        NSString *key = self.sortedKeyArray[i];
-        NSArray *array = [self.eventsByDate valueForKey:key];
-        return [array count];
-        }
-    }
-    
-    return 1;
+    NSMutableDictionary *tempDic = _allDateEvents[section];
+    NSArray *tempArr = [tempDic objectForKey:@"data"];
+    return [tempArr count];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 50;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 22;
 }
 
 - (nullable UIView *)tableView:(nonnull UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -193,146 +94,35 @@ static NSString * const YKSummaryCellReuseId = @"summaryCell";
     [headText sizeToFit];
     [headerView addSubview:headText];
     
-    for (int i = 0; i < self.sortedKeyArray.count; i++) {
-        if (section == i) {
-            NSDate *date = [[self dateFormatter] dateFromString:self.sortedKeyArray[i]];
-            NSString *titleStr = [[self dateFormatterDisplay] stringFromDate:date];
-            
-            headText.text = titleStr;
-            [headText sizeToFit];
-            headText.center = headerView.center;
-            return headerView;
-        }
-    }
+    NSMutableDictionary *tempDic = _allDateEvents[section];
+    NSString *titleStr = [tempDic objectForKey:@"dateKey"];
+    NSDate *tempDate = [[ASBaseManage dateFormatterForDMY] dateFromString:titleStr];
+    NSString *titleText = [[ASBaseManage dateFormatterForDMYE] stringFromDate:tempDate];
+    
+    headText.text = titleText;
+    [headText sizeToFit];
+    headText.center = headerView.center;
+    return headerView;
+
     return headerView;
 }
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
-    SummaryTVCell *cell = [tableView dequeueReusableCellWithIdentifier:YKSummaryCellReuseId forIndexPath:indexPath];
-    
-    for (int i = 0; i < self.sortedKeyArray.count; i++) {
-        if (indexPath.section == i) {
-            
-            Event *event = [self.eventsByDate[self.sortedKeyArray[i]] objectAtIndex:indexPath.row];
-            //Type Label
-            cell.sportTypeLabel.text = [event.sportType substringToIndex:1];
-            
-            SettingStore *setting = [SettingStore sharedSetting];
-            NSArray *oneColor = [setting.typeColorArray objectAtIndex:[self colorForsportType:event.sportType]];
-            UIColor *pickedColor = [UIColor colorWithRed:[oneColor[0] floatValue] green:[oneColor[1] floatValue] blue:[oneColor[2] floatValue] alpha:1];
-            
-            cell.sportTypeLabel.textColor = pickedColor;
-            [cell.sportTypeLabel sizeToFit];
-            
-            cell.sportNameLabel.text = event.sportName;
-            cell.timelastLabel.text =[NSString stringWithFormat:@"%i分钟", event.timelast];
-            cell.sportAttributeLabel.text = [self setSportAttributeText:event.times weight:event.weight rap:event.rap];
-            [cell.sportAttributeLabel sizeToFit];
-            
-            if (event.done == NO) {
-                cell.doneImageView.hidden = YES;
-                cell.backgroundColor = [UIColor whiteColor];
-            } else if (event.done == YES){
-                cell.doneImageView.hidden = NO;
-                cell.backgroundColor = [UIColor colorWithWhite:0.97 alpha:0.8];
-            }
-        }
+    static NSString *cellIdentifier = @"SummaryDisplayCell";
+    SummaryDisplayCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if(cell == nil) {
+        cell = [[[NSBundle mainBundle]loadNibNamed:cellIdentifier owner:nil options:nil] firstObject];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    
+    NSMutableDictionary *tempDic = _allDateEvents[indexPath.section];
+    NSArray *tempArr = [tempDic objectForKey:@"data"];
+    SportRecordStore *recordStore = tempArr[indexPath.row];
+    
+    cell.recordStore = recordStore;
     
     return cell;
-}
-
-#pragma mark - 判断cell显示内容的方法
-- (int)colorForsportType:(NSString *)sportType
-{
-    if ([sportType isEqualToString:@"胸部"]) {
-        return 0;
-    }else if ([sportType isEqualToString:@"背部"]){
-        return 1;
-    }else if ([sportType isEqualToString:@"肩部"]){
-        return 2;
-    }else if ([sportType isEqualToString:@"腿部"]){
-        return 3;
-    }else if ([sportType isEqualToString:@"体力"]){
-        return 4;
-    }else if ([sportType isEqualToString:@"核心"]){
-        return 5;
-    }else if ([sportType isEqualToString:@"手臂"]){
-        return 6;
-    }else if ([sportType isEqualToString:@"综合"]){
-        return 7;
-    }
-    
-    return 0;
-}
-
-- (NSString *)setSportAttributeText: (int)times weight: (float)weight rap:(int)rap
-{
-    if (weight == 0 && times > 0) {
-        return [NSString stringWithFormat:@"%d组 x %d次", rap, times];
-    }else if (weight == 220 && times > 0){
-        return [NSString stringWithFormat:@"%d组 x %d次  自身重量", rap, times];
-    }else if (times == 0 && rap == 0){
-        return @"无额外属性";
-    }else{
-        return [NSString stringWithFormat:@"%d组 x %d次   %.1fkg", rap, times, weight];
-    }
-}
-
-- (void)alertForSearch
-{
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"定位到指定日期"
-                                                                   message:@""
-                                                            preferredStyle:UIAlertControllerStyleAlert];
-    NSString *dateStr = [[self dateFormatterDisplay] stringFromDate:[NSDate date]];
-    self.datePicker.date = [NSDate date];
-    
-    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.text = dateStr;
-        textField.tintColor = [UIColor clearColor];
-        textField.inputView = self.datePicker;
-        [textField becomeFirstResponder];
-    }];
-    
-    self.searchTextField = alert.textFields[0];
-    
-    [alert addAction:[UIAlertAction actionWithTitle:@"搜索"
-                                              style:UIAlertActionStyleDefault
-                                            handler:^(UIAlertAction * action) {
-        if (![self.sortedKeyArray containsObject:self.searchStr]) {
-            [self alertForNoResult];
-        }else{
-            _indexRow = [self.sortedKeyArray indexOfObject:self.searchStr];
-            
-            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:_indexRow];
-            [[self tableView] scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
-        }
-                                                
-                                            }]];
-    
-    [alert addAction:[UIAlertAction actionWithTitle:@"取消"
-                                              style:UIAlertActionStyleCancel
-                                            handler:^(UIAlertAction * action) {
-                                                
-                                            }]];
-    
-    [self presentViewController:alert animated:YES completion:nil];
-}
-
-- (void)alertForNoResult
-{
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"不好意思"
-                                                                   message:@"这一天您没有做任何运动"
-                                                            preferredStyle:UIAlertControllerStyleAlert];
-    
-    [alert addAction:[UIAlertAction actionWithTitle:@"确定"
-                                              style:UIAlertActionStyleCancel
-                                            handler:^(UIAlertAction * action) {
-                                                
-                                            }]];
-    
-    [self presentViewController:alert animated:YES completion:nil];
 }
 
 @end

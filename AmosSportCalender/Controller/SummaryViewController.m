@@ -5,11 +5,6 @@
 //  Created by Amos Wu on 15/8/3.
 //  Copyright © 2015年 Amos Wu. All rights reserved.
 //
-#define screenWidth ([UIScreen mainScreen].bounds.size.width)
-#define screenHeight ([UIScreen mainScreen].bounds.size.height)
-#define screenScale ([UIScreen mainScreen].scale)
-#define screenSize ([UIScreen mainScreen].bounds.size)
-
 #import <QuartzCore/QuartzCore.h>
 
 #import "SummaryViewController.h"
@@ -17,45 +12,16 @@
 #import "EventStore.h"
 #import "Event.h"
 #import "DetailSummaryVC.h"
-#import "SettingStore.h"
-#import "DMPasscode.h"
-#import "MobClick.h"
-#import "UUChart.h"
 #import "CommonMarco.h"
-
-static NSString * const summaryCellReuseId = @"summaryTypeCell";
 
 @interface SummaryViewController ()<UITableViewDataSource, UITableViewDelegate, XYPieChartDelegate, XYPieChartDataSource, UUChartDataSource>
 {
     UISwipeGestureRecognizer *swipeGestureRight;
     UISwipeGestureRecognizer *swipeGestureLeft;
 }
-@property (strong, nonatomic) IBOutlet UIView *viewBackground;
-
-@property (weak, nonatomic) IBOutlet UIView *contantView;
-@property (strong, nonatomic) UUChart *chartView;
-@property (strong, nonatomic) IBOutlet UIView *view2;
-@property (strong, nonatomic) IBOutlet UIView *view3;
-@property (weak, nonatomic) IBOutlet UIView *vLineView;
-@property (weak, nonatomic) IBOutlet UIView *hLineView;
-@property (weak, nonatomic) IBOutlet UIView *shadoView1;
-@property (weak, nonatomic) IBOutlet UIView *shadoView21;
-@property (weak, nonatomic) IBOutlet UIView *shadoView22;
-@property (weak, nonatomic) IBOutlet XYPieChart *pieChartView;
-
-@property (weak, nonatomic) IBOutlet UIImageView *mostTypeImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *leastTypeImageView;
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-
-@property (weak, nonatomic) IBOutlet UILabel *theWholeNumber;
-@property (weak, nonatomic) IBOutlet UILabel *theWholeTime;
-@property (weak, nonatomic) IBOutlet UILabel *aveTimesAWeek;
-@property (weak, nonatomic) IBOutlet UILabel *aveTime;
-@property (weak, nonatomic) IBOutlet UILabel *percentageLabel;
 @property (strong ,nonatomic) UILabel *expLabel;
-@property (strong, nonatomic) IBOutlet UIButton *leftAButton;
-@property (strong, nonatomic) IBOutlet UIButton *rightAButton;
 
+@property (nonatomic, strong)NSMutableDictionary *eventsMostByDate;
 @property (nonatomic, strong)NSMutableDictionary *eventsByDate;
 @property (nonatomic, strong)NSArray *sortedKeyArray;
 @property (nonatomic, strong)NSArray *sortedTypeArray; ///<tableView使用的数据源
@@ -63,11 +29,12 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
 
 @property (nonatomic, strong)NSDate *firstDayofMonth; ///<这个月的第一天的日子
 @property (nonatomic, strong)NSArray *chartDataArray;
+
+@property (nonatomic, strong)NSArray *allSortedData;
+@property (nonatomic) NSInteger allCount; ///<所有天数，而不是运动数
 @property (nonatomic, strong)NSString *monthAndYear;
 @property (nonatomic, strong)UITapGestureRecognizer *tap;
-@property (nonatomic)BOOL isDay;
-
-@property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic)BOOL isDay; ///<显示的是天数还是百分比
 
 @end
 
@@ -80,109 +47,71 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.isDay = YES;
     [self initTheFrames];
-    [self initButtons];
+    [self getTheFreshData];
     
     //设置当前的月份和年份
-    self.monthAndYear = [[self dateFormatterForMonth] stringFromDate:[NSDate date]];
+    self.monthAndYear = [[ASBaseManage dateFormatterForMY] stringFromDate:[NSDate date]];
     
-    //初始化数据
-    self.eventsByDate = [[NSMutableDictionary alloc] initWithDictionary:[[EventStore sharedStore] allItems] copyItems:NO];
-    self.sortedKeyArray = [NSArray array];
-    NSMutableArray *tempArray = [NSMutableArray array]; //所有key的Array
-    tempArray = [[self.eventsByDate allKeys] copy];
-    
-    if (self.eventsByDate.count == 0){
-        self.percentageLabel.text = @"0%";
-    }
-    
-    //进行日期排序
-    self.sortedKeyArray = [self sortKeyFromDate:tempArray]; //所有日期排序后生成的新key
-    self.sortedTypeArray = [self sortEventsFromMostToLeast:self.eventsMostByDate];
-    //self.sortedTypeArray包含字典的数组，对字典中key=number进行了从大到小的排列
-    
-    //2.创建队列
-    dispatch_queue_t queue = dispatch_queue_create("myQueue",DISPATCH_QUEUE_SERIAL);
-    //3.多次使用队列组的方法执行任务, 只有异步方法
-    //3.1.执行3次循环
-    dispatch_async(queue, ^{
-        self.eventsDetailByType = [self sortForTypeDetail];
-//        NSLog(@"数组Detail的数据已载入");
-    });
-    
-    [self setView1NumberLabel];
-    
+    //刷新图表的数据
     [self arrayForChartData: [NSDate date]];
     [self.chartView showInView:self.contantView];
     
-    [self.contantView bringSubviewToFront:self.expLabel];
-    [self.contantView bringSubviewToFront:self.leftAButton];
-    [self.contantView bringSubviewToFront:self.rightAButton];
-    
-    //添加手势
-    swipeGestureRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(buttonClicked:)];
-    swipeGestureRight.numberOfTouchesRequired = 1;// 手指个数 The default value is 1.
-    swipeGestureRight.direction = UISwipeGestureRecognizerDirectionRight;
-    [self.chartView addGestureRecognizer:swipeGestureRight];
-    
-    swipeGestureLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(buttonClicked:)];
-    swipeGestureLeft.numberOfTouchesRequired = 1;// 手指个数 The default value is 1.
-    swipeGestureLeft.direction = UISwipeGestureRecognizerDirectionLeft;
-    [self.chartView addGestureRecognizer:swipeGestureLeft];
-    
-//    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(makeButtonDisappear)];
-//    [self.chartView addGestureRecognizer:self.tap];
-    
-    //2-1图片
-    SettingStore *setting = [SettingStore sharedSetting];
-    
-    if (self.sortedTypeArray.count > 0) {
-    NSString *mostTypeStr = [self.sortedTypeArray[0] valueForKey:@"type"];
-    NSString *leastTypeStr = [[self.sortedTypeArray lastObject] valueForKey:@"type"];
-        if (setting.sportTypeImageMale) {
-            self.mostTypeImageView.image = [UIImage imageNamed:mostTypeStr];
-            self.leastTypeImageView.image = [UIImage imageNamed:leastTypeStr];
-        }else{
-            NSString *femaleImageMost = [NSString stringWithFormat:@"女%@", mostTypeStr];
-            NSString *femaleImageLeast = [NSString stringWithFormat:@"女%@", leastTypeStr];
-            self.mostTypeImageView.image = [UIImage imageNamed:femaleImageMost];
-            self.leastTypeImageView.image = [UIImage imageNamed:femaleImageLeast];
-        }
-    };
+    //初始化图片和手势
+    [self initGestureAndImage];
 }
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.contantView bringSubviewToFront:self.expLabel];
+    [self.pieChartView reloadData];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - 初始化页面UI
 
 - (void)initTheFrames
 {
     //TableView初始化
-    UINib *nib = [UINib nibWithNibName:summaryCellReuseId bundle:nil];
-    [self.tableView registerNib:nib forCellReuseIdentifier:summaryCellReuseId];
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor clearColor];
-    self.isDay = YES;
     
     //View的初始化
-    self.view.backgroundColor = [UIColor colorWithRed:0.9529 green:0.9529 blue:0.9529 alpha:1];
-    _viewBackground.frame = CGRectMake(0, 0, screenWidth, screenHeight);
-    self.scrollView.frame = CGRectMake(0, 64, screenWidth, screenHeight);
-    self.view1.frame = CGRectMake(0, 0, screenWidth, 167);
-    
-    self.view4.frame = CGRectMake(0, self.view1.frame.size.height, screenWidth, 165);
-    self.chartView = [[UUChart alloc]initwithUUChartDataFrame:CGRectMake(0, 14, screenWidth - 24, self.contantView.frame.size.height - 19)
-                                                   withSource:self
-                                                    withStyle:UUChartLineStyle];
-    
-    NSString *monthStr = [[self dateFormatterForMonth] stringFromDate:[NSDate date]];
-    NSString *subStr1 = [monthStr substringFromIndex:3];
-    NSString *subStr2 = [monthStr substringToIndex:2];
-    NSString *labelStr = [NSString stringWithFormat:@"%@年%@月-每周运动天数",subStr1, subStr2];
-    self.expLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.contantView.frame.size.width - 125, 105, 0, 0)];
-    self.expLabel.text = labelStr;
-    self.expLabel.font = [UIFont fontWithName:@"AvenirNext-Medium" size:12.0f];
-    self.expLabel.textColor = [UIColor colorWithWhite:0.2 alpha:0.3];
-    [self.expLabel sizeToFit];
-    self.expLabel.center = CGPointMake(screenWidth/2, 13);
-    [self.contantView addSubview:self.expLabel];
-    
+    {
+        self.view.backgroundColor = [UIColor colorWithRed:0.9529 green:0.9529 blue:0.9529 alpha:1];
+        _viewBackground.frame = CGRectMake(0, 0, screenWidth, screenHeight);
+        self.scrollView.frame = CGRectMake(0, 64, screenWidth, screenHeight);
+        self.view1.frame = CGRectMake(0, 0, screenWidth, 167);
+    }
+    {
+        self.view4.frame = CGRectMake(0, self.view1.frame.size.height, screenWidth, 165);
+        self.chartView = [[UUChart alloc]initwithUUChartDataFrame:CGRectMake(0, 14, screenWidth - 24, self.contantView.frame.size.height - 19)
+                                                       withSource:self
+                                                        withStyle:UUChartLineStyle];
+        
+        NSString *monthStr = [[ASBaseManage dateFormatterForMY] stringFromDate:[NSDate date]];
+        NSString *subStr1 = [monthStr substringFromIndex:3];
+        NSString *subStr2 = [monthStr substringToIndex:2];
+        NSString *labelStr = [NSString stringWithFormat:@"%@年%@月-每周运动天数",subStr1, subStr2];
+        self.expLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.contantView.frame.size.width - 125, 105, 0, 0)];
+        self.expLabel.text = labelStr;
+        self.expLabel.font = [UIFont fontWithName:@"AvenirNext-Medium" size:12.0f];
+        self.expLabel.textColor = [UIColor colorWithWhite:0.2 alpha:0.3];
+        [self.expLabel sizeToFit];
+        self.expLabel.center = CGPointMake(screenWidth/2, 13);
+        [self.contantView addSubview:self.expLabel];
+    }
     self.view2.frame = CGRectMake(0, self.view1.frame.size.height + self.view4.frame.size.height, screenWidth, 152);
     if (screenWidth == 320)
     { self.view2.frame = CGRectMake(0, self.view1.frame.size.height + self.view4.frame.size.height, screenWidth, 129.5); }
@@ -195,8 +124,6 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
         self.view3.frame = CGRectMake(0, self.view1.frame.size.height + self.view2.frame.size.height + self.view4.frame.size.height, screenWidth, 360);
     }
     
-    //    NSLog(@"tableview: %g, view3: %g", self.tableView.frame.size.height, _view3.frame.size.height);
-    
     CGFloat contentHight = self.view1.frame.size.height + self.view2.frame.size.height + self.view3.frame.size.height + self.view4.frame.size.height;
     self.scrollView.contentSize = CGSizeMake(screenWidth, contentHight);
     self.scrollView.bounces = YES;
@@ -207,8 +134,6 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     [self.scrollView addSubview:self.view4];
     [self.scrollView addSubview:self.view2];
     [self.scrollView addSubview:self.view3];
-    
-    //    NSLog(@"1 screenWidth is %g, screen hight %g, contentHight is %g", screenWidth, screenHeight, contentHight);
     
     //图表View的初始化
     self.pieChartView.delegate = self;
@@ -247,51 +172,139 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     [self.percentageLabel.layer setCornerRadius:22];
     [self.percentageLabel setText:@"100%"];
     
-    //添加视差效果
-//    UIInterpolatingMotionEffect *motionEffect;
-//    motionEffect = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.x"
-//       type:UIInterpolatingMotionEffectTypeTiltAlongHorizontalAxis];
-//    motionEffect.minimumRelativeValue = @(-25);
-//    motionEffect.maximumRelativeValue = @(25);
-//    [self.view1 addMotionEffect:motionEffect];
-//    [self.view4 addMotionEffect:motionEffect];
-//    [self.view2 addMotionEffect:motionEffect];
-//    
-//    motionEffect = [[UIInterpolatingMotionEffect alloc] initWithKeyPath:@"center.y" type:UIInterpolatingMotionEffectTypeTiltAlongVerticalAxis];
-//    motionEffect.minimumRelativeValue = @(-25);
-//    motionEffect.maximumRelativeValue = @(25);
-//    [self.view1 addMotionEffect:motionEffect];
-//    [self.view4 addMotionEffect:motionEffect];
-//    [self.view2 addMotionEffect:motionEffect];
+    [self.contantView bringSubviewToFront:self.expLabel];
 }
 
-- (void)initButtons
-{
-    [self.leftAButton addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    [self.rightAButton addTarget:self action:@selector(buttonClicked:) forControlEvents:UIControlEventTouchUpInside];
-    self.leftAButton.alpha = 0;
-    self.rightAButton.alpha = 0;
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
+- (void)initGestureAndImage {
+    //添加手势
+    swipeGestureRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(buttonClicked:)];
+    swipeGestureRight.numberOfTouchesRequired = 1;// 手指个数 The default value is 1.
+    swipeGestureRight.direction = UISwipeGestureRecognizerDirectionRight;
+    [self.chartView addGestureRecognizer:swipeGestureRight];
     
-    [self.pieChartView reloadData];
-    [MobClick beginLogPageView:@"1.1_Summary_Page"];
+    swipeGestureLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(buttonClicked:)];
+    swipeGestureLeft.numberOfTouchesRequired = 1;// 手指个数 The default value is 1.
+    swipeGestureLeft.direction = UISwipeGestureRecognizerDirectionLeft;
+    [self.chartView addGestureRecognizer:swipeGestureLeft];
+    
+    //    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(makeButtonDisappear)];
+    //    [self.chartView addGestureRecognizer:self.tap];
+    
+    //2-1图片
+    SettingStore *setting = [SettingStore sharedSetting];
+    
+    if (self.sortedTypeArray.count > 0) {
+        NSString *mostTypeStr = [[_allSortedData firstObject] valueForKey:@"sportPart"];
+        NSString *leastTypeStr = [[_allSortedData lastObject] valueForKey:@"sportPart"];
+        if (setting.sportTypeImageMale) {
+            self.mostTypeImageView.image = [UIImage imageNamed:mostTypeStr];
+            self.leastTypeImageView.image = [UIImage imageNamed:leastTypeStr];
+        }else{
+            NSString *femaleImageMost = [NSString stringWithFormat:@"女%@", mostTypeStr];
+            NSString *femaleImageLeast = [NSString stringWithFormat:@"女%@", leastTypeStr];
+            self.mostTypeImageView.image = [UIImage imageNamed:femaleImageMost];
+            self.leastTypeImageView.image = [UIImage imageNamed:femaleImageLeast];
+        }
+    };
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"1.1_Summary_Page"];
+#pragma mark - 获取和计算数据
+
+- (void)getTheFreshData {
+    //计算主要数据
+    NSArray *allDateEvents = [DateEventStore findByCriteria:@" ORDER BY dateKey DESC "];
+    _allCount = allDateEvents.count;
+    //百分比圆盘
+    if (allDateEvents.count == 0){
+        self.percentageLabel.text = @"0%";
+    }
+    NSArray * allSportTypes = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"SportParts" ofType:@"plist"]];
+    NSMutableArray *allSortedDates = [[NSMutableArray alloc] initWithCapacity:allSportTypes.count];
+    
+    for (NSString *sportPart in allSportTypes) {
+        NSMutableDictionary *tempDic = [NSMutableDictionary dictionary];
+        [tempDic setObject:sportPart forKey:@"sportPart"];
+        NSMutableArray *tempArray = [NSMutableArray array];
+        [tempDic setObject:tempArray forKey:@"data"];
+        [allSortedDates addObject:tempDic];
+    }
+    
+    NSInteger totalTimeMin = 0;
+    for (DateEventStore *dateStore in allDateEvents){
+        totalTimeMin +=dateStore.doneMins;
+        for (NSMutableDictionary *tempDic in allSortedDates){
+            NSString *dicPart = [tempDic objectForKey:@"sportPart"];
+            if ([dateStore.sportPart isEqualToString:dicPart]) {
+                NSMutableArray *tempArr = [tempDic objectForKey:@"data"];
+                [tempArr addObject:dateStore];
+                break;
+            }
+        }
+    }
+    
+    _allSortedData = [allSortedDates sortedArrayUsingComparator: ^(id obj1, id obj2) {
+        NSMutableDictionary *tempDic1 = obj1;
+        NSMutableDictionary *tempDic2 = obj2;
+        NSMutableArray *tempArr1 = [tempDic1 objectForKey:@"data"];
+        NSMutableArray *tempArr2 = [tempDic2 objectForKey:@"data"];
+        
+        if ([tempArr1 count] > [tempArr2 count]) {
+            return (NSComparisonResult)NSOrderedAscending;//递减
+        }
+        if ([tempArr1 count] < [tempArr2 count]) {
+            return (NSComparisonResult)NSOrderedDescending;//递减
+        }
+        
+        return (NSComparisonResult)NSOrderedSame;
+    }];
+    
+    //刷新总结数字
+    [self getTheSummaryData:allDateEvents totalMin:totalTimeMin];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)getTheSummaryData: (NSArray *)allDateEvents totalMin: (NSInteger)totalTimeMin {
+    //总次数
+    _theWholeNumber.text = [NSString stringWithFormat:@"%@", @(allDateEvents.count)];
+    //总时间
+    _theWholeTime.text = [NSString stringWithFormat:@"%@", @(totalTimeMin)];
+    //平均每周几次
+    DateEventStore *dateStore = [allDateEvents lastObject];
+    NSDate *firstDate = [[ASBaseManage dateFormatterForDMY] dateFromString:dateStore.dateKey];
+    NSInteger currentSeconds = [[NSDate date] timeIntervalSince1970];
+    NSInteger firstSeconds = [firstDate timeIntervalSince1970];
+    NSInteger gapDays = (currentSeconds - firstSeconds) / (24*60*60);
+    float gapWeeks = (float)gapDays / 7.f;
+    float avgWeekTimes = 0;
+    if (gapWeeks > 1) {
+        avgWeekTimes = (float)allDateEvents.count/gapWeeks;
+    } else {
+        avgWeekTimes = allDateEvents.count;
+    }
+    _aveTimesAWeek.text = [NSString stringWithFormat:@"%.1f", avgWeekTimes];
+    //平均每次几分钟
+    NSInteger allDoneEventCount = [SportRecordStore findCounts:@" WHERE isDone = '1' "];
+    float avgTimeMin = (float)totalTimeMin/(float)allDoneEventCount;
+    _aveTime.text = [NSString stringWithFormat:@"%.1f", avgTimeMin];
+    
+    //iphone5的话字体缩小
+    if (screenWidth == WidthiPhone5) {
+        UIFont *font = [UIFont systemFontOfSize:22];
+        [_theWholeNumber setFont:font];
+        [_theWholeTime setFont:font];
+        [_aveTime setFont:font];
+        [_aveTimesAWeek setFont:font];
+        
+        _tableView.rowHeight = 44;
+    }
+    
+    [self.theWholeNumber sizeToFit];
+    [self.theWholeTime sizeToFit];
+    [self.aveTime sizeToFit];
+    [self.aveTimesAWeek sizeToFit];
 }
 
+#pragma mark - Button Method
+//最多的运动
 - (IBAction)mosrButtonClick:(UIButton *)sender {
     
     DetailSummaryVC *detailVC = [DetailSummaryVC new];
@@ -303,12 +316,11 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     detailVC.eventsByDateForTable = self.eventsDetailByType[typeStr];
     detailVC.sportTypeStr = [self.sortedTypeArray firstObject][@"type"];
     
-    
     nav.modalTransitionStyle = UIModalTransitionStylePartialCurl; //改变模态视图出现的动画
     [self presentViewController:nav animated:YES completion:^{
     }];
 }
-
+//最少的运动
 - (IBAction)leastButtonClick:(UIButton *)sender {
     
     DetailSummaryVC *detailVC = [DetailSummaryVC new];
@@ -326,53 +338,22 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     }];
 }
 
-- (void)makeButtonDisappear
-{
-    if (self.rightAButton.alpha == 0.7) {
-        //提前直接隐藏buttons
-//        [self.timer fire];
-        //重新设置自动消失buttons的时间为3秒
-        [self.timer setFireDate:[[NSDate date] dateByAddingTimeInterval:3]];
-    }else{
-        self.rightAButton.alpha = 0.7;
-        self.leftAButton.alpha = 0.7;
-        
-        //设置3秒钟后，隐藏buttons
-        self.timer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(makeButtonOnlyDisappear) userInfo:nil repeats:NO];
-    }
-}
-
-- (void)makeButtonOnlyDisappear
-{
-    [UIView animateWithDuration:0.5f
-                          delay:0.0f
-                        options:UIViewAnimationOptionCurveEaseIn
-                     animations:^{
-                         self.rightAButton.alpha = 0;
-                         self.leftAButton.alpha = 0;
-                     }
-                     completion:nil];
-}
-
+//滑动改变图表显示的时间
 - (void)buttonClicked: (id)sender
 {
-//    NSLog(@"%li", self.contantView.subviews.count);
-    
-    [self makeButtonDisappear];
-    
     //删除当下的图表
     [[self.contantView.subviews firstObject] removeFromSuperview];
     
-    if (sender == swipeGestureLeft || sender == _leftAButton) {
+    if (sender == swipeGestureLeft) {
         //重绘上月数据的图表
-        NSString * lastMonthAndYear = [self lastMonthFrom:self.monthAndYear];
-        NSDate *lastMonth = [[self dateFormatterForMonth] dateFromString:lastMonthAndYear];
+        NSString * lastMonthAndYear = [[ASBaseManage sharedManage] lastMonthFrom:self.monthAndYear];
+        NSDate *lastMonth = [[ASBaseManage dateFormatterForMY] dateFromString:lastMonthAndYear];
         [self arrayForChartData:lastMonth];
         self.monthAndYear = lastMonthAndYear;
-    }else if (sender == swipeGestureRight || sender == _rightAButton) {
+    }else if (sender == swipeGestureRight) {
         //重绘下月数据的图表
-        NSString * nextMonthAndYear = [self nextMonthFrom:self.monthAndYear];
-        NSDate *nextMonth = [[self dateFormatterForMonth] dateFromString:nextMonthAndYear];
+        NSString * nextMonthAndYear = [[ASBaseManage sharedManage] nextMonthFrom:self.monthAndYear];
+        NSDate *nextMonth = [[ASBaseManage dateFormatterForMY] dateFromString:nextMonthAndYear];
         [self arrayForChartData:nextMonth];
         self.monthAndYear = nextMonthAndYear;
     }
@@ -390,170 +371,15 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     [self.chartView showInView:self.contantView];
     [self.chartView addGestureRecognizer:swipeGestureLeft];
     [self.chartView addGestureRecognizer:swipeGestureRight];
-    [self.contantView bringSubviewToFront:self.expLabel];
-    [self.contantView bringSubviewToFront:self.leftAButton];
-    [self.contantView bringSubviewToFront:self.rightAButton];
-}
-#pragma mark - 用于计算数据的方法
-
-- (NSArray *)sortKeyFromDate: (NSMutableArray *)tempArray
-{
-    NSMutableArray *tempEventArray = [NSMutableArray array];
-    NSMutableArray *newTempArray = [NSMutableArray array];
-    
-    for (NSString *str in tempArray){
-        NSMutableDictionary *tempDic = [NSMutableDictionary dictionary];
-        tempDic[@"year"] = [str substringWithRange:NSMakeRange(6, 4)];
-        tempDic[@"month"] = [str substringWithRange:NSMakeRange(3, 2)];
-        tempDic[@"day"] = [str substringToIndex:2];
-        [tempEventArray addObject:tempDic];
-    }
-    
-    //对日期进行排序
-    NSSortDescriptor *firstDescriptor = [[NSSortDescriptor alloc] initWithKey:@"year" ascending:NO];
-    NSSortDescriptor *secondDescriptor = [[NSSortDescriptor alloc] initWithKey:@"month" ascending:NO];
-    NSSortDescriptor *thirdDescriptor = [[NSSortDescriptor alloc] initWithKey:@"day" ascending:NO];
-    
-    NSArray *sortDescriptors = [NSArray arrayWithObjects:firstDescriptor, secondDescriptor, thirdDescriptor,nil];
-    NSArray *beforeSortedArray = [tempEventArray sortedArrayUsingDescriptors:sortDescriptors];
-    
-    for (NSMutableDictionary *temDic in beforeSortedArray){
-        NSString *tempStr = [NSString stringWithFormat:@"%@-%@-%@", temDic[@"day"], temDic[@"month"], temDic[@"year"]];
-        [newTempArray addObject:tempStr];
-    }
-    
-    return [newTempArray copy];
 }
 
-
-- (NSArray *)sortEventsFromMostToLeast: (NSMutableDictionary *)sortedTypeByDate
-{
-    NSArray * array = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sportTypes" ofType:@"plist"]];
-    NSMutableArray *sportTypes = [NSMutableArray array];
-    for (int i = 0; i < array.count; i++){
-        sportTypes[i] = [[array objectAtIndex:i] objectForKey:@"sportType"];
-    }
-    //sportTypes是包含了所有运动项目序列的数组
-    
-    NSUInteger p = array.count;
-    
-    NSMutableArray *numberArray = [[NSMutableArray alloc] initWithCapacity:array.count];
-
-    NSArray * allValueTypes = [sortedTypeByDate allValues];
-    
-    for (int i = 0; i < p; i++) { //p = 7
-        NSMutableDictionary *tempMuDic = [NSMutableDictionary dictionary];
-        int a = 0;
-        NSString *type = sportTypes[i];
-        //快速枚举遍历所有Value的值
-        for (NSObject *object in allValueTypes) {
-            if ([type isEqualToString:[NSString stringWithFormat:@"%@", object]]) {
-                a++;
-            }
-        }
-        [tempMuDic setValue:[NSNumber numberWithInt:a] forKey:@"number"];
-        [tempMuDic setValue:type forKey:@"type"];
-        [numberArray addObject:tempMuDic];
-    }
-    
-    NSSortDescriptor *firstDescriptor = [[NSSortDescriptor alloc] initWithKey:@"number" ascending:NO];
-    NSArray *sortDescriptors = [NSArray arrayWithObjects:firstDescriptor,nil];
-    NSArray *afterSortedArray = [numberArray sortedArrayUsingDescriptors:sortDescriptors];
-    
-    return [afterSortedArray copy];
-}
-
-- (NSDictionary *)sortForTypeDetail
-{
-    NSArray * array = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sportTypes" ofType:@"plist"]];
-    NSMutableArray *sportTypes = [NSMutableArray array];
-    for (int i = 0; i < array.count; i++){
-        sportTypes[i] = [[array objectAtIndex:i] objectForKey:@"sportType"];
-    }
-    //sportTypes是包含了所有运动项目序列的数组
-    
-    NSMutableDictionary *tempMuDic0 = [NSMutableDictionary dictionary];
-    
-    for (int i = 0; i < sportTypes.count; i++) {
-        NSMutableArray *tempArray1 = [NSMutableArray array];
-        //1. 每次遍历提取一个type
-        NSString *keyTpye = sportTypes[i];
-        //2. 遍历有值的每一个日期
-        for (NSString *keyDate in self.sortedKeyArray){
-            //3. 限定：假如该日期的主要运动类型Equal正在遍历的类型
-            if ([keyTpye isEqualToString:self.eventsMostByDate[keyDate]]) {
-                NSMutableDictionary *tempMuDic1 = [NSMutableDictionary dictionary];
-                //4. 根据日期提取主数据中的运动细节数组
-                [tempMuDic1 setValue:self.eventsByDate[keyDate] forKey:keyDate];
-                //5. 根据先前排序好的日期顺序，归到一个临时数组中
-                [tempArray1 addObject:tempMuDic1];
-            }
-        }
-        //5. 将临时数组装入最终的临时字典
-        [tempMuDic0 setValue:tempArray1 forKey:keyTpye];
-    }
-    
-    return [tempMuDic0 copy];
-}
-
-//数组中最大的一个数
-- (int)findMaxInArray:(NSArray *)array
-{
-    int max = 0;
-    max = [array[0] intValue];
-    for (int i = 1; i < array.count; i++) {
-        if ([array[i] intValue] > max) {
-            max = [array[i] intValue];
-        }
-    }
-    return max;
-}
-
-//某个月1号是星期几
-- (int)weekOfFirstDay: (NSDate *)today
-{
-    NSString *monthStr = [[self dateFormatterForMonth] stringFromDate:today];
-    NSDate *firstDayofMonth = [[self dateFormatter] dateFromString:[NSString stringWithFormat:@"01-%@", monthStr]];
-    
-    //调个时差
-    NSTimeZone *localZone = [NSTimeZone localTimeZone];
-    NSInteger interval = [localZone secondsFromGMTForDate:firstDayofMonth];
-    self.firstDayofMonth = [firstDayofMonth dateByAddingTimeInterval:interval];
-    
-    //找到星期
-    
-    return [self weekOfParticularDay:self.firstDayofMonth];
-}
-
-- (int)weekOfParticularDay: (NSDate *)date
-{
-    NSString *weekStr = [[self dateFormatterForWeek] stringFromDate:date];
-    int weekNum = 0;
-    
-    if ([weekStr isEqualToString:Local(@"Mon")]) {
-        weekNum = 0;
-    }else if ([weekStr isEqualToString:Local(@"Tue")]){
-        weekNum = 1;
-    }else if ([weekStr isEqualToString:Local(@"Wed")]){
-        weekNum = 2;
-    }else if ([weekStr isEqualToString:Local(@"Thu")]){
-        weekNum = 3;
-    }else if ([weekStr isEqualToString:Local(@"Fri")]){
-        weekNum = 4;
-    }else if ([weekStr isEqualToString:Local(@"Sat")]){
-        weekNum = 5;
-    }else if ([weekStr isEqualToString:Local(@"Sun")]){
-        weekNum = 6;
-    }
-    
-    return weekNum;
-}
+#pragma mark - 生成表格使用的数据
 
 //生成用于表格的数据（每周的运动次数）
 - (void)arrayForChartData: (NSDate *)date
 {
     //本月第一天星期几的代表数字 (0 - 6)
-    int weekDay = [self weekOfFirstDay:date];
+    int weekDay = (int)[[ASBaseManage sharedManage] weekOfFirstDay:date]-1;
     //还有几天到下个周一(周日)
     SettingStore *setting = [SettingStore sharedSetting];
     if (setting.firstDayOfWeek) {
@@ -571,19 +397,19 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     for (int i = 0 ; i < weekDay; i++) {
         NSInteger interval = - (i+1)*24*60*60;
         NSDate *veryFirstDay = [self.firstDayofMonth dateByAddingTimeInterval:interval];
-        NSString *veryFirstDayStr = [[self dateFormatter] stringFromDate:veryFirstDay];
+        NSString *veryFirstDayStr = [[ASBaseManage dateFormatterForDMY] stringFromDate:veryFirstDay];
         [lastMonthLastWeek addObject:veryFirstDayStr];
     }
     for (int i = 0; i <= 6 - weekDay; i++) {
         NSInteger interval =  i*24*60*60;
         NSDate *veryFirstDay = [self.firstDayofMonth dateByAddingTimeInterval:interval];
-        NSString *veryFirstDayStr = [[self dateFormatter] stringFromDate:veryFirstDay];
+        NSString *veryFirstDayStr = [[ASBaseManage dateFormatterForDMY] stringFromDate:veryFirstDay];
         [lastMonthLastWeek addObject:veryFirstDayStr];
     }
     //计算这个月最后一周的所有日期
     NSMutableArray *thisMonthLastWeek = [NSMutableArray array];
-    NSDate *lastDayOfThisMonthDate = [self thisMonthLastDay:date];
-    int lastWeekDay = [self weekOfParticularDay:lastDayOfThisMonthDate];
+    NSDate *lastDayOfThisMonthDate = [[ASBaseManage sharedManage] thisMonthLastDay:date];
+    int lastWeekDay = (int)[[ASBaseManage sharedManage] weekOfFirstDay:lastDayOfThisMonthDate]-1;
     if (setting.firstDayOfWeek) {
         lastWeekDay += 1;
         if (lastWeekDay == 7) {
@@ -597,13 +423,13 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     for (int i = 0 ; i < lastWeekDay; i++) {
         NSInteger interval = - (i+1)*24*60*60;
         NSDate *veryFirstDay = [lastDayOfThisMonthDate dateByAddingTimeInterval:interval];
-        NSString *veryFirstDayStr = [[self dateFormatter] stringFromDate:veryFirstDay];
+        NSString *veryFirstDayStr = [[ASBaseManage dateFormatterForDMY] stringFromDate:veryFirstDay];
         [thisMonthLastWeek addObject:veryFirstDayStr];
     }
     for (int i = 0; i <= 6 - lastWeekDay; i++) {
         NSInteger interval =  i*24*60*60;
         NSDate *veryFirstDay = [lastDayOfThisMonthDate dateByAddingTimeInterval:interval];
-        NSString *veryFirstDayStr = [[self dateFormatter] stringFromDate:veryFirstDay];
+        NSString *veryFirstDayStr = [[ASBaseManage dateFormatterForDMY] stringFromDate:veryFirstDay];
         [thisMonthLastWeek addObject:veryFirstDayStr];
     }
     //除去和上个月相关联的第一周，先把这个月的下个周一起的运动天数统计出来
@@ -611,7 +437,7 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     NSMutableArray *thisMonthSportDates = [NSMutableArray array];
     for (NSString *date in self.sortedKeyArray){
         NSString *dayStr = [date substringFromIndex:3];
-        NSString *subStr = [[self dateFormatterForMonth] stringFromDate:self.firstDayofMonth];
+        NSString *subStr = [[ASBaseManage dateFormatterForMY] stringFromDate:self.firstDayofMonth];
         if ([dayStr isEqualToString:subStr]) {
             [thisMonthSportDates addObject:date];
         }
@@ -662,84 +488,6 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     self.chartDataArray = chartData;
 }
 
-- (NSString *)lastMonthFrom: (NSString *)dateStr
-{
-    NSCalendar *cal = [NSCalendar currentCalendar];
-    NSDateComponents *compoents = [cal components:(NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:[[self dateFormatterForMonth] dateFromString:dateStr]];
-    
-    NSInteger thisMonth = compoents.month;
-    NSInteger thisYear = compoents.year;
-    if (thisMonth == 1) {
-        thisMonth = 13;
-        thisYear -= 1;
-    }
-    
-    NSString *monthAndYear = [NSString stringWithFormat:@"%li-%li",(long)thisMonth - 1,(long)thisYear];
-    
-    if (thisMonth < 11) {
-        monthAndYear = [NSString stringWithFormat:@"0%li-%li",(long)thisMonth - 1,(long)thisYear];
-    }
-    return monthAndYear;
-}
-
-- (NSString *)nextMonthFrom: (NSString *)dateStr
-{
-    NSCalendar *cal = [NSCalendar currentCalendar];
-    NSDateComponents *compoents = [cal components:(NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:[[self dateFormatterForMonth] dateFromString:dateStr]];
-    
-    NSInteger thisMonth = compoents.month;
-    NSInteger thisYear = compoents.year;
-    if (thisMonth == 12) {
-        thisMonth = 0;
-        thisYear += 1;
-    }
-    
-    NSString *monthAndYear = [NSString stringWithFormat:@"%li-%li",(long)thisMonth + 1,(long)thisYear];
-    
-    if (thisMonth < 9) {
-        monthAndYear = [NSString stringWithFormat:@"0%li-%li",(long)thisMonth + 1,(long)thisYear];
-    }
-    return monthAndYear;
-}
-
-- (NSDate *)thisMonthLastDay: (NSDate *)date
-{
-    NSString *thisMonth = [[self dateFormatterForMonth] stringFromDate:date];
-    NSString *nextMonthAndYear = [self nextMonthFrom:thisMonth];
-    
-    NSDate *nextMonthFirstDay = [[self dateFormatter] dateFromString:[NSString stringWithFormat:@"01-%@", nextMonthAndYear]];
-    //调个时差
-    NSTimeZone *localZone = [NSTimeZone localTimeZone];
-    NSInteger interval = [localZone secondsFromGMTForDate:nextMonthFirstDay];
-    NSDate *nextMonthFirstDayNew = [nextMonthFirstDay dateByAddingTimeInterval:interval];
-    //减去一天
-    NSInteger intervalToLastDay = - 24*60*60;
-    NSDate *lastMonthLastDay = [nextMonthFirstDayNew dateByAddingTimeInterval:intervalToLastDay];
-    
-    return lastMonthLastDay;
-}
-
-- (NSDateFormatter *)dateFormatter
-{
-    static NSDateFormatter *dateFormatter;
-    if(!dateFormatter){
-        dateFormatter = [NSDateFormatter new];
-        dateFormatter.dateFormat = @"dd-MM-yyyy";
-    }
-    
-    return dateFormatter;
-}
-
-- (NSDateFormatter *)dateFormatterForMonth
-{
-    static NSDateFormatter *dateFormatter;
-    if(!dateFormatter){
-        dateFormatter = [NSDateFormatter new];
-        dateFormatter.dateFormat = @"MM-yyyy";
-    }
-    
-    return dateFormatter;
-}
 
 - (NSDateFormatter *)dateFormatterForWeek
 {
@@ -752,7 +500,6 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     return dateFormatter;
 }
 
-
 - (NSDateFormatter *)dateFormatterForChart
 {
     static NSDateFormatter *dateFormatter;
@@ -764,62 +511,6 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     return dateFormatter;
 }
 
-//计算主页的4个数字
-- (void)setView1NumberLabel
-{
-    //设置UI显示的属性
-    //1-1总计天数
-    self.theWholeNumber.text =[NSString stringWithFormat:@"%@", @([self.eventsByDate count])];
-    //1-2总时间
-    int timelastMin = 0;
-    for (NSString *key in self.sortedKeyArray){
-        int tempTimelast = 0;
-        for (Event *event in self.eventsByDate[key]){
-            tempTimelast = tempTimelast + event.timelast;
-        }
-        timelastMin = timelastMin + tempTimelast;
-    }
-    float timelastHour = (float)timelastMin / 60.;
-    self.theWholeTime.text = [NSString stringWithFormat:@"%.0f", timelastHour];
-    //1-3平均每次多少时间
-    if (self.eventsByDate.count > 0) {
-        float avegTimeMin = (float)timelastMin / self.eventsByDate.count;
-        self.aveTime.text = [NSString stringWithFormat:@"%.0f", avegTimeMin];
-    }else{self.aveTime.text = @"0";}
-    
-    //1-4平均每周几次
-    if (self.eventsByDate.count > 0){
-        
-        NSDate *firstDate = [[self dateFormatter] dateFromString:[self.sortedKeyArray lastObject]];
-        NSDate *lastDate = [[self dateFormatter] dateFromString:self.sortedKeyArray[0]];
-        NSTimeInterval betweenTime = [lastDate timeIntervalSinceDate:firstDate];
-        float betweenDays = ((int)betweenTime)/(3600*24); //记录第一天和最后一天的间隔时间，单位：天
-        float avegTimesAWeek = self.eventsByDate.count / (betweenDays/7.);
-        
-        if (betweenDays < 8) {
-            self.aveTimesAWeek.text = [NSString stringWithFormat:@"%@", @(self.eventsByDate.count)];
-        }else{
-            self.aveTimesAWeek.text = [NSString stringWithFormat:@"%.1f", avegTimesAWeek];
-        }
-        
-    }else{self.aveTimesAWeek.text = @"0";}
-    
-    //iphone5的话字体缩小
-    if (screenWidth == 320) {
-        UIFont *font = [UIFont systemFontOfSize:22];
-        [_theWholeNumber setFont:font];
-        [_theWholeTime setFont:font];
-        [_aveTime setFont:font];
-        [_aveTimesAWeek setFont:font];
-        
-        _tableView.rowHeight = 44;
-    }
-    
-    [self.theWholeNumber sizeToFit];
-    [self.theWholeTime sizeToFit];
-    [self.aveTime sizeToFit];
-    [self.aveTimesAWeek sizeToFit];
-}
 #pragma mark - TableView Delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -828,35 +519,35 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (self.sortedTypeArray.count > 0) {
-        return self.sortedTypeArray.count;
-    }else{
-        return 0;
-    }
+    return _allSortedData.count;
 }
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
-    summaryTypeCell *cell = [self.tableView dequeueReusableCellWithIdentifier:summaryCellReuseId];
+    static NSString *cellIdentifier = @"summaryTypeCell";
+    summaryTypeCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if(cell == nil) {
+        cell = [[[NSBundle mainBundle]loadNibNamed:cellIdentifier owner:nil options:nil] firstObject];
+    }
     
-    NSDictionary *cellInfoDic = self.sortedTypeArray[indexPath.row];
-    cell.typeLabel.text = [NSString stringWithFormat:@"%@", cellInfoDic[@"type"]];
+    NSMutableDictionary *tempDic = _allSortedData[indexPath.row];
+    NSString *sportPart = [tempDic objectForKey:@"sportData"];
+    NSMutableArray *tempArr = [tempDic objectForKey:@"data"];
+    
+    cell.typeLabel.text = sportPart;
     
     if (self.isDay == YES) {
-        cell.daysOrPerLabel.text = [NSString stringWithFormat:@"%@ 天", cellInfoDic[@"number"]];
+        cell.daysOrPerLabel.text = [NSString stringWithFormat:@"%@ 天", @(tempArr.count)];
     }else{
-        float f = [cellInfoDic[@"number"] floatValue] / (float)self.eventsByDate.count;
+        float f = 0;
+        if (_allCount > 0) {
+            f = (float)tempArr.count / (float)_allCount;
+        }
         cell.daysOrPerLabel.text = [NSString stringWithFormat:@"%.1f%%", f*100];
     }
 
     cell.changeShowBlock = ^(){
-        
-        if (self.isDay == YES) {
-            self.isDay = NO;
-        }else{
-            self.isDay = YES;
-        }
-        
+        _isDay = !_isDay;
         [self.tableView reloadData];
     };
     
@@ -865,64 +556,71 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     DetailSummaryVC *detailVC = [DetailSummaryVC new];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:detailVC];
     
-    NSDictionary *cellInfoDic = self.sortedTypeArray[indexPath.row];
-    NSString *typeStr = [NSString stringWithFormat:@"%@", cellInfoDic[@"type"]];
+    NSMutableDictionary *tempDic = _allSortedData[indexPath.row];
+    NSString *sportPart = [tempDic objectForKey:@"sportData"];
+    NSMutableArray *tempArr = [tempDic objectForKey:@"data"];
     
-    detailVC.eventsByDateForTable = self.eventsDetailByType[typeStr];
-    NSDictionary *dic = self.sortedTypeArray[indexPath.row];
-    detailVC.sportTypeStr = [dic valueForKey:@"type"];
-    
+    detailVC.eventsByDateForTable = tempArr;
+    detailVC.sportTypeStr = sportPart;
     
     nav.modalTransitionStyle = UIModalTransitionStylePartialCurl; //改变模态视图出现的动画
-    [self presentViewController:nav animated:YES completion:^{
-    }];
-    
-    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 #pragma mark - XYPieChart Data Source
 
 - (NSUInteger)numberOfSlicesInPieChart:(XYPieChart *)pieChart
 {
-    return self.sortedTypeArray.count;
+    return _allSortedData.count;
 }
 
 - (CGFloat)pieChart:(XYPieChart *)pieChart valueForSliceAtIndex:(NSUInteger)index
 {
-    return [self.sortedTypeArray[index][@"number"] intValue];
+    NSMutableDictionary *tempDic = _allSortedData[index];
+    NSMutableArray *tempArr = [tempDic objectForKey:@"data"];
+    
+    return tempArr.count;
 }
 
 - (UIColor *)pieChart:(XYPieChart *)pieChart colorForSliceAtIndex:(NSUInteger)index
 {
-    NSDictionary *cellInfoDic = self.sortedTypeArray[index];
-    SettingStore *setting = [SettingStore sharedSetting];
-    NSArray *oneColor = [setting.typeColorArray objectAtIndex:[self colorForsportType:cellInfoDic[@"type"]]];
-    UIColor *pickedColor = [UIColor colorWithRed:[oneColor[0] floatValue] green:[oneColor[1] floatValue] blue:[oneColor[2] floatValue] alpha:1];
+    NSMutableDictionary *tempDic = _allSortedData[index];
+    NSString *sportPart = [tempDic objectForKey:@"sportPart"];
+    UIColor *pickedColor = [[ASBaseManage sharedManage] colorForsportType:sportPart];
     
     return pickedColor;
 }
 
 - (NSString *)pieChart:(XYPieChart *)pieChart textForSliceAtIndex:(NSUInteger)index
 {
-    return self.sortedTypeArray[index][@"type"];
+    NSMutableDictionary *tempDic = _allSortedData[index];
+    NSString *sportPart = [tempDic objectForKey:@"sportPart"];
+    
+    return sportPart;
 }
 
 #pragma mark - XYPieChart Delegate
 - (void)pieChart:(XYPieChart *)pieChart willSelectSliceAtIndex:(NSUInteger)index
 {
-//    NSLog(@"will select slice at index %lu",index);
-    NSDictionary *cellInfoDic = self.sortedTypeArray[index];
-    float f = [cellInfoDic[@"number"] floatValue] / (float)self.eventsByDate.count;
+    NSMutableDictionary *tempDic = _allSortedData[index];
+    NSMutableArray *tempArr = [tempDic objectForKey:@"data"];
+    float f = 0;
+    if (_allCount > 0) {
+        f = (float)tempArr.count / (float)_allCount;
+    }
     self.percentageLabel.text = [NSString stringWithFormat:@"%.1f%%", f*100];
 }
+
 - (void)pieChart:(XYPieChart *)pieChart willDeselectSliceAtIndex:(NSUInteger)index
 {
-//    NSLog(@"will deselect slice at index %lu",index);
     self.percentageLabel.text = @"100%";
 }
+
 - (void)pieChart:(XYPieChart *)pieChart didDeselectSliceAtIndex:(NSUInteger)index
 {
 //    NSLog(@"did deselect slice at index %lu",index);
@@ -936,7 +634,7 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
 - (NSArray *)getXTitles:(NSUInteger)num
 {
     NSMutableArray *xTitles = [NSMutableArray array];
-    NSDate *date = [[self dateFormatterForMonth] dateFromString:self.monthAndYear];
+    NSDate *date = [[ASBaseManage dateFormatterForMY] dateFromString:self.monthAndYear];
     NSString *monthStr = [[self dateFormatterForChart] stringFromDate:date];
     
     for (int i=0; i<num; i++) {
@@ -988,31 +686,7 @@ static NSString * const summaryCellReuseId = @"summaryTypeCell";
     return NO;
 }
 
-#pragma mark - 判断cell文字颜色的方法
-- (int)colorForsportType:(NSString *)sportType
-{
-    if ([sportType isEqualToString:@"胸部"]) {
-        return 0;
-    }else if ([sportType isEqualToString:@"背部"]){
-        return 1;
-    }else if ([sportType isEqualToString:@"肩部"]){
-        return 2;
-    }else if ([sportType isEqualToString:@"腿部"]){
-        return 3;
-    }else if ([sportType isEqualToString:@"体力"]){
-        return 4;
-    }else if ([sportType isEqualToString:@"核心"]){
-        return 5;
-    }else if ([sportType isEqualToString:@"手臂"]){
-        return 6;
-    }else if ([sportType isEqualToString:@"综合"]){
-        return 7;
-    }
-    
-    return 0;
-}
-
-+(UIImage*)captureView: (UIView *)theView
++ (UIImage*)captureView: (UIView *)theView
 {
     CGRect rect = theView.frame;
     UIGraphicsBeginImageContextWithOptions(rect.size, YES, 0.0);

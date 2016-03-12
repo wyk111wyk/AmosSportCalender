@@ -7,13 +7,14 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "JKDBModel.h"
 
-@interface DayStateStore : NSObject
+@interface DayStateStore : JKDBModel
 
 @property (nonatomic) BOOL hasAllDone;
-@property (nonatomic) NSInteger allEventNum;
-@property (nonatomic) NSInteger allDoneNum;
-@property (nonatomic, strong) NSString *dayType;
+@property (nonatomic) BOOL hasEvents;
+@property (nonatomic, strong) NSString *dayPart;
+@property (nonatomic) NSInteger dayPartIndex;
 @property (nonatomic, strong) NSString *dayKey;
 
 @end

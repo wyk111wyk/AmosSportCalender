@@ -10,7 +10,6 @@
 #import "GroupDetailCell.h"
 #import "GroupStore.h"
 #import "CommonMarco.h"
-#import "NewEvevtViewController.h"
 
 static NSString * const YKSummaryCellReuseId = @"GroupDetailCell";
 
@@ -70,14 +69,14 @@ static NSString * const YKSummaryCellReuseId = @"GroupDetailCell";
     //    NSLog(@"%@", NSStringFromSelector(_cmd));
     if ([segue.identifier isEqualToString:@"newGroupEvent"]) {
         
-        NewEvevtViewController *mvc = (NewEvevtViewController *)segue.destinationViewController;
-        Event *event = [[GroupStore sharedStore] createItem];
-        
-        mvc.event = tempEvent? tempEvent : event;
-        mvc.createNewEvent = tempEvent ? NO : YES;
-        mvc.groupEdit = YES;
-        mvc.belong = self.belong;
-        mvc.groupName = self.navTitle;
+//        NewEvevtViewController *mvc = (NewEvevtViewController *)segue.destinationViewController;
+//        Event *event = [[GroupStore sharedStore] createItem];
+//        
+//        mvc.event = tempEvent? tempEvent : event;
+//        mvc.createNewEvent = tempEvent ? NO : YES;
+//        mvc.groupEdit = YES;
+//        mvc.belong = self.belong;
+//        mvc.groupName = self.navTitle;
 //        mvc.event.sportType = self.belong;
     }
 }

@@ -13,10 +13,12 @@
 
 #import "SettingStore.h"
 #import "ASBaseManage.h"
+#import "ASDataManage.h"
 
+#import "PersonInfoStore.h"
 #import "SportRecordStore.h"
 #import "SportEventStore.h"
-#import "DayStateStore.h"
+#import "DateEventStore.h"
 
 /** Debug */
 #define DeBugMode 0
@@ -40,6 +42,10 @@
 #define screenHeight ([UIScreen mainScreen].bounds.size.height)
 #define screenOfScale ([UIScreen mainScreen].scale)
 #define screenSize ([UIScreen mainScreen].bounds.size)
+
+#define WidthiPhone5 320
+#define WidthiPhone6 375
+#define WidthiPhone6p 414
 
 #define IS_IOS8 ([[UIDevice currentDevice].systemVersion doubleValue] >= 8.0)
 
@@ -66,5 +72,6 @@
 #define otherColor [UIColor colorWithRed:0.8667 green:0.5451 blue:0.8980 alpha:1];
 
 #define RefreshSportEventsNotifcation @"RefreshSportEventsNotifcation"
+#define RefreshRootPageEventsNotifcation @"RefreshRootPageEventsNotifcation"
 
 #endif /* CommonMarco_h */

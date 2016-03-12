@@ -1,20 +1,20 @@
 //
-//  DayStateStore.m
+//  DateEventStore.m
 //  AmosSportDiary
 //
-//  Created by Amos Wu on 16/3/9.
+//  Created by Amos Wu on 16/3/12.
 //  Copyright © 2016年 Amos Wu. All rights reserved.
 //
 
-#import "DayStateStore.h"
+#import "DateEventStore.h"
 
-@implementation DayStateStore
+@implementation DateEventStore
 
 - (instancetype)init {
     self = [super init];
     if (self) {
-        _hasAllDone = NO;
-        _hasEvents = NO;
+        _doneCount = 0;
+        _doneMins = 0;
     }
     
     return self;

@@ -7,6 +7,7 @@
 //
 
 #import "SportRecordStore.h"
+#import "ASBaseManage.h"
 
 @implementation SportRecordStore
 
@@ -14,8 +15,10 @@
     self = [super init];
     if (self) {
         _eventTimeStamp = [[NSDate date] timeIntervalSince1970];
+        _dateKey = [[ASBaseManage dateFormatterForDMY] stringFromDate:[NSDate date]];
         _isDone = NO;
         _isSystemMade = NO;
+        _datePart = @"";
     }
     
     return self;

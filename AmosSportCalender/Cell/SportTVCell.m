@@ -7,83 +7,63 @@
 //
 
 #import "SportTVCell.h"
+#import "CommonMarco.h"
+
 #import "Event.h"
 #import "SettingStore.h"
 
 @implementation SportTVCell
 
 - (void)awakeFromNib {
-    
+    _iconRootView.layer.borderWidth = 0.7;
+    _iconRootView.layer.borderColor = MYBlueColor.CGColor;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
-//    NSLog(@"载入cell数据");
     
-    self.sportName.text = self.event.sportName;
-    [self.sportName sizeToFit];
-    
-    if (self.event.weight == 0 && self.event.times > 0) {
-        self.sportPro.text = [NSString stringWithFormat:@"%d组 x %d次", self.event.rap, self.event.times];
-    }else if (self.event.weight == 300 && self.event.times > 0){
-        self.sportPro.text = [NSString stringWithFormat:@"%d组 x %d次  自身重量", self.event.rap, self.event.times];
-    }else if (self.event.times == 0 && self.event.rap == 0){
-        self.sportPro.text = @"Go！Go！Go！";
-    }else{
-    self.sportPro.text = [NSString stringWithFormat:@"%d组 x %d次   %.1fkg", self.event.rap, self.event.times, self.event.weight];
+    if (_recordStore) {
+        UIColor *partColor = [[ASBaseManage sharedManage] colorForsportType:_recordStore.sportPart];
+        _iconRootView.layer.borderColor = partColor.CGColor;
+        _sportType.text = _recordStore.sportPart;
+        _sportName.text = _recordStore.sportName;
+        
+        if (_recordStore.sportType == 1) {
+            //抗阻运动
+            _markLabel.text = @"Done";
+            _timelastLabel.text = [NSString stringWithFormat:@"%d", _recordStore.doneSets];
+            
+            NSString *unitText = @"";
+            SettingStore *setting = [SettingStore sharedSetting];
+            if (_recordStore.weight == 999){
+                //不变
+            }else if (setting.weightUnit == 0) {
+                unitText = @"Kg";
+            }else if (setting.weightUnit == 1) {
+                unitText = Local(@"lb");
+            }
+            self.sportPro.text = [NSString stringWithFormat:@"%d组 x %d次  %d%@", _recordStore.repeatSets, _recordStore.RM, _recordStore.weight, unitText];
+        }else {
+            //有氧或拉伸
+            self.sportPro.text = @"Go！Go！Go！";
+            _markLabel.text = @"Min";
+            _timelastLabel.text = [NSString stringWithFormat:@"%d", _recordStore.timeLast];
+        }
+        
+        if (_recordStore.isDone) {
+            self.backgroundColor = [UIColor colorWithRed:0.8980 green:0.8980 blue:0.8980 alpha:0.9];
+            self.donePic.hidden = NO;
+            self.sportType.textColor = [UIColor grayColor];
+            self.sportName.textColor = [UIColor grayColor];
+            self.sportPro.textColor = [UIColor grayColor];
+        }else {
+            self.backgroundColor = [UIColor whiteColor];
+            self.donePic.hidden = YES;
+            self.sportName.textColor = [UIColor blackColor];
+            self.sportPro.textColor = [UIColor lightGrayColor];
+            self.sportType.textColor = partColor;
+        }
     }
-    
-    self.timelastLabel.text = [NSString stringWithFormat:@"%d", self.event.timelast];
-    
-    if (self.event.done == NO) {
-        
-        self.backgroundColor = [UIColor whiteColor];
-//        NSLog(@"In cell Not Done");
-        self.donePic.hidden = YES;
-        self.sportName.textColor = [UIColor blackColor];
-        self.sportPro.textColor = [UIColor lightGrayColor];
-        
-        self.sportType.text = self.event.sportType;
-        
-        SettingStore *setting = [SettingStore sharedSetting];
-        NSArray *oneColor = [setting.typeColorArray objectAtIndex:[self colorForsportType:self.event.sportType]];
-        UIColor *pickedColor = [UIColor colorWithRed:[oneColor[0] floatValue] green:[oneColor[1] floatValue] blue:[oneColor[2] floatValue] alpha:1];
-        
-        self.sportType.textColor = pickedColor;
-
-    }else{
-//        NSLog(@"In cell Done");
-        self.backgroundColor = [UIColor colorWithRed:0.8980 green:0.8980 blue:0.8980 alpha:0.9];
-        self.donePic.hidden = NO;
-        self.sportType.text = self.event.sportType;
-        self.sportType.textColor = [UIColor grayColor];
-        self.sportName.textColor = [UIColor grayColor];
-        self.sportPro.textColor = [UIColor grayColor];
-    }
-}
-
-- (int)colorForsportType:(NSString *)sportType
-{
-    if ([sportType isEqualToString:@"胸部"]) {
-        return 0;
-    }else if ([sportType isEqualToString:@"背部"]){
-        return 1;
-    }else if ([sportType isEqualToString:@"肩部"]){
-        return 2;
-    }else if ([sportType isEqualToString:@"腿部"]){
-        return 3;
-    }else if ([sportType isEqualToString:@"体力"]){
-        return 4;
-    }else if ([sportType isEqualToString:@"核心"]){
-        return 5;
-    }else if ([sportType isEqualToString:@"手臂"]){
-        return 6;
-    }else if ([sportType isEqualToString:@"综合"]){
-        return 7;
-    }
-    
-    return 0;
 }
 
 @end

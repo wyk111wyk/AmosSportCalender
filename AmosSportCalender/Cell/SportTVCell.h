@@ -7,16 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
-@class Event;
+#import "MGSwipeTableCell.h"
 
-@interface SportTVCell : UITableViewCell
+@class SportRecordStore;
+
+@interface SportTVCell : MGSwipeTableCell
+
+@property (weak, nonatomic) IBOutlet UIView *iconRootView;
+@property (weak, nonatomic) IBOutlet UILabel *timelastLabel;
+@property (weak, nonatomic) IBOutlet UILabel *markLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *sportName; ///<项目名称
-@property (weak, nonatomic) IBOutlet UILabel *sportType; ///<类别
+@property (weak, nonatomic) IBOutlet UILabel *sportType; ///<部位
 @property (weak, nonatomic) IBOutlet UILabel *sportPro; ///<运动项目属性
-@property (weak, nonatomic) IBOutlet UILabel *timelastLabel;
+
 @property (weak, nonatomic) IBOutlet UIImageView *donePic;
 
-@property (nonatomic, strong) Event *event;
+@property (nonatomic, strong) SportRecordStore *recordStore;
 
 @end

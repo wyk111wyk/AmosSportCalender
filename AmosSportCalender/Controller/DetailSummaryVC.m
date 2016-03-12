@@ -7,7 +7,7 @@
 //
 
 #import "DetailSummaryVC.h"
-#import "SummaryNewTVCell.h"
+#import "SummaryDisplayCell.h"
 #import "Event.h"
 #import "SettingStore.h"
 #import "DMPasscode.h"
@@ -201,7 +201,7 @@ static NSString * const YKSummaryCellReuseId = @"summaryNewTVCell";
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
-    SummaryNewTVCell *cell = [tableView dequeueReusableCellWithIdentifier:YKSummaryCellReuseId forIndexPath:indexPath];
+    SummaryDisplayCell *cell = [tableView dequeueReusableCellWithIdentifier:YKSummaryCellReuseId forIndexPath:indexPath];
 
     for (int i = 0; i < self.eventsByDateForTable.count; i++) {
         if (indexPath.section == i) {

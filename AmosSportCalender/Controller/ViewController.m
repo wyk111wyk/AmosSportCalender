@@ -10,22 +10,14 @@
 // MARK: [something]
 // FIXME: [something]
 
-#import <EventKit/EventKit.h>
-#import <EventKitUI/EventKitUI.h>
 #import <LocalAuthentication/LocalAuthentication.h>
 #import <Security/Security.h>
 #import <QuartzCore/QuartzCore.h>
 
 #import "CommonMarco.h"
-#import "DMPasscode.h"
 #import "ViewController.h"
-#import "NewEvevtViewController.h"
-#import "Event.h"
-#import "EventStore.h"
 #import "SportTVCell.h"
 #import "SummaryViewController.h"
-#import "SettingStore.h"
-#import "PersonInfoStore.h"
 #import "SettingTableView.h"
 #import "RESideMenu.h"
 #import "WXApi.h"
@@ -33,8 +25,9 @@
 #import "NYSegmentedControl.h"
 #import "YYKit.h"
 #import "NewEventVC.h"
+#import "MGSwipeButton.h"
 
-@interface ViewController ()<UITableViewDataSource, UITableViewDelegate, EKEventEditViewDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate, WXApiDelegate>
+@interface ViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate, WXApiDelegate, MGSwipeTableCellDelegate>
 {
     NSMutableDictionary *eventsByDate; ///<储存所有事件的Dic
     
@@ -44,7 +37,6 @@
 }
 
 @property (strong, nonatomic)NSMutableDictionary *eventsMostByDate; ///<每一天练的项目，例如胸部
-@property (strong, nonatomic)NSMutableArray *sportTypes;
 @property (strong, nonatomic)NSArray *rightButtons; ///<日历页面的Menu Button Set
 
 @property (strong, nonatomic) IBOutlet UIView *rootView;
@@ -55,19 +47,8 @@
 
 //Data
 @property (nonatomic, strong) NSDate* selectedDate; ///<被选择的当天日期，用作key
-@property (nonatomic, strong) NSMutableArray *oneDayEvents; ///<选择的那一天的所有运动
-@property (nonatomic, strong) NSMutableDictionary *doneNumbers; ///<储存完成项目数的字典
-@property (nonatomic, strong) NSNumber *doneNumber; ///<已经完成的项目数
-
 @property (nonatomic, strong) NSMutableArray *allSelectDayEvents; ///<选择的那一天的所有运动
-
-@property (nonatomic, strong) ViewController *vc;
-@property (strong, nonatomic) Event *tempEvent; ///<专程用来在更改数据时临时存放的
-
-// EKEventStore instance associated with the current Calendar application
-@property (nonatomic, strong) EKEventStore *eventStore;
-@property (nonatomic, strong) EKEvent *ekevent;
-@property (nonatomic, strong) NSString *idf;
+@property (nonatomic, strong) NSString *dayPartText; ///<当天最多的类型
 
 @property (nonatomic) NSInteger applicationIconBadgeNumber;
 
@@ -95,6 +76,9 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //初始数据
+    _todayDate = [NSDate date];
+    self.selectedDate = [NSDate date];
     
     //TableView初始化
     [self initTheTableView];
@@ -102,154 +86,117 @@
     [self initTheSegmentSwitch];
     //日历初始化
     [self initTheCalendarManager];
-
-    //初始数据
-    self.selectedDate = [NSDate date];
-    self.doneNumbers = [NSMutableDictionary dictionary];
     
-    //给运动项目赋值
-    NSArray * array = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sportTypes" ofType:@"plist"]];
-    self.sportTypes = [NSMutableArray array];
-    for (int i = 0; i < array.count; i++){
-        self.sportTypes[i] = [[array objectAtIndex:i] objectForKey:@"sportType"];
-    }
-//    NSLog(@"%@", NSStringFromSelector(_cmd));
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAllData) name:RefreshRootPageEventsNotifcation object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
 
-    [self loadTheDateEvents];
-    self.tempEvent = nil;
-
-//    NSLog(@"%@", NSStringFromSelector(_cmd));
+    [self loadTheDateEvents:_selectedDate];
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
-    [super viewDidAppear:animated];
     [_calendarManager reload];
-    [MobClick beginLogPageView:@"1_Calendar_Page"];
-    
-//    NSLog(@"%@", NSStringFromSelector(_cmd));
+    [super viewDidAppear:animated];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"1_Calendar_Page"];
+- (void)refreshAllData{
+    [self loadTheDateEvents:_selectedDate];
+    [_calendarManager setDate:_selectedDate];
+    [self.tableView reloadData];
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - 载入数据和处理
 
-- (void)loadTheDateEvents
+- (void)loadTheDateEvents: (NSDate *)seDate
 {
-    //从数据库载入所有数据
-    self.oneDayEvents = [NSMutableArray array];
-    eventsByDate = [[NSMutableDictionary alloc] initWithDictionary:[[EventStore sharedStore] allItems] copyItems:NO];
-    //载入根据时间生成的key
-    NSString *key = [[ASBaseManage dateFormatterForDMY] stringFromDate:self.selectedDate];
+    NSString *dateKey = [[ASBaseManage dateFormatterForDMY] stringFromDate:seDate];
+    NSString *criStr = [NSString stringWithFormat:@" WHERE dateKey = '%@' ORDER BY eventTimeStamp ", dateKey];
+    _allSelectDayEvents = [[NSMutableArray alloc] initWithArray:[SportRecordStore findByCriteria:criStr]];
+    if (_allSelectDayEvents.count > 0) {
+        NSString *maxPart = [[ASBaseManage sharedManage] findTheMaxOfTypes:_allSelectDayEvents.copy];
+        _dayPartText = maxPart;
+    }
     
-    self.oneDayEvents = eventsByDate[key];
+    //更新文字说明
+    [self updateTableViewHeadTitle];
+    //更新今天没有完成的数目的角标
+    [self updateBadgeNumber];
+}
+
+- (void)updateBadgeNumber {
+    dispatch_async(dispatch_get_main_queue(), ^{
     
-    //计算那天完成的项目数，并且更新角标
-    [self setUnderTableLabelWithDifferentDay: self.selectedDate];
-    [_calendarManager reload];
-    [self.tableView reloadData];
-    
-    NSArray *allSportDays = [eventsByDate allKeys];
-    dispatch_queue_t queue = dispatch_queue_create("myQueue",DISPATCH_QUEUE_SERIAL);
-    dispatch_async(queue, ^{
-        for (NSString *key in allSportDays){
-            NSDate *date = [[ASBaseManage dateFormatterForDMY] dateFromString:key];
-            //计算某一天运动最多的项目是什么
-            unsigned long index = [self findTheMaxOfTypes:date];
-            //计算每一天练的都是什么项目
-            if (!self.eventsMostByDate) {
-                self.eventsMostByDate = [NSMutableDictionary dictionary];
+        SettingStore *setting = [SettingStore sharedSetting];
+        if (setting.iconBadgeNumber) {
+            //设置桌面的数字角标
+            
+            NSString *dateKey = [[ASBaseManage dateFormatterForDMY] stringFromDate:_todayDate];
+            NSString *criStr = [NSString stringWithFormat:@" WHERE dateKey = '%@' ORDER BY eventTimeStamp ", dateKey];
+            NSArray *todayAllEvents = [SportRecordStore findByCriteria:criStr];
+            NSInteger eventCount = todayAllEvents.count;
+            NSInteger doneCount = 0;
+            
+            for (SportRecordStore *recordStore in todayAllEvents){
+                if (recordStore.isDone) {
+                    doneCount ++;
+                }
             }
-            if (eventsByDate[key]) {
-                self.eventsMostByDate[key] = self.sportTypes[index];
+            
+            NSInteger leftCount = eventCount - doneCount;
+            if (leftCount > 0){
+                [[UIApplication sharedApplication] setApplicationIconBadgeNumber:leftCount];
+            }else{
+                [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
             }
         }
     });
-
-//    NSLog(@"%@", NSStringFromSelector(_cmd));
 }
 
-//计算某一天已经完成的事件的数目
-- (void)setUnderTableLabelWithDifferentDay: (NSDate *)date
-{
-    int i = 0;
-    NSString *key = [[ASBaseManage dateFormatterForDMY] stringFromDate:date];
-    
-    //计算这一天有多少已完成的事件
-    if (eventsByDate[key]) {
-        for (Event *event in eventsByDate[key]) {
-            if (event.done == YES) {
-                i ++;
-            }
-        }}
-
-//    NSLog(@"%@ 共有事件 k = %lu 完成事件 i = %d",date, (unsigned long)[eventsByDate[key] count], i);
-    
-    NSNumber *tempNum = [NSNumber numberWithInt:i];
-    self.doneNumbers[key] = tempNum;
-    
-    SettingStore *setting = [SettingStore sharedSetting];
-    if (setting.iconBadgeNumber) {
-    //设置桌面的数字角标
-    NSString *todayKey = [[ASBaseManage dateFormatterForDMY] stringFromDate:[NSDate date]];
-    if ([key isEqualToString:todayKey] && eventsByDate && _doneNumbers){
-        _applicationIconBadgeNumber = [eventsByDate[todayKey] count] - [_doneNumbers[todayKey] integerValue];
-        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:_applicationIconBadgeNumber];
-    }}else{
-        [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-    }
-}
-
-- (void)setTableViewHeadTitle: (NSDate *)date{
-    NSString *key = [[ASBaseManage dateFormatterForDMY] stringFromDate:date];
-    self.doneNumber = self.doneNumbers[key];
-    
+- (void)updateTableViewHeadTitle {
+    NSInteger eventCount = _allSelectDayEvents.count;
     PersonInfoStore *personal = [PersonInfoStore sharedSetting];
+    //设置添加日程的Button
+    if (_calendarManager.settings.weekModeEnabled && eventCount > 0) {
+        self.addToCalendarButton.hidden = NO;
+    }else{
+        self.addToCalendarButton.hidden = YES;
+    }
     
-    //设置显示的文字
-    if (self.oneDayEvents.count > 0) {
-        self.addEventButton.hidden = YES;
-        //设置添加日程的Button
-        if (_calendarManager.settings.weekModeEnabled) {
-            self.addToCalendarButton.hidden = NO;
-        }else{
-            self.addToCalendarButton.hidden = YES;
+    if (eventCount > 0) {
+        NSInteger doneCount = 0;
+        for (SportRecordStore *recordStore in _allSelectDayEvents){
+            if (recordStore.isDone) {
+                doneCount ++;
+            }
         }
-        if (self.oneDayEvents.count > [self.doneNumber intValue]) {
-            
-            if (personal.name.length > 0){
-            self.underTableLabel.text = [NSString stringWithFormat:Local(@"%@，all %@ events，now %d done，%lu more left"), personal.name, @(self.oneDayEvents.count), [self.doneNumber intValue], self.oneDayEvents.count - [self.doneNumber intValue]];
-            }else{
-                self.underTableLabel.text = [NSString stringWithFormat:Local(@"all %@ events，now %d done，%lu more left"), @(self.oneDayEvents.count), [self.doneNumber intValue], self.oneDayEvents.count - [self.doneNumber intValue]];
-            }
-            if (_calendarManager.settings.weekModeEnabled) {
-                self.addToCalendarButton.hidden = NO;
-            }else{
-                self.addToCalendarButton.hidden = YES;
-            }
-        }else if (self.oneDayEvents.count == [self.doneNumber intValue]){
+        NSInteger leftCount = eventCount - doneCount;
+    
+        self.addEventButton.hidden = YES;
+        
+        if (leftCount == 0) {
+            //都完成了
             if (personal.name.length > 0) {
                 self.underTableLabel.text = [NSString stringWithFormat:Local(@"All events have done today，%@，well done!"), personal.name];
             }else{
                 self.underTableLabel.text = [NSString stringWithFormat:Local(@"All events have done today，well done!")];
             }
-            self.addToCalendarButton.hidden = YES;
+        }else {
+            if (personal.name.length > 0){
+                self.underTableLabel.text = [NSString stringWithFormat:Local(@"%@，all %@ events，now %d done，%@ more left"), personal.name, @(eventCount), @(doneCount), @(leftCount)];
+            }else{
+                self.underTableLabel.text = [NSString stringWithFormat:Local(@"all %@ events，now %@ done，%@ more left"),  @(eventCount), @(doneCount), @(leftCount)];
+            }
         }
-    }else{
-        if (_calendarManager.settings.weekModeEnabled) {
-            self.addToCalendarButton.hidden = YES;
-        }else{
-            self.addToCalendarButton.hidden = YES;
-        }
+    }else {
+        //没有设置运动
         self.addEventButton.hidden = NO;
         NSArray *showingTextArr = [[NSArray alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"homePageShow.plist" ofType:nil]];
         int i = arc4random() % showingTextArr.count;
@@ -264,9 +211,6 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    //长按移动cell顺序
-    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureRecognized:)];
-    [self.tableView addGestureRecognizer:longPress];
 }
 
 - (void)initNavBarButtons {
@@ -306,7 +250,7 @@
                 self.navigationItem.rightBarButtonItems = self.rightButtons;
                 
                 self.addEventButton.enabled = YES;
-                [self setTableViewHeadTitle:self.selectedDate];
+                [self updateTableViewHeadTitle];
                 break;
                 
             case 1:
@@ -315,14 +259,14 @@
                 if (self.calendarManager.settings.weekModeEnabled) {
                     [self transitionExample];
                     [self.calendarManager reload];
-                    [self setTableViewHeadTitle:self.selectedDate];
+                    [self updateTableViewHeadTitle];
                 }
                 
                 //View Changes to Today
                 [self didGoTodayTouch];
                 
                 self.summaryVC = [[SummaryViewController alloc] init];
-                self.summaryVC.eventsMostByDate = self.eventsMostByDate;
+//                self.summaryVC.eventsMostByDate = self.eventsMostByDate;
                 
                 self.navigationItem.rightBarButtonItems = nil;
                 self.navigationItem.rightBarButtonItem = shareButton;
@@ -362,7 +306,6 @@
         [_calendarManager.dateHelper.calendar setFirstWeekday:2];
     };
     
-    _todayDate = [NSDate date];
     [_calendarManager setMenuView:_calendarMenuView];
     [_calendarManager setContentView:_calendarContentView];
     [_calendarManager setDate:_todayDate];
@@ -374,78 +317,7 @@
     _maxDate = [_calendarManager.dateHelper addToDate:_todayDate months:2];
 }
 
-#pragma mark - 点击一个日期
-
-- (void)calendar:(JTCalendarManager *)calendar didTouchDayView:(JTCalendarDayView *)dayView
-{
-        NSTimeZone *localZone=[NSTimeZone localTimeZone];
-        NSInteger interval=[localZone secondsFromGMTForDate:dayView.date];
-        NSDate *mydate=[dayView.date dateByAddingTimeInterval:interval];
-    
-    self.selectedDate = mydate;
-    
-    // Animation for the circleView
-    dayView.circleView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.1, 0.1);
-    [UIView transitionWithView:dayView
-                      duration:.3
-                       options:0
-                    animations:^{
-                        dayView.circleView.transform = CGAffineTransformIdentity;
-//                        [_calendarManager reload];
-                    } completion:nil];
-    
-    // Load the previous or next page if touch a day from another month
-    
-    if(![_calendarManager.dateHelper date:_calendarContentView.date isTheSameMonthThan:mydate]){
-        if([_calendarContentView.date compare:mydate] == NSOrderedAscending){
-            [_calendarContentView loadNextPageWithAnimation];
-        }
-        else{
-            [_calendarContentView loadPreviousPageWithAnimation];
-        }
-    }
-    
-    //重新载入一遍数据
-    [self loadTheDateEvents];
-    [self setUnderTableLabelWithDifferentDay: self.selectedDate];
-    [self.tableView reloadData];
-    
-    if (DeBugMode) {
-        NSLog(@"点击了Date: %@ - %ld events, %@ done", mydate, (unsigned long)[self.oneDayEvents count], self.doneNumber); }
-}
-
-#pragma mark - Create New Event
-
-- (void)prepareForSegue:(nonnull UIStoryboardSegue *)segue sender:(nullable id)sender
-{
-//    NSLog(@"%@", NSStringFromSelector(_cmd));
-    if ([segue.identifier isEqualToString:@"newEvent"]) {
-        
-        UINavigationController *nc = (UINavigationController *)segue.destinationViewController;
-        NewEvevtViewController *mvc = (NewEvevtViewController *)[nc topViewController];
-        
-        Event *newEvent = [[EventStore sharedStore] createItem];
-        mvc.event = self.tempEvent? self.tempEvent : newEvent;
-        mvc.createNewEvent = self.tempEvent ? NO : YES;
-        mvc.date = _selectedDate;
-        
-        NSString *showStr = [[ASBaseManage dateFormatterForDMY] stringFromDate:self.selectedDate];
-        NSString *compareStr = [[ASBaseManage dateFormatterForDMY] stringFromDate:[NSDate date]];
-        
-        //假如新建事项，过去的日子默认完成
-        if (mvc.createNewEvent) {
-            if ([_selectedDate compare:[NSDate date]] == NSOrderedAscending && ![showStr isEqualToString:compareStr]) {
-                mvc.event.done = YES;
-            }
-        }
-        
-        mvc.creatEventBlock = ^(){
-//            NSLog(@"Hello World, I am Amos' first Block");
-            [self performSegueWithIdentifier:@"newEvent" sender:self];
-        };
-        
-    }
-}
+#pragma mark - 创建新的运动项目
 
 - (void)alertForChooseCreate
 {
@@ -459,6 +331,8 @@
                                                 
         NewEventVC *newEvent = [[NewEventVC alloc] init];
         SportRecordStore *recordStore = [SportRecordStore new];
+        recordStore.eventTimeStamp = [_selectedDate timeIntervalSince1970];
+        recordStore.dateKey = [[ASBaseManage dateFormatterForDMY] stringFromDate:_selectedDate];
         newEvent.pageState = 0;
         newEvent.recordStore = recordStore;
         UINavigationController *newNav = [[UINavigationController alloc] initWithRootViewController:newEvent];
@@ -478,38 +352,41 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
-#pragma mark - Buttons callback
+#pragma mark - Buttons Method
 
-- (void) didGoTodayTouch
-{
-    [_calendarManager setDate:_todayDate];
+- (void) didGoTodayTouch {
     _selectedDate = _todayDate;
-    [self loadTheDateEvents];
-    [_calendarManager reload];
+    [_calendarManager setDate:_todayDate];
+    [self loadTheDateEvents:_todayDate];
+    
     [_tableView reloadData];
 }
 
-//往下滑动week模式改为全日期模式
-- (IBAction)changeToMonthMode
-{
+//滑动改变日历视图
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+//    NSLog(@"scroll Y: %@", @(scrollView.contentOffset.y));
     if (_calendarManager.settings.weekModeEnabled) {
-        [self transitionExample];
-        [_calendarManager reload];
-        [self setTableViewHeadTitle:_selectedDate];
+        //变为完整日历视图
+        if (scrollView.contentOffset.y < -5) {
+            [self transitionExample];
+        }
+        NSInteger eventCount = _allSelectDayEvents.count;
+        //设置添加日程的Button
+        if (eventCount > 0) {
+            self.addToCalendarButton.hidden = NO;
+        }
+    }else {
+        //变为周视图
+        if (scrollView.contentOffset.y > 5) {
+            [self transitionExample];
+        }
+        self.addToCalendarButton.hidden = YES;
     }
+    [_calendarManager reload];
 }
-//滑动Table改为week视图
-- (void)scrollViewWillBeginDragging:(nonnull UIScrollView *)scrollView
-{
-    if (!_calendarManager.settings.weekModeEnabled) {
-        [self transitionExample];
-        [_calendarManager reload];
-        [self setTableViewHeadTitle:_selectedDate];
-    }
-}
+
 //改变日历视图的动画
-- (void)transitionExample
-{
+- (void)transitionExample {
     _calendarManager.settings.weekModeEnabled = !_calendarManager.settings.weekModeEnabled;
     [_calendarManager reload];
     
@@ -543,83 +420,44 @@
                      }];
 }
 
-- (BOOL)haveEventForDay:(NSDate *)date
-{
-    NSString *key = [[ASBaseManage dateFormatterForDMY] stringFromDate:date];
-    
-    int i = [self.doneNumbers[key] intValue];
-    
-    if(eventsByDate[key] && [eventsByDate[key] count] > 0){
-        
-        if ([eventsByDate[key] count] - i > 0) {
-            return YES;
-        }else if([eventsByDate[key] count] == i){
-            return NO;
-        }
-    }
-    
-//    NSLog(@"haveEventForDay:判断-每一天是否有事件");
-    
-    return NO;
-}
-
-- (BOOL)eventsAllDoneForDay:(NSDate *)date
-{
-    NSString *key = [[ASBaseManage dateFormatterForDMY] stringFromDate:date];
-    
-    int i = [self.doneNumbers[key] intValue];
-    
-    if([eventsByDate[key] count] > 0){
-        
-        if ([eventsByDate[key] count] == i) {
-            return YES;
-        }
-    }
-    
-//    NSLog(@"eventsAllDoneForDay:判断-是否事件全部完成");
-    
-    return NO;
-}
-
-//根据Day所有完成的运动项目中，寻找数量最多的那一项
-- (unsigned long)findTheMaxOfTypes:(NSDate *)date
-{
-//    NSLog(@"%@", NSStringFromSelector(_cmd));
-    
-    NSString *key = [[ASBaseManage dateFormatterForDMY] stringFromDate:date];
-    
-    NSArray *sportTypes = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sportTypes" ofType:@"plist"]];
-    NSUInteger k = sportTypes.count;
-
-    NSMutableArray *numberArray = [NSMutableArray array];
-    
-    for (int i = 0; i < k; i++) {
-        int a = 0;
-        for (Event *event in eventsByDate[key]){
-            if ([[sportTypes[i] objectForKey:@"sportType"] isEqualToString:event.sportType]) {
-                a++;
-            }
-        }
-        [numberArray addObject:[NSNumber numberWithInt:a]];
-    }
-    
-    int maxIndex = [[ASBaseManage sharedManage] findMaxInArray:numberArray];
-    NSNumber *maxNumber = [NSNumber numberWithInt:maxIndex];
-    unsigned long index = 0;
-    index = [numberArray indexOfObject:maxNumber]; //根据内容寻找下标，返回最近的值
-//    NSLog(@"最多的元素下标是: %ld", index);
-    
-    if (maxIndex > 0) {
-    return index;
-    }
-    
-    return sportTypes.count - 1;
-    
-}
-
 - (IBAction)addToCalendar:(UIButton *)sender {
-    [self checkEventStoreAccessForCalendar];
-    [MobClick event:@"AddToCalendar"]; //友盟统计数据：添加到日程
+    [[ASBaseManage sharedManage] checkEventStoreAccessForCalendarWithdayEvents:_allSelectDayEvents seDate:_selectedDate dayPart:_dayPartText view:self];
+}
+
+#pragma mark - 点击一个日期
+
+- (void)calendar:(JTCalendarManager *)calendar didTouchDayView:(JTCalendarDayView *)dayView
+{
+    NSTimeZone *localZone=[NSTimeZone localTimeZone];
+    NSInteger interval=[localZone secondsFromGMTForDate:dayView.date];
+    NSDate *mydate=[dayView.date dateByAddingTimeInterval:interval];
+    
+    self.selectedDate = mydate;
+    
+    // Animation for the circleView
+    dayView.circleView.transform = CGAffineTransformScale(CGAffineTransformIdentity, 0.1, 0.1);
+    [UIView transitionWithView:dayView
+                      duration:.3
+                       options:0
+                    animations:^{
+                        dayView.circleView.transform = CGAffineTransformIdentity;
+                        [_calendarManager reload];
+                    } completion:nil];
+    
+    // Load the previous or next page if touch a day from another month
+    
+    if(![_calendarManager.dateHelper date:_calendarContentView.date isTheSameMonthThan:mydate]){
+        if([_calendarContentView.date compare:mydate] == NSOrderedAscending){
+            [_calendarContentView loadNextPageWithAnimation];
+        }
+        else{
+            [_calendarContentView loadPreviousPageWithAnimation];
+        }
+    }
+    
+    //重新载入一遍数据
+    [self loadTheDateEvents:mydate];
+    [self.tableView reloadData];
 }
 
 #pragma mark - CalendarManager delegate
@@ -627,12 +465,9 @@
 //每一天的View的载入
 - (void)calendar:(JTCalendarManager *)calendar prepareDayView:(JTCalendarDayView *)dayView
 {
-//    NSLog(@"prepareDayView");
     NSTimeZone *localZone = [NSTimeZone localTimeZone];
     NSInteger interval = [localZone secondsFromGMTForDate:dayView.date];
     NSDate *mydate = [dayView.date dateByAddingTimeInterval:interval];
-    
-    [self setUnderTableLabelWithDifferentDay:mydate];
     
     // Today
     if([_calendarManager.dateHelper date:[NSDate date] isTheSameDayThan:mydate]){
@@ -662,26 +497,32 @@
         dayView.textLabel.textColor = [UIColor blackColor];
     }
     
-    if([self haveEventForDay:mydate]){
-        dayView.dotView.hidden = NO;
-    }else{
-        dayView.dotView.hidden = YES;
-    }
-    
-    unsigned long index = [self findTheMaxOfTypes:mydate];
-    
-    if ([self eventsAllDoneForDay:mydate]) {
-        SettingStore *setting = [SettingStore sharedSetting];
-        NSArray *oneColor = [setting.typeColorArray objectAtIndex:index];
-        UIColor *pickedColor = [UIColor colorWithRed:[oneColor[0] floatValue] green:[oneColor[1] floatValue] blue:[oneColor[2] floatValue] alpha:1];
+    NSString *dayKey = [[ASBaseManage dateFormatterForDMY] stringFromDate:mydate];
+    NSArray *dayEvents = [SportRecordStore findWithFormat:@" WHERE dateKey = '%@' ", dayKey];
+    if (dayEvents.count > 0) {
+        NSInteger doneCount = 0;
+        NSString *maxPart = [[ASBaseManage sharedManage] findTheMaxOfTypes:dayEvents];
         
-        dayView.finishView.layer.borderColor = [pickedColor CGColor];
-        dayView.finishView.hidden = NO;
+        for (SportRecordStore *recordStore in dayEvents){
+            if (recordStore.isDone) {
+                doneCount ++;
+            }
+        }
+        NSInteger leftCount = dayEvents.count - doneCount;
+        if (leftCount == 0) {
+            //全部完成
+            UIColor *cycleColor = [[ASBaseManage sharedManage] colorForsportType:maxPart];
+            dayView.finishView.layer.borderColor = [cycleColor CGColor];
+            dayView.finishView.hidden = NO;
+            dayView.dotView.hidden = YES;
+        }else {
+            dayView.finishView.hidden = YES;
+            dayView.dotView.hidden = NO;
+        }
     }else{
         dayView.finishView.hidden = YES;
+        dayView.dotView.hidden = YES;
     }
-    
-//    NSLog(@"%@", NSStringFromSelector(_cmd));
 }
 
 //Menu视图属性
@@ -751,8 +592,6 @@
     //初始化自定义View
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenWidth,20)];
     [headerView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
-    // TODO: 这里可以是当天的运动的颜色
-    headerView.backgroundColor = [UIColor colorWithWhite:0.55 alpha:0.7];
     
     //设置Header的字体
     UILabel *headText = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, screenWidth, 20)];
@@ -762,26 +601,16 @@
     headText.text = @"text";
     [headerView addSubview:headText];
     
-    //设置underLabel的文字内容
-    [self setTableViewHeadTitle:self.selectedDate];
-    
-    unsigned long index = [self findTheMaxOfTypes:self.selectedDate];
-    NSArray *sportTypes = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sportTypes" ofType:@"plist"]];
-    NSString *blankStr = @"";
-    
-    NSDateFormatter *dateFormatter = [NSDateFormatter new];
-    dateFormatter.dateFormat = @"yyyy-MM-dd EEEE";
-    
-    headText.text = ([self.doneNumber intValue] > 0)
-    ?
-    [NSString stringWithFormat:@"%@ - %@",[dateFormatter stringFromDate:self.selectedDate],
-     [sportTypes[index] objectForKey:@"sportType"]?
-     [sportTypes[index] objectForKey:@"sportType"]:blankStr]
-    :
-    [NSString stringWithFormat:@"%@",[dateFormatter stringFromDate:self.selectedDate]];
+    if (_allSelectDayEvents.count > 0) {
+        UIColor *partColor = [[ASBaseManage sharedManage] colorForsportType:_dayPartText];
+        headerView.backgroundColor = partColor;
+        headText.text = [NSString stringWithFormat:@"%@ (%@)",[[ASBaseManage dateFormatterForDMYE] stringFromDate:self.selectedDate], _dayPartText];
+    }else {
+        headerView.backgroundColor = [UIColor colorWithWhite:0.55 alpha:0.7];
+        headText.text = [NSString stringWithFormat:@"%@",[[ASBaseManage dateFormatterForDMYE] stringFromDate:self.selectedDate]];
+    }
     
     return headerView;
-
 }
 
 - (CGFloat)tableView:(nonnull UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
@@ -791,11 +620,7 @@
 
 - (NSInteger)tableView:(nonnull UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (self.oneDayEvents) {
-        return self.oneDayEvents.count;
-    }else{
-        return 0;
-    }
+    return _allSelectDayEvents.count;
 }
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
@@ -804,354 +629,135 @@
     SportTVCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
     if(cell == nil) {
         cell = [[[NSBundle mainBundle]loadNibNamed:cellIdentifier owner:nil options:nil] firstObject];
+        cell.delegate = self;
     }
     
-    Event *event = self.oneDayEvents[indexPath.row];
-    cell.event = event;
+    SportRecordStore *recordStore = _allSelectDayEvents[indexPath.row];
+    cell.recordStore = recordStore;
     
     return cell;
 }
 
 - (void)tableView:(nonnull UITableView *)tableView didSelectRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
-    Event *event = self.oneDayEvents[indexPath.row];
+    SportRecordStore *recordStore = _allSelectDayEvents[indexPath.row];
     
-    if (event.done == NO){
-        
-        event.done = YES;
-        [[EventStore sharedStore] moveItemAtIndex:indexPath.row toIndex:self.oneDayEvents.count - 1 date:self.selectedDate];
-        NSIndexPath *fromIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
-        NSUInteger row = [self.oneDayEvents count] - 1;
-        NSIndexPath *toIndexPath = [NSIndexPath indexPathForRow:row inSection:0];
-        
-        if (![fromIndexPath isEqual: toIndexPath]) {
-        [self.tableView moveRowAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
-        }
-        
-//        [self.tableView reloadRowsAtIndexPaths:[NSArray arrayWithObject:toIndexPath] withRowAnimation:UITableViewRowAnimationRight];
-        
-//        NSLog(@"- No to Yes");
-    }else{
-        event.done = NO;
-        
-        [[EventStore sharedStore] moveItemAtIndex:indexPath.row toIndex:0 date:self.selectedDate];
-        
-        NSIndexPath *fromIndexPath = [NSIndexPath indexPathForRow:indexPath.row inSection:0];
-        NSIndexPath *toIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-
-        [self.tableView moveRowAtIndexPath:fromIndexPath toIndexPath:toIndexPath];
-
-//        NSLog(@"~ Yes to No");
-    }
-    
-    [self loadTheDateEvents];
-    [self setUnderTableLabelWithDifferentDay: self.selectedDate];
-    [self.tableView reloadData];
-    
-    BOOL success = [[EventStore sharedStore] saveChanges];
-    
-    if (DeBugMode) {
-    if (success) {
-        NSLog(@"完成事件后，储存数据成功");
-    }else{
-        NSLog(@"完成事件后，储存数据失败！");
-    } }
-}
-#pragma mark - TableView的操作
-
-//这两个方法是必须的
--(void)setEditing:(BOOL)editing animated:(BOOL)animated {
-    [super setEditing:editing animated:animated];
-    [self.tableView setEditing:editing animated:animated];
-}
-
-//实现协议规定的方法，需要向UITableView发送该消息
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-}
-
-//设置滑动后出现的选项
-- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    //删除的方法
-    UITableViewRowAction *deleteAction = [UITableViewRowAction
-       rowActionWithStyle:UITableViewRowActionStyleDestructive
-       title:Local(@"Delete")
-       handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-         Event *event = self.oneDayEvents[indexPath.row];
-         [[EventStore sharedStore] removeItem:event date:self.selectedDate];
-           
-         //删除表格中的相应行
-         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-           
-           if (self.oneDayEvents.count == 0) {
-               [self loadTheDateEvents];
-           }
-           
-         [_calendarManager reload];
-         [self setUnderTableLabelWithDifferentDay: self.selectedDate];
-         [self setTableViewHeadTitle:self.selectedDate];
-           
-         BOOL success = [[EventStore sharedStore] saveChanges];
-           
-           if (DeBugMode) {
-         if (success) {
-             NSLog(@"删除事件后，储存数据成功");
-         }else{
-             NSLog(@"删除事件后，储存数据失败！");
-         }}
-     }];
-    
-    //修改内容的方法
-    UITableViewRowAction *editAction = [UITableViewRowAction
-      rowActionWithStyle:UITableViewRowActionStyleNormal
-      title:Local(@"Edit")
-      handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-          self.tempEvent = self.oneDayEvents[indexPath.row];
-          
-          [self performSegueWithIdentifier:@"newEvent" sender:self];
-          [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
-      }];
-    editAction.backgroundColor = [UIColor colorWithRed:0.0000 green:0.4784 blue:1.0000 alpha:1];
-    
-    return @[deleteAction, editAction]; //与实际显示的顺序相反
-}
-#pragma mark - 长按移动cell顺序
-
-- (IBAction)longPressGestureRecognized:(id)sender {
-    
-    UILongPressGestureRecognizer *longPress = (UILongPressGestureRecognizer *)sender;
-    UIGestureRecognizerState state = longPress.state;
-    
-    CGPoint location = [longPress locationInView:self.tableView];
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
-    
-    static UIView       *snapshot = nil;        ///< A snapshot of the row user is moving.
-    static NSIndexPath  *sourceIndexPath = nil; ///< Initial index path, where gesture begins.
-    
-    switch (state) {
-        case UIGestureRecognizerStateBegan: {
-            if (indexPath) {
-                sourceIndexPath = indexPath;
-                
-                UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-                
-                // Take a snapshot of the selected row using helper method.
-                snapshot = [[ASBaseManage sharedManage] customSnapshoFromView:cell];
-                
-                // Add the snapshot as subview, centered at cell's center...
-                __block CGPoint center = cell.center;
-                snapshot.center = center;
-                snapshot.alpha = 0.0;
-                [self.tableView addSubview:snapshot];
-                [UIView animateWithDuration:0.25 animations:^{
-                    
-                    // Offset for gesture location.
-                    center.y = location.y;
-                    snapshot.center = center;
-                    snapshot.transform = CGAffineTransformMakeScale(1.05, 1.05);
-                    snapshot.alpha = 0.98;
-                    cell.alpha = 0.0;
-                    
-                } completion:^(BOOL finished) {
-                    
-                    cell.hidden = YES;
-                    
-                }];
+    if (recordStore.sportType == 1) {
+        //抗阻运动，点一下完成一个
+        if (!recordStore.isDone) {
+            NSInteger leftSets = recordStore.repeatSets - recordStore.doneSets;
+            if (recordStore.repeatSets > 0) {
+                if (leftSets > 0) {
+                    recordStore.doneSets ++;
+                }
             }
-            break;
-        }
-            
-        case UIGestureRecognizerStateChanged: {
-            CGPoint center = snapshot.center;
-            center.y = location.y;
-            snapshot.center = center;
-            
-            // Is destination valid and is it different from source?
-            if (indexPath && ![indexPath isEqual:sourceIndexPath]) {
-                
-                // ... update data source.
-                [[EventStore sharedStore] moveItemAtIndex:indexPath.row toIndex:sourceIndexPath.row date:self.selectedDate];
-
-                // ... move the rows.
-                [self.tableView moveRowAtIndexPath:sourceIndexPath toIndexPath:indexPath];
-                
-                // ... and update source so it is in sync with UI changes.
-                sourceIndexPath = indexPath;
+            if (recordStore.repeatSets == recordStore.doneSets) {
+                //该运动全部完成
+                recordStore.isDone = YES;
+                if ([recordStore update]) {
+                    [_calendarManager setDate:_selectedDate];
+                    [self updateTableViewHeadTitle];
+                    [[ASDataManage sharedManage] addNewDateEventRecord:recordStore];
+                }
             }
-            break;
         }
-            
-        default: {
-            // Clean up.
-            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:sourceIndexPath];
-            cell.hidden = NO;
-            cell.alpha = 0.0;
-            
-            [UIView animateWithDuration:0.25 animations:^{
-                
-                snapshot.center = cell.center;
-                snapshot.transform = CGAffineTransformIdentity;
-                snapshot.alpha = 0.0;
-                cell.alpha = 1.0;
-                
-            } completion:^(BOOL finished) {
-                
-                sourceIndexPath = nil;
-                [snapshot removeFromSuperview];
-                snapshot = nil;
-                
-                BOOL success = [[EventStore sharedStore] saveChanges];
-                
-                if (DeBugMode) {
-                    if (success) {
-                        NSLog(@"移动item后，储存数据成功");
-                    }else{
-                        NSLog(@"移动item后，储存数据失败！");
-                    } }
-            }];
-            
-            break;
+    }else {
+        if (!recordStore.isDone) {
+            recordStore.isDone = YES;
+            if ([recordStore update]) {
+                [_calendarManager setDate:_selectedDate];
+                [self updateTableViewHeadTitle];
+                [[ASDataManage sharedManage] addNewDateEventRecord:recordStore];
+            }
         }
+    }
+    
+    [tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationAutomatic];
+}
+
+#pragma mark - TableView Swipe Delegate
+-(NSArray*) swipeTableCell:(MGSwipeTableCell*) cell swipeButtonsForDirection:(MGSwipeDirection)direction
+             swipeSettings:(MGSwipeSettings*) swipeSettings expansionSettings:(MGSwipeExpansionSettings*) expansionSettings;
+{
+    swipeSettings.transition = MGSwipeTransitionBorder; //划出来的动画效果
+    expansionSettings.buttonIndex = 0;
+    expansionSettings.animationDuration = .2; //滑到底触发时的动画时间
+    expansionSettings.threshold = 2;
+    expansionSettings.fillOnTrigger = YES;
+    
+    if (direction == MGSwipeDirectionLeftToRight) {
+        return [[ASBaseManage sharedManage] createDoneAndUndoButtons];
+    }else {
+        expansionSettings.buttonIndex = -1;
+        return [[ASBaseManage sharedManage] createDeleteAndEditButtons];
     }
 }
 
-#pragma mark - 申请日历事件的权限
-
-// Check the authorization status of our application for Calendar
--(void)checkEventStoreAccessForCalendar
+-(BOOL) swipeTableCell:(MGSwipeTableCell*) cell tappedButtonAtIndex:(NSInteger) index direction:(MGSwipeDirection)direction fromExpansion:(BOOL) fromExpansion
 {
-    self.eventStore = [[EKEventStore alloc] init];
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    SportRecordStore *recordStore = _allSelectDayEvents[indexPath.row];
     
-    if ([self.eventStore respondsToSelector:@selector(requestAccessToEntityType:completion:)])
-    {
-        // the selector is available, so we must be on iOS 6 or newer
-        [self.eventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                if (error)
-                {
-                    NSLog(@"请求许可错误");
+    if (direction == MGSwipeDirectionLeftToRight) {
+        if (index == 0) {
+            //完成
+            if (!recordStore.isDone) {
+                recordStore.isDone = YES;
+                recordStore.doneSets = recordStore.repeatSets;
+                if ([recordStore update]) {
+                    [[ASDataManage sharedManage] addNewDateEventRecord:recordStore];
                 }
-                else if (!granted)
-                {
-                    NSLog(@"被用户拒绝");
-                }
-                else
-                {
-                    [self accessGrantedForCalendar:self.eventStore];
-                }
-            });
-        }];
-    }
-}
-
-#pragma mark - 创建日历事件的方法
-
--(void)accessGrantedForCalendar:(EKEventStore *)eventStore
-{
-    self.ekevent  = [EKEvent eventWithEventStore:self.eventStore];
-    
-    //设置创建日历的内容
-    
-    //设置事件标题
-    unsigned long index = [self findTheMaxOfTypes:self.selectedDate];
-    NSArray *sportTypes = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"sportTypes" ofType:@"plist"]];
-    NSString *blankStr = @"";
-    self.ekevent.title = [NSString stringWithFormat:@"进行：%@锻炼",
-          [sportTypes[index] objectForKey:@"sportType"]?
-          [sportTypes[index] objectForKey:@"sportType"]:blankStr];  //事件标题
-    
-    //设置事件内容
-    NSString *initStr = [NSString stringWithFormat:@"锻炼内容：\n"];
-    NSMutableString *notesStr = [[NSMutableString alloc] initWithString:initStr];
-    
-    for (Event *event in self.oneDayEvents){
-        
-        NSString *tempAttribute;
-        if (event.weight == 0 && event.times > 0) {
-            tempAttribute = [NSString stringWithFormat:Local(@"%d times x %d RM"), event.rap, event.times];
-        }else if (event.weight == 220 && event.times > 0){
-            tempAttribute = [NSString stringWithFormat:Local(@"%d times x %d RM  self-Weight"), event.rap, event.times];
-        }else if (event.times == 0 && event.rap == 0){
-            tempAttribute = [NSString stringWithFormat:Local(@"%d min"), event.timelast];
-        }else{
-            tempAttribute = [NSString stringWithFormat:Local(@"%d times x %d RM   %.1fkg"), event.rap, event.times, event.weight];
+            }
+        }else if (index == 1) {
+            //重置
+            recordStore.isDone = NO;
+            recordStore.doneSets = 0;
+            if ([recordStore update]) {
+                [[ASDataManage sharedManage] editDateEventRecord:recordStore];
+            }
         }
-        [notesStr appendFormat:@"- %@ （%@）\n", event.sportName, tempAttribute];
-        
-    }
-    self.ekevent.notes     = notesStr; //事件内容
-    
-    //设置事件链接
-    self.ekevent.URL = [NSURL URLWithString:@"openurlAmosSportCalendar://"];
-   
-    //设置时间和日期
-    NSDateFormatter* inputFormatter = [NSDateFormatter new];
-    [inputFormatter setDateFormat:@"YYYY-MM-dd"];
-    [inputFormatter setTimeZone:[NSTimeZone timeZoneWithName:@"Asia/Shanghai"]];
-    NSDateFormatter *outFormatter = [NSDateFormatter new];
-    [outFormatter setDateFormat:@"YYYY-MM-dd-H-mm"];
-    
-    NSString *tempDateStr = [inputFormatter stringFromDate:_selectedDate];
-    NSMutableString *tempDateMuStr = [[NSMutableString alloc] initWithString:tempDateStr];
-    NSMutableString *tempDateMuStr1 = [[NSMutableString alloc] initWithString:tempDateStr];
-    [tempDateMuStr appendString:@"-15-30"];
-    NSDate *startDate = [outFormatter dateFromString:tempDateMuStr];
-    [tempDateMuStr1 appendString:@"-17-00"];
-    NSDate *endDate = [outFormatter dateFromString:tempDateMuStr1];
-    
-    self.ekevent.startDate = startDate;
-    self.ekevent.endDate   = endDate;
-    self.ekevent.allDay = NO;
-    
-    //添加提醒
-    [self.ekevent addAlarm:[EKAlarm alarmWithRelativeOffset:60.0f * -60.0f * 1]];  //1小时前提醒
-    //    [event addAlarm:[EKAlarm alarmWithRelativeOffset:60.0f * -15.0f]];  //15分钟前提醒
-    
-    EKEventEditViewController *addController = [[EKEventEditViewController alloc] init];
-    
-    addController.event = self.ekevent;
-    addController.eventStore = self.eventStore;
-    addController.editViewDelegate = self;
-    [self presentViewController:addController animated:YES completion:nil];
-}
-
-#pragma mark EKEventEditViewDelegate
-
-// 编辑日历事件页面中按钮的事件
-- (void)eventEditViewController:(EKEventEditViewController *)controller
-          didCompleteWithAction:(EKEventEditViewAction)action
-{
-    
-    // Dismiss the modal view controller
-    [self dismissViewControllerAnimated:YES completion:^
-     {
-         if (action == EKEventEditViewActionCanceled)
-         {
-         }else if (action == EKEventEditViewActionSaved)
-         {
-             NSLog(@"事件创建成功");
-         }else if (action == EKEventEditViewActionDeleted)
-         {
-         }
-     }];
-}
-
-//删除一个日历事件
-- (void)deleteTheEvent
-{
-    EKEvent *eventToRemove = [self.eventStore eventWithIdentifier:self.idf];
-    
-    if ([eventToRemove.eventIdentifier length] > 0) {
-        NSError* error = nil;
-        [self.eventStore removeEvent:eventToRemove span:EKSpanThisEvent error:&error];
-        if (error) {
-            NSLog(@"%@",error);
-        }else {
-            NSLog(@"将一个日历事件删除");
+        [_calendarManager setDate:_selectedDate];
+        [self updateTableViewHeadTitle];
+        [self.tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationAutomatic];
+    }else {
+        if (index == 0) {
+            //删除
+            [self alertForDelete:recordStore indexPath:indexPath];
+        }else if (index == 1) {
+            //编辑
+            NewEventVC *newEvent = [[NewEventVC alloc] init];
+            newEvent.pageState = 1;
+            newEvent.recordStore = recordStore;
+            UINavigationController *newNav = [[UINavigationController alloc] initWithRootViewController:newEvent];
+            [self presentViewController:newNav animated:YES completion:nil];
         }
     }
+    
+    return YES;
+}
+
+- (void)alertForDelete:(SportRecordStore *)recordStore indexPath:(NSIndexPath *)indexPath
+{
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"删除这项运动"
+                                                                   message:nil
+                                                            preferredStyle:UIAlertControllerStyleActionSheet];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"确认"
+                                              style:UIAlertActionStyleDestructive
+                                            handler:^(UIAlertAction * action) {
+                                                if ([recordStore deleteObject]) {
+                                                    [_allSelectDayEvents removeObject:recordStore];
+                                                    [[ASDataManage sharedManage] editDateEventRecord:recordStore];
+                                                    [_calendarManager setDate:_selectedDate];
+                                                    [self.tableView deleteRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationAutomatic];
+                                                }
+                                            }]];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消"
+                                              style:UIAlertActionStyleCancel
+                                            handler:^(UIAlertAction * action) {}]];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark - Share
@@ -1174,7 +780,7 @@
     [alert addAction:[UIAlertAction actionWithTitle:Local(@"Cancel")
                                               style:UIAlertActionStyleCancel
                                             handler:^(UIAlertAction * action) {}]];
-    NSString *countStr = [NSString stringWithFormat:Local(@"Today's events(%@)"), @(self.oneDayEvents.count)];
+    NSString *countStr = [NSString stringWithFormat:Local(@"Today's events(%@)"), @(self.allSelectDayEvents.count)];
     [alert addAction:[UIAlertAction actionWithTitle:countStr
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction * action) {

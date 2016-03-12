@@ -21,13 +21,13 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zxh-9Y-DQA">
-                        <rect key="frame" x="85.5" y="8" width="42" height="20.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <rect key="frame" x="85.5" y="8" width="43" height="20.5"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uVa-PZ-pvO">
-                        <rect key="frame" x="12" y="32" width="250" height="17"/>
+                        <rect key="frame" x="15" y="32" width="247" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -61,7 +61,7 @@
                     <constraint firstItem="Ji8-Va-rrB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="i8d-lr-MYf"/>
                     <constraint firstAttribute="trailing" secondItem="MRX-Pr-4qY" secondAttribute="trailing" constant="10" id="kUH-FT-R8e"/>
                     <constraint firstItem="MIO-fo-shR" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="lVe-mi-in7"/>
-                    <constraint firstItem="uVa-PZ-pvO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="xxy-a5-lcE"/>
+                    <constraint firstItem="uVa-PZ-pvO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="xxy-a5-lcE"/>
                     <constraint firstItem="MRX-Pr-4qY" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="z3w-Bq-y5d"/>
                 </constraints>
             </tableViewCellContentView>

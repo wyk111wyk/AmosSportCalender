@@ -14,6 +14,7 @@
 
 @property (nonatomic) NSInteger eventTimeStamp; ///<事件安排的时间
 @property (nonatomic, strong) NSString *dateKey; ///<xxxx-xx-xx
+@property (nonatomic, strong) NSString *datePart;
 @property (nonatomic, strong) NSString *sportName; ///<运动的名称
 @property (nonatomic, strong) NSString *sportPart; ///<运动的部位
 @property (nonatomic, strong) NSString *muscles; ///<肌肉
@@ -25,6 +26,7 @@
 @property (nonatomic) int weight; ///<重量（kg）
 @property (nonatomic) int RM; ///<每组做多少次（12-15）
 @property (nonatomic) int repeatSets; ///<做多少组（3-6）
+@property (nonatomic) int doneSets; ///<已完成了多少组
 @property (nonatomic) int timeLast; ///<运动的持续时间(分钟)
 
 @property (nonatomic) BOOL isDone; ///<是否完成该事件

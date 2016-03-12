@@ -42,6 +42,17 @@
     _circleRatio = .85;
     _dotRatio = 1. / 9.;
     
+    {
+        _circleView = [UIView new];
+        [self addSubview:_circleView];
+        
+        _circleView.backgroundColor = [UIColor colorWithRed:0x33/256. green:0xB3/256. blue:0xEC/256. alpha:.5];
+        _circleView.hidden = YES;
+        
+        _circleView.layer.rasterizationScale = [UIScreen mainScreen].scale;
+        _circleView.layer.shouldRasterize = YES;
+    }
+    
     //Amos添加 当日事件全部完成后的View
     {
         _finishView = [UIView new];
@@ -52,17 +63,6 @@
         
         _finishView.layer.rasterizationScale = [UIScreen mainScreen].scale;
         _finishView.layer.shouldRasterize = YES;
-    }
-    
-    {
-        _circleView = [UIView new];
-        [self addSubview:_circleView];
-        
-        _circleView.backgroundColor = [UIColor colorWithRed:0x33/256. green:0xB3/256. blue:0xEC/256. alpha:.5];
-        _circleView.hidden = YES;
-        
-        _circleView.layer.rasterizationScale = [UIScreen mainScreen].scale;
-        _circleView.layer.shouldRasterize = YES;
     }
     
     {
