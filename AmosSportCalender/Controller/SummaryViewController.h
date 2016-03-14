@@ -13,14 +13,14 @@
 @interface SummaryViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UIScrollView *scrollView;
-@property (strong, nonatomic) IBOutlet UIView *view1;
-@property (strong, nonatomic) IBOutlet UIView *view4;
+@property (strong, nonatomic) IBOutlet UIView *view1; ///<Summary_1
+@property (strong, nonatomic) IBOutlet UIView *view4; ///<ChartView_2
 @property (strong, nonatomic) IBOutlet UIView *viewBackground;
 
 @property (weak, nonatomic) IBOutlet UIView *contantView;
 @property (strong, nonatomic) UUChart *chartView;
-@property (strong, nonatomic) IBOutlet UIView *view2;
-@property (strong, nonatomic) IBOutlet UIView *view3;
+@property (strong, nonatomic) IBOutlet UIView *view2; ///<MLView_3
+@property (strong, nonatomic) IBOutlet UIView *view3; ///<Table_4
 @property (weak, nonatomic) IBOutlet UIView *vLineView;
 @property (weak, nonatomic) IBOutlet UIView *hLineView;
 @property (weak, nonatomic) IBOutlet UIView *shadoView1;

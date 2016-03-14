@@ -14,14 +14,18 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    _themeColor = [UIColor whiteColor];
+    _iconImageView.image = [UIImage imageNamed:@"arm_muscles"];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     UIColor *pickedColor = [[ASBaseManage sharedManage] colorForsportType:self.typeLabel.text];
-    
     self.backgroundColor = pickedColor;
+    
+    _iconImageView.image = [_iconImageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+    _iconImageView.tintColor = _themeColor;
 }
 
 - (IBAction)changeShowType:(UIButton *)sender {

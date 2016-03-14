@@ -24,18 +24,8 @@
                         <color key="textColor" red="0.99399703740000001" green="0.97559696439999999" blue="0.88985842469999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="胸部" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CXH-dB-TU4">
-                        <rect key="frame" x="25" y="14" width="45" height="21"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="21" id="iD4-cR-coS"/>
-                            <constraint firstAttribute="width" constant="45" id="uYV-2I-n5r"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                        <color key="textColor" red="0.99399703740000001" green="0.97559696439999999" blue="0.88985842469999998" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fya-wW-EX8">
-                        <rect key="frame" x="229" y="4.5" width="50" height="40"/>
+                        <rect key="frame" x="229" y="4" width="50" height="40"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="50" id="eXv-FV-LYY"/>
                             <constraint firstAttribute="height" constant="40" id="yob-En-iW2"/>
@@ -47,13 +37,31 @@
                             <action selector="changeShowType:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="pzI-mB-a8n"/>
                         </connections>
                     </button>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="arm_muscles" translatesAutoresizingMaskIntoConstraints="NO" id="uED-Mg-Yt6">
+                        <rect key="frame" x="12" y="11" width="28" height="28"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="28" id="p9Q-Ru-bMl"/>
+                            <constraint firstAttribute="height" constant="28" id="t9T-QN-bAj"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="胸部" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CXH-dB-TU4">
+                        <rect key="frame" x="52" y="14" width="40" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="iD4-cR-coS"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                        <color key="textColor" red="0.99399703740000001" green="0.97559696439999999" blue="0.88985842469999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="cbu-mD-PFz" secondAttribute="trailing" constant="8" id="1XF-WR-hPV"/>
                     <constraint firstItem="cbu-mD-PFz" firstAttribute="centerY" secondItem="CXH-dB-TU4" secondAttribute="centerY" id="6UG-IV-J4g"/>
                     <constraint firstItem="CXH-dB-TU4" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="8DW-tg-xpr"/>
+                    <constraint firstItem="uED-Mg-Yt6" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="PuC-Yg-NhH"/>
+                    <constraint firstItem="CXH-dB-TU4" firstAttribute="leading" secondItem="uED-Mg-Yt6" secondAttribute="trailing" constant="12" id="Trn-Ud-3yJ"/>
                     <constraint firstAttribute="trailing" secondItem="Fya-wW-EX8" secondAttribute="trailing" constant="8" id="XQx-DX-Di4"/>
-                    <constraint firstItem="CXH-dB-TU4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="25" id="s8P-cO-ze2"/>
+                    <constraint firstItem="uED-Mg-Yt6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="nfa-Ih-laQ"/>
                     <constraint firstItem="Fya-wW-EX8" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="v2T-qD-993"/>
                 </constraints>
             </tableViewCellContentView>
@@ -61,9 +69,13 @@
             <connections>
                 <outlet property="changeShowTypeButton" destination="Fya-wW-EX8" id="SL7-8E-cW6"/>
                 <outlet property="daysOrPerLabel" destination="cbu-mD-PFz" id="tq1-sp-9pg"/>
+                <outlet property="iconImageView" destination="uED-Mg-Yt6" id="l6U-zF-XXu"/>
                 <outlet property="typeLabel" destination="CXH-dB-TU4" id="AJN-cC-Mss"/>
             </connections>
-            <point key="canvasLocation" x="377" y="283"/>
+            <point key="canvasLocation" x="255" y="249"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="arm_muscles" width="25" height="25"/>
+    </resources>
 </document>

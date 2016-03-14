@@ -10,9 +10,11 @@
 
 @interface summaryTypeCell : UITableViewCell
 
+@property (nonatomic, strong) UIColor *themeColor;
+@property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
+
 @property (weak, nonatomic) IBOutlet UILabel *typeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *daysOrPerLabel;
-
 @property (weak, nonatomic) IBOutlet UIButton *changeShowTypeButton;
 
 @property (copy, nonatomic) void(^changeShowBlock)();

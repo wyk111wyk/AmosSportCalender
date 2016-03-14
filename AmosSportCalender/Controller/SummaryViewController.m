@@ -44,8 +44,8 @@
     //设置刚开始展示的当月数据
     _monthAndYear = [[ASBaseManage dateFormatterForMY] stringFromDate:[NSDate date]];
     
-    [self initTheFrames];
     [self getTheFreshData];
+    [self initTheFrames];
     
     //刷新图表的数据
 //    [self arrayForChartData: [NSDate date]];
@@ -111,10 +111,10 @@
     else if (screenWidth == 414)
     { self.view2.frame = CGRectMake(0, self.view1.frame.size.height + self.view4.frame.size.height, screenWidth, 167.5); }
     
-    self.tableView.frame = CGRectMake(0, 0, self.tableView.bounds.size.width, 376);
-    self.view3.frame = CGRectMake(0, self.view1.frame.size.height + self.view2.frame.size.height + self.view4.frame.size.height, screenWidth, 384);
+    self.tableView.frame = CGRectMake(0, 0, self.tableView.bounds.size.width, 50*_allSortedData.count);
+    self.view3.frame = CGRectMake(0, self.view1.frame.size.height + self.view2.frame.size.height + self.view4.frame.size.height, screenWidth, self.tableView.frame.size.height+8);
     if (screenWidth == 320) {
-        self.view3.frame = CGRectMake(0, self.view1.frame.size.height + self.view2.frame.size.height + self.view4.frame.size.height, screenWidth, 360);
+//        self.view3.frame = CGRectMake(0, self.view1.frame.size.height + self.view2.frame.size.height + self.view4.frame.size.height, screenWidth, 360);
     }
     
     CGFloat contentHight = self.view1.frame.size.height + self.view2.frame.size.height + self.view3.frame.size.height + self.view4.frame.size.height;
@@ -162,9 +162,6 @@
     [[self.contantView layer] setShadowOpacity:1];               // 阴影透明度
     [[self.contantView layer] setShadowColor:[UIColor colorWithWhite:0.2 alpha:0.45].CGColor]; // 阴影的颜色
     
-    [self.percentageLabel.layer setCornerRadius:22];
-    [self.percentageLabel setText:@"100%"];
-    
     [self.contantView bringSubviewToFront:self.expLabel];
 }
 
@@ -205,8 +202,11 @@
     _allDateEvents = [DateEventStore findByCriteria:@" ORDER BY dateKey DESC "];
     _allCount = _allDateEvents.count;
     //百分比圆盘
+    [self.percentageLabel.layer setCornerRadius:22];
     if (_allCount == 0){
         self.percentageLabel.text = @"0%";
+    }else {
+        self.percentageLabel.text = @"100%";
     }
     NSArray * allSportTypes = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"SportParts" ofType:@"plist"]];
     NSMutableArray *allSortedDates = [[NSMutableArray alloc] initWithCapacity:allSportTypes.count];
@@ -273,7 +273,10 @@
     _aveTimesAWeek.text = [NSString stringWithFormat:@"%.1f", avgWeekTimes];
     //平均每次几分钟
     NSInteger allDoneEventCount = [SportRecordStore findCounts:@" WHERE isDone = '1' "];
-    float avgTimeMin = (float)totalTimeMin/(float)allDoneEventCount;
+    float avgTimeMin = 0;
+    if (allDoneEventCount > 0) {
+        avgTimeMin = (float)totalTimeMin/(float)allDoneEventCount;
+    }
     _aveTime.text = [NSString stringWithFormat:@"%.1f", avgTimeMin];
     
     //iphone5的话字体缩小
@@ -438,6 +441,10 @@
     return _allSortedData.count;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 50;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"summaryTypeCell";
@@ -451,6 +458,12 @@
     NSMutableArray *tempArr = [tempDic objectForKey:@"data"];
     
     cell.typeLabel.text = sportPart;
+    
+    NSArray *imageArr = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"SportImages" ofType:@"plist"]];
+    NSArray * allSportTypes = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"SportParts" ofType:@"plist"]];
+    NSInteger imageIndex = [allSportTypes indexOfObject:sportPart];
+    NSString *imageName = [imageArr objectAtIndex:imageIndex];
+    cell.iconImageView.image = [UIImage imageNamed:imageName];
     
     if (self.isDay == YES) {
         cell.daysOrPerLabel.text = [NSString stringWithFormat:@"%@ 天", @(tempArr.count)];
