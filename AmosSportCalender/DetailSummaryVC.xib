@@ -29,7 +29,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q6F-FU-Tre">
                     <rect key="frame" x="8" y="72" width="359" height="151"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="体力" translatesAutoresizingMaskIntoConstraints="NO" id="9uw-I8-LHz">
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="胸部" translatesAutoresizingMaskIntoConstraints="NO" id="9uw-I8-LHz">
                             <rect key="frame" x="8" y="8" width="166" height="135"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="胸部" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ftA-w1-WWo">
@@ -236,6 +236,6 @@
         </view>
     </objects>
     <resources>
-        <image name="体力" width="392" height="300"/>
+        <image name="胸部" width="315" height="242"/>
     </resources>
 </document>

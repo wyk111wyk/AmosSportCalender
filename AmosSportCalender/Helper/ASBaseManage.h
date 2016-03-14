@@ -16,12 +16,14 @@
 + (NSDateFormatter *)dateFormatterForDMY;
 + (NSDateFormatter *)dateFormatterForDMYE;
 + (NSDateFormatter *)dateFormatterForMY;
++ (NSDateFormatter *)dateFormatterForChart;
 //某个月1号是星期几
-- (NSInteger)weekOfFirstDay: (NSDate *)today;
+- (NSDate *)firstDateOfMonth: (NSDate *)givenDate;
 - (NSInteger)weekDayFromTimeStamp: (NSInteger)timeStamp;
 - (NSString *)lastMonthFrom: (NSString *)dateStr;
 - (NSString *)nextMonthFrom: (NSString *)dateStr;
-- (NSDate *)thisMonthLastDay: (NSDate *)date;
+//指定月份的第一天或最后一天
+- (NSDate *)DateOfMonth:(NSDate *)targetDate isFirst:(BOOL) isFirst;
 
 - (void)getTheAuthorityOfNofication;
 - (void)UseTouchIDForSecurity;

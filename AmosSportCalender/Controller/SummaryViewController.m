@@ -9,8 +9,6 @@
 
 #import "SummaryViewController.h"
 #import "summaryTypeCell.h"
-#import "EventStore.h"
-#import "Event.h"
 #import "DetailSummaryVC.h"
 #import "CommonMarco.h"
 
@@ -19,20 +17,14 @@
     UISwipeGestureRecognizer *swipeGestureRight;
     UISwipeGestureRecognizer *swipeGestureLeft;
 }
-@property (strong ,nonatomic) UILabel *expLabel;
+@property (strong ,nonatomic) UILabel *expLabel; ///<表格上的文字
+@property (nonatomic, strong) NSString *monthAndYear; ///<表格展示的月份
+@property (nonatomic, strong) NSDate *displayDate;
+@property (nonatomic, strong) NSMutableArray *chartDataArray;
 
-@property (nonatomic, strong)NSMutableDictionary *eventsMostByDate;
-@property (nonatomic, strong)NSMutableDictionary *eventsByDate;
-@property (nonatomic, strong)NSArray *sortedKeyArray;
-@property (nonatomic, strong)NSArray *sortedTypeArray; ///<tableView使用的数据源
-@property (nonatomic, strong)NSDictionary *eventsDetailByType;
-
-@property (nonatomic, strong)NSDate *firstDayofMonth; ///<这个月的第一天的日子
-@property (nonatomic, strong)NSArray *chartDataArray;
-
+@property (nonatomic, strong)NSArray *allDateEvents;
 @property (nonatomic, strong)NSArray *allSortedData;
 @property (nonatomic) NSInteger allCount; ///<所有天数，而不是运动数
-@property (nonatomic, strong)NSString *monthAndYear;
 @property (nonatomic, strong)UITapGestureRecognizer *tap;
 @property (nonatomic)BOOL isDay; ///<显示的是天数还是百分比
 
@@ -48,14 +40,16 @@
     [super viewDidLoad];
     
     self.isDay = YES;
+    self.displayDate = [NSDate date];
+    //设置刚开始展示的当月数据
+    _monthAndYear = [[ASBaseManage dateFormatterForMY] stringFromDate:[NSDate date]];
+    
     [self initTheFrames];
     [self getTheFreshData];
     
-    //设置当前的月份和年份
-    self.monthAndYear = [[ASBaseManage dateFormatterForMY] stringFromDate:[NSDate date]];
-    
     //刷新图表的数据
-    [self arrayForChartData: [NSDate date]];
+//    [self arrayForChartData: [NSDate date]];
+    [self updateTheDataForChart:[NSDate date]];
     [self.chartView showInView:self.contantView];
     
     //初始化图片和手势
@@ -81,8 +75,7 @@
 
 #pragma mark - 初始化页面UI
 
-- (void)initTheFrames
-{
+- (void)initTheFrames {
     //TableView初始化
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = [UIColor clearColor];
@@ -187,13 +180,10 @@
     swipeGestureLeft.direction = UISwipeGestureRecognizerDirectionLeft;
     [self.chartView addGestureRecognizer:swipeGestureLeft];
     
-    //    self.tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(makeButtonDisappear)];
-    //    [self.chartView addGestureRecognizer:self.tap];
-    
     //2-1图片
     SettingStore *setting = [SettingStore sharedSetting];
     
-    if (self.sortedTypeArray.count > 0) {
+    if (_allDateEvents.count > 0) {
         NSString *mostTypeStr = [[_allSortedData firstObject] valueForKey:@"sportPart"];
         NSString *leastTypeStr = [[_allSortedData lastObject] valueForKey:@"sportPart"];
         if (setting.sportTypeImageMale) {
@@ -212,10 +202,10 @@
 
 - (void)getTheFreshData {
     //计算主要数据
-    NSArray *allDateEvents = [DateEventStore findByCriteria:@" ORDER BY dateKey DESC "];
-    _allCount = allDateEvents.count;
+    _allDateEvents = [DateEventStore findByCriteria:@" ORDER BY dateKey DESC "];
+    _allCount = _allDateEvents.count;
     //百分比圆盘
-    if (allDateEvents.count == 0){
+    if (_allCount == 0){
         self.percentageLabel.text = @"0%";
     }
     NSArray * allSportTypes = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"SportParts" ofType:@"plist"]];
@@ -230,7 +220,7 @@
     }
     
     NSInteger totalTimeMin = 0;
-    for (DateEventStore *dateStore in allDateEvents){
+    for (DateEventStore *dateStore in _allDateEvents){
         totalTimeMin +=dateStore.doneMins;
         for (NSMutableDictionary *tempDic in allSortedDates){
             NSString *dicPart = [tempDic objectForKey:@"sportPart"];
@@ -259,7 +249,7 @@
     }];
     
     //刷新总结数字
-    [self getTheSummaryData:allDateEvents totalMin:totalTimeMin];
+    [self getTheSummaryData:_allDateEvents totalMin:totalTimeMin];
 }
 
 - (void)getTheSummaryData: (NSArray *)allDateEvents totalMin: (NSInteger)totalTimeMin {
@@ -310,11 +300,12 @@
     DetailSummaryVC *detailVC = [DetailSummaryVC new];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:detailVC];
     
-    NSDictionary *cellInfoDic = [self.sortedTypeArray firstObject];
-    NSString *typeStr = [NSString stringWithFormat:@"%@", cellInfoDic[@"type"]];
+    NSMutableDictionary *tempDic = [_allSortedData firstObject];
+    NSString *sportPart = [tempDic objectForKey:@"sportPart"];
+    NSMutableArray *tempArr = [tempDic objectForKey:@"data"];
     
-    detailVC.eventsByDateForTable = self.eventsDetailByType[typeStr];
-    detailVC.sportTypeStr = [self.sortedTypeArray firstObject][@"type"];
+    detailVC.eventsByDateForTable = tempArr;
+    detailVC.sportTypeStr = sportPart;
     
     nav.modalTransitionStyle = UIModalTransitionStylePartialCurl; //改变模态视图出现的动画
     [self presentViewController:nav animated:YES completion:^{
@@ -326,12 +317,12 @@
     DetailSummaryVC *detailVC = [DetailSummaryVC new];
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:detailVC];
     
-    NSDictionary *cellInfoDic = [self.sortedTypeArray lastObject];
-    NSString *typeStr = [NSString stringWithFormat:@"%@", cellInfoDic[@"type"]];
+    NSMutableDictionary *tempDic = [_allSortedData lastObject];
+    NSString *sportPart = [tempDic objectForKey:@"sportPart"];
+    NSMutableArray *tempArr = [tempDic objectForKey:@"data"];
     
-    detailVC.eventsByDateForTable = self.eventsDetailByType[typeStr];
-    detailVC.sportTypeStr = [self.sortedTypeArray lastObject][@"type"];
-    
+    detailVC.eventsByDateForTable = tempArr;
+    detailVC.sportTypeStr = sportPart;
     
     nav.modalTransitionStyle = UIModalTransitionStylePartialCurl; //改变模态视图出现的动画
     [self presentViewController:nav animated:YES completion:^{
@@ -341,27 +332,28 @@
 //滑动改变图表显示的时间
 - (void)buttonClicked: (id)sender
 {
+//    NSLog(@"%@", self.contantView.subviews);
+    
     //删除当下的图表
-    [[self.contantView.subviews firstObject] removeFromSuperview];
+    [self.contantView.subviews[0] removeFromSuperview];
     
     if (sender == swipeGestureLeft) {
         //重绘上月数据的图表
-        NSString * lastMonthAndYear = [[ASBaseManage sharedManage] lastMonthFrom:self.monthAndYear];
-        NSDate *lastMonth = [[ASBaseManage dateFormatterForMY] dateFromString:lastMonthAndYear];
-        [self arrayForChartData:lastMonth];
-        self.monthAndYear = lastMonthAndYear;
+        NSString * lastMonthAndYear = [[ASBaseManage sharedManage] lastMonthFrom:_monthAndYear];
+        _displayDate = [[ASBaseManage dateFormatterForDMY] dateFromString:lastMonthAndYear];
+        _monthAndYear = [lastMonthAndYear substringFromIndex:3];
     }else if (sender == swipeGestureRight) {
         //重绘下月数据的图表
-        NSString * nextMonthAndYear = [[ASBaseManage sharedManage] nextMonthFrom:self.monthAndYear];
-        NSDate *nextMonth = [[ASBaseManage dateFormatterForMY] dateFromString:nextMonthAndYear];
-        [self arrayForChartData:nextMonth];
-        self.monthAndYear = nextMonthAndYear;
+        NSString * nextMonthAndYear = [[ASBaseManage sharedManage] nextMonthFrom:_monthAndYear];
+        _displayDate = [[ASBaseManage dateFormatterForDMY] dateFromString:nextMonthAndYear];
+        _monthAndYear = [nextMonthAndYear substringFromIndex:3];
     }
+    [self updateTheDataForChart:_displayDate];
 
     //更新title的月份显示
-    NSString *subStr1 = [self.monthAndYear substringFromIndex:3];
-    NSString *subStr2 = [self.monthAndYear substringToIndex:2];
-    NSString *labelStr = [NSString stringWithFormat:@"%@年%@月-每周运动天数",subStr1, subStr2];
+    NSString *subStrYear = [_monthAndYear substringFromIndex:3];
+    NSString *subStrMonth = [_monthAndYear substringToIndex:2];
+    NSString *labelStr = [NSString stringWithFormat:@"%@年%@月-每周运动天数",subStrYear, subStrMonth];
     self.expLabel.text = labelStr;
     
     //重绘chart图表
@@ -371,123 +363,58 @@
     [self.chartView showInView:self.contantView];
     [self.chartView addGestureRecognizer:swipeGestureLeft];
     [self.chartView addGestureRecognizer:swipeGestureRight];
+    [self.contantView bringSubviewToFront:self.expLabel];
 }
 
 #pragma mark - 生成表格使用的数据
 
-//生成用于表格的数据（每周的运动次数）
-- (void)arrayForChartData: (NSDate *)date
-{
-    //本月第一天星期几的代表数字 (0 - 6)
-    int weekDay = (int)[[ASBaseManage sharedManage] weekOfFirstDay:date]-1;
-    //还有几天到下个周一(周日)
+- (void)updateTheDataForChart: (NSDate *)targetDate {
     SettingStore *setting = [SettingStore sharedSetting];
+    
+    NSDate *firstDate = [[ASBaseManage sharedManage] firstDateOfMonth:targetDate];
+    NSInteger firstTimpStamp = [firstDate timeIntervalSince1970];
+    NSInteger weekNumOfMonthFirstDate = [[ASBaseManage sharedManage] weekDayFromTimeStamp:firstTimpStamp];
+    //判断用户设置的第一天是星期几
+    NSInteger leftDayOfWeek;
     if (setting.firstDayOfWeek) {
-        weekDay += 1;
-        if (weekDay == 7) {
-            weekDay = 0;
-        }
+        //星期天
+        leftDayOfWeek = 7 - weekNumOfMonthFirstDate;
+    }else {
+        //星期一
+        leftDayOfWeek = 8 - weekNumOfMonthFirstDate;
     }
-    int toNextMonday = 7 - weekDay;
-    if (toNextMonday == 7) {
-        toNextMonday = 0;
-    }
-    //计算上个月最后一周的所有日期
-    NSMutableArray *lastMonthLastWeek = [NSMutableArray array];
-    for (int i = 0 ; i < weekDay; i++) {
-        NSInteger interval = - (i+1)*24*60*60;
-        NSDate *veryFirstDay = [self.firstDayofMonth dateByAddingTimeInterval:interval];
-        NSString *veryFirstDayStr = [[ASBaseManage dateFormatterForDMY] stringFromDate:veryFirstDay];
-        [lastMonthLastWeek addObject:veryFirstDayStr];
-    }
-    for (int i = 0; i <= 6 - weekDay; i++) {
-        NSInteger interval =  i*24*60*60;
-        NSDate *veryFirstDay = [self.firstDayofMonth dateByAddingTimeInterval:interval];
-        NSString *veryFirstDayStr = [[ASBaseManage dateFormatterForDMY] stringFromDate:veryFirstDay];
-        [lastMonthLastWeek addObject:veryFirstDayStr];
-    }
-    //计算这个月最后一周的所有日期
-    NSMutableArray *thisMonthLastWeek = [NSMutableArray array];
-    NSDate *lastDayOfThisMonthDate = [[ASBaseManage sharedManage] thisMonthLastDay:date];
-    int lastWeekDay = (int)[[ASBaseManage sharedManage] weekOfFirstDay:lastDayOfThisMonthDate]-1;
-    if (setting.firstDayOfWeek) {
-        lastWeekDay += 1;
-        if (lastWeekDay == 7) {
-            lastWeekDay = 0;
-        }
-    }
-    int toLastMonday = 7 - lastWeekDay;
-    if (toLastMonday == 7) {
-        toLastMonday = 0;
-    }
-    for (int i = 0 ; i < lastWeekDay; i++) {
-        NSInteger interval = - (i+1)*24*60*60;
-        NSDate *veryFirstDay = [lastDayOfThisMonthDate dateByAddingTimeInterval:interval];
-        NSString *veryFirstDayStr = [[ASBaseManage dateFormatterForDMY] stringFromDate:veryFirstDay];
-        [thisMonthLastWeek addObject:veryFirstDayStr];
-    }
-    for (int i = 0; i <= 6 - lastWeekDay; i++) {
-        NSInteger interval =  i*24*60*60;
-        NSDate *veryFirstDay = [lastDayOfThisMonthDate dateByAddingTimeInterval:interval];
-        NSString *veryFirstDayStr = [[ASBaseManage dateFormatterForDMY] stringFromDate:veryFirstDay];
-        [thisMonthLastWeek addObject:veryFirstDayStr];
-    }
-    //除去和上个月相关联的第一周，先把这个月的下个周一起的运动天数统计出来
-    //首先要把这个月所有的运动具体天数统计出来
-    NSMutableArray *thisMonthSportDates = [NSMutableArray array];
-    for (NSString *date in self.sortedKeyArray){
-        NSString *dayStr = [date substringFromIndex:3];
-        NSString *subStr = [[ASBaseManage dateFormatterForMY] stringFromDate:self.firstDayofMonth];
-        if ([dayStr isEqualToString:subStr]) {
-            [thisMonthSportDates addObject:date];
-        }
-    }
-    //接着根据7天为一个周期进行划分
-    NSMutableArray *array0 = [NSMutableArray arrayWithCapacity:0];
-    NSMutableArray *array1 = [NSMutableArray arrayWithCapacity:0];
-    NSMutableArray *array2 = [NSMutableArray arrayWithCapacity:0];
-    NSMutableArray *array3 = [NSMutableArray arrayWithCapacity:0];
-    NSMutableArray *array4 = [NSMutableArray arrayWithCapacity:0];
-    NSMutableArray *array5 = [NSMutableArray arrayWithCapacity:0];
-    for (NSString *date in thisMonthSportDates){
-        NSString *dayStr = [date substringToIndex:2];
-        int day = [dayStr intValue];
-        //计算下个周一是几号(最晚是7)
-        int nextMondayDate = 1 + toNextMonday;
-        //根据周期进行划分
-        for (int i = 0; i < 5; i++) {
-            if (day >= nextMondayDate + i*7 && day < nextMondayDate + 7 + i*7) {
-                if (i == 0) {[array1 addObject:date];
-                }else if (i == 1){[array2 addObject:date];
-                }else if (i == 2){[array3 addObject:date];
-                }else if (i == 3){[array4 addObject:date];
-                }
+    
+    NSString *leftDateStr = [[ASBaseManage dateFormatterForMY] stringFromDate:targetDate];
+    //这个月最后一天
+    NSDate *lastDate = [[ASBaseManage sharedManage] DateOfMonth:targetDate isFirst:NO];
+    NSCalendar *cal = [NSCalendar currentCalendar];
+    NSDateComponents *comps = [cal
+                               components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay
+                               fromDate:lastDate];
+    
+    self.chartDataArray = [[NSMutableArray alloc] initWithCapacity:5];
+    NSInteger dateDay = 1;
+    for (int i = 0; i < 6; i++) {
+        NSMutableArray *tempArr = [NSMutableArray array];
+        for (int k = 0; k < leftDayOfWeek; k++) {
+            NSString *compareDateStr = [NSString stringWithFormat:@"%@-%@", @(dateDay), leftDateStr];
+            if (dateDay < 10) {
+                compareDateStr = [NSString stringWithFormat:@"0%@-%@", @(dateDay), leftDateStr];
             }
+            DateEventStore *dateStore = [DateEventStore findFirstWithFormat:@" WHERE dateKey = '%@' ", compareDateStr];
+            if (dateStore) {
+                [tempArr addObject:dateStore];
+            }
+            dateDay ++;
         }
-    }
-    //获取第一周的运动天数
-    for (NSString *date in lastMonthLastWeek){
-        if ([self.sortedKeyArray containsObject:date]) {
-            [array0 addObject:date];
-        }
-    }
-    //获取最后一周的运动天数
-    for (NSString *date in thisMonthLastWeek){
-        if ([self.sortedKeyArray containsObject:date]) {
-            [array5 insertObject:date atIndex:0];
+        leftDayOfWeek = 7;
+        [self.chartDataArray addObject:@(tempArr.count)];
+        if (dateDay >= comps.day) {
+            break;
         }
     }
     
-    NSArray *chartData = @[@(array0.count), @(array1.count), @(array2.count), @(array3.count), @(array4.count), @(array5.count)];
-    
-    //筛选这个月是否有第五周
-    if ([array4 isEqualToArray: array5]) {
-        chartData = @[@(array0.count), @(array1.count), @(array2.count), @(array3.count), @(array4.count)];
-    }
-    
-    self.chartDataArray = chartData;
 }
-
 
 - (NSDateFormatter *)dateFormatterForWeek
 {
@@ -495,17 +422,6 @@
     if(!dateFormatter){
         dateFormatter = [NSDateFormatter new];
         dateFormatter.dateFormat = @"EEE";
-    }
-    
-    return dateFormatter;
-}
-
-- (NSDateFormatter *)dateFormatterForChart
-{
-    static NSDateFormatter *dateFormatter;
-    if(!dateFormatter){
-        dateFormatter = [NSDateFormatter new];
-        dateFormatter.dateFormat = @"MMM";
     }
     
     return dateFormatter;
@@ -522,7 +438,7 @@
     return _allSortedData.count;
 }
 
-- (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *cellIdentifier = @"summaryTypeCell";
     summaryTypeCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
@@ -531,7 +447,7 @@
     }
     
     NSMutableDictionary *tempDic = _allSortedData[indexPath.row];
-    NSString *sportPart = [tempDic objectForKey:@"sportData"];
+    NSString *sportPart = [tempDic objectForKey:@"sportPart"];
     NSMutableArray *tempArr = [tempDic objectForKey:@"data"];
     
     cell.typeLabel.text = sportPart;
@@ -562,7 +478,7 @@
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:detailVC];
     
     NSMutableDictionary *tempDic = _allSortedData[indexPath.row];
-    NSString *sportPart = [tempDic objectForKey:@"sportData"];
+    NSString *sportPart = [tempDic objectForKey:@"sportPart"];
     NSMutableArray *tempArr = [tempDic objectForKey:@"data"];
     
     detailVC.eventsByDateForTable = tempArr;
@@ -634,8 +550,7 @@
 - (NSArray *)getXTitles:(NSUInteger)num
 {
     NSMutableArray *xTitles = [NSMutableArray array];
-    NSDate *date = [[ASBaseManage dateFormatterForMY] dateFromString:self.monthAndYear];
-    NSString *monthStr = [[self dateFormatterForChart] stringFromDate:date];
+    NSString *monthStr = [[ASBaseManage dateFormatterForChart] stringFromDate:_displayDate];
     
     for (int i=0; i<num; i++) {
         NSString * str = [NSString stringWithFormat:@"%@(%d)",monthStr ,i+1];

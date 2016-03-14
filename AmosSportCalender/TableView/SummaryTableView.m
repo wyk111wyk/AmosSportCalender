@@ -102,8 +102,7 @@
     headText.text = titleText;
     [headText sizeToFit];
     headText.center = headerView.center;
-    return headerView;
-
+    
     return headerView;
 }
 

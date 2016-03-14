@@ -8,6 +8,7 @@
 
 #import "summaryTypeCell.h"
 #import "SettingStore.h"
+#import "CommonMarco.h"
 
 @implementation summaryTypeCell
 
@@ -18,34 +19,9 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
-    SettingStore *setting = [SettingStore sharedSetting];
-    NSArray *oneColor = [setting.typeColorArray objectAtIndex:[self colorForsportType:self.typeLabel.text]];
-    UIColor *pickedColor = [UIColor colorWithRed:[oneColor[0] floatValue] green:[oneColor[1] floatValue] blue:[oneColor[2] floatValue] alpha:1];
+    UIColor *pickedColor = [[ASBaseManage sharedManage] colorForsportType:self.typeLabel.text];
     
     self.backgroundColor = pickedColor;
-}
-
-- (int)colorForsportType:(NSString *)sportType
-{
-    if ([sportType isEqualToString:@"胸部"]) {
-        return 0;
-    }else if ([sportType isEqualToString:@"背部"]){
-        return 1;
-    }else if ([sportType isEqualToString:@"肩部"]){
-        return 2;
-    }else if ([sportType isEqualToString:@"腿部"]){
-        return 3;
-    }else if ([sportType isEqualToString:@"体力"]){
-        return 4;
-    }else if ([sportType isEqualToString:@"核心"]){
-        return 5;
-    }else if ([sportType isEqualToString:@"手臂"]){
-        return 6;
-    }else if ([sportType isEqualToString:@"综合"]){
-        return 7;
-    }
-    
-    return 0;
 }
 
 - (IBAction)changeShowType:(UIButton *)sender {

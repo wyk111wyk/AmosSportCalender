@@ -8,19 +8,13 @@
 
 #import "DetailSummaryVC.h"
 #import "SummaryDisplayCell.h"
-#import "Event.h"
-#import "SettingStore.h"
 #import "DMPasscode.h"
-#import "MobClick.h"
 #import "CommonMarco.h"
-
-static NSString * const YKSummaryCellReuseId = @"summaryNewTVCell";
+#import "YYKit.h"
 
 @interface DetailSummaryVC ()<UITableViewDataSource, UITableViewDelegate>
-
+@property (nonatomic, strong) NSMutableArray *allDateEvents;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic, strong) NSMutableArray *dateArray;
-@property (nonatomic, strong) NSMutableArray *eventArray;
 
 @end
 
@@ -29,7 +23,23 @@ static NSString * const YKSummaryCellReuseId = @"summaryNewTVCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStyleDone target:self action:@selector(returnToPastView)];
+    [self initFrameUI];
+    [self getTheFreshDate];
+    [self updateDisplayData];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+#pragma mark - 初始化框架UI
+
+- (void)initFrameUI {
+    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:nil];
+    [rightButton setActionBlock:^(id _Nonnull sender) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }];
     self.navigationItem.rightBarButtonItem = rightButton;
     self.navigationItem.title = @"项目详情";
     
@@ -40,64 +50,57 @@ static NSString * const YKSummaryCellReuseId = @"summaryNewTVCell";
     [[self.backgroundView layer] setShadowOpacity:1];               // 阴影透明度
     [[self.backgroundView layer] setShadowColor:[UIColor colorWithWhite:0.2 alpha:0.55].CGColor]; // 阴影的颜色
     
-    UINib *nib = [UINib nibWithNibName:YKSummaryCellReuseId bundle:nil];
-    [self.tableView registerNib:nib forCellReuseIdentifier:YKSummaryCellReuseId];
     [self.tableView setRowHeight:50.];
     [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     self.tableView.allowsSelection = NO;
     self.tableView.backgroundColor = [UIColor clearColor];
-    
-    self.dateArray = [NSMutableArray array];
-    self.eventArray = [NSMutableArray array];
-    if (self.eventsByDateForTable.count > 0) {
-        for (int i = 0; i < self.eventsByDateForTable.count; i++) {
-            NSArray *tempArray = [self.eventsByDateForTable[i] allKeys];
-            [self.dateArray addObject:tempArray[0]];
+}
+
+- (void)getTheFreshDate {
+    _allDateEvents = [[NSMutableArray alloc] initWithCapacity:_eventsByDateForTable.count];
+    for (DateEventStore *dateStore in _eventsByDateForTable){
+        NSMutableDictionary *tempDic = [NSMutableDictionary dictionary];
+        NSString *criStr = [NSString stringWithFormat:@" WHERE dateKey = '%@' AND isDone = '1' ", dateStore.dateKey];
+        NSArray *tempArr = [SportRecordStore findByCriteria:criStr];
+        [tempDic setObject:tempArr forKey:@"data"];
+        [tempDic setObject:dateStore.dateKey forKey:@"dateKey"];
+        [_allDateEvents addObject:tempDic];
     }
-        for (int i = 0; i < self.eventsByDateForTable.count; i++) {
-            NSArray *tempArray = [self.eventsByDateForTable[i] allValues];
-            [self.eventArray addObject:tempArray[0]];
-        }
-    };
-    
+}
+
+- (void)updateDisplayData {
     //UI Label初始化
     self.sportTypeLabel.text = self.sportTypeStr;
     
     if (self.eventsByDateForTable.count > 0) {
+        //总次数
         self.timesLabel.text = [NSString stringWithFormat:@"%@次", @(self.eventsByDateForTable.count)];
-        
-        NSDate *date = [[self dateFormatter] dateFromString:[self.dateArray lastObject]];
+        //开始日期
+        DateEventStore *firstDateStore = [_eventsByDateForTable lastObject];
+        NSDate *date = [[ASBaseManage dateFormatterForDMY] dateFromString:firstDateStore.dateKey];
         NSString *titleStr = [[self dateFormatterStart] stringFromDate:date];
         self.startDateLabel.text = titleStr;
         //平均时间
-        int timelastMin = 0;
-        for (int i = 0; i<self.eventArray.count; i++) {
-            int tempTimelast = 0;
-            for (Event *event in self.eventArray[i]){
-                tempTimelast = tempTimelast + event.timelast;
-            }
-            timelastMin = timelastMin + tempTimelast;
+        NSInteger timelastMin = 0;
+        for (DateEventStore *dateStore in _eventsByDateForTable) {
+            timelastMin += dateStore.doneMins;
         }
-        int avegmin = timelastMin / self.eventArray.count;
-        self.avegTime.text = [NSString stringWithFormat:@"%i", avegmin];
-        //平均间隔
+        NSInteger avegmin = timelastMin / _eventsByDateForTable.count;
+        self.avegTime.text = [NSString stringWithFormat:@"%@", @(avegmin)];
         
-        float totalDay = 0;
-        for (int i = 0; i < self.dateArray.count - 1; i++) {
-            NSDate *firstDate = [[self dateFormatter] dateFromString:self.dateArray[i]];
-            NSDate *lastDate = [[self dateFormatter] dateFromString:self.dateArray[i+1]];
-            NSTimeInterval betweenTime = [firstDate timeIntervalSinceDate:lastDate];
-            float betweenDays=((int)betweenTime)/(3600*24); //记录第一天和最后一天的间隔时间，单位：天
-            totalDay = totalDay + betweenDays;
-        }
-        float avegSpaceDay = totalDay / (float)(self.dateArray.count - 1);
-        self.avegSpaceLabel.text = [NSString stringWithFormat:@"%.1f", avegSpaceDay];
-        
-        if (self.dateArray.count == 1) {
+        if (_eventsByDateForTable.count == 1) {
             self.avegSpaceLabel.text = @"0";
+        }else {
+            //平均间隔
+            DateEventStore *lastDateStore = [_eventsByDateForTable firstObject];
+            NSDate *firstDate = [[ASBaseManage dateFormatterForDMY] dateFromString:firstDateStore.dateKey];
+            NSDate *lastDate = [[ASBaseManage dateFormatterForDMY] dateFromString:lastDateStore.dateKey];
+            NSTimeInterval betweenTime = [lastDate timeIntervalSinceDate:firstDate];
+            NSInteger betweenDays = betweenTime / (3600*24);
+            float avgGapDays = (float)betweenDays / (float)(_eventsByDateForTable.count-1);
+            self.avegSpaceLabel.text = [NSString stringWithFormat:@"%.1f", avgGapDays];
         }
         
-        //BelowTableViewLabel
         self.belowTableViewLabel.text = @"继续努力吧！";
     }else{
         self.timesLabel.text = @"0次";
@@ -107,7 +110,7 @@ static NSString * const YKSummaryCellReuseId = @"summaryNewTVCell";
         self.belowTableViewLabel.text = @"还没有该项运动类型的任何记录";
     }
     
-    if ([UIScreen mainScreen].bounds.size.width == 320) {
+    if (screenWidth == WidthiPhone5) {
         UIFont *font = [UIFont systemFontOfSize:22];
         [_avegTime setFont:font];
         [_avegSpaceLabel setFont:font];
@@ -126,45 +129,20 @@ static NSString * const YKSummaryCellReuseId = @"summaryNewTVCell";
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [MobClick beginLogPageView:@"1.1.1_SummaryDetail_Page"];
-}
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"1.1.1_SummaryDetail_Page"];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)returnToPastView
-{
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
-}
-
-#pragma mark - TableView
+#pragma mark - TableView Delegate
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.eventsByDateForTable.count;
+    return self.allDateEvents.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    for (int i = 0; i < self.eventArray.count; i++) {
-        
-        if (section == i) {
-            return [self.eventArray[i] count];
-        }
-    }
-    
-    return 1;
+    NSMutableDictionary *tempDic = _allDateEvents[section];
+    NSArray *tempArr = [tempDic objectForKey:@"data"];
+    return [tempArr count];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 50;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -176,7 +154,7 @@ static NSString * const YKSummaryCellReuseId = @"summaryNewTVCell";
 {
     UIView *headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 22)];
     [headerView setAutoresizingMask:UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth];
-    headerView.backgroundColor = [UIColor colorWithWhite:0.45 alpha:0.55];;
+    headerView.backgroundColor = [UIColor colorWithWhite:0.65 alpha:0.65];
     
     UILabel *headText = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 0, 22)];
     headText.textColor = [UIColor whiteColor];
@@ -185,116 +163,34 @@ static NSString * const YKSummaryCellReuseId = @"summaryNewTVCell";
     [headText sizeToFit];
     [headerView addSubview:headText];
     
-    for (int i = 0; i < self.dateArray.count; i++) {
-        if (section == i) {
-            NSDate *date = [[self dateFormatter] dateFromString:self.dateArray[i]];
-            NSString *titleStr = [[self dateFormatterDisplay] stringFromDate:date];
-            
-            headText.text = titleStr;
-            [headText sizeToFit];
-            headText.center = headerView.center;
-            return headerView;
-        }
-    }
+    NSMutableDictionary *tempDic = _allDateEvents[section];
+    NSString *titleStr = [tempDic objectForKey:@"dateKey"];
+    NSDate *tempDate = [[ASBaseManage dateFormatterForDMY] dateFromString:titleStr];
+    NSString *titleText = [[ASBaseManage dateFormatterForDMYE] stringFromDate:tempDate];
+    
+    headText.text = titleText;
+    [headText sizeToFit];
+    headText.center = headerView.center;
+    
     return headerView;
 }
 
 - (nonnull UITableViewCell *)tableView:(nonnull UITableView *)tableView cellForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
-    SummaryDisplayCell *cell = [tableView dequeueReusableCellWithIdentifier:YKSummaryCellReuseId forIndexPath:indexPath];
-
-    for (int i = 0; i < self.eventsByDateForTable.count; i++) {
-        if (indexPath.section == i) {
-
-            NSArray *array = self.eventArray[i];
-            Event *event = array[indexPath.row];
-            
-            //Type Label
-            cell.sportTypeLabel.text = [event.sportType substringToIndex:1];
-            
-            SettingStore *setting = [SettingStore sharedSetting];
-            NSArray *oneColor = [setting.typeColorArray objectAtIndex:[self colorForsportType:event.sportType]];
-            UIColor *pickedColor = [UIColor colorWithRed:[oneColor[0] floatValue] green:[oneColor[1] floatValue] blue:[oneColor[2] floatValue] alpha:1];
-            
-            cell.sportTypeLabel.textColor = pickedColor;
-            [cell.sportTypeLabel sizeToFit];
-            
-            cell.sportNameLabel.text = event.sportName;
-            cell.timelastLabel.text =[NSString stringWithFormat:@"%i分钟", event.timelast];
-            cell.sportAttributeLabel.text = [self setSportAttributeText:event.times weight:event.weight rap:event.rap];
-            [cell.sportAttributeLabel sizeToFit];
-            
-            if (event.done == NO) {
-                cell.doneImageView.hidden = YES;
-                cell.backgroundColor = [UIColor whiteColor];
-            } else if (event.done == YES){
-                cell.doneImageView.hidden = NO;
-                cell.backgroundColor = [UIColor colorWithWhite:0.97 alpha:0.8];
-            }
-        }}
-            
+    static NSString *cellIdentifier = @"SummaryDisplayCell";
+    SummaryDisplayCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if(cell == nil) {
+        cell = [[[NSBundle mainBundle]loadNibNamed:cellIdentifier owner:nil options:nil] firstObject];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    }
+    
+    NSMutableDictionary *tempDic = _allDateEvents[indexPath.section];
+    NSArray *tempArr = [tempDic objectForKey:@"data"];
+    SportRecordStore *recordStore = tempArr[indexPath.row];
+    
+    cell.recordStore = recordStore;
+    
     return cell;
-}
-
-#pragma mark - 判断cell显示内容的方法
-- (int)colorForsportType:(NSString *)sportType
-{
-    if ([sportType isEqualToString:@"胸部"]) {
-        return 0;
-    }else if ([sportType isEqualToString:@"背部"]){
-        return 1;
-    }else if ([sportType isEqualToString:@"肩部"]){
-        return 2;
-    }else if ([sportType isEqualToString:@"腿部"]){
-        return 3;
-    }else if ([sportType isEqualToString:@"体力"]){
-        return 4;
-    }else if ([sportType isEqualToString:@"核心"]){
-        return 5;
-    }else if ([sportType isEqualToString:@"手臂"]){
-        return 6;
-    }else if ([sportType isEqualToString:@"综合"]){
-        return 7;
-    }
-    
-    return 0;
-}
-
-- (NSString *)setSportAttributeText: (int)times weight: (float)weight rap:(int)rap
-{
-    if (weight == 0 && times > 0) {
-        return [NSString stringWithFormat:@"%d组 x %d次", rap, times];
-    }else if (weight == 220 && times > 0){
-        return [NSString stringWithFormat:@"%d组 x %d次  自身重量", rap, times];
-    }else if (times == 0 && rap == 0){
-        return @"无额外属性";
-    }else{
-        return [NSString stringWithFormat:@"%d组 x %d次   %.1fkg", rap, times, weight];
-    }
-}
-
-#pragma mark - 时间格式
-- (NSDateFormatter *)dateFormatter
-{
-    static NSDateFormatter *dateFormatter;
-    if(!dateFormatter){
-        dateFormatter = [NSDateFormatter new];
-        dateFormatter.dateFormat = @"dd-MM-yyyy";
-    }
-    
-    return dateFormatter;
-}
-
-- (NSDateFormatter *)dateFormatterDisplay
-{
-    static NSDateFormatter *dateFormatterDisplay;
-    if(!dateFormatterDisplay){
-        dateFormatterDisplay = [NSDateFormatter new];
-        dateFormatterDisplay.dateFormat = @"yyyy年MM月dd日 EEEE";
-        [dateFormatterDisplay setTimeZone:[NSTimeZone timeZoneWithName:@"Asia/Shanghai"]];
-    }
-    
-    return dateFormatterDisplay;
 }
 
 - (NSDateFormatter *)dateFormatterStart

@@ -71,20 +71,33 @@
     return dateFormatter;
 }
 
-//某个月1号是星期几, 1 = 星期一, 7 = 星期天
-- (NSInteger)weekOfFirstDay: (NSDate *)today
++ (NSDateFormatter *)dateFormatterForChart
 {
-    NSDate *now = [NSDate date];
+    static NSDateFormatter *dateFormatter= nil;
+    static dispatch_once_t predicate;
+    dispatch_once(&predicate, ^{
+        dateFormatter = [[NSDateFormatter alloc] init];
+    });
+    dateFormatter.dateFormat = @"MMM";
+    return dateFormatter;
+}
+
+//某个月1号是星期几, 1 = 星期一, 7 = 星期天
+- (NSDate *)firstDateOfMonth: (NSDate *)givenDate
+{
     NSCalendar *cal = [NSCalendar currentCalendar];
     NSDateComponents *comps = [cal
-                               components:NSCalendarUnitYear | NSCalendarUnitMonth
-                               fromDate:now];
+                               components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay
+                               fromDate:givenDate];
     comps.day = 1;
-    NSDate *firstDay = [cal dateFromComponents:comps];
-    NSInteger timpStamp = [firstDay timeIntervalSince1970];
-    NSInteger weekNum = [self weekDayFromTimeStamp:timpStamp];
+    NSDate *tempDate = [cal dateFromComponents:comps];
+    
+    NSTimeZone *localZone = [NSTimeZone localTimeZone];
+    NSInteger interval = [localZone secondsFromGMTForDate:tempDate];
+    NSDate *firstDate = [tempDate dateByAddingTimeInterval:interval];
+    
     //找到星期
-    return weekNum;
+    return firstDate;
 }
 
 //根据时间戳计算星期几, 1 = 星期一, 7 = 星期天
@@ -107,7 +120,8 @@
 - (NSString *)lastMonthFrom: (NSString *)dateStr
 {
     NSCalendar *cal = [NSCalendar currentCalendar];
-    NSDateComponents *compoents = [cal components:(NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:[[ASBaseManage dateFormatterForMY] dateFromString:dateStr]];
+    NSString *newDateStr = [NSString stringWithFormat:@"15-%@", dateStr];
+    NSDateComponents *compoents = [cal components:(NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:[[ASBaseManage dateFormatterForDMY] dateFromString:newDateStr]];
     
     NSInteger thisMonth = compoents.month;
     NSInteger thisYear = compoents.year;
@@ -116,10 +130,11 @@
         thisYear -= 1;
     }
     
-    NSString *monthAndYear = [NSString stringWithFormat:@"%li-%li",(long)thisMonth - 1,(long)thisYear];
-    
+    NSString *monthAndYear = @"";
     if (thisMonth < 11) {
-        monthAndYear = [NSString stringWithFormat:@"0%li-%li",(long)thisMonth - 1,(long)thisYear];
+        monthAndYear = [NSString stringWithFormat:@"15-0%li-%li",(long)thisMonth - 1,(long)thisYear];
+    }else {
+        monthAndYear = [NSString stringWithFormat:@"15-%li-%li",(long)thisMonth - 1,(long)thisYear];
     }
     return monthAndYear;
 }
@@ -127,7 +142,8 @@
 - (NSString *)nextMonthFrom: (NSString *)dateStr
 {
     NSCalendar *cal = [NSCalendar currentCalendar];
-    NSDateComponents *compoents = [cal components:(NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:[[ASBaseManage dateFormatterForMY] dateFromString:dateStr]];
+    NSString *newDateStr = [NSString stringWithFormat:@"15-%@", dateStr];
+    NSDateComponents *compoents = [cal components:(NSCalendarUnitMonth | NSCalendarUnitYear) fromDate:[[ASBaseManage dateFormatterForDMY] dateFromString:newDateStr]];
     
     NSInteger thisMonth = compoents.month;
     NSInteger thisYear = compoents.year;
@@ -136,29 +152,39 @@
         thisYear += 1;
     }
     
-    NSString *monthAndYear = [NSString stringWithFormat:@"%li-%li",(long)thisMonth + 1,(long)thisYear];
-    
+    NSString *monthAndYear = @"";
     if (thisMonth < 9) {
-        monthAndYear = [NSString stringWithFormat:@"0%li-%li",(long)thisMonth + 1,(long)thisYear];
+        monthAndYear = [NSString stringWithFormat:@"15-0%li-%li",(long)thisMonth + 1,(long)thisYear];
+    }else {
+        monthAndYear = [NSString stringWithFormat:@"15-%li-%li",(long)thisMonth + 1,(long)thisYear];
     }
+    
     return monthAndYear;
 }
 
-- (NSDate *)thisMonthLastDay: (NSDate *)date
+//指定月份的第一天的日期
+- (NSDate *)DateOfMonth:(NSDate *)targetDate isFirst:(BOOL) isFirst
 {
-    NSString *thisMonth = [[ASBaseManage dateFormatterForMY] stringFromDate:date];
-    NSString *nextMonthAndYear = [self nextMonthFrom:thisMonth];
+    NSString *targetMonth = [[ASBaseManage dateFormatterForMY] stringFromDate:targetDate];
+    NSString *nextMonthAndYear = [self nextMonthFrom:targetMonth];
     
-    NSDate *nextMonthFirstDay = [[ASBaseManage dateFormatterForDMY] dateFromString:[NSString stringWithFormat:@"01-%@", nextMonthAndYear]];
-    //调个时差
-    NSTimeZone *localZone = [NSTimeZone localTimeZone];
-    NSInteger interval = [localZone secondsFromGMTForDate:nextMonthFirstDay];
-    NSDate *nextMonthFirstDayNew = [nextMonthFirstDay dateByAddingTimeInterval:interval];
-    //减去一天
-    NSInteger intervalToLastDay = - 24*60*60;
-    NSDate *lastMonthLastDay = [nextMonthFirstDayNew dateByAddingTimeInterval:intervalToLastDay];
-    
-    return lastMonthLastDay;
+    if (isFirst) {
+        NSDate *firstDay = [[ASBaseManage dateFormatterForDMY] dateFromString:[NSString stringWithFormat:@"01-%@", targetMonth]];
+        NSTimeZone *localZone = [NSTimeZone localTimeZone];
+        NSInteger interval = [localZone secondsFromGMTForDate:firstDay];
+        return [firstDay dateByAddingTimeInterval:interval];
+        
+    }else {
+        NSString *tempStr = [nextMonthAndYear substringFromIndex:3];
+        NSDate *nextMonthFirstDay = [[ASBaseManage dateFormatterForDMY] dateFromString:[NSString stringWithFormat:@"01-%@", tempStr]];
+        //减去一天
+        NSInteger intervalToLastDay = - 24*60*60;
+        NSDate *lastDay = [nextMonthFirstDay dateByAddingTimeInterval:intervalToLastDay];
+        
+        NSTimeZone *localZone = [NSTimeZone localTimeZone];
+        NSInteger interval = [localZone secondsFromGMTForDate:lastDay];
+        return [lastDay dateByAddingTimeInterval:interval];
+    }
 }
 
 #pragma mark - TouchID
