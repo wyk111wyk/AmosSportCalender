@@ -7,12 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Event.h"
 
 @interface GroupDetailTV : UITableViewController
 
-@property (strong, nonatomic) NSString *belong;
-@property (strong, nonatomic) NSString *navTitle;
-@property (strong, nonatomic) NSArray *allDataArray;
+@property (nonatomic, strong) NSString *groupPart;
+@property (nonatomic) NSInteger imageIndex;
 
 @end

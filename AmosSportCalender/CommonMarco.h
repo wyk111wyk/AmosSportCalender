@@ -14,11 +14,13 @@
 #import "SettingStore.h"
 #import "ASBaseManage.h"
 #import "ASDataManage.h"
+#import "YYKit.h"
 
 #import "PersonInfoStore.h"
 #import "SportRecordStore.h"
 #import "SportEventStore.h"
 #import "DateEventStore.h"
+#import "GroupSetStore.h"
 
 /** Debug */
 #define DeBugMode 0
@@ -59,6 +61,10 @@
 #define MyLightGray [UIColor lightGrayColor]
 #define MyDarkGray [UIColor darkGrayColor]
 #define MYBlueColor [UIColor colorWithRed:0.2039 green:0.6980 blue:0.9647 alpha:1]
+
+#define ColorForLevel3 [UIColor colorWithRed:0.9843 green:0.2980 blue:0.3098 alpha:1]
+#define ColorForLevel2 [UIColor colorWithRed:0.1922 green:0.7686 blue:0.9882 alpha:1]
+#define ColorForLevel1 [UIColor colorWithRed:0.5020 green:0.8118 blue:0.2118 alpha:1]
 
 //#define chestColor [UIColor colorWithRed:0.4000 green:0.7059 blue:0.8980 alpha:1];
 #define BackgroundColor [UIColor colorWithWhite:0.96 alpha:1]

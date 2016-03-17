@@ -102,6 +102,7 @@
         }else if (sender == _typeManageView){
             SportPartManageTV *partTV = [[SportPartManageTV alloc] initWithStyle:UITableViewStylePlain];
             partTV.canEditEvents = YES;
+            partTV.pageState = 0;
             UINavigationController *partNav = [[UINavigationController alloc] initWithRootViewController:partTV];
             [self.sideMenuViewController setContentViewController:partNav];
         }else if (sender == _settingView){

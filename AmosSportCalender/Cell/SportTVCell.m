@@ -17,6 +17,7 @@
 - (void)awakeFromNib {
     _iconRootView.layer.borderWidth = 0.7;
     _iconRootView.layer.borderColor = MYBlueColor.CGColor;
+    _couldBeDone = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

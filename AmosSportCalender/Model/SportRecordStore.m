@@ -19,6 +19,8 @@
         _isDone = NO;
         _isSystemMade = NO;
         _datePart = @"";
+        _isGroupSet = NO;
+        _groupSetPK = -1;
     }
     
     return self;

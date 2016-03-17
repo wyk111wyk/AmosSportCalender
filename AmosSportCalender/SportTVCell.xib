@@ -103,11 +103,13 @@
                 <outlet property="donePic" destination="FVb-ok-iL1" id="3bQ-TW-3aP"/>
                 <outlet property="iconRootView" destination="3dN-AZ-e5K" id="3nr-C5-1k0"/>
                 <outlet property="markLabel" destination="Wye-Vh-2jk" id="DOA-QP-gqH"/>
+                <outlet property="sepView" destination="iDx-5H-xTr" id="UJY-U0-wHO"/>
                 <outlet property="sportName" destination="eJt-pq-W2h" id="qEb-7b-shx"/>
                 <outlet property="sportPro" destination="SME-2t-CYY" id="aUt-P1-WpS"/>
                 <outlet property="sportType" destination="izB-6D-YAc" id="jdT-3p-pvB"/>
                 <outlet property="timelastLabel" destination="rMe-P8-XaH" id="f3Z-Ky-hw8"/>
             </connections>
+            <point key="canvasLocation" x="217.5" y="311.5"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -10,7 +10,6 @@
 #import "SummaryDisplayCell.h"
 #import "SummaryTableView.h"
 #import "RESideMenu.h"
-#import "YYKit.h"
 
 @interface SummaryTableView ()
 

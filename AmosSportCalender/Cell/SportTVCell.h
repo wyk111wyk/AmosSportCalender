@@ -13,6 +13,9 @@
 
 @interface SportTVCell : MGSwipeTableCell
 
+@property (nonatomic) BOOL couldBeDone; ///<yes意味着在主页可以被完成
+@property (weak, nonatomic) IBOutlet UIView *sepView;
+
 @property (weak, nonatomic) IBOutlet UIView *iconRootView;
 @property (weak, nonatomic) IBOutlet UILabel *timelastLabel;
 @property (weak, nonatomic) IBOutlet UILabel *markLabel;

@@ -29,6 +29,9 @@
 @property (nonatomic) int doneSets; ///<已完成了多少组
 @property (nonatomic) int timeLast; ///<运动的持续时间(分钟)
 
+@property (nonatomic) BOOL isGroupSet;
+@property (nonatomic) int groupSetPK;
+
 @property (nonatomic) BOOL isDone; ///<是否完成该事件
 @property (nonatomic, strong) NSString *imageKey; ///<储存图片用的唯一编码
 

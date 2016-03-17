@@ -11,6 +11,7 @@
 
 @interface SportPartManageTV : UITableViewController
 
+@property (nonatomic) NSInteger pageState; ///<0-运动类型管理 1-预置组合选择 2-挑选运动项目
 @property (nonatomic) BOOL canEditEvents;
 @property (nonatomic, strong) void(^chooseSportBlock)(SportEventStore *);
 

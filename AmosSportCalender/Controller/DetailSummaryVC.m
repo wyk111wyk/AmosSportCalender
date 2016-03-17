@@ -10,7 +10,6 @@
 #import "SummaryDisplayCell.h"
 #import "DMPasscode.h"
 #import "CommonMarco.h"
-#import "YYKit.h"
 
 @interface DetailSummaryVC ()<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, strong) NSMutableArray *allDateEvents;

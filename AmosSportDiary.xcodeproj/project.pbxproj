@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B00317451BC0DE4000AFAD86 /* GroupSelectTV.m in Sources */ = {isa = PBXBuildFile; fileRef = B00317441BC0DE4000AFAD86 /* GroupSelectTV.m */; };
-		B00317481BC1005D00AFAD86 /* GroupSelectCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B00317471BC1005D00AFAD86 /* GroupSelectCell.m */; };
 		B003174B1BC10AED00AFAD86 /* GroupDetailTV.m in Sources */ = {isa = PBXBuildFile; fileRef = B003174A1BC10AED00AFAD86 /* GroupDetailTV.m */; };
 		B003174F1BC10D2A00AFAD86 /* GroupDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B003174D1BC10D2A00AFAD86 /* GroupDetailCell.m */; };
 		B00317501BC10D2A00AFAD86 /* GroupDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B003174E1BC10D2A00AFAD86 /* GroupDetailCell.xib */; };
@@ -56,6 +54,9 @@
 		B057F9651C93067300D72D89 /* WeixinTimelineActivity.m in Sources */ = {isa = PBXBuildFile; fileRef = B057F95D1C93067300D72D89 /* WeixinTimelineActivity.m */; };
 		B057F9681C93A89800D72D89 /* ASDataManage.m in Sources */ = {isa = PBXBuildFile; fileRef = B057F9671C93A89800D72D89 /* ASDataManage.m */; };
 		B057F96B1C93B1B700D72D89 /* DateEventStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B057F96A1C93B1B700D72D89 /* DateEventStore.m */; };
+		B057F96E1C97ABE600D72D89 /* GroupSetStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B057F96D1C97ABE600D72D89 /* GroupSetStore.m */; };
+		B057F97B1C9A903100D72D89 /* NewGroupVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B057F9791C9A903100D72D89 /* NewGroupVC.m */; };
+		B057F97C1C9A903100D72D89 /* NewGroupVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B057F97A1C9A903100D72D89 /* NewGroupVC.xib */; };
 		B061FA4D1B99FF300082FBA1 /* UIColor+KVNContrast.m in Sources */ = {isa = PBXBuildFile; fileRef = B061FA411B99FF300082FBA1 /* UIColor+KVNContrast.m */; };
 		B061FA4E1B99FF300082FBA1 /* UIImage+KVNEmpty.m in Sources */ = {isa = PBXBuildFile; fileRef = B061FA431B99FF300082FBA1 /* UIImage+KVNEmpty.m */; };
 		B061FA4F1B99FF300082FBA1 /* UIImage+KVNImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = B061FA451B99FF300082FBA1 /* UIImage+KVNImageEffects.m */; };
@@ -350,10 +351,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		B00317431BC0DE4000AFAD86 /* GroupSelectTV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupSelectTV.h; sourceTree = "<group>"; };
-		B00317441BC0DE4000AFAD86 /* GroupSelectTV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupSelectTV.m; sourceTree = "<group>"; };
-		B00317461BC1005D00AFAD86 /* GroupSelectCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GroupSelectCell.h; path = Cell/GroupSelectCell.h; sourceTree = "<group>"; };
-		B00317471BC1005D00AFAD86 /* GroupSelectCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GroupSelectCell.m; path = Cell/GroupSelectCell.m; sourceTree = "<group>"; };
 		B00317491BC10AEC00AFAD86 /* GroupDetailTV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GroupDetailTV.h; sourceTree = "<group>"; };
 		B003174A1BC10AED00AFAD86 /* GroupDetailTV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GroupDetailTV.m; sourceTree = "<group>"; };
 		B003174C1BC10D2A00AFAD86 /* GroupDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GroupDetailCell.h; path = Cell/GroupDetailCell.h; sourceTree = "<group>"; };
@@ -433,6 +430,11 @@
 		B057F9671C93A89800D72D89 /* ASDataManage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ASDataManage.m; path = Helper/ASDataManage.m; sourceTree = "<group>"; };
 		B057F9691C93B1B700D72D89 /* DateEventStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DateEventStore.h; path = Model/DateEventStore.h; sourceTree = "<group>"; };
 		B057F96A1C93B1B700D72D89 /* DateEventStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DateEventStore.m; path = Model/DateEventStore.m; sourceTree = "<group>"; };
+		B057F96C1C97ABE600D72D89 /* GroupSetStore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = GroupSetStore.h; path = Model/GroupSetStore.h; sourceTree = "<group>"; };
+		B057F96D1C97ABE600D72D89 /* GroupSetStore.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = GroupSetStore.m; path = Model/GroupSetStore.m; sourceTree = "<group>"; };
+		B057F9781C9A903100D72D89 /* NewGroupVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewGroupVC.h; path = NewSport/NewGroupVC.h; sourceTree = "<group>"; };
+		B057F9791C9A903100D72D89 /* NewGroupVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewGroupVC.m; path = NewSport/NewGroupVC.m; sourceTree = "<group>"; };
+		B057F97A1C9A903100D72D89 /* NewGroupVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NewGroupVC.xib; path = NewSport/NewGroupVC.xib; sourceTree = "<group>"; };
 		B061FA401B99FF300082FBA1 /* UIColor+KVNContrast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+KVNContrast.h"; sourceTree = "<group>"; };
 		B061FA411B99FF300082FBA1 /* UIColor+KVNContrast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+KVNContrast.m"; sourceTree = "<group>"; };
 		B061FA421B99FF300082FBA1 /* UIImage+KVNEmpty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+KVNEmpty.h"; sourceTree = "<group>"; };
@@ -1058,6 +1060,29 @@
 			path = weChat;
 			sourceTree = "<group>";
 		};
+		B057F9761C9A8FEA00D72D89 /* GroupNew */ = {
+			isa = PBXGroup;
+			children = (
+				B00317491BC10AEC00AFAD86 /* GroupDetailTV.h */,
+				B003174A1BC10AED00AFAD86 /* GroupDetailTV.m */,
+				B057F9781C9A903100D72D89 /* NewGroupVC.h */,
+				B057F9791C9A903100D72D89 /* NewGroupVC.m */,
+				B057F97A1C9A903100D72D89 /* NewGroupVC.xib */,
+				B057F9771C9A900A00D72D89 /* Cell */,
+			);
+			name = GroupNew;
+			sourceTree = "<group>";
+		};
+		B057F9771C9A900A00D72D89 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				B003174C1BC10D2A00AFAD86 /* GroupDetailCell.h */,
+				B003174D1BC10D2A00AFAD86 /* GroupDetailCell.m */,
+				B003174E1BC10D2A00AFAD86 /* GroupDetailCell.xib */,
+			);
+			name = Cell;
+			sourceTree = "<group>";
+		};
 		B061FA3E1B99FF300082FBA1 /* KVNProgress */ = {
 			isa = PBXGroup;
 			children = (
@@ -1234,6 +1259,8 @@
 				B0EAC5701C9048BD000DA444 /* SportRecordStore.m */,
 				B057F9691C93B1B700D72D89 /* DateEventStore.h */,
 				B057F96A1C93B1B700D72D89 /* DateEventStore.m */,
+				B057F96C1C97ABE600D72D89 /* GroupSetStore.h */,
+				B057F96D1C97ABE600D72D89 /* GroupSetStore.m */,
 				B0C100FF1B77984300E4204B /* EventStore.h */,
 				B0C101001B77984300E4204B /* EventStore.m */,
 				B085E2731BBA802100F518A8 /* GroupStore.h */,
@@ -1330,11 +1357,6 @@
 				B0DC6BE61B7F2970009DFA5A /* FeedbackTVCell.h */,
 				B0DC6BE71B7F2970009DFA5A /* FeedbackTVCell.m */,
 				B0DC6BE81B7F2970009DFA5A /* FeedbackTVCell.xib */,
-				B00317461BC1005D00AFAD86 /* GroupSelectCell.h */,
-				B00317471BC1005D00AFAD86 /* GroupSelectCell.m */,
-				B003174C1BC10D2A00AFAD86 /* GroupDetailCell.h */,
-				B003174D1BC10D2A00AFAD86 /* GroupDetailCell.m */,
-				B003174E1BC10D2A00AFAD86 /* GroupDetailCell.xib */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -1963,10 +1985,7 @@
 				B0EAC58A1C911D13000DA444 /* NumberValuePicker.h */,
 				B0EAC58B1C911D13000DA444 /* NumberValuePicker.m */,
 				B0EAC58D1C911D2D000DA444 /* NumberValuePicker.xib */,
-				B00317431BC0DE4000AFAD86 /* GroupSelectTV.h */,
-				B00317441BC0DE4000AFAD86 /* GroupSelectTV.m */,
-				B00317491BC10AEC00AFAD86 /* GroupDetailTV.h */,
-				B003174A1BC10AED00AFAD86 /* GroupDetailTV.m */,
+				B057F9761C9A8FEA00D72D89 /* GroupNew */,
 			);
 			name = NewSport;
 			sourceTree = "<group>";
@@ -2317,6 +2336,7 @@
 				B0DC6BEA1B7F2970009DFA5A /* FeedbackTVCell.xib in Resources */,
 				B057F9301C9190B600D72D89 /* AllSystemSportEvents.plist in Resources */,
 				B0EAC4D51C8FD90B000DA444 /* umeng_fb_audio_dialog_cancel@2x.png in Resources */,
+				B057F97C1C9A903100D72D89 /* NewGroupVC.xib in Resources */,
 				B0EAC4D11C8FD90B000DA444 /* ToolViewInputTextHL@2x.png in Resources */,
 				B048EF861B8D720100F01530 /* Icon@2x.png in Resources */,
 				B0EAC4CE1C8FD90B000DA444 /* microphone@2x.png in Resources */,
@@ -2442,6 +2462,7 @@
 				B057F93E1C91A3B100D72D89 /* SportEventManage.m in Sources */,
 				B085E2561BBA520E00F518A8 /* ActionSheetMultipleStringPicker.m in Sources */,
 				B0EAC52B1C8FD90B000DA444 /* YYTextLine.m in Sources */,
+				B057F96E1C97ABE600D72D89 /* GroupSetStore.m in Sources */,
 				B0D1DE821B9ED67900DB7FDE /* AlertTV.m in Sources */,
 				B057F96B1C93B1B700D72D89 /* DateEventStore.m in Sources */,
 				B061FA4D1B99FF300082FBA1 /* UIColor+KVNContrast.m in Sources */,
@@ -2452,7 +2473,6 @@
 				B0EAC5AA1C912454000DA444 /* TYShowAlertView.m in Sources */,
 				B0EAC5261C8FD90B000DA444 /* YYTextDebugOption.m in Sources */,
 				B0C1010B1B7798C000E4204B /* DetailSummaryVC.m in Sources */,
-				B00317481BC1005D00AFAD86 /* GroupSelectCell.m in Sources */,
 				B0EAC5831C905C3E000DA444 /* JVFloatLabeledTextField.m in Sources */,
 				B0EAC5351C8FD90B000DA444 /* YYTextRunDelegate.m in Sources */,
 				B0854D9A1B6BA87600C1B150 /* JTCalendarWeekDayView.m in Sources */,
@@ -2490,6 +2510,7 @@
 				B0EAC5401C8FD90B000DA444 /* YYThreadSafeArray.m in Sources */,
 				B0EAC5141C8FD90B000DA444 /* MKAnnotationView+YYWebImage.m in Sources */,
 				B0EAC4F81C8FD90B000DA444 /* NSObject+YYAdd.m in Sources */,
+				B057F97B1C9A903100D72D89 /* NewGroupVC.m in Sources */,
 				B085E26E1BBA7E9E00F518A8 /* FMDatabasePool.m in Sources */,
 				B0EAC5A81C912454000DA444 /* TYAlertView.m in Sources */,
 				B0EAC4FC1C8FD90B000DA444 /* NSThread+YYAdd.m in Sources */,
@@ -2578,7 +2599,6 @@
 				B0EAC53B1C8FD90B000DA444 /* YYFileHash.m in Sources */,
 				B0EAC5251C8FD90B000DA444 /* YYTextContainerView.m in Sources */,
 				B0BAD0971B8DD64000F41091 /* PersonalInfoTableView.m in Sources */,
-				B00317451BC0DE4000AFAD86 /* GroupSelectTV.m in Sources */,
 				B0EAC4C61C8FD90B000DA444 /* TOActivitySafari.m in Sources */,
 				B0EAC5111C8FD90B000DA444 /* YYMemoryCache.m in Sources */,
 				B0EAC4AA1C8FD90B000DA444 /* MGSwipeTableCell.m in Sources */,

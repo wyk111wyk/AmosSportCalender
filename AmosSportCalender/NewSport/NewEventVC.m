@@ -9,7 +9,6 @@
 
 #import "NewEventVC.h"
 #import "CommonMarco.h"
-#import "YYKit.h"
 #import "NYSegmentedControl.h"
 #import "AbstractActionSheetPicker.h"
 #import "ActionSheetDatePicker.h"
@@ -75,7 +74,7 @@
     [cancelButton setActionBlock:^(id _Nonnull sender) {
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
-    if (_pageState == 0 || _pageState == 1) {
+    if (_pageState == 0 || _pageState == 1 || _pageState == 4) {
         self.navigationItem.leftBarButtonItem = cancelButton;
     }
     
@@ -86,11 +85,16 @@
         }else {
             if (_pageState == 0 || _pageState == 1) {
                 [self saveCurrentDataForRecord];
+                [[NSNotificationCenter defaultCenter] postNotificationName:RefreshRootPageEventsNotifcation
+                                                                    object:_selectedDateForMark];
                 [self dismissViewControllerAnimated:YES completion:nil];
-            }else {
+            }else if(_pageState == 2 || _pageState == 3) {
                 [self saveCurrentDataForEvent];
                 [self.navigationController popViewControllerAnimated:YES];
                 [[NSNotificationCenter defaultCenter] postNotificationName:RefreshSportEventsNotifcation object:nil];
+            }else if (_pageState == 4) {
+                [self saveCurrentDataForRecord];
+                [self dismissViewControllerAnimated:YES completion:nil];
             }
         }
     }];
@@ -121,10 +125,11 @@
         [_recordStore save];
     }else if (_pageState == 1) {
         [_recordStore update];
+    }else if (_pageState == 4) {
+        _recordStore.isGroupSet = YES;
+        _recordStore.groupSetPK = _groupSetPK;
+        [_recordStore save];
     }
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:RefreshRootPageEventsNotifcation
-                                                        object:nil];
 }
 
 - (void)saveCurrentDataForEvent {
@@ -178,29 +183,9 @@
 - (void)updateStateType {
     _serialNumField.enabled = NO;
     NSString *titleStr = @"";
-    if (_pageState == 0) {
+    if (_pageState == 0 || _pageState == 1 || _pageState == 4) {
         //添加
         [self updateDoneImageAndDateLabel];
-        
-        titleStr = @"添加项目";
-        _equipField.enabled = NO;
-        _partField.enabled = NO;
-        _muscleField.enabled = NO;
-        _segmentedControl.enabled = NO;
-        _imageButton.enabled = NO;
-        
-        
-        _actionSepView.backgroundColor = MYBlueColor;
-        _sportNameView.backgroundColor = MYBlueColor;
-        _timeLastSepView.backgroundColor = MYBlueColor;
-        _weightSepView.backgroundColor = MYBlueColor;
-        _repeatSepView.backgroundColor = MYBlueColor;
-        _RMSelView.backgroundColor = MYBlueColor;
-    }else if (_pageState == 1) {
-        //编辑
-        [self updateDoneImageAndDateLabel];
-        
-        titleStr = @"编辑项目";
         _equipField.enabled = NO;
         _partField.enabled = NO;
         _muscleField.enabled = NO;
@@ -213,11 +198,26 @@
         _weightSepView.backgroundColor = MYBlueColor;
         _repeatSepView.backgroundColor = MYBlueColor;
         _RMSelView.backgroundColor = MYBlueColor;
-    }else if (_pageState == 2) {
+        
+        if (_pageState == 0) {
+            titleStr = @"添加项目";
+        }else if (_pageState == 1) {
+            titleStr = @"编辑项目";
+        }else if (_pageState == 4) {
+            titleStr = @"预置项目";
+            _actionDateField.enabled = NO;
+            _actionSepView.backgroundColor = MyLightGray;
+            _doneButton.enabled = NO;
+            _actionDateField.text = @"-";
+        }
+    }else if (_pageState == 2 || _pageState == 3) {
         //新建
         [self updateEventDataAndUI];
-        
-        titleStr = @"新建项目";
+        if (_pageState == 2) {
+            titleStr = @"新建项目";
+        }else if (_pageState == 3) {
+            titleStr = @"修改项目";
+        }
         _actionDateField.enabled = NO;
         _doneButton.hidden = YES;
         _doneImageView.hidden = YES;
@@ -225,24 +225,6 @@
         _weightField.enabled = NO;
         _repeatTimesField.enabled = NO;
         _RMField.enabled = NO;
-        
-        _equipSepView.backgroundColor = MYBlueColor;
-        _sportNameView.backgroundColor = MYBlueColor;
-        _partSepView.backgroundColor = MYBlueColor;
-        _muscleSepView.backgroundColor = MYBlueColor;
-        _segmentedControl.borderColor = MYBlueColor;
-    }else if (_pageState == 3) {
-        [self updateEventDataAndUI];
-        
-        titleStr = @"修改项目";
-        _actionDateField.enabled = NO;
-        _doneButton.hidden = YES;
-        _doneImageView.hidden = YES;
-        _timeLastField.enabled = NO;
-        _weightField.enabled = NO;
-        _repeatTimesField.enabled = NO;
-        _RMField.enabled = NO;
-        //如果是系统自带的，那么不允许修改名字和器械
         
         _equipSepView.backgroundColor = MYBlueColor;
         _sportNameView.backgroundColor = MYBlueColor;
@@ -327,6 +309,13 @@
         _weightField.text = @"";
         _repeatTimesField.text = @"";
         _RMField.text = @"";
+    }else {
+        _weightField.enabled = YES;
+        _repeatTimesField.enabled = YES;
+        _RMField.enabled = YES;
+        _weightSepView.backgroundColor = MYBlueColor;
+        _repeatSepView.backgroundColor = MYBlueColor;
+        _RMSelView.backgroundColor = MYBlueColor;
     }
 }
 
@@ -468,9 +457,10 @@
     }
     else if (textField == _sportNameField) {
         //运动名称
-        if (_pageState == 0 || _pageState == 1) {
+        if (_pageState == 0 || _pageState == 1  || _pageState == 4) {
             SportPartManageTV *partTV = [[SportPartManageTV alloc] initWithStyle:UITableViewStylePlain];
             partTV.canEditEvents = NO;
+            partTV.pageState = 2;
             partTV.chooseSportBlock = ^(SportEventStore *eventStore) {
                 _recordStore.isSystemMade = eventStore.isSystemMade;
                 _recordStore.imageKey = eventStore.imageKey;
@@ -529,6 +519,7 @@
 - (void)clickToChangeDate:(UITextField *)sender {
     [self.view endEditing:YES];
     AbstractActionSheetPicker *newDatePicker = [[ActionSheetDatePicker alloc] initWithTitle:@"选择运动日期" datePickerMode:UIDatePickerModeDate selectedDate:_selectedDateForMark doneBlock:^(ActionSheetDatePicker *picker, id selectedDate, id origin) {
+        _selectedDateForMark = selectedDate;
         NSString *newStr = [[ASBaseManage dateFormatterForDMYE] stringFromDate:selectedDate];
         NSString *compareStr = [[ASBaseManage dateFormatterForDMYE] stringFromDate:[NSDate date]];
         if (_recordStore) {

@@ -7,15 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "Event.h"
 
 @interface GroupDetailCell : UITableViewCell
 
-@property (weak, nonatomic) IBOutlet UILabel *sportName; ///<项目名称
-@property (weak, nonatomic) IBOutlet UILabel *sportType; ///<类别
-@property (weak, nonatomic) IBOutlet UILabel *sportPro; ///<运动项目属性
-@property (weak, nonatomic) IBOutlet UILabel *timelastLabel;
+@property (weak, nonatomic) IBOutlet UILabel *groupSetName;
+@property (weak, nonatomic) IBOutlet UILabel *numOfEvent;
+@property (weak, nonatomic) IBOutlet UILabel *levelLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
 
-@property (nonatomic, strong) Event *event;
 
 @end

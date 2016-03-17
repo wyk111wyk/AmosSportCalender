@@ -9,7 +9,6 @@
 #import "SportEventManage.h"
 #import "EventDisplayCell.h"
 #import "CommonMarco.h"
-#import "YYKit.h"
 #import "NewEventVC.h"
 
 @interface SportEventManage ()

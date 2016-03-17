@@ -23,9 +23,9 @@
 #import "WXApi.h"
 #import "MobClick.h"
 #import "NYSegmentedControl.h"
-#import "YYKit.h"
 #import "NewEventVC.h"
 #import "MGSwipeButton.h"
+#import "SportPartManageTV.h"
 
 @interface ViewController ()<UITableViewDataSource, UITableViewDelegate, UIActionSheetDelegate, UIPopoverControllerDelegate, WXApiDelegate, MGSwipeTableCellDelegate>
 {
@@ -87,7 +87,7 @@
     //日历初始化
     [self initTheCalendarManager];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAllData) name:RefreshRootPageEventsNotifcation object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAllData:) name:RefreshRootPageEventsNotifcation object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -103,9 +103,10 @@
     [super viewDidAppear:animated];
 }
 
-- (void)refreshAllData{
-    [self loadTheDateEvents:_selectedDate];
-    [_calendarManager setDate:_selectedDate];
+- (void)refreshAllData: (NSNotification *)sender{
+    NSDate *targetDate = sender.object;
+    [self loadTheDateEvents:targetDate];
+    [_calendarManager setDate:targetDate];
     [self.tableView reloadData];
 }
 
@@ -338,11 +339,15 @@
         UINavigationController *newNav = [[UINavigationController alloc] initWithRootViewController:newEvent];
         [self presentViewController:newNav animated:YES completion:nil];
                                             }]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"精选组合"
+    [alert addAction:[UIAlertAction actionWithTitle:@"预置组合"
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction * action) {
                                                 
-        [self.navigationController pushViewController:[self.storyboard instantiateViewControllerWithIdentifier:@"sportGroupNav"] animated:YES];
+        SportPartManageTV *partTV = [[SportPartManageTV alloc] initWithStyle:UITableViewStylePlain];
+        partTV.canEditEvents = YES;
+        partTV.pageState = 1;
+        UINavigationController *partNav = [[UINavigationController alloc] initWithRootViewController:partTV];
+        [self presentViewController:partNav animated:YES completion:nil];
                                             }]];
     
     [alert addAction:[UIAlertAction actionWithTitle:@"取消"
@@ -585,7 +590,6 @@
 }
 
 #pragma mark - Tableview Delegate
-
 
 - (nullable UIView *)tableView:(nonnull UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {

@@ -23,6 +23,7 @@
         _imageKey = key;
         _isSystemMade = NO;
         _isStar = NO;
+        _rootPKGroup = -1;
     }
     
     return self;

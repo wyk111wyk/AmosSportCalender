@@ -8,17 +8,16 @@
 
 #import "GroupDetailTV.h"
 #import "GroupDetailCell.h"
-#import "GroupStore.h"
+#import "NewGroupVC.h"
 #import "CommonMarco.h"
 
-static NSString * const YKSummaryCellReuseId = @"GroupDetailCell";
-
 @interface GroupDetailTV ()<UITableViewDataSource, UITableViewDelegate>
-{
-    NSInteger selectedSection; ///<点选的行数
-    NSMutableArray *allTableDataArray;
-    Event *tempEvent;
-}
+
+@property (nonatomic, strong) NSMutableArray *allGroupSets;
+@property (nonatomic, strong) NSArray *allSportImages;
+
+@property (nonatomic) BOOL isFirstIn;
+
 @end
 
 @implementation GroupDetailTV
@@ -26,59 +25,46 @@ static NSString * const YKSummaryCellReuseId = @"GroupDetailCell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.navigationItem.title = _navTitle;
-    UINib *nib = [UINib nibWithNibName:YKSummaryCellReuseId bundle:nil];
-    [self.tableView registerNib:nib forCellReuseIdentifier:YKSummaryCellReuseId];
+    _isFirstIn = YES;
+    self.navigationItem.title = [NSString stringWithFormat:@"%@-组合", _groupPart];
+    [self setExtraCellLineHidden:self.tableView];
     
-    UIBarButtonItem *backButton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStylePlain target:self action:@selector(backToPresentPage)];
-    self.navigationItem.leftBarButtonItem = backButton;
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"plus"] style:UIBarButtonItemStylePlain target:self action:nil];
+    [addButton setActionBlock:^(id _Nonnull sender) {
+        NewGroupVC *newGroup = [[NewGroupVC alloc] init];
+        newGroup.isNew = YES;
+        GroupSetStore *newStore = [GroupSetStore new];
+        newStore.groupPart = _groupPart;
+        [newStore save];
+        newGroup.groupStore = newStore;
+        [self.navigationController pushViewController:newGroup animated:YES];
+    }];
+    self.navigationItem.rightBarButtonItem = addButton;
     
-    //长按移动cell顺序
-    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressGestureRecognized:)];
-    [self.tableView addGestureRecognizer:longPress];
+    _allSportImages = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"SportImages" ofType:@"plist"]];
+    [self getTheFreshData];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    NSMutableDictionary *allEventsByType = [[NSMutableDictionary alloc] initWithDictionary:[[GroupStore sharedStore] allItems] copyItems:NO];
-    _allDataArray = [allEventsByType[_belong][_navTitle] copy];
-    [self initTheData];
-    
-    [self.tableView reloadData];
-}
-
-- (void)initTheData
-{
-    tempEvent = nil;
-    if (_allDataArray) {
-        allTableDataArray = [[NSMutableArray alloc] initWithArray:_allDataArray];
+    if (!_isFirstIn) {
+        [self getTheFreshData];
+        [self.tableView reloadData];
     }
+    _isFirstIn = NO;
 }
 
-- (void)backToPresentPage
-{
-    [self dismissViewControllerAnimated:YES completion:^{
-        
-    }];
+- (void)getTheFreshData {
+    NSString *criStr = [NSString stringWithFormat:@" WHERE groupPart = '%@' ORDER by groupLevel ", _groupPart];
+    _allGroupSets = [[NSMutableArray alloc] initWithArray:[GroupSetStore findByCriteria:criStr]];
 }
 
-- (void)prepareForSegue:(nonnull UIStoryboardSegue *)segue sender:(nullable id)sender
-{
-    //    NSLog(@"%@", NSStringFromSelector(_cmd));
-    if ([segue.identifier isEqualToString:@"newGroupEvent"]) {
-        
-//        NewEvevtViewController *mvc = (NewEvevtViewController *)segue.destinationViewController;
-//        Event *event = [[GroupStore sharedStore] createItem];
-//        
-//        mvc.event = tempEvent? tempEvent : event;
-//        mvc.createNewEvent = tempEvent ? NO : YES;
-//        mvc.groupEdit = YES;
-//        mvc.belong = self.belong;
-//        mvc.groupName = self.navTitle;
-//        mvc.event.sportType = self.belong;
-    }
+//没有内容的cell分割线隐藏
+- (void)setExtraCellLineHidden: (UITableView *)tableView {
+    UIView *view = [UIView new];
+    view.backgroundColor = [UIColor clearColor];
+    [tableView setTableFooterView:view];
 }
 
 #pragma mark - Table view data source
@@ -87,35 +73,48 @@ static NSString * const YKSummaryCellReuseId = @"GroupDetailCell";
     return 1;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    return 15;
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 55;
+    return 54;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (allTableDataArray.count > 0) {
-        return allTableDataArray.count;
-    }else{
-        return 0;
-    }
+    return _allGroupSets.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    GroupDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:YKSummaryCellReuseId];
-    Event *event = allTableDataArray[indexPath.row];
-    cell.event = event;
+    static NSString *cellIdentifier = @"GroupDetailCell";
+    GroupDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentifier];
+    if(cell == nil) {
+        cell = [[[NSBundle mainBundle]loadNibNamed:cellIdentifier owner:nil options:nil] firstObject];
+        cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+        cell.selectedBackgroundView.backgroundColor = CellBackgoundColor;
+        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+        cell.iconImageView.image = [UIImage imageNamed:_allSportImages[_imageIndex]];
+    }
+    
+    GroupSetStore *groupStore = _allGroupSets[indexPath.row];
+    cell.groupSetName.text = groupStore.groupName;
+    cell.levelLabel.text = [NSString stringWithFormat:@"%@", @(groupStore.groupLevel)];
+    if (groupStore.groupLevel == 1) {
+        cell.levelLabel.textColor = ColorForLevel1;
+    }else if (groupStore.groupLevel == 2) {
+        cell.levelLabel.textColor = ColorForLevel2;
+    }else if (groupStore.groupLevel == 3) {
+        cell.levelLabel.textColor = ColorForLevel3;
+    }
+    
+    NSString *criStr = [NSString stringWithFormat:@" WHERE isGroupSet = '1' AND groupSetPK = '%d' ", groupStore.pk];
+    NSInteger countNum = [SportRecordStore findCounts:criStr];
+    cell.numOfEvent.text = [NSString stringWithFormat:@"包含运动项目数量：%@项", @(countNum)];
     
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
 }
 
 //设置滑动后出现的选项
@@ -126,19 +125,13 @@ static NSString * const YKSummaryCellReuseId = @"GroupDetailCell";
                                           rowActionWithStyle:UITableViewRowActionStyleDestructive
                                           title:Local(@"Delete")
           handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-              Event *event = allTableDataArray[indexPath.row];
-              [allTableDataArray removeObjectAtIndex:indexPath.row];
-              [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-              
-              [[GroupStore sharedStore] removeItemInGroup:event belong:_belong groupName:_navTitle];
-              //储存数据
-              BOOL success = [[GroupStore sharedStore] saveGroupData];
-              if (DeBugMode) {
-                  if (success) {
-                      NSLog(@"Group数据 - 删除item后，储存数据成功");
-                  }else{
-                      NSLog(@"Group数据 - 删除item后，储存数据失败！");
-                  }}
+              GroupSetStore *groupStore = _allGroupSets[indexPath.row];
+              if ([groupStore deleteObject]) {
+                  NSString *criStr = [NSString stringWithFormat:@" WHERE isGroupSet = '1' AND groupSetPK = '%d' ", groupStore.pk];
+                  [SportRecordStore deleteObjectsByCriteria:criStr];
+                  [_allGroupSets removeObject:groupStore];
+                  [tableView deleteRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationAutomatic];
+              }
                                           }];
     
     //修改内容的方法
@@ -146,113 +139,16 @@ static NSString * const YKSummaryCellReuseId = @"GroupDetailCell";
                                         rowActionWithStyle:UITableViewRowActionStyleNormal
                                         title:Local(@"Edit")
             handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-                tempEvent = allTableDataArray[indexPath.row];
+                NewGroupVC *newGroup = [[NewGroupVC alloc] init];
+                newGroup.isNew = NO;
+                GroupSetStore *newStore = _allGroupSets[indexPath.row];
+                newGroup.groupStore = newStore;
                 
-                [self performSegueWithIdentifier:@"newGroupEvent" sender:self];
-                [tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationRight];
+                [self.navigationController pushViewController:newGroup animated:YES];
                                         }];
     editAction.backgroundColor = [UIColor colorWithRed:0.0000 green:0.4784 blue:1.0000 alpha:1];
     
     return @[deleteAction, editAction]; //与实际显示的顺序相反
-}
-
-- (IBAction)longPressGestureRecognized:(id)sender {
-    
-    UILongPressGestureRecognizer *longPress = (UILongPressGestureRecognizer *)sender;
-    UIGestureRecognizerState state = longPress.state;
-    
-    CGPoint location = [longPress locationInView:self.tableView];
-    NSIndexPath *indexPath = [self.tableView indexPathForRowAtPoint:location];
-    
-    static UIView       *snapshot = nil;        ///< A snapshot of the row user is moving.
-    static NSIndexPath  *sourceIndexPath = nil; ///< Initial index path, where gesture begins.
-    
-    switch (state) {
-        case UIGestureRecognizerStateBegan: {
-            if (indexPath) {
-                sourceIndexPath = indexPath;
-                
-                UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
-                
-                // Take a snapshot of the selected row using helper method.
-                snapshot = [self customSnapshoFromView:cell];
-                
-                // Add the snapshot as subview, centered at cell's center...
-                __block CGPoint center = cell.center;
-                snapshot.center = center;
-                snapshot.alpha = 0.0;
-                [self.tableView addSubview:snapshot];
-                [UIView animateWithDuration:0.25 animations:^{
-                    
-                    // Offset for gesture location.
-                    center.y = location.y;
-                    snapshot.center = center;
-                    snapshot.transform = CGAffineTransformMakeScale(1.05, 1.05);
-                    snapshot.alpha = 0.98;
-                    cell.alpha = 0.0;
-                    
-                } completion:^(BOOL finished) {
-                    
-                    cell.hidden = YES;
-                    
-                }];
-            }
-            break;
-        }
-            
-        case UIGestureRecognizerStateChanged: {
-            CGPoint center = snapshot.center;
-            center.y = location.y;
-            snapshot.center = center;
-            
-            // Is destination valid and is it different from source?
-            if (indexPath && ![indexPath isEqual:sourceIndexPath]) {
-                
-                // ... update data source.
-                [[GroupStore sharedStore] moveItemAtIndex:indexPath.row toIndex:sourceIndexPath.row belong:_belong groupName:_navTitle];
-                
-                // ... move the rows.
-                [self.tableView moveRowAtIndexPath:sourceIndexPath toIndexPath:indexPath];
-                
-                // ... and update source so it is in sync with UI changes.
-                sourceIndexPath = indexPath;
-            }
-            break;
-        }
-            
-        default: {
-            // Clean up.
-            UITableViewCell *cell = [self.tableView cellForRowAtIndexPath:sourceIndexPath];
-            cell.hidden = NO;
-            cell.alpha = 0.0;
-            
-            [UIView animateWithDuration:0.25 animations:^{
-                
-                snapshot.center = cell.center;
-                snapshot.transform = CGAffineTransformIdentity;
-                snapshot.alpha = 0.0;
-                cell.alpha = 1.0;
-                
-            } completion:^(BOOL finished) {
-                
-                sourceIndexPath = nil;
-                [snapshot removeFromSuperview];
-                snapshot = nil;
-                
-                //储存数据
-                BOOL success = [[GroupStore sharedStore] saveGroupData];
-                if (DeBugMode) {
-                    if (success) {
-                        NSLog(@"Group数据 - 移动item后，储存数据成功");
-                    }else{
-                        NSLog(@"Group数据 - 移动item后，储存数据失败！");
-                    }}
-                
-            }];
-            
-            break;
-        }
-    }
 }
 
 - (UIView *)customSnapshoFromView:(UIView *)inputView {

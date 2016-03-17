@@ -23,5 +23,6 @@
 @property (nonatomic) BOOL isStar; ///<是否加星标
 
 @property (nonatomic, copy) NSString *imageKey; ///<储存图片用的唯一编码
+@property (nonatomic) int rootPKGroup;
 
 @end
