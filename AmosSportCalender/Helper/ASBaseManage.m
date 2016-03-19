@@ -7,6 +7,7 @@
 //
 #import <EventKit/EventKit.h>
 #import <EventKitUI/EventKitUI.h>
+#import <Bugtags/Bugtags.h>
 
 #import "ASBaseManage.h"
 #import "CommonMarco.h"
@@ -115,6 +116,25 @@
     }
     
     return weekDay;
+}
+
+//距今多少天
+- (NSString *)getDaysWith:(NSDate *)date{
+    //日历
+    NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSUInteger unitFlags = NSCalendarUnitDay;
+    
+    NSDateComponents *components = [gregorian components:unitFlags fromDate:date toDate:[NSDate date] options:0];
+    
+    NSString *dayStr;
+    NSInteger days = [components day];
+    if (days > 0) {
+        dayStr = [NSString stringWithFormat:@"(%@天前)",@(days)];
+    }else {
+        dayStr = [NSString stringWithFormat:@"(%@天后)",@(-days)];
+    }
+    
+    return dayStr;
 }
 
 - (NSString *)lastMonthFrom: (NSString *)dateStr
@@ -293,7 +313,10 @@
     NSInteger colorIndex = [sportParts indexOfObject:sportType];
     
     SettingStore *setting = [SettingStore sharedSetting];
-    NSArray *oneColor = [setting.typeColorArray objectAtIndex:colorIndex];
+    NSArray *oneColor = [setting.typeColorArray objectAtIndex:0];
+    if (colorIndex < sportParts.count) {
+        oneColor = [setting.typeColorArray objectAtIndex:colorIndex];
+    }
     UIColor *pickedColor = [UIColor colorWithRed:[oneColor[0] floatValue] green:[oneColor[1] floatValue] blue:[oneColor[2] floatValue] alpha:1];
     
     return pickedColor;
@@ -335,7 +358,45 @@
     return result;
 }
 
+- (void)updateBugTagsInfo {
+    NSString *userDataPath = [[ASDataManage sharedManage] getFilePathInLibWithFolder:UserFolderName fileName:UserFileName];
+    NSArray *allUserData = [[NSArray alloc] initWithContentsOfFile:userDataPath];
+    NSDictionary *tempDic = [allUserData firstObject];
+    
+    [Bugtags setUserData:tempDic[@"userName"] forKey:@"name"];
+    [Bugtags setUserData:tempDic[@"age"] forKey:@"age"];
+    [Bugtags setUserData:tempDic[@"gender"] forKey:@"gender"];
+}
+
 # pragma mark - 屏幕截图处理方法
+
+//Size的成比例改变
+- (UIImage *)scaleToSize:(UIImage *)img size:(CGSize)size sizeLine:(CGFloat)maxLine {
+    // 创建一个bitmap的context
+    float width = size.width;
+    float height = size.height;
+    float radio = size.height / size.width;
+    
+    if (size.width > size.height) {
+        width = maxLine;
+        height = width * radio;
+    }else {
+        height = maxLine;
+        width = height / radio;
+    }
+    
+    // 并把它设置成为当前正在使用的context
+    //    UIGraphicsBeginImageContext(size);
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(width, height), YES, 0.f);
+    // 绘制改变大小的图片
+    [img drawInRect:CGRectMake(0,0, width, height)];
+    // 从当前context中创建一个改变大小后的图片
+    UIImage* scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    // 使当前的context出堆栈
+    UIGraphicsEndImageContext();
+    //返回新的改变大小后的图片
+    return scaledImage;
+}
 
 //对某View进行截图
 - (UIImage*)captureView: (UIView *)theView Rectsize:(CGSize)size

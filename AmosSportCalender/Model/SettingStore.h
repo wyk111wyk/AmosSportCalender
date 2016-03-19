@@ -23,4 +23,7 @@
 @property (nonatomic)NSInteger weightUnit; ///<0=kg 1=lb
 @property (nonatomic, strong)NSMutableArray *typeColorArray;
 
+@property (nonatomic, strong)NSString *userDataName;
+@property (nonatomic, strong)NSString *userName;
+
 @end

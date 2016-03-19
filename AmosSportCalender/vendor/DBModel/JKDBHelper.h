@@ -14,7 +14,7 @@
 @property (nonatomic, retain, readonly) FMDatabaseQueue *dbQueue;
 
 + (JKDBHelper *)shareInstance;
-
++ (NSString *)dbPathWithDirectoryName:(NSString *)directoryName;
 + (NSString *)dbPath;
 
 - (BOOL)changeDBWithDirectoryName:(NSString *)directoryName;

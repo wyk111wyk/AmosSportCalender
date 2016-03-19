@@ -7,9 +7,9 @@
 //
 
 #import "iCloudStorageTV.h"
-#import "PersonInfoStore.h"
 #import "ConflictTV.h"
-#import "EventStore.h"
+#import "JKDBHelper.h"
+#import "CommonMarco.h"
 
 static NSString* const iCloudCellReuseId = @"icloudCell";
 
@@ -19,8 +19,8 @@ static NSString* const iCloudCellReuseId = @"icloudCell";
 }
 
 //@property (strong, nonatomic) IBOutlet UITableView *tableView;
-@property (nonatomic, strong)NSMutableArray *fileLists;
-@property (nonatomic, strong)NSMutableArray *fileNameLists;
+@property (nonatomic, strong)NSMutableArray *fileLists; ///<所有的文件
+@property (nonatomic, strong)NSMutableArray *fileNameLists; ///<所有的文件名
 
 @end
 
@@ -52,7 +52,6 @@ static NSString* const iCloudCellReuseId = @"icloudCell";
     
     //初始化下拉刷新
     [self initTheRefresh];
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -60,39 +59,30 @@ static NSString* const iCloudCellReuseId = @"icloudCell";
     // Dispose of any resources that can be recreated.
 }
 
+//储存文件到iCloud
 - (IBAction)addNewDataToiCloud:(UIBarButtonItem *)sender {
-    NSString *path = [self itemArchivePath];
+    NSString *userDataName = [[SettingStore sharedSetting] userDataName];
+    NSString *path = [JKDBHelper dbPathWithDirectoryName:userDataName];
     NSData *uploadFile = [NSData dataWithContentsOfFile:path];
     
-    PersonInfoStore *personal = [PersonInfoStore sharedSetting];
-    
-    NSString *tempFileName1 = [NSString stringWithFormat:@"你的运动记录"];
-    if (personal.name.length > 0) {
-        tempFileName1 = [NSString stringWithFormat:@"%@的运动记录", personal.name];
+    NSString *userName = [[SettingStore sharedSetting] userName];
+    NSString *tempFileName1 = [NSString stringWithFormat:@"默认运动记录"];
+    if (userName.length > 0) {
+        tempFileName1 = [NSString stringWithFormat:@"%@的运动记录", userName];
     }
-    
-    NSString *tempFileName = @"";
-    
-    for (int i = 0; i <= _fileNameLists.count; i++) {
-
-        tempFileName = [NSString stringWithFormat:@"%@-%i", tempFileName1, i+1];
+    NSString *dateStr = [[ASBaseManage dateFormatterForDMY] stringFromDate:[NSDate date]];
         
-        //检查名字是否重复
-        BOOL fileExists = [_fileNameLists containsObject:tempFileName];
-        if (fileExists == NO) {
-            break;
-        }
-        
-    }
-        
-    NSString *uploadFileName = tempFileName;
+    NSString *uploadFileName = [NSString stringWithFormat:@"%@_%@", tempFileName1, dateStr];
     
+    [KVNProgress showWithStatus:@"正在备份数据..."];
     //储存文件到iCloud
     [[iCloud sharedCloud] saveAndCloseDocumentWithName:uploadFileName withContent:uploadFile completion:^(UIDocument *cloudDocument, NSData *documentData, NSError *error) {
         if (!error) {
             NSLog(@"iCloud Document: %@ 储存成功", cloudDocument.fileURL.lastPathComponent);
+            [KVNProgress showSuccessWithStatus:@"数据备份成功！"];
         } else {
             NSLog(@"新建iCloud备份失败: %@", error);
+            [KVNProgress showErrorWithStatus:@"数据备份失败！"];
         }
     }];
 }
@@ -137,6 +127,9 @@ static NSString* const iCloudCellReuseId = @"icloudCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:iCloudCellReuseId forIndexPath:indexPath];
+    cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
+    cell.selectedBackgroundView.backgroundColor = CellBackgoundColor;
+    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     
     NSString *fileName = _fileNameLists[indexPath.row];
     //Detail的信息
@@ -151,7 +144,7 @@ static NSString* const iCloudCellReuseId = @"icloudCell";
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self AlertForRecover:indexPath];
 }
 
@@ -178,9 +171,6 @@ static NSString* const iCloudCellReuseId = @"icloudCell";
 #pragma mark - iCloud
 
 - (void)iCloudFilesDidChange:(NSMutableArray *)files withNewFileNames:(NSMutableArray *)fileNames {
-    // Get the query results
-//    NSLog(@"Files: %@", fileNames);
-    
     _fileNameLists = fileNames; // A list of the file names
     _fileLists = files;
     
@@ -188,20 +178,18 @@ static NSString* const iCloudCellReuseId = @"icloudCell";
     [self.tableView reloadData];
 }
 
-//- (void)refreshCloudList {
-//    [[iCloud sharedCloud] updateFiles];
-//}
-
 #pragma mark - Common
 
 - (void)AlertForRecover:(NSIndexPath *)indexPath
 {
-    NSString *title = [NSString stringWithFormat:@"确定要恢复所有数据为\n(%@)？", _fileNameLists[indexPath.row]];
+    NSString *title = [NSString stringWithFormat:@"恢复所有数据为\n(%@)？", _fileNameLists[indexPath.row]];
+    NSString *subTitle = [NSString stringWithFormat:@"这将覆盖现有用户(%@)的所有数据！", [[SettingStore sharedSetting] userName]];
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:title
-                                                                   message:@"这将导致现有的用户数据被清空！"
+                                                                   message:subTitle
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
     [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [KVNProgress showWithStatus:@"开始还原数据..."];
         [[iCloud sharedCloud] retrieveCloudDocumentWithName:[_fileNameLists objectAtIndex:indexPath.row] completion:^(UIDocument *cloudDocument, NSData *documentData, NSError *error) {
             if (!error) {
                 
@@ -220,18 +208,14 @@ static NSString* const iCloudCellReuseId = @"icloudCell";
                     }
                 }];
                 
-                NSString *path = [self itemArchivePath];
-                NSMutableDictionary *privateEvents = [NSKeyedUnarchiver unarchiveObjectWithData:documentData];
+                NSString *userDataName = [[SettingStore sharedSetting] userDataName];
+                NSString *path = [JKDBHelper dbPathWithDirectoryName:userDataName];
                 
-                BOOL success = [NSKeyedArchiver archiveRootObject:privateEvents toFile:path];
-                if (success) {
-                    NSLog(@"成功从iCloud取回了数据，且覆盖成功");
-                }else{
-                    NSLog(@"从iCloud取回数据，但本地化失败！");
-                }
+                [documentData writeToFile:path atomically:YES];
                 
-                [[EventStore sharedStore] updateAllData];
-                
+                [[JKDBHelper shareInstance] changeDBWithDirectoryName:userDataName];
+                [[TMCache sharedCache] removeAllObjects];
+                [KVNProgress showSuccessWithStatus:@"数据还原成功..."];
             } else {
                 NSLog(@"从iCloud取回数据发生错误: %@", error);
                 [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -263,17 +247,6 @@ static NSString* const iCloudCellReuseId = @"icloudCell";
                                             }]];
     
     [self presentViewController:alert animated:YES completion:nil];
-}
-
-- (NSString *)itemArchivePath
-{
-    //通过该方法获取Doc目录的全路径，三个实参：（指定目录）
-    NSArray *documentDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
-    
-    NSString *documentDirectory = [documentDirectories firstObject];
-    
-    //最终获取了储存的指定目录
-    return [documentDirectory stringByAppendingPathComponent:@"event.archive"];
 }
 
 - (NSDateFormatter *)dateFormatterDisplay

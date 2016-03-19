@@ -18,6 +18,8 @@ static NSString *const kalertForSport = @"alertForSport";
 static NSString *const kalertForDays = @"alertForDays";
 static NSString *const kTypeColorArray = @"TypeColorArray";
 static NSString *const weightUnitKey = @"weightUnit";
+static NSString *const userDataNameKey = @"userDataName";
+static NSString *const userNameKey = @"userName";
 
 @interface SettingStore()
 
@@ -58,7 +60,9 @@ static NSString *const weightUnitKey = @"weightUnit";
                                           kalertForDays: @1,
                                           kalertForSport: @YES,
                                           kTypeColorArray: _typeColorArray,
-                                          weightUnitKey: @0}];
+                                          weightUnitKey: @0,
+                                          userDataNameKey: @"AmosSportData_Default",
+                                          userNameKey: @""}];
         
         _typeColorArray = [_userDefaults objectForKey:kTypeColorArray];
         _firstDayOfWeek = [_userDefaults boolForKey:kfirstDayOfWeekKey];
@@ -69,8 +73,20 @@ static NSString *const weightUnitKey = @"weightUnit";
         _alertForSport = [_userDefaults boolForKey:kalertForSport];
         _alertForDays = [_userDefaults integerForKey:kalertForDays];
         _weightUnit = [_userDefaults integerForKey:weightUnitKey];
+        _userDataName = [_userDefaults stringForKey:userDataNameKey];
+        _userName = [_userDefaults stringForKey:userNameKey];
     }
     return self;
+}
+
+- (void)setUserName:(NSString *)userName {
+    _userName = userName;
+    [self.userDefaults setObject:userName forKey:userNameKey];
+}
+
+- (void)setUserDataName:(NSString *)userDataName {
+    _userDataName = userDataName;
+    [self.userDefaults setObject:userDataName forKey:userDataNameKey];
 }
 
 - (void)setTypeColorArray:(NSMutableArray *)typeColorArray

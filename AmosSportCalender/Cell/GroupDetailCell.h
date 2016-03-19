@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *numOfEvent;
 @property (weak, nonatomic) IBOutlet UILabel *levelLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *iconImageView;
+@property (weak, nonatomic) IBOutlet UIView *levelBGView;
 
 
 @end

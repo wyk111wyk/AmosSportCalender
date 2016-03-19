@@ -29,6 +29,7 @@
 @property (nonatomic) BOOL isFirstIn;
 @property (nonatomic, strong) NSMutableArray *allRecordData;
 @property (nonatomic, strong) NSString *criStr;
+@property (nonatomic, strong) NSArray *levelArr;
 
 @end
 
@@ -38,6 +39,7 @@
     [super viewDidLoad];
     
     _isFirstIn = YES;
+    _levelArr = @[@"初级", @"中级", @"高级"];
     _criStr = [NSString stringWithFormat:@" WHERE isGroupSet = '1' AND groupSetPK = '%d' ", _groupStore.pk];
     [self getTheFreshData];
     [self initTheFrameUI];
@@ -62,6 +64,7 @@
         SportRecordStore *recordStore = [SportRecordStore new];
         newEvent.recordStore = recordStore;
         newEvent.pageState = 4;
+        newEvent.isNew = YES;
         newEvent.groupSetPK = _groupStore.pk;
         UINavigationController *eventNav = [[UINavigationController alloc] initWithRootViewController:newEvent];
         
@@ -71,7 +74,7 @@
     
     if (_isNew) {
         self.navigationItem.title = [NSString stringWithFormat:@"新建组合-%@", _groupStore.groupPart];
-        _groupSetNameText.text = @"";
+//        _groupSetNameText.text = @"";
         [_groupSetNameText becomeFirstResponder];
         
         UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:nil];
@@ -104,7 +107,14 @@
 
 - (IBAction)clickToChangeLevel:(UIControl *)sender {
     [_groupSetNameText resignFirstResponder];
+    NSString *oldLevelStr = _levelArr[_groupStore.groupLevel-1];
     _groupStore.groupLevel = sender.tag;
+    NSString *newLevelStr = _levelArr[_groupStore.groupLevel-1];
+    
+    if ([_groupSetNameText.text containsString:oldLevelStr]) {
+        NSRange strRang = [_groupSetNameText.text rangeOfString:oldLevelStr];
+        _groupSetNameText.text = [_groupSetNameText.text stringByReplacingCharactersInRange:strRang withString:newLevelStr];
+    }
     [self updateButtonState];
 }
 
@@ -175,6 +185,7 @@
         SportRecordStore *recordStore = _allRecordData[indexPath.row];
         newEvent.recordStore = recordStore;
         newEvent.pageState = 4;
+        newEvent.isNew = NO;
         newEvent.groupSetPK = _groupStore.pk;
         UINavigationController *eventNav = [[UINavigationController alloc] initWithRootViewController:newEvent];
         
@@ -198,13 +209,19 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     
-    _sepView.backgroundColor = [[ASBaseManage sharedManage] colorForsportType:_groupStore.groupPart];
+    UIColor *partColor = [[ASBaseManage sharedManage] colorForsportType:_groupStore.groupPart];
+    _sepView.backgroundColor = partColor;
+    if (_isNew) {
+        NSString *levelStr = _levelArr[_groupStore.groupLevel-1];
+        NSString *groupSetName = [NSString stringWithFormat:@"%@%@运动组合", levelStr, _groupStore.groupPart];
+        _groupStore.groupName = groupSetName;
+    }
     _groupSetNameText.text = _groupStore.groupName;
     _groupSetNameText.delegate = self;
     
     NSInteger countNum = [_allRecordData count];
     _eventNumberLabel.text = [NSString stringWithFormat:@"包含运动项目数量：%@项", @(countNum)];
-    _eventNumberLabel.textColor = MyLightGray;
+    _eventNumberLabel.textColor = partColor;
 }
 
 - (void)updateButtonState {

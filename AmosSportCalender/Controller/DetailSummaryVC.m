@@ -56,14 +56,24 @@
 }
 
 - (void)getTheFreshDate {
-    _allDateEvents = [[NSMutableArray alloc] initWithCapacity:_eventsByDateForTable.count];
+    NSMutableArray *allDateKey = [NSMutableArray array];
     for (DateEventStore *dateStore in _eventsByDateForTable){
+        [allDateKey addObject:dateStore.dateKey];
+    }
+    
+    NSArray *allSortedDateKey = [[ASDataManage sharedManage] sortDateString:allDateKey.copy];
+    _allDateEvents = [[NSMutableArray alloc] initWithCapacity:_eventsByDateForTable.count];
+    for (NSString *dateKey in allSortedDateKey){
         NSMutableDictionary *tempDic = [NSMutableDictionary dictionary];
-        NSString *criStr = [NSString stringWithFormat:@" WHERE dateKey = '%@' AND isDone = '1' ", dateStore.dateKey];
+        NSString *criStr = [NSString stringWithFormat:@" WHERE dateKey = '%@' AND isDone = '1' AND isGroupSet = '0' ", dateKey];
         NSArray *tempArr = [SportRecordStore findByCriteria:criStr];
-        [tempDic setObject:tempArr forKey:@"data"];
-        [tempDic setObject:dateStore.dateKey forKey:@"dateKey"];
-        [_allDateEvents addObject:tempDic];
+        if (tempArr.count == 0) {
+            [DateEventStore deleteObjectsWithFormat:@" WHERE dateKey = '%d' ", dateKey];
+        }else {
+            [tempDic setObject:tempArr forKey:@"data"];
+            [tempDic setObject:dateKey forKey:@"dateKey"];
+            [_allDateEvents addObject:tempDic];
+        }
     }
 }
 

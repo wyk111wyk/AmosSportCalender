@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="8173.3" systemVersion="15A244d" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8142"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -16,7 +16,6 @@
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="28" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4Wh-Gy-dLn">
                         <rect key="frame" x="291" y="14" width="21" height="21"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="width" constant="21" id="5vt-MW-zeZ"/>
                             <constraint firstAttribute="height" constant="21" id="jw4-F4-YxV"/>
@@ -27,7 +26,6 @@
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="zan" translatesAutoresizingMaskIntoConstraints="NO" id="feT-se-N6J">
                         <rect key="frame" x="260" y="11" width="31" height="27.5"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="27" id="6ao-tG-vfG"/>
                             <constraint firstAttribute="width" constant="31" id="nSm-M7-5Lx"/>
@@ -35,7 +33,6 @@
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UGp-GQ-Owo">
                         <rect key="frame" x="257" y="8" width="1" height="35"/>
-                        <animations/>
                         <color key="backgroundColor" red="0.6588235294117647" green="0.67450980392156867" blue="0.6705882352941176" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="35" id="Wu8-n5-SaV"/>
@@ -44,7 +41,6 @@
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="现有功能改善" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e4D-7p-mDe">
                         <rect key="frame" x="9" y="27" width="131" height="17"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="17" id="Cxv-6V-cKQ"/>
                             <constraint firstAttribute="width" constant="131" id="mD5-so-Chb"/>
@@ -55,14 +51,12 @@
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="麻烦把xxx这个图标做的稍微大一点" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PEd-8v-qCM">
                         <rect key="frame" x="9" y="7" width="246" height="19"/>
-                        <animations/>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j4a-KF-jNr">
                         <rect key="frame" x="260" y="11" width="52" height="27.5"/>
-                        <animations/>
                         <constraints>
                             <constraint firstAttribute="height" constant="28" id="fSc-by-ZIF"/>
                         </constraints>
@@ -71,7 +65,6 @@
                         </connections>
                     </button>
                 </subviews>
-                <animations/>
                 <constraints>
                     <constraint firstItem="j4a-KF-jNr" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="Es6-gk-1Sn"/>
                     <constraint firstItem="e4D-7p-mDe" firstAttribute="top" secondItem="PEd-8v-qCM" secondAttribute="bottom" constant="1" id="HP7-P8-671"/>
@@ -90,7 +83,6 @@
                     <constraint firstItem="e4D-7p-mDe" firstAttribute="leading" secondItem="PEd-8v-qCM" secondAttribute="leading" id="zl8-oc-H6g"/>
                 </constraints>
             </tableViewCellContentView>
-            <animations/>
             <connections>
                 <outlet property="numberLabel" destination="4Wh-Gy-dLn" id="8At-D0-HZ5"/>
                 <outlet property="titleLabel" destination="PEd-8v-qCM" id="pEf-SL-ppR"/>

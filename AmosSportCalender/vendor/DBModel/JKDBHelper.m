@@ -36,7 +36,7 @@ static JKDBHelper *_instance = nil;
     NSString *docsdir = [NSSearchPathForDirectoriesInDomains( NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
     NSFileManager *filemanage = [NSFileManager defaultManager];
     if (directoryName == nil || directoryName.length == 0) {
-        docsdir = [docsdir stringByAppendingPathComponent:@"AmosData"];
+        docsdir = [docsdir stringByAppendingPathComponent:@"AmosSportData_Default"];
     } else {
         docsdir = [docsdir stringByAppendingPathComponent:directoryName];
     }
@@ -66,6 +66,7 @@ static JKDBHelper *_instance = nil;
     return _dbQueue;
 }
 
+//更改数据库
 - (BOOL)changeDBWithDirectoryName:(NSString *)directoryName
 {
     if (_instance.dbQueue) {

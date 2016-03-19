@@ -6,18 +6,16 @@
 //  Copyright © 2015年 Amos Wu. All rights reserved.
 //
 
-#import <MessageUI/MessageUI.h>
-#import <MessageUI/MFMailComposeViewController.h>
-
+#import <Bugtags/Bugtags.h>
 #import "FeedbackViewController.h"
 #import "FeedbackTVCell.h"
 #import "RESideMenu.h"
 #import "DMPasscode.h"
-#import "SettingStore.h"
+#import "CommonMarco.h"
 
 static NSString *const cellID = @"feedbackcell";
 
-@interface FeedbackViewController ()<UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate,MFMailComposeViewControllerDelegate>
+@interface FeedbackViewController ()<UITextFieldDelegate, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *bugReportLabel;
 @property (weak, nonatomic) IBOutlet UILabel *adviseLabel;
@@ -61,8 +59,6 @@ static NSString *const cellID = @"feedbackcell";
     _tableView.allowsSelection = NO;
     _tableView.backgroundColor = [UIColor clearColor];
     
-    _sendButton.enabled = NO;
-    
     _checkImg = [UIImage imageNamed:@"check"];
     _uncheckImg = [UIImage imageNamed:@"uncheck"];
     
@@ -82,7 +78,6 @@ static NSString *const cellID = @"feedbackcell";
     }
     
     [self.sideMenuViewController setPanFromEdge:NO];
-//    [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -93,62 +88,20 @@ static NSString *const cellID = @"feedbackcell";
     [self.view endEditing:YES];
 }
 
-- (IBAction)closeAndOpenDrower:(UIBarButtonItem *)sender {
-//    [self.mm_drawerController toggleDrawerSide:MMDrawerSideLeft animated:YES completion:nil];
-    [self.sideMenuViewController presentLeftMenuViewController];
+- (IBAction)sendTheFeedback:(UIBarButtonItem *)sender {
+    NSString *feedbackText = [NSString stringWithFormat:@"类型：%@ 内容：(%@)(%@) 联系方式：%@", _typeStr, _titleTextField.text, _feedbackTextField.text, _emailTextField.text];
+    if (_titleTextField.text.length == 0) {
+        [self alertForSampleWarning:@"标题不能为空"];
+    }else {
+        [Bugtags sendFeedback:feedbackText];
+        [Bugtags setAfterSendingCallback:^{
+            [KVNProgress showSuccessWithStatus:@"反馈发送成功！"];
+        }];
+    }
 }
 
-- (IBAction)sendTheFeedbackToAmos:(UIBarButtonItem *)sender {
-    
-    Class mailClass = (NSClassFromString(@"MFMailComposeViewController"));
-    if (!mailClass) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"无法发送"
-                                                         message:@"当前系统版本不支持应用内发送邮件功能，您需要前往邮件应用"
-                                                        delegate:self
-                                               cancelButtonTitle:@"好的"
-                                               otherButtonTitles: nil];
-        [alert show];
-        
-        return;
-    }
-    if (![mailClass canSendMail]) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"无法发送"
-                                                         message:@"您还没有设置邮件账户"
-                                                        delegate:self
-                                               cancelButtonTitle:@"好的"
-                                               otherButtonTitles: nil];
-        [alert show];
-        return;
-    }
-    
-    MFMailComposeViewController *mc = [[MFMailComposeViewController alloc] init];
-    mc.mailComposeDelegate = self;
-    
-    NSDictionary *infoDictionary =[[NSBundle mainBundle]infoDictionary];
-    NSString *infoStr = [NSString stringWithFormat:@"(%@.%@)", [infoDictionary objectForKey:@"CFBundleShortVersionString"], [infoDictionary objectForKey:@"CFBundleVersion"]];
-    NSString *contectStr = [NSString stringWithFormat:@"联系方式：%@", _emailStr];
-    
-    //设置标题等
-    NSString *titleTemp = @"无内容";
-    NSString *containTemp = @"无内容";
-    titleTemp = [NSString stringWithFormat:@"ASD%@-%@-%@", infoStr, _typeStr, _titleStr];
-    containTemp = [NSString stringWithFormat:@"%@-%@\n\n%@\n\n%@", _typeStr, _titleStr, _containStr, contectStr];
-    
-    [mc setSubject:titleTemp];
-    [mc setToRecipients:[NSArray arrayWithObject:@"wyk111wyk@icloud.com"]];
-    [mc setMessageBody:containTemp isHTML:NO];
-    
-    // 添加一张图片
-//    UIImage *addPic = [UIImage imageNamed: @"深蹲"];
-//    NSData *imageData = UIImagePNGRepresentation(addPic);            // 转换成png
-//    [mc addAttachmentData: imageData mimeType: @"" fileName: @"深蹲.png"];
-    
-    //添加一个pdf附件
-//    NSString *file = [self fullBundlePathFromRelativePath:@"高质量C++编程指南.pdf"];
-//    NSData *pdf = [NSData dataWithContentsOfFile:file];
-//    [mc addAttachmentData: pdf mimeType: @"" fileName: @"高质量C++编程指南.pdf"];
-    
-    [self presentViewController:mc animated:YES completion:nil];
+- (IBAction)closeAndOpenDrower:(UIBarButtonItem *)sender {
+    [self.sideMenuViewController presentLeftMenuViewController];
 }
 
 - (IBAction)selectFeedbackType:(UIButton *)sender {
@@ -206,29 +159,6 @@ static NSString *const cellID = @"feedbackcell";
 
 #pragma mark - TextField
 
-- (void)textFieldDidBeginEditing:(UITextField *)textField
-{
-    _sendButton.enabled = NO;
-}
-
-- (void)textFieldDidEndEditing:(UITextField *)textField
-{
-    if (textField == _titleTextField) {
-        _titleStr = textField.text;
-        
-        if (textField.text.length > 0) {
-            _sendButton.enabled = YES;
-        }
-        
-    }else if(textField == _emailTextField){
-        _emailStr = textField.text;
-        
-        if (textField.text.length > 0) {
-            _sendButton.enabled = YES;
-        }
-    }
-}
-
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
@@ -246,17 +176,7 @@ static NSString *const cellID = @"feedbackcell";
     textView.text = @"";
     }}
     
-    _sendButton.enabled = NO;
-    textView.textColor = [UIColor blackColor];
-}
-
-- (void)textViewDidEndEditing:(UITextView *)textView
-{
-    _containStr = textView.text;
-    
-    if (textView.text.length > 0) {
-        _sendButton.enabled = YES;
-    }
+    textView.textColor = [UIColor darkGrayColor];
 }
 
 #pragma mark - TableView
@@ -277,29 +197,19 @@ static NSString *const cellID = @"feedbackcell";
     return cell;
 }
 
-#pragma mark - email
+#pragma mark - Alert
 
-- (void)mailComposeController:(MFMailComposeViewController*)controller
-          didFinishWithResult:(MFMailComposeResult)result
-                        error:(NSError*)error {
-    switch (result)
-    {
-        case MFMailComposeResultCancelled:
-            NSLog(@"Mail send canceled...");
-            break;
-        case MFMailComposeResultSaved:
-            NSLog(@"Mail saved...");
-            break;
-        case MFMailComposeResultSent:
-            NSLog(@"Mail sent...");
-            break;
-        case MFMailComposeResultFailed:
-            NSLog(@"Mail send errored: %@...", [error localizedDescription]);
-            break;
-        default:
-            break;
-    }
-    [self dismissViewControllerAnimated:YES completion:nil];
+- (void)alertForSampleWarning: (NSString *)titleStr
+{
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:titleStr
+                                                                   message:nil
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"确定"
+                                              style:UIAlertActionStyleCancel
+                                            handler:^(UIAlertAction * action) {}]];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)alertForVote

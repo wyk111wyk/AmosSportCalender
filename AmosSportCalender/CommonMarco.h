@@ -14,13 +14,15 @@
 #import "SettingStore.h"
 #import "ASBaseManage.h"
 #import "ASDataManage.h"
+#import "KVNProgress.h"
 #import "YYKit.h"
+#import "TMCache.h"
 
-#import "PersonInfoStore.h"
 #import "SportRecordStore.h"
 #import "SportEventStore.h"
 #import "DateEventStore.h"
 #import "GroupSetStore.h"
+#import "SportImageStore.h"
 
 /** Debug */
 #define DeBugMode 0
@@ -37,7 +39,11 @@
 
 //友盟
 #define YouMen_AppKey             @"55dd6364e0f55ab05b000502"
-#define PGY_APP_ID                @"1694170a8f87c44a10201ef6c8831931"
+#define Bugtags_AppKey            @"4c25682af3b62c39f33403579ed9fbf1"
+
+//标准化
+#define UserFolderName @"userData"
+#define UserFileName @"UsersChangeLists.plist"
 
 //屏幕
 #define screenWidth ([UIScreen mainScreen].bounds.size.width)
@@ -50,6 +56,7 @@
 #define WidthiPhone6p 414
 
 #define IS_IOS8 ([[UIDevice currentDevice].systemVersion doubleValue] >= 8.0)
+#define ATCacheKey(qid)   [NSString stringWithFormat:@"amosSport_cache_%@", qid]
 
 //国际化
 #define kFEEDBACK_LOCALIZABLE_TABLE @"AmosSportDiaryLocalizable"

@@ -22,6 +22,8 @@
 - (NSInteger)weekDayFromTimeStamp: (NSInteger)timeStamp;
 - (NSString *)lastMonthFrom: (NSString *)dateStr;
 - (NSString *)nextMonthFrom: (NSString *)dateStr;
+//距今多少天
+- (NSString *)getDaysWith:(NSDate *)date;
 //指定月份的第一天或最后一天
 - (NSDate *)DateOfMonth:(NSDate *)targetDate isFirst:(BOOL) isFirst;
 
@@ -37,6 +39,10 @@
 -(NSArray *) createDoneAndUndoButtons;
 -(NSArray *) createDeleteAndEditButtons;
 
+- (void)updateBugTagsInfo;
+
+//Size的成比例改变
+- (UIImage *)scaleToSize:(UIImage *)img size:(CGSize)size sizeLine:(CGFloat)maxLine;
 //对某View进行截图
 - (UIImage *)captureView: (UIView *)theView Rectsize:(CGSize)size;
 //合并两张图片

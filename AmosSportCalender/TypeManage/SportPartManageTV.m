@@ -141,11 +141,6 @@
     [self.tableView setEditing:editing animated:animated];
 }
 
-//实现协议规定的方法，需要向UITableView发送该消息
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-}
-
 //设置滑动后出现的选项
 - (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
 {

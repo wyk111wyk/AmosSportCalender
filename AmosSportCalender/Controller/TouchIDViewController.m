@@ -9,7 +9,6 @@
 #import "TouchIDViewController.h"
 #import "DMPasscode.h"
 #import "SettingStore.h"
-#import "PersonInfoStore.h"
 
 @interface TouchIDViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *touchIDButton;
@@ -26,9 +25,9 @@
     _touchIDButton.enabled = YES;
     
     
-    PersonInfoStore *personal = [PersonInfoStore sharedSetting];
-    if (personal.name.length > 0) {
-        _helloLabel.text = [NSString stringWithFormat:@"你好，%@！\n请使用指纹进行解锁。", personal.name];
+    SettingStore *setting = [SettingStore sharedSetting];
+    if (setting.userName.length > 0) {
+        _helloLabel.text = [NSString stringWithFormat:@"你好，%@！\n请使用指纹进行解锁。", setting.userName];
     }
 }
 

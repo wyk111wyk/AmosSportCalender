@@ -256,7 +256,7 @@
     //总次数
     _theWholeNumber.text = [NSString stringWithFormat:@"%@", @(allDateEvents.count)];
     //总时间
-    _theWholeTime.text = [NSString stringWithFormat:@"%@", @(totalTimeMin)];
+    _theWholeTime.text = [NSString stringWithFormat:@"%@", @(totalTimeMin/60)];
     //平均每周几次
     DateEventStore *dateStore = [allDateEvents lastObject];
     NSDate *firstDate = [[ASBaseManage dateFormatterForDMY] dateFromString:dateStore.dateKey];
@@ -272,7 +272,7 @@
     }
     _aveTimesAWeek.text = [NSString stringWithFormat:@"%.1f", avgWeekTimes];
     //平均每次几分钟
-    NSInteger allDoneEventCount = [SportRecordStore findCounts:@" WHERE isDone = '1' "];
+    NSInteger allDoneEventCount = [SportRecordStore findCounts:@" WHERE isDone = '1' AND isGroupSet = '0' "];
     float avgTimeMin = 0;
     if (allDoneEventCount > 0) {
         avgTimeMin = (float)totalTimeMin/(float)allDoneEventCount;

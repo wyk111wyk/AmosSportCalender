@@ -8,8 +8,6 @@
 
 #import "SportTVCell.h"
 #import "CommonMarco.h"
-
-#import "Event.h"
 #import "SettingStore.h"
 
 @implementation SportTVCell

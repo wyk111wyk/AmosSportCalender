@@ -8,6 +8,7 @@
 
 #import "AlertTV.h"
 #import "SettingStore.h"
+#import "CommonMarco.h"
 
 @interface AlertTV ()<UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UISwitch *isAlertSwitch;
@@ -23,6 +24,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithActionBlock:^(id  _Nonnull sender) {
+        [self.view endEditing:YES];
+    }];
+    if ([tapGesture respondsToSelector:@selector(locationInView:)]) {
+        tapGesture.numberOfTapsRequired = 1; // The default value is 1.
+        tapGesture.numberOfTouchesRequired = 1; // The default value is 1.
+        [self.tableView addGestureRecognizer:tapGesture];
+    }
+    
     _setting = [SettingStore sharedSetting];
     
     self.isAlertSwitch.on = _setting.alertForSport;
@@ -55,26 +66,6 @@
     }
 
     [self.tableView reloadData];
-}
-
-#pragma mark - TextField
-
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-{
-    UIBarButtonItem *doneButton = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStyleDone target:self action:@selector(resignTheKeyboard)];
-    self.navigationItem.rightBarButtonItem = doneButton;
-    return YES;
-}
-
-- (BOOL)textFieldShouldEndEditing:(UITextField *)textField
-{
-    self.navigationItem.rightBarButtonItem = nil;
-    return YES;
-}
-
-- (void)resignTheKeyboard
-{
-    [self.alertDayField resignFirstResponder];
 }
 
 #pragma mark - Table view data source

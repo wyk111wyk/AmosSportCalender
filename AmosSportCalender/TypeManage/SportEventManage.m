@@ -32,6 +32,7 @@
         newEvent.pageState = 2;
         
         SportEventStore *eventStore = [SportEventStore new];
+
         eventStore.isSystemMade = NO;
         eventStore.sportPart = _sportPart;
         if ([_sportPart isEqualToString:@"拉伸"]) {
@@ -264,6 +265,7 @@
         }else if (indexPath.section == 1) {
             [_allUnstarEventData removeObject:eventStore];
         }
+        [SportImageStore deleteObjectsWithFormat:@" WHERE sportEventPK = '%d' ", eventStore.pk];
         [self.tableView deleteRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationAutomatic];
     }
                                             }]];

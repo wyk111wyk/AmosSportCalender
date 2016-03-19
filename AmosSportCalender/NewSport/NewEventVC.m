@@ -18,8 +18,9 @@
 #import "TYAlertController.h"
 #import "SportPartManageTV.h"
 #import "SportEventManage.h"
+#import "TOCropViewController.h"
 
-@interface NewEventVC ()<UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ASEventDelegate>
+@interface NewEventVC ()<UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, ASEventDelegate, TOCropViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIControl *rootView;
 @property (weak, nonatomic) IBOutlet NYSegmentedControl *segmentedControl;
 @property (strong, nonatomic) TYAlertController *alertController;
@@ -53,6 +54,7 @@
 
 @property (nonatomic, strong) NSDate *selectedDateForMark;
 @property (nonatomic) BOOL initDone; ///<刚开始是不是完成
+@property (nonatomic, strong) NSString *unitText;
 
 @end
 
@@ -62,6 +64,12 @@
     [super viewDidLoad];
 
     _initDone = _recordStore.isDone;
+    SettingStore *setting = [SettingStore sharedSetting];
+    if (setting.weightUnit == 0) {
+        _unitText = @"Kg";
+    }else if (setting.weightUnit == 1) {
+        _unitText = Local(@"lb");
+    }
     
     [self initTheNav];
     [self initFrameUI];
@@ -73,6 +81,7 @@
     cancelButton.tintColor = MyGreenColor;
     [cancelButton setActionBlock:^(id _Nonnull sender) {
         [self dismissViewControllerAnimated:YES completion:nil];
+        
     }];
     if (_pageState == 0 || _pageState == 1 || _pageState == 4) {
         self.navigationItem.leftBarButtonItem = cancelButton;
@@ -85,9 +94,10 @@
         }else {
             if (_pageState == 0 || _pageState == 1) {
                 [self saveCurrentDataForRecord];
-                [[NSNotificationCenter defaultCenter] postNotificationName:RefreshRootPageEventsNotifcation
-                                                                    object:_selectedDateForMark];
-                [self dismissViewControllerAnimated:YES completion:nil];
+                [[ASDataManage sharedManage] refreshSportEventsForDate:_selectedDateForMark];
+                [self dismissViewControllerAnimated:YES completion:^{
+                    [[UIApplication sharedApplication] cancelAllLocalNotifications];
+                }];
             }else if(_pageState == 2 || _pageState == 3) {
                 [self saveCurrentDataForEvent];
                 [self.navigationController popViewControllerAnimated:YES];
@@ -128,7 +138,7 @@
     }else if (_pageState == 4) {
         _recordStore.isGroupSet = YES;
         _recordStore.groupSetPK = _groupSetPK;
-        [_recordStore save];
+        [_recordStore saveOrUpdate];
     }
 }
 
@@ -247,7 +257,8 @@
         if ([newStr isEqualToString:compareStr]) {
             self.actionDateField.text = Local(@"Today");
         } else{
-            self.actionDateField.text = [[ASBaseManage dateFormatterForDMYE] stringFromDate:_selectedDateForMark];
+            NSString *gapDays = [[ASBaseManage sharedManage] getDaysWith:_selectedDateForMark];
+            self.actionDateField.text = [NSString stringWithFormat:@"%@ %@", newStr, gapDays];
         }
         
         _sportNameField.text = _recordStore.sportName;
@@ -257,19 +268,15 @@
         _partField.text = _recordStore.sportPart;
         _muscleField.text = _recordStore.muscles;
         
-        if (_pageState == 1) {
-            _timeLastField.text = [NSString stringWithFormat:@"%d 分钟", _recordStore.timeLast];
-            NSString *unitText = @"";
-            SettingStore *setting = [SettingStore sharedSetting];
-            if (setting.weightUnit == 0) {
-                unitText = @"Kg";
-            }else if (setting.weightUnit == 1) {
-                unitText = Local(@"lb");
+        if (_pageState == 1 || _pageState == 4) {
+            if (_recordStore.timeLast > 0) {
+                _timeLastField.text = [NSString stringWithFormat:@"%d 分钟", _recordStore.timeLast];
             }
+            
             if (_recordStore.weight == 999) {
                 _weightField.text = @"自身重量";
             }else {
-                _weightField.text = [NSString stringWithFormat:@"%d %@", _recordStore.weight, unitText];
+                _weightField.text = [NSString stringWithFormat:@"%d %@", _recordStore.weight, _unitText];
             }
             _repeatTimesField.text = [NSString stringWithFormat:@"%d 组", _recordStore.repeatSets];
             _RMField.text = [NSString stringWithFormat:@"%d 次/组", _recordStore.RM];
@@ -328,6 +335,23 @@
         };
         UIImage *myImg = getBundleImage(ImageKey);
         _actionImageView.image = myImg;
+    }else {
+        NSString *imageKey = _eventStore?_eventStore.imageKey:_recordStore.imageKey;
+        NSString *imageCacheCode = [NSString stringWithFormat:@"photo_%@", imageKey];
+        UIImage *photoImage = [[TMCache sharedCache] objectForKey:ATCacheKey(imageCacheCode)];
+        if (photoImage == nil) {
+            SportImageStore *imageStore = [SportImageStore findFirstWithFormat:@" WHERE imageKey = '%@' ", imageKey];
+            if (imageStore) {
+                NSString *avatarStr = imageStore.sportPhoto;
+                NSData *imageData = [[NSData alloc] initWithBase64EncodedString:avatarStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
+                photoImage = [UIImage imageWithData:imageData];
+                [[TMCache sharedCache] setObject:photoImage forKey:ATCacheKey(imageCacheCode)];
+            }else {
+                self.actionImageView.image = [UIImage imageNamed:@"funPic4"];
+            }
+        }else {
+            self.actionImageView.image = photoImage;
+        }
     }
 }
 
@@ -465,6 +489,7 @@
                 _recordStore.isSystemMade = eventStore.isSystemMade;
                 _recordStore.imageKey = eventStore.imageKey;
                 _recordStore.sportType = eventStore.sportType;
+                _recordStore.sportTips = eventStore.sportTips;
                 
                 _sportNameField.text = eventStore.sportName;
                 _equipField.text = eventStore.sportEquipment;
@@ -474,8 +499,13 @@
                 [_segmentedControl setSelectedSegmentIndex:eventStore.sportType animated:YES];
                 //图片
                 [self updateTheSportImage:eventStore.imageKey isSystem:eventStore.isSystemMade];
-                
+                //智能推荐
+                if (eventStore.sportType == 1) {
+                    [self setupAdviceNum: eventStore.sportPart];
+                }
+                //根据运动类型设置不可编辑部分
                 [self updateNotWeightSport];
+                
             };
             [self.navigationController pushViewController:partTV animated:YES];
             return NO;
@@ -492,6 +522,32 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [self.view endEditing:YES];
     return YES;
+}
+
+//生成智能推荐的数目
+- (void)setupAdviceNum:(NSString *)sportPart {
+    //根据个人设置生成组数等
+    NSString *userDataPath = [[ASDataManage sharedManage] getFilePathInLibWithFolder:UserFolderName fileName:UserFileName];
+    NSArray *allUserData = [[NSArray alloc] initWithContentsOfFile:userDataPath];
+    NSDictionary *tempDic = [NSDictionary dictionary];
+    for (NSDictionary *tempNewDic in allUserData){
+        NSString *currentUser = [[SettingStore sharedSetting] userDataName];
+        NSString *compareUser = tempDic[@"dataName"];
+        if ([currentUser isEqualToString:compareUser]) {
+            tempDic = tempNewDic;
+            break;
+        }
+    }
+    int weight = [[ASDataManage sharedManage] weightValueWithPart:sportPart data:tempDic];
+    int times = [[ASDataManage sharedManage] rapsValuedata:tempDic];
+    int repests = [[ASDataManage sharedManage] timesValuedata:tempDic];
+    
+    _weightField.text = [NSString stringWithFormat:@"%d %@", weight, _unitText];
+    _repeatTimesField.text = [NSString stringWithFormat:@"%d 组", times];
+    _RMField.text = [NSString stringWithFormat:@"%d 次/组", repests];
+    
+    int mins = times * repests * 5 / 60;
+    _timeLastField.text = [NSString stringWithFormat:@"%d 分钟", mins];
 }
 
 - (void)dismissValuePicker {
@@ -513,7 +569,19 @@
 }
 
 - (IBAction)infoButtonClicked:(UIBarButtonItem *)sender {
+    NSString *messStr = _eventStore?_eventStore.sportTips:_recordStore.sportTips;
+    if (messStr.length == 0) {
+        messStr = @"\n1.减脂\n先做些大肌群的中等重量复合动作训练，比如空杆的深蹲，蹲跳等。无氧后采用强度和时间都相对长的HIIT。\n\n2.紧致的线条\n可以采用多组数（20组以上），多次数（每组20次以上），中等重量（最大负重的50%）的循环力量训练。搭配强度较大，时间中等的HIIT。\n\n3.增加某部位肌肉\n大重量小组数，下落时候要有控制的非常慢，也就是注意离心收缩。";
+    }
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"动作要领"
+                                                                   message:messStr
+                                                            preferredStyle:UIAlertControllerStyleActionSheet];
     
+    [alert addAction:[UIAlertAction actionWithTitle:@"确定"
+                                              style:UIAlertActionStyleCancel
+                                            handler:^(UIAlertAction * action) {}]];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)clickToChangeDate:(UITextField *)sender {
@@ -530,7 +598,8 @@
         if ([newStr isEqualToString:compareStr]) {
             self.actionDateField.text = Local(@"Today");
         } else{
-            self.actionDateField.text = newStr;
+            NSString *gapDays = [[ASBaseManage sharedManage] getDaysWith:selectedDate];
+            self.actionDateField.text = [NSString stringWithFormat:@"%@ %@", newStr, gapDays];
         }
     } cancelBlock:^(ActionSheetDatePicker *picker) {
         
@@ -628,10 +697,88 @@
                                               style:UIAlertActionStyleDestructive
                                             handler:^(UIAlertAction * action) {
         //删除
+                                                if (_eventStore.isSystemMade) {
+                                                    [self alertForCanNotDeleteImage];
+                                                }else {
+                                                    _actionImageView.image = [UIImage imageNamed:@"funPic4"];
+                                                    [SportImageStore deleteObjectsWithFormat:@" WHERE sportEventPK = '%d' ", _eventStore.pk];
+                                                    NSString *imageCacheCode = [NSString stringWithFormat:@"photo_%@", _eventStore.imageKey];
+                                                    [[TMCache sharedCache] removeObjectForKey:ATCacheKey(imageCacheCode)];
+                                                }
                                                 
                                             }]];
     
     [alert addAction:[UIAlertAction actionWithTitle:@"取消"
+                                              style:UIAlertActionStyleCancel
+                                            handler:^(UIAlertAction * action) {}]];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+
+#pragma mark - 拍完照后的回调
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
+    UIImage *portraitImg = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
+    //先将拍摄的图片缩小，按比例，最长的边为500
+    portraitImg = [[ASBaseManage sharedManage] scaleToSize:portraitImg size:portraitImg.size sizeLine:500];
+    //将缩小后的图片再进行压缩
+    NSData *dataImg3 = UIImageJPEGRepresentation(portraitImg, 0.7);
+    //最后将压缩的文件保存为图片，大概300kb ~ 400kb
+    UIImage *newImage = [UIImage imageWithData:dataImg3];
+    
+    [picker dismissViewControllerAnimated:YES completion:^() {
+        TOCropViewController *cropController = [[TOCropViewController alloc] initWithImage:newImage];
+        cropController.delegate = self;
+        [self presentViewController:cropController animated:YES completion:nil];
+    }];
+}
+
+- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
+    //照片被取消
+    [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - Cropper Delegate -
+- (void)cropViewController:(TOCropViewController *)cropViewController didCropToImage:(UIImage *)image withRect:(CGRect)cropRect angle:(NSInteger)angle
+{
+    CGRect viewFrame = [self.view convertRect:self.actionImageView.frame toView:self.navigationController.view];
+    [cropViewController dismissAnimatedFromParentViewController:cropViewController toFrame:viewFrame completion:^{
+        _actionImageView.image = image;
+        _actionImageView.layer.masksToBounds = YES;
+        
+        UIImage *thumbnailPic = [[ASBaseManage sharedManage] scaleToSize:image size:image.size sizeLine:100];
+        NSData *imgData = UIImageJPEGRepresentation(image, 1);
+        NSData *thumbnailPicData = UIImageJPEGRepresentation(thumbnailPic, 1);
+        
+        NSString* pictureDataString = [imgData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+        NSString *thumbnailStr = [thumbnailPicData base64EncodedStringWithOptions:NSDataBase64Encoding64CharacterLineLength];
+        
+        if (!_eventStore.isSystemMade) {
+            SportImageStore *imageStore = [SportImageStore findFirstWithFormat:@" WHERE imageKey = '%@' ", _eventStore.imageKey];
+            if (imageStore) {
+                imageStore.sportPhoto = pictureDataString;
+                imageStore.sportThumbnailPhoto = thumbnailStr;
+                [imageStore update];
+            }else {
+                SportImageStore *imageStore = [SportImageStore new];
+                imageStore.imageKey = _eventStore.imageKey;
+                imageStore.sportPhoto = pictureDataString;
+                imageStore.sportThumbnailPhoto = thumbnailStr;
+                [imageStore save];
+            }
+        }
+        NSString *imageCacheCode = [NSString stringWithFormat:@"photo_%@", _eventStore.imageKey];
+        [[TMCache sharedCache] setObject:image forKey:ATCacheKey(imageCacheCode)];
+    }];
+}
+
+- (void)alertForCanNotDeleteImage
+{
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"无法完成操作"
+                                                                   message:@"原因：系统自带的运动项目图片无法删除"
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:@"确定"
                                               style:UIAlertActionStyleCancel
                                             handler:^(UIAlertAction * action) {}]];
     

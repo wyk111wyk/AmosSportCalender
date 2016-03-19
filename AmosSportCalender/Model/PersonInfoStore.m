@@ -18,6 +18,7 @@ static NSString *const kYingla = @"yinglaWeight";
 static NSString *const kPurpose = @"purpose";
 static NSString *const kStamina = @"stamina";
 static NSString *const kFrequency = @"frequency";
+static NSString *const sqdataNameKey = @"sqdataName";
 
 static NSString *const kdefaultSportType = @"defaultSportType";
 static NSString *const kdefaultSportName = @"defaultSportName";
@@ -62,6 +63,7 @@ static NSString *const kdefaultSportName = @"defaultSportName";
                                           kFrequency: @0,
                                           kdefaultSportType: @("胸部"),
                                           kdefaultSportName: @("卧推（平板杠铃）"),
+                                          sqdataNameKey: @"AmosSportData.sqlite"
                                           }];
         
         _name = [_userDefaults stringForKey:kNameKey];
@@ -78,9 +80,15 @@ static NSString *const kdefaultSportName = @"defaultSportName";
         _purpose = [_userDefaults floatForKey:kPurpose];
         _stamina = [_userDefaults floatForKey:kStamina];
         _frequency = [_userDefaults floatForKey:kFrequency];
+        _sqdataName = [_userDefaults stringForKey:sqdataNameKey];
         
     }
     return self;
+}
+
+- (void)setSqdataName:(NSString *)sqdataName {
+    _sqdataName = sqdataName;
+    [self.userDefaults setObject:sqdataName forKey:sqdataNameKey];
 }
 
 - (void)setName:(NSString *)name

@@ -13,6 +13,7 @@
 
 - (void)awakeFromNib {
     // Initialization code
+    _levelBGView.layer.borderWidth = 0.7;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

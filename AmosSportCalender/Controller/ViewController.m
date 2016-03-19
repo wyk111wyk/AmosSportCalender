@@ -119,7 +119,7 @@
 - (void)loadTheDateEvents: (NSDate *)seDate
 {
     NSString *dateKey = [[ASBaseManage dateFormatterForDMY] stringFromDate:seDate];
-    NSString *criStr = [NSString stringWithFormat:@" WHERE dateKey = '%@' ORDER BY eventTimeStamp ", dateKey];
+    NSString *criStr = [NSString stringWithFormat:@" WHERE dateKey = '%@' AND isGroupSet = '0' ORDER BY eventTimeStamp ", dateKey];
     _allSelectDayEvents = [[NSMutableArray alloc] initWithArray:[SportRecordStore findByCriteria:criStr]];
     if (_allSelectDayEvents.count > 0) {
         NSString *maxPart = [[ASBaseManage sharedManage] findTheMaxOfTypes:_allSelectDayEvents.copy];
@@ -140,7 +140,7 @@
             //设置桌面的数字角标
             
             NSString *dateKey = [[ASBaseManage dateFormatterForDMY] stringFromDate:_todayDate];
-            NSString *criStr = [NSString stringWithFormat:@" WHERE dateKey = '%@' ORDER BY eventTimeStamp ", dateKey];
+            NSString *criStr = [NSString stringWithFormat:@" WHERE dateKey = '%@' AND isGroupSet = '0' ORDER BY eventTimeStamp ", dateKey];
             NSArray *todayAllEvents = [SportRecordStore findByCriteria:criStr];
             NSInteger eventCount = todayAllEvents.count;
             NSInteger doneCount = 0;
@@ -163,7 +163,6 @@
 
 - (void)updateTableViewHeadTitle {
     NSInteger eventCount = _allSelectDayEvents.count;
-    PersonInfoStore *personal = [PersonInfoStore sharedSetting];
     //设置添加日程的Button
     if (_calendarManager.settings.weekModeEnabled && eventCount > 0) {
         self.addToCalendarButton.hidden = NO;
@@ -173,6 +172,8 @@
     
     if (eventCount > 0) {
         NSInteger doneCount = 0;
+        SettingStore *setting = [SettingStore sharedSetting];
+        
         for (SportRecordStore *recordStore in _allSelectDayEvents){
             if (recordStore.isDone) {
                 doneCount ++;
@@ -184,14 +185,14 @@
         
         if (leftCount == 0) {
             //都完成了
-            if (personal.name.length > 0) {
-                self.underTableLabel.text = [NSString stringWithFormat:Local(@"All events have done today，%@，well done!"), personal.name];
+            if (setting.userName.length > 0) {
+                self.underTableLabel.text = [NSString stringWithFormat:Local(@"All events have done today，%@，well done!"), setting.userName];
             }else{
                 self.underTableLabel.text = [NSString stringWithFormat:Local(@"All events have done today，well done!")];
             }
         }else {
-            if (personal.name.length > 0){
-                self.underTableLabel.text = [NSString stringWithFormat:Local(@"%@，all %@ events，now %d done，%@ more left"), personal.name, @(eventCount), @(doneCount), @(leftCount)];
+            if (setting.userName.length > 0){
+                self.underTableLabel.text = [NSString stringWithFormat:Local(@"%@，all %@ events，now %d done，%@ more left"), setting.userName, @(eventCount), @(doneCount), @(leftCount)];
             }else{
                 self.underTableLabel.text = [NSString stringWithFormat:Local(@"all %@ events，now %@ done，%@ more left"),  @(eventCount), @(doneCount), @(leftCount)];
             }
@@ -503,7 +504,7 @@
     }
     
     NSString *dayKey = [[ASBaseManage dateFormatterForDMY] stringFromDate:mydate];
-    NSArray *dayEvents = [SportRecordStore findWithFormat:@" WHERE dateKey = '%@' ", dayKey];
+    NSArray *dayEvents = [SportRecordStore findWithFormat:@" WHERE dateKey = '%@' AND isGroupSet = '0' ", dayKey];
     if (dayEvents.count > 0) {
         NSInteger doneCount = 0;
         NSString *maxPart = [[ASBaseManage sharedManage] findTheMaxOfTypes:dayEvents];
@@ -751,12 +752,17 @@
     [alert addAction:[UIAlertAction actionWithTitle:@"确认"
                                               style:UIAlertActionStyleDestructive
                                             handler:^(UIAlertAction * action) {
-                                                if ([recordStore deleteObject]) {
-                                                    [_allSelectDayEvents removeObject:recordStore];
-                                                    [[ASDataManage sharedManage] editDateEventRecord:recordStore];
-                                                    [_calendarManager setDate:_selectedDate];
-                                                    [self.tableView deleteRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationAutomatic];
-                                                }
+            if ([recordStore deleteObject]) {
+                [_allSelectDayEvents removeObject:recordStore];
+                [[ASDataManage sharedManage] editDateEventRecord:recordStore];
+                [_calendarManager setDate:_selectedDate];
+                [self updateTableViewHeadTitle];
+                if (indexPath.row == 0) {
+                    [self.tableView reloadData];
+                }else {
+                    [self.tableView deleteRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationAutomatic];
+                }
+            }
                                             }]];
     
     [alert addAction:[UIAlertAction actionWithTitle:@"取消"

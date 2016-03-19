@@ -14,6 +14,7 @@
 @interface SummaryTableView ()
 
 @property (nonatomic, strong) NSMutableArray *allDateEvents;
+@property (nonatomic, strong) UIView *tableViewBV;
 
 @end
 
@@ -32,18 +33,59 @@
     menuButton.tintColor = MyGreenColor;
     
     NSArray *allDates = [DateEventStore findByCriteria:@" ORDER BY dateKey DESC "];
-    _allDateEvents = [[NSMutableArray alloc] initWithCapacity:allDates.count];
+    
+    NSMutableArray *allDateKey = [NSMutableArray array];
     for (DateEventStore *dateStore in allDates){
+        [allDateKey addObject:dateStore.dateKey];
+    }
+    
+    NSArray *allSortedDateKey = [[ASDataManage sharedManage] sortDateString:allDateKey.copy];
+    _allDateEvents = [[NSMutableArray alloc] initWithCapacity:allDates.count];
+    for (NSString *dateKey in allSortedDateKey){
         NSMutableDictionary *tempDic = [NSMutableDictionary dictionary];
-        NSString *criStr = [NSString stringWithFormat:@" WHERE dateKey = '%@' AND isDone = '1' ", dateStore.dateKey];
+        NSString *criStr = [NSString stringWithFormat:@" WHERE dateKey = '%@' AND isDone = '1' AND isGroupSet = '0' ", dateKey];
         NSArray *tempArr = [SportRecordStore findByCriteria:criStr];
-        [tempDic setObject:tempArr forKey:@"data"];
-        [tempDic setObject:dateStore.dateKey forKey:@"dateKey"];
-        [_allDateEvents addObject:tempDic];
+        if (tempArr.count == 0) {
+            [DateEventStore deleteObjectsWithFormat:@" WHERE dateKey = '%d' ", dateKey];
+        }else {
+            [tempDic setObject:tempArr forKey:@"data"];
+            [tempDic setObject:dateKey forKey:@"dateKey"];
+            [_allDateEvents addObject:tempDic];
+        }
     }
     
     //设置标题
     self.navigationItem.title = [NSString stringWithFormat:@"完成列表（共计%@天）", @(allDates.count)];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    if (_allDateEvents.count == 0) {
+        [self initBackgroundView];
+    }
+}
+
+- (void)initBackgroundView {
+    //这里是TableView的背景文字
+    _tableViewBV = [[UIView alloc] initWithFrame:self.tableView.frame];
+    _tableViewBV.backgroundColor = MyWhite;
+    NSMutableAttributedString *one = [[NSMutableAttributedString alloc] initWithString:@"没有已完成的运动项目"];
+    one.font = [UIFont systemFontOfSize:20];
+    one.color = [UIColor colorWithWhite:0.85 alpha:1];;
+    YYTextShadow *shadow = [YYTextShadow new];
+    shadow.color = [UIColor colorWithWhite:0.6 alpha:1];
+    shadow.offset = CGSizeMake(0.2, 0.5);
+    shadow.radius = 2;
+    one.textInnerShadow = shadow;
+    
+    YYLabel *tableViewBGLabel = [[YYLabel alloc] initWithFrame:CGRectMake(0, 0, screenWidth, 50)];
+    tableViewBGLabel.center = self.tableView.center;
+    tableViewBGLabel.attributedText = one;
+    tableViewBGLabel.numberOfLines = 0;
+    tableViewBGLabel.textAlignment = NSTextAlignmentCenter;
+    [_tableViewBV addSubview:tableViewBGLabel];
+    
+    self.tableView.backgroundView = _tableViewBV;
 }
 
 - (BOOL)checkDicObject:(NSMutableDictionary *)tempDic key:(NSString *)keyStr {

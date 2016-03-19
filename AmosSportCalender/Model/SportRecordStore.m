@@ -21,6 +21,7 @@
         _datePart = @"";
         _isGroupSet = NO;
         _groupSetPK = -1;
+        _doneSets = 0;
     }
     
     return self;

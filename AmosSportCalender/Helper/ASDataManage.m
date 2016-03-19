@@ -8,6 +8,7 @@
 
 #import "ASDataManage.h"
 #import "CommonMarco.h"
+#import "Event.h"
 
 @implementation ASDataManage
 
@@ -20,6 +21,20 @@
     });
     
     return sharedManage;
+}
+
+- (void)refreshSportEventsForDate: (NSDate *)selectedDate {
+    [[NSNotificationCenter defaultCenter] postNotificationName:RefreshRootPageEventsNotifcation
+                                                        object:selectedDate];
+}
+
+- (NSString *)getFilePathInLibWithFolder: (NSString *)folderName fileName:(NSString *)fileName {
+    NSFileManager * defaultManager = [NSFileManager defaultManager];
+    NSURL * libraryPath = [[defaultManager URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask]firstObject];
+    NSString * fileContainFloder = [libraryPath.path stringByAppendingPathComponent:folderName];
+    NSString * fileSavePath = [fileContainFloder stringByAppendingPathComponent:fileName];
+    
+    return fileSavePath;
 }
 
 - (void)addNewDateEventRecord: (SportRecordStore *)recordStore {
@@ -131,6 +146,230 @@
     }
     
     return newTempArray.copy;
+}
+
+//第一次生成用户数据的时候导入必要的信息
+- (void)inputFirstData {
+    //数据迁移(从原来的文件传到数据库)
+    
+    //导入User数据
+    NSFileManager * defaultManager = [NSFileManager defaultManager];
+    NSURL * libraryPath = [[defaultManager URLsForDirectory:NSLibraryDirectory inDomains:NSUserDomainMask]firstObject];
+    NSString * fileContainFloder = [libraryPath.path stringByAppendingPathComponent:@"userData"];
+    BOOL isDic = YES;
+    if (![defaultManager fileExistsAtPath:fileContainFloder isDirectory:&isDic])
+    {   // 假如该文件夹不存在，直接新建一个
+        [defaultManager createDirectoryAtPath:fileContainFloder withIntermediateDirectories:YES attributes:nil error:nil];
+        //设置创建的文件的目录和名字
+        NSString * fileSavePath = [fileContainFloder stringByAppendingPathComponent:@"UsersChangeLists.plist"];
+        NSMutableArray *tempArr = [[NSMutableArray alloc] initWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"UsersChangeLists.plist" ofType:nil]];
+        //生成第一次的时间
+        NSMutableDictionary *tempDic = [[NSMutableDictionary alloc] initWithDictionary:[tempArr firstObject]];
+        NSString *timeStamp = [NSString stringWithFormat:@"%@", @([[NSDate date] timeIntervalSince1970])];
+        [tempDic setObject:timeStamp forKey:@"addDate"];
+        [tempArr replaceObjectAtIndex:0 withObject:tempDic];
+        
+        [tempArr writeToFile:fileSavePath atomically:YES];
+    }
+    
+    //导入运动项目到数据库
+    NSInteger eventCount = [SportEventStore findCounts:nil];
+    if (eventCount == 0) {
+        NSArray * partArray = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"AllSystemSportEvents" ofType:@"plist"]];
+        for (NSDictionary *tempDic in partArray){
+            SportEventStore *newEvent = [SportEventStore new];
+            newEvent.isSystemMade = YES;
+            newEvent.sportName = [tempDic objectForKey:@"sportName"];
+            newEvent.sportEquipment = [tempDic objectForKey:@"sportEquipment"];
+            newEvent.muscles = [tempDic objectForKey:@"muscles"];
+            newEvent.sportPart = [tempDic objectForKey:@"sportPart"];
+            newEvent.sportSerialNum = [tempDic objectForKey:@"sportSerialNum"];
+            newEvent.sportType = [[tempDic objectForKey:@"sportType"] integerValue];
+            newEvent.imageKey = [tempDic objectForKey:@"imageKey"];
+            [newEvent save];
+        }
+    }
+    
+    [self transferEventsData];
+}
+
+- (void)transferEventsData {
+    NSArray *documentDirectories = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    
+    NSString *documentDirectory = [documentDirectories firstObject];
+    NSString *dataPath = [documentDirectory stringByAppendingPathComponent:@"event.archive"];
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:dataPath]) {
+        [KVNProgress showWithStatus:@"正在迁移数据，请不要退出..."];
+        NSDictionary *allOldEvents = [NSKeyedUnarchiver unarchiveObjectWithFile:dataPath];
+        
+        NSArray *allKeys = [allOldEvents allKeys];
+        for (NSString *dateKey in allKeys){
+            NSArray *tempArray = [allOldEvents objectForKey:dateKey];
+            DateEventStore *newDateEvent = [DateEventStore new];
+            newDateEvent.dateKey = dateKey;
+            
+            for (Event *event in tempArray){
+                SportRecordStore *newRecord = [SportRecordStore new];
+                NSInteger timeStamp = [event.eventDate timeIntervalSince1970];
+                newRecord.eventTimeStamp = timeStamp;
+                newRecord.dateKey = dateKey;
+                newRecord.sportName = event.sportName;
+                newRecord.sportPart = event.sportType;
+                if ([newRecord.sportPart isEqualToString:@"体力"]) {
+                    newRecord.sportPart = @"耐力";
+                }
+                newRecord.weight = event.weight;
+                newRecord.RM = event.times;
+                newRecord.repeatSets = event.rap;
+                newRecord.timeLast = event.timelast;
+                newRecord.isDone = event.done;
+                
+                newRecord.datePart = [[ASDataManage sharedManage] getTheSportPartForRecord:newRecord isNew:YES];
+                if (event.done) {
+                    newDateEvent.doneCount ++;
+                }
+                newDateEvent.doneMins += event.timelast;
+                newDateEvent.sportPart = newRecord.datePart;
+                [newRecord save];
+            }
+            if (newDateEvent.doneCount > 0) {
+                [newDateEvent save];
+            }
+        }
+        //传完之后删了
+        [[NSFileManager defaultManager] removeItemAtPath:dataPath error:nil];
+        
+        NSArray *colorArray = @[[UIColor colorWithRed:0.4000 green:0.7059 blue:0.8980 alpha:1],
+                                [UIColor colorWithRed:0.1647 green:0.7451 blue:0.6863 alpha:1],
+                                [UIColor colorWithRed:0.0039 green:0.8667 blue:0.8118 alpha:1],
+                                [UIColor colorWithRed:0.8745 green:0.7765 blue:0.1412 alpha:1],
+                                [UIColor colorWithRed:0.5882 green:0.8667 blue:0.0980 alpha:1],
+                                [UIColor colorWithRed:0.4353 green:0.5098 blue:0.8745 alpha:1],
+                                [UIColor colorWithRed:0.8824 green:0.4314 blue:0.4824 alpha:1],
+                                [UIColor colorWithRed:0.8667 green:0.5451 blue:0.8980 alpha:1],
+                                [UIColor colorWithRed:0.9922 green:0.5765 blue:0.1490 alpha:1]];
+        NSMutableArray *tempArr = [NSMutableArray array];
+        for (UIColor *color in colorArray) {
+            CGFloat red, green, blue;
+            [color getRed:&red
+                    green:&green
+                     blue:&blue
+                    alpha:nil];
+            NSArray *oneColor = @[@(red), @(green), @(blue)];
+            [tempArr addObject:oneColor];
+        }
+        [[SettingStore sharedSetting] setTypeColorArray:tempArr];
+    }
+    
+    [KVNProgress showSuccessWithStatus:@"已将所有数据迁移到新的格式！"];
+}
+
+#pragma mark - 智能推荐
+
+//重量
+- (int)weightValueWithPart: (NSString *)sportPart data:(NSDictionary *)tempDic
+{
+    float weight = 30;
+    
+    float wanju = [tempDic[@"wanju"] floatValue];
+    float wotui = [tempDic[@"wutui"] floatValue];
+    float shendun = [tempDic[@"shendun"] floatValue];
+    float yingla = [tempDic[@"yinla"] floatValue];
+    NSString *age = tempDic[@"age"];
+    NSInteger purpose = [tempDic[@"purpose"] integerValue];
+//    NSInteger frequency = [tempDic[@"frequency"] integerValue];
+    
+    float weightBase = 0.5;
+    if (purpose == 0){
+        weightBase = .5;
+    }else if (purpose == 1){
+        weightBase = .67;
+    }else if (purpose == 2){
+        weightBase = .85;
+    }else if (purpose == 3){
+        weightBase = .75;
+    }
+    
+    if ([sportPart isEqualToString:@"胸部"]) {
+        if (wotui > 0) {
+            weight = wotui * weightBase;
+        }
+    } else if ([sportPart isEqualToString:@"腿部"]) {
+        if (shendun > 0) {
+            weight = shendun * weightBase;
+        }
+    } else if ([sportPart isEqualToString:@"背部"]) {
+        if (yingla > 0) {
+            weight = yingla * weightBase;
+        }
+    } else if ([sportPart isEqualToString:@"手臂"] || [sportPart isEqualToString:@"肩部"]) {
+        if (wanju > 0) {
+            weight = wanju * weightBase;
+        }
+    } else {
+        weight = 30;
+    }
+    
+    if ([age integerValue] < 18 || [age integerValue] > 55) {
+        weight *= .85;
+    }
+    
+    for (int i = 0; i < 5; i++) {
+        if ((int)weight % 5 != 0) {
+            weight = weight + i;
+        }
+    }
+    
+    return (int)weight;
+}
+
+//次数
+- (int)timesValuedata:(NSDictionary *)tempDic
+{
+    NSInteger purpose = [tempDic[@"purpose"] integerValue];
+    int times = 10;
+    int i = arc4random() % 5;
+    
+    if (purpose == 0){
+        times = 15 + i;
+    }else if (purpose == 1){
+        times = 10 + i;
+    }else if (purpose == 2){
+        times = 5 + i;
+    }else if (purpose == 3){
+        times = 9 + i;
+    }
+    
+    return times;
+}
+
+//组数RM
+- (int)rapsValuedata:(NSDictionary *)tempDic
+{
+    NSInteger stamina = [tempDic[@"stamina"] integerValue];
+    NSInteger purpose = [tempDic[@"purpose"] integerValue];
+    int raps = 0;
+    
+    if (purpose == 0){
+        raps = 6;
+    }else if (purpose == 1){
+        raps = 4;
+    }else if (purpose == 2){
+        raps = 3;
+    }else if (purpose == 3){
+        raps = 4;
+    }
+    
+    if (stamina == 0) {
+        raps -= 1;
+    }else if (stamina == 1) {
+        
+    }else if (stamina == 2) {
+        raps += 1;
+    }
+    
+    return raps;
 }
 
 @end

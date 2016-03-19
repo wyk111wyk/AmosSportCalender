@@ -17,6 +17,7 @@
 @property (nonatomic, strong) NSString *muscles; ///<肌肉
 @property (nonatomic, strong) NSString *sportEquipment; ///<运动器械
 @property (nonatomic, strong) NSString *sportSerialNum; ///<该运动编号
+@property (nonatomic, strong) NSString *sportTips;
 
 @property (nonatomic) NSInteger sportType; ///<运动的类型：0=有氧、1=抗阻、2=拉伸
 @property (nonatomic) BOOL isSystemMade; ///<是否系统自带的

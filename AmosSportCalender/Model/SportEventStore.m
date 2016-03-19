@@ -18,6 +18,7 @@
         _sportPart = @"";
         _muscles = @"";
         _sportSerialNum = @"";
+        _sportTips = @"";
         NSUUID *uuid = [NSUUID new];
         NSString *key = [uuid UUIDString];
         _imageKey = key;

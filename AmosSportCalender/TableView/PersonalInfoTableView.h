@@ -10,4 +10,8 @@
 
 @interface PersonalInfoTableView : UITableViewController
 
+@property (nonatomic, strong)NSMutableArray *allUserData;
+@property (nonatomic) NSInteger mainIndex;
+@property (nonatomic, strong) NSString *userDataPath;
+
 @end
