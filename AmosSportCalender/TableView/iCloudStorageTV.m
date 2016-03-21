@@ -66,23 +66,23 @@ static NSString* const iCloudCellReuseId = @"icloudCell";
     NSData *uploadFile = [NSData dataWithContentsOfFile:path];
     
     NSString *userName = [[SettingStore sharedSetting] userName];
-    NSString *tempFileName1 = [NSString stringWithFormat:@"默认运动记录"];
+    NSString *tempFileName1 = [NSString stringWithFormat:Local(@"Default sport record")];
     if (userName.length > 0) {
-        tempFileName1 = [NSString stringWithFormat:@"%@的运动记录", userName];
+        tempFileName1 = [NSString stringWithFormat:Local(@"%@’s sport record"), userName];
     }
     NSString *dateStr = [[ASBaseManage dateFormatterForDMY] stringFromDate:[NSDate date]];
         
     NSString *uploadFileName = [NSString stringWithFormat:@"%@_%@", tempFileName1, dateStr];
     
-    [KVNProgress showWithStatus:@"正在备份数据..."];
+    [KVNProgress showWithStatus:Local(@"Bucking up data...")];
     //储存文件到iCloud
     [[iCloud sharedCloud] saveAndCloseDocumentWithName:uploadFileName withContent:uploadFile completion:^(UIDocument *cloudDocument, NSData *documentData, NSError *error) {
         if (!error) {
             NSLog(@"iCloud Document: %@ 储存成功", cloudDocument.fileURL.lastPathComponent);
-            [KVNProgress showSuccessWithStatus:@"数据备份成功！"];
+            [KVNProgress showSuccessWithStatus:Local(@"Back up success！")];
         } else {
             NSLog(@"新建iCloud备份失败: %@", error);
-            [KVNProgress showErrorWithStatus:@"数据备份失败！"];
+            [KVNProgress showErrorWithStatus:Local(@"Back up fail！")];
         }
     }];
 }
@@ -93,7 +93,7 @@ static NSString* const iCloudCellReuseId = @"icloudCell";
 {
     refreshControl = [[UIRefreshControl alloc] init];
     refreshControl.tintColor = [UIColor lightGrayColor];
-    refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:@"下拉进行刷新"];
+    refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:Local(@"Pull to refresh")];
     [refreshControl addTarget:self action:@selector(refreshView:) forControlEvents:UIControlEventValueChanged];
     [self.tableView addSubview:refreshControl];
 }
@@ -101,7 +101,7 @@ static NSString* const iCloudCellReuseId = @"icloudCell";
 -(void)refreshView:(UIRefreshControl *)refresh
 {
     if (refreshControl.refreshing) {
-        refreshControl.attributedTitle = [[NSAttributedString alloc]initWithString:@"正在进行刷新..."];
+        refreshControl.attributedTitle = [[NSAttributedString alloc]initWithString:Local(@"Refreshing...")];
         [self performSelector:@selector(handleData) withObject:nil afterDelay:2];
     }
 }
@@ -111,7 +111,7 @@ static NSString* const iCloudCellReuseId = @"icloudCell";
 {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"MMM d, h:mm:ss a"];
-    NSString *lastUpdated = [NSString stringWithFormat:@"上次刷新时间: %@", [formatter stringFromDate:[NSDate date]]];
+    NSString *lastUpdated = [NSString stringWithFormat:Local(@"Last time refresh: %@"), [formatter stringFromDate:[NSDate date]]];
     refreshControl.attributedTitle = [[NSAttributedString alloc] initWithString:lastUpdated];
     
     [refreshControl endRefreshing];
@@ -182,14 +182,14 @@ static NSString* const iCloudCellReuseId = @"icloudCell";
 
 - (void)AlertForRecover:(NSIndexPath *)indexPath
 {
-    NSString *title = [NSString stringWithFormat:@"恢复所有数据为\n(%@)？", _fileNameLists[indexPath.row]];
-    NSString *subTitle = [NSString stringWithFormat:@"这将覆盖现有用户(%@)的所有数据！", [[SettingStore sharedSetting] userName]];
+    NSString *title = [NSString stringWithFormat:Local(@"Restore all data to \n(%@)？"), _fileNameLists[indexPath.row]];
+    NSString *subTitle = [NSString stringWithFormat:Local(@"It’s going to clear all (%@)’s data！" ), [[SettingStore sharedSetting] userName]];
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:title
                                                                    message:subTitle
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        [KVNProgress showWithStatus:@"开始还原数据..."];
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Okay") style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [KVNProgress showWithStatus:Local(@"Start to restore...")];
         [[iCloud sharedCloud] retrieveCloudDocumentWithName:[_fileNameLists objectAtIndex:indexPath.row] completion:^(UIDocument *cloudDocument, NSData *documentData, NSError *error) {
             if (!error) {
                 
@@ -215,7 +215,7 @@ static NSString* const iCloudCellReuseId = @"icloudCell";
                 
                 [[JKDBHelper shareInstance] changeDBWithDirectoryName:userDataName];
                 [[TMCache sharedCache] removeAllObjects];
-                [KVNProgress showSuccessWithStatus:@"数据还原成功..."];
+                [KVNProgress showSuccessWithStatus:Local(@"Restore data success！")];
             } else {
                 NSLog(@"从iCloud取回数据发生错误: %@", error);
                 [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -223,7 +223,7 @@ static NSString* const iCloudCellReuseId = @"icloudCell";
         }];
     }]];
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"取消"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Cancel")
                                               style:UIAlertActionStyleCancel
                                             handler:^(UIAlertAction * action) {}]];
     
@@ -232,17 +232,17 @@ static NSString* const iCloudCellReuseId = @"icloudCell";
 
 - (void)alertForNotHaveiCloud
 {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"出了个小问题"
-                                                                   message:@"您并没有设置iCloud，所以无法使用iCloud进行数据备份"
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:Local(@"A little problem")
+                                                                   message:Local(@"You have not set iCloud，iCloud cannot work")
                                                             preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"确定"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Okay")
                                               style:UIAlertActionStyleCancel
                                             handler:^(UIAlertAction * action) {}]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"跳转到设置"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Jump to setting")
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction * action) {
             //打开设置
-            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root"]];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"prefs:root=CASTLE"]];
                                                
                                             }]];
     
@@ -254,8 +254,7 @@ static NSString* const iCloudCellReuseId = @"icloudCell";
     static NSDateFormatter *dateFormatterDisplay;
     if(!dateFormatterDisplay){
         dateFormatterDisplay = [NSDateFormatter new];
-        dateFormatterDisplay.dateFormat = @"yyyy年MM月dd日 EEEE H:mm";
-        [dateFormatterDisplay setTimeZone:[NSTimeZone timeZoneWithName:@"Asia/Shanghai"]];
+        dateFormatterDisplay.dateFormat = Local(@"yyyy-MM-dd EEEE H:mm");
     }
     
     return dateFormatterDisplay;

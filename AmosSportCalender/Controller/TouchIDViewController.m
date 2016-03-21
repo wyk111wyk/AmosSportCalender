@@ -9,6 +9,7 @@
 #import "TouchIDViewController.h"
 #import "DMPasscode.h"
 #import "SettingStore.h"
+#import "CommonMarco.h"
 
 @interface TouchIDViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *touchIDButton;
@@ -27,7 +28,7 @@
     
     SettingStore *setting = [SettingStore sharedSetting];
     if (setting.userName.length > 0) {
-        _helloLabel.text = [NSString stringWithFormat:@"你好，%@！\n请使用指纹进行解锁。", setting.userName];
+        _helloLabel.text = [NSString stringWithFormat:Local(@"Hello，%@！\n please use finger to unluck"), setting.userName];
     }
 }
 

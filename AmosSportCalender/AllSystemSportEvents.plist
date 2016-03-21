@@ -26,7 +26,7 @@
           <key>sportPart</key>
           <string>胸部</string>
           <key>muscles</key>
-          <string></string>
+          <string>胸大肌、肱三头肌、三角肌前束、前锯肌、喙肱肌</string>
           <key>sportEquipment</key>
           <string>无</string>
           <key>sportType</key>
@@ -42,7 +42,7 @@
           <key>sportPart</key>
           <string>胸部</string>
           <key>muscles</key>
-          <string></string>
+          <string>胸大肌、三角肌、肱三头肌</string>
           <key>sportEquipment</key>
           <string>杠铃</string>
           <key>sportType</key>
@@ -58,7 +58,7 @@
           <key>sportPart</key>
           <string>胸部</string>
           <key>muscles</key>
-          <string></string>
+          <string>胸大肌、三角肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -74,7 +74,7 @@
           <key>sportPart</key>
           <string>胸部</string>
           <key>muscles</key>
-          <string></string>
+          <string>胸大肌、三角肌、肱三头肌</string>
           <key>sportEquipment</key>
           <string>杠铃</string>
           <key>sportType</key>
@@ -90,7 +90,7 @@
           <key>sportPart</key>
           <string>胸部</string>
           <key>muscles</key>
-          <string></string>
+          <string>胸大肌、三角肌、肱三头肌</string>
           <key>sportEquipment</key>
           <string>杠铃</string>
           <key>sportType</key>
@@ -106,7 +106,7 @@
           <key>sportPart</key>
           <string>胸部</string>
           <key>muscles</key>
-          <string></string>
+          <string>胸大肌、三角肌、肱三头肌</string>
           <key>sportEquipment</key>
           <string>哑铃</string>
           <key>sportType</key>
@@ -122,7 +122,7 @@
           <key>sportPart</key>
           <string>胸部</string>
           <key>muscles</key>
-          <string></string>
+          <string>胸大肌、三角肌、肱三头肌</string>
           <key>sportEquipment</key>
           <string>哑铃</string>
           <key>sportType</key>
@@ -138,7 +138,7 @@
           <key>sportPart</key>
           <string>胸部</string>
           <key>muscles</key>
-          <string></string>
+          <string>胸大肌、三角肌、肱三头肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -154,7 +154,7 @@
           <key>sportPart</key>
           <string>胸部</string>
           <key>muscles</key>
-          <string></string>
+          <string>胸大肌、三角肌、肱三头肌</string>
           <key>sportEquipment</key>
           <string>史密斯机</string>
           <key>sportType</key>
@@ -170,7 +170,7 @@
           <key>sportPart</key>
           <string>胸部</string>
           <key>muscles</key>
-          <string></string>
+          <string>胸大肌、三角肌、肱三头肌</string>
           <key>sportEquipment</key>
           <string>史密斯机</string>
           <key>sportType</key>
@@ -186,7 +186,7 @@
           <key>sportPart</key>
           <string>胸部</string>
           <key>muscles</key>
-          <string></string>
+          <string>胸大肌、三角肌、肱三头肌</string>
           <key>sportEquipment</key>
           <string>史密斯机</string>
           <key>sportType</key>
@@ -202,7 +202,7 @@
           <key>sportPart</key>
           <string>胸部</string>
           <key>muscles</key>
-          <string></string>
+          <string>胸大肌、三角肌、肱三头肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -218,7 +218,7 @@
           <key>sportPart</key>
           <string>胸部</string>
           <key>muscles</key>
-          <string></string>
+          <string>胸大肌、三角肌、肱三头肌</string>
           <key>sportEquipment</key>
           <string>哑铃</string>
           <key>sportType</key>
@@ -234,7 +234,7 @@
           <key>sportPart</key>
           <string>胸部</string>
           <key>muscles</key>
-          <string></string>
+          <string>胸大肌、三角肌</string>
           <key>sportEquipment</key>
           <string>龙门架</string>
           <key>sportType</key>
@@ -250,7 +250,7 @@
           <key>sportPart</key>
           <string>胸部</string>
           <key>muscles</key>
-          <string></string>
+          <string>胸大肌、三角肌</string>
           <key>sportEquipment</key>
           <string>哑铃</string>
           <key>sportType</key>
@@ -266,7 +266,7 @@
           <key>sportPart</key>
           <string>胸部</string>
           <key>muscles</key>
-          <string></string>
+          <string>胸大肌、三角肌</string>
           <key>sportEquipment</key>
           <string>哑铃</string>
           <key>sportType</key>
@@ -282,7 +282,7 @@
           <key>sportPart</key>
           <string>胸部</string>
           <key>muscles</key>
-          <string></string>
+          <string>胸大肌、三角肌</string>
           <key>sportEquipment</key>
           <string>哑铃</string>
           <key>sportType</key>
@@ -298,7 +298,7 @@
           <key>sportPart</key>
           <string>胸部</string>
           <key>muscles</key>
-          <string></string>
+          <string>胸大肌、三角肌</string>
           <key>sportEquipment</key>
           <string>哑铃</string>
           <key>sportType</key>
@@ -314,7 +314,7 @@
           <key>sportPart</key>
           <string>背部</string>
           <key>muscles</key>
-          <string></string>
+          <string>斜方肌、冈下肌、挺直脊柱、三角肌后束</string>
           <key>sportEquipment</key>
           <string>哑铃</string>
           <key>sportType</key>
@@ -328,9 +328,9 @@
           <key>sportName</key>
           <string>对向滑轮扩胸</string>
           <key>sportPart</key>
-          <string>背部</string>
+          <string>胸部</string>
           <key>muscles</key>
-          <string></string>
+          <string>胸大肌、三角肌</string>
           <key>sportEquipment</key>
           <string>龙门架</string>
           <key>sportType</key>
@@ -346,7 +346,7 @@
           <key>sportPart</key>
           <string>背部</string>
           <key>muscles</key>
-          <string></string>
+          <string>肱二头肌、大圆肌、斜方肌下部、背阔肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -362,7 +362,7 @@
           <key>sportPart</key>
           <string>背部</string>
           <key>muscles</key>
-          <string></string>
+          <string>斜方肌、冈下肌、挺直脊柱、三角肌后束</string>
           <key>sportEquipment</key>
           <string>龙门架</string>
           <key>sportType</key>
@@ -378,7 +378,7 @@
           <key>sportPart</key>
           <string>背部</string>
           <key>muscles</key>
-          <string></string>
+          <string>斜方肌、冈下肌、挺直脊柱、三角肌后束</string>
           <key>sportEquipment</key>
           <string>杠铃</string>
           <key>sportType</key>
@@ -394,7 +394,7 @@
           <key>sportPart</key>
           <string>背部</string>
           <key>muscles</key>
-          <string></string>
+          <string>斜方肌、冈下肌、挺直脊柱、三角肌后束</string>
           <key>sportEquipment</key>
           <string>杠铃</string>
           <key>sportType</key>
@@ -410,7 +410,7 @@
           <key>sportPart</key>
           <string>背部</string>
           <key>muscles</key>
-          <string></string>
+          <string>斜方肌、冈下肌、挺直脊柱、三角肌后束</string>
           <key>sportEquipment</key>
           <string>龙门架</string>
           <key>sportType</key>
@@ -426,7 +426,7 @@
           <key>sportPart</key>
           <string>背部</string>
           <key>muscles</key>
-          <string></string>
+          <string>斜方肌、冈下肌、挺直脊柱、三角肌后束</string>
           <key>sportEquipment</key>
           <string>哑铃</string>
           <key>sportType</key>
@@ -442,7 +442,7 @@
           <key>sportPart</key>
           <string>背部</string>
           <key>muscles</key>
-          <string></string>
+          <string>肱二头肌、大圆肌、斜方肌下部、背阔肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -458,7 +458,7 @@
           <key>sportPart</key>
           <string>背部</string>
           <key>muscles</key>
-          <string></string>
+          <string>肱二头肌、大圆肌、斜方肌下部、背阔肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -474,7 +474,7 @@
           <key>sportPart</key>
           <string>背部</string>
           <key>muscles</key>
-          <string></string>
+          <string>肱二头肌、大圆肌、斜方肌下部、背阔肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -490,7 +490,7 @@
           <key>sportPart</key>
           <string>背部</string>
           <key>muscles</key>
-          <string></string>
+          <string>斜方肌、冈下肌、挺直脊柱、三角肌后束</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -506,7 +506,7 @@
           <key>sportPart</key>
           <string>背部</string>
           <key>muscles</key>
-          <string></string>
+          <string>股二头肌、臀部肌群、竖脊肌</string>
           <key>sportEquipment</key>
           <string>哑铃</string>
           <key>sportType</key>
@@ -522,7 +522,7 @@
           <key>sportPart</key>
           <string>背部</string>
           <key>muscles</key>
-          <string></string>
+          <string>肱二头肌、大圆肌、斜方肌下部、背阔肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -538,7 +538,7 @@
           <key>sportPart</key>
           <string>背部</string>
           <key>muscles</key>
-          <string></string>
+          <string>股二头肌、臀部肌群、竖脊肌</string>
           <key>sportEquipment</key>
           <string>杠铃</string>
           <key>sportType</key>
@@ -554,7 +554,7 @@
           <key>sportPart</key>
           <string>背部</string>
           <key>muscles</key>
-          <string></string>
+          <string>肱二头肌、大圆肌、斜方肌下部、背阔肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -570,7 +570,7 @@
           <key>sportPart</key>
           <string>背部</string>
           <key>muscles</key>
-          <string></string>
+          <string>肱二头肌、大圆肌、斜方肌下部、背阔肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -586,7 +586,7 @@
           <key>sportPart</key>
           <string>背部</string>
           <key>muscles</key>
-          <string></string>
+          <string>肱二头肌、大圆肌、斜方肌下部、背阔肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -602,7 +602,7 @@
           <key>sportPart</key>
           <string>背部</string>
           <key>muscles</key>
-          <string></string>
+          <string>斜方肌、冈下肌、挺直脊柱、三角肌后束</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -618,7 +618,7 @@
           <key>sportPart</key>
           <string>背部</string>
           <key>muscles</key>
-          <string></string>
+          <string>斜方肌、冈下肌、挺直脊柱、三角肌后束</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -634,7 +634,7 @@
           <key>sportPart</key>
           <string>背部</string>
           <key>muscles</key>
-          <string></string>
+          <string>肱二头肌、大圆肌、斜方肌下部、背阔肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -650,7 +650,7 @@
           <key>sportPart</key>
           <string>背部</string>
           <key>muscles</key>
-          <string></string>
+          <string>斜方肌、冈下肌、挺直脊柱、三角肌后束</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -666,7 +666,7 @@
           <key>sportPart</key>
           <string>背部</string>
           <key>muscles</key>
-          <string></string>
+          <string>肱二头肌、大圆肌、斜方肌下部、背阔肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -682,7 +682,7 @@
           <key>sportPart</key>
           <string>背部</string>
           <key>muscles</key>
-          <string></string>
+          <string>斜方肌、冈下肌、挺直脊柱、三角肌后束</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -698,7 +698,7 @@
           <key>sportPart</key>
           <string>背部</string>
           <key>muscles</key>
-          <string></string>
+          <string>斜方肌、冈下肌、挺直脊柱、三角肌后束</string>
           <key>sportEquipment</key>
           <string>T杠</string>
           <key>sportType</key>
@@ -714,7 +714,7 @@
           <key>sportPart</key>
           <string>背部</string>
           <key>muscles</key>
-          <string></string>
+          <string>斜方肌、冈下肌、挺直脊柱、三角肌后束</string>
           <key>sportEquipment</key>
           <string>T杠</string>
           <key>sportType</key>
@@ -730,7 +730,7 @@
           <key>sportPart</key>
           <string>肩部</string>
           <key>muscles</key>
-          <string></string>
+          <string>三角肌</string>
           <key>sportEquipment</key>
           <string>哑铃</string>
           <key>sportType</key>
@@ -746,7 +746,7 @@
           <key>sportPart</key>
           <string>肩部</string>
           <key>muscles</key>
-          <string></string>
+          <string>三角肌</string>
           <key>sportEquipment</key>
           <string>无</string>
           <key>sportType</key>
@@ -762,7 +762,7 @@
           <key>sportPart</key>
           <string>肩部</string>
           <key>muscles</key>
-          <string></string>
+          <string>三角肌</string>
           <key>sportEquipment</key>
           <string>哑铃</string>
           <key>sportType</key>
@@ -778,7 +778,7 @@
           <key>sportPart</key>
           <string>肩部</string>
           <key>muscles</key>
-          <string></string>
+          <string>三角肌</string>
           <key>sportEquipment</key>
           <string>哑铃</string>
           <key>sportType</key>
@@ -794,7 +794,7 @@
           <key>sportPart</key>
           <string>肩部</string>
           <key>muscles</key>
-          <string></string>
+          <string>三角肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -810,7 +810,7 @@
           <key>sportPart</key>
           <string>肩部</string>
           <key>muscles</key>
-          <string></string>
+          <string>三角肌</string>
           <key>sportEquipment</key>
           <string>哑铃</string>
           <key>sportType</key>
@@ -826,7 +826,7 @@
           <key>sportPart</key>
           <string>肩部</string>
           <key>muscles</key>
-          <string></string>
+          <string>三角肌</string>
           <key>sportEquipment</key>
           <string>杠铃</string>
           <key>sportType</key>
@@ -842,7 +842,7 @@
           <key>sportPart</key>
           <string>肩部</string>
           <key>muscles</key>
-          <string></string>
+          <string>三角肌</string>
           <key>sportEquipment</key>
           <string>杠铃</string>
           <key>sportType</key>
@@ -858,7 +858,7 @@
           <key>sportPart</key>
           <string>肩部</string>
           <key>muscles</key>
-          <string></string>
+          <string>三角肌</string>
           <key>sportEquipment</key>
           <string>杠铃</string>
           <key>sportType</key>
@@ -874,7 +874,7 @@
           <key>sportPart</key>
           <string>肩部</string>
           <key>muscles</key>
-          <string></string>
+          <string>三角肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -890,7 +890,7 @@
           <key>sportPart</key>
           <string>肩部</string>
           <key>muscles</key>
-          <string></string>
+          <string>三角肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -906,7 +906,7 @@
           <key>sportPart</key>
           <string>肩部</string>
           <key>muscles</key>
-          <string></string>
+          <string>三角肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -922,7 +922,7 @@
           <key>sportPart</key>
           <string>肩部</string>
           <key>muscles</key>
-          <string></string>
+          <string>三角肌</string>
           <key>sportEquipment</key>
           <string>龙门架</string>
           <key>sportType</key>
@@ -938,7 +938,7 @@
           <key>sportPart</key>
           <string>肩部</string>
           <key>muscles</key>
-          <string></string>
+          <string>三角肌</string>
           <key>sportEquipment</key>
           <string>龙门架</string>
           <key>sportType</key>
@@ -954,7 +954,7 @@
           <key>sportPart</key>
           <string>肩部</string>
           <key>muscles</key>
-          <string></string>
+          <string>三角肌</string>
           <key>sportEquipment</key>
           <string>史密斯机</string>
           <key>sportType</key>
@@ -970,7 +970,7 @@
           <key>sportPart</key>
           <string>肩部</string>
           <key>muscles</key>
-          <string></string>
+          <string>三角肌</string>
           <key>sportEquipment</key>
           <string>史密斯机</string>
           <key>sportType</key>
@@ -986,7 +986,7 @@
           <key>sportPart</key>
           <string>肩部</string>
           <key>muscles</key>
-          <string></string>
+          <string>三角肌</string>
           <key>sportEquipment</key>
           <string>史密斯机</string>
           <key>sportType</key>
@@ -1002,7 +1002,7 @@
           <key>sportPart</key>
           <string>肩部</string>
           <key>muscles</key>
-          <string></string>
+          <string>三角肌</string>
           <key>sportEquipment</key>
           <string>哑铃</string>
           <key>sportType</key>
@@ -1018,7 +1018,7 @@
           <key>sportPart</key>
           <string>肩部</string>
           <key>muscles</key>
-          <string></string>
+          <string>三角肌</string>
           <key>sportEquipment</key>
           <string>哑铃</string>
           <key>sportType</key>
@@ -1034,7 +1034,7 @@
           <key>sportPart</key>
           <string>肩部</string>
           <key>muscles</key>
-          <string></string>
+          <string>三角肌</string>
           <key>sportEquipment</key>
           <string>哑铃</string>
           <key>sportType</key>
@@ -1050,7 +1050,7 @@
           <key>sportPart</key>
           <string>肩部</string>
           <key>muscles</key>
-          <string></string>
+          <string>三角肌</string>
           <key>sportEquipment</key>
           <string>哑铃</string>
           <key>sportType</key>
@@ -1066,7 +1066,7 @@
           <key>sportPart</key>
           <string>肩部</string>
           <key>muscles</key>
-          <string></string>
+          <string>三角肌</string>
           <key>sportEquipment</key>
           <string>龙门架</string>
           <key>sportType</key>
@@ -1082,7 +1082,7 @@
           <key>sportPart</key>
           <string>肩部</string>
           <key>muscles</key>
-          <string></string>
+          <string>三角肌</string>
           <key>sportEquipment</key>
           <string>龙门架</string>
           <key>sportType</key>
@@ -1098,7 +1098,7 @@
           <key>sportPart</key>
           <string>肩部</string>
           <key>muscles</key>
-          <string></string>
+          <string>三角肌</string>
           <key>sportEquipment</key>
           <string>哑铃</string>
           <key>sportType</key>
@@ -1114,7 +1114,7 @@
           <key>sportPart</key>
           <string>肩部</string>
           <key>muscles</key>
-          <string></string>
+          <string>三角肌</string>
           <key>sportEquipment</key>
           <string>杠铃</string>
           <key>sportType</key>
@@ -1130,7 +1130,7 @@
           <key>sportPart</key>
           <string>肩部</string>
           <key>muscles</key>
-          <string></string>
+          <string>三角肌</string>
           <key>sportEquipment</key>
           <string>哑铃</string>
           <key>sportType</key>
@@ -1146,7 +1146,7 @@
           <key>sportPart</key>
           <string>肩部</string>
           <key>muscles</key>
-          <string></string>
+          <string>三角肌</string>
           <key>sportEquipment</key>
           <string>杠铃</string>
           <key>sportType</key>
@@ -1162,7 +1162,7 @@
           <key>sportPart</key>
           <string>肩部</string>
           <key>muscles</key>
-          <string></string>
+          <string>三角肌</string>
           <key>sportEquipment</key>
           <string>龙门架</string>
           <key>sportType</key>
@@ -1178,7 +1178,7 @@
           <key>sportPart</key>
           <string>肩部</string>
           <key>muscles</key>
-          <string></string>
+          <string>三角肌</string>
           <key>sportEquipment</key>
           <string>哑铃</string>
           <key>sportType</key>
@@ -1194,7 +1194,7 @@
           <key>sportPart</key>
           <string>肩部</string>
           <key>muscles</key>
-          <string></string>
+          <string>三角肌</string>
           <key>sportEquipment</key>
           <string>哑铃</string>
           <key>sportType</key>
@@ -1210,7 +1210,7 @@
           <key>sportPart</key>
           <string>肩部</string>
           <key>muscles</key>
-          <string></string>
+          <string>三角肌</string>
           <key>sportEquipment</key>
           <string>哑铃</string>
           <key>sportType</key>
@@ -1226,7 +1226,7 @@
           <key>sportPart</key>
           <string>腿部</string>
           <key>muscles</key>
-          <string></string>
+          <string>股四头肌、臀大肌、股二头肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -1242,7 +1242,7 @@
           <key>sportPart</key>
           <string>腿部</string>
           <key>muscles</key>
-          <string></string>
+          <string>股四头肌、臀大肌、股二头肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -1258,7 +1258,7 @@
           <key>sportPart</key>
           <string>腿部</string>
           <key>muscles</key>
-          <string></string>
+          <string>股四头肌、臀大肌、股二头肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -1274,7 +1274,7 @@
           <key>sportPart</key>
           <string>腿部</string>
           <key>muscles</key>
-          <string></string>
+          <string>股四头肌、臀大肌、股二头肌</string>
           <key>sportEquipment</key>
           <string>杠铃</string>
           <key>sportType</key>
@@ -1290,7 +1290,7 @@
           <key>sportPart</key>
           <string>腿部</string>
           <key>muscles</key>
-          <string></string>
+          <string>股四头肌、臀大肌、股二头肌</string>
           <key>sportEquipment</key>
           <string>杠铃</string>
           <key>sportType</key>
@@ -1306,7 +1306,7 @@
           <key>sportPart</key>
           <string>腿部</string>
           <key>muscles</key>
-          <string></string>
+          <string>股四头肌、臀大肌、股二头肌</string>
           <key>sportEquipment</key>
           <string>高板</string>
           <key>sportType</key>
@@ -1322,7 +1322,7 @@
           <key>sportPart</key>
           <string>腿部</string>
           <key>muscles</key>
-          <string></string>
+          <string>股四头肌、臀大肌、股二头肌</string>
           <key>sportEquipment</key>
           <string>杠铃</string>
           <key>sportType</key>
@@ -1338,7 +1338,7 @@
           <key>sportPart</key>
           <string>腿部</string>
           <key>muscles</key>
-          <string></string>
+          <string>股四头肌、臀大肌、股二头肌</string>
           <key>sportEquipment</key>
           <string>杠铃</string>
           <key>sportType</key>
@@ -1354,7 +1354,7 @@
           <key>sportPart</key>
           <string>腿部</string>
           <key>muscles</key>
-          <string></string>
+          <string>股四头肌、臀大肌、股二头肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -1370,7 +1370,7 @@
           <key>sportPart</key>
           <string>腿部</string>
           <key>muscles</key>
-          <string></string>
+          <string>股四头肌、臀大肌、股二头肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -1386,7 +1386,7 @@
           <key>sportPart</key>
           <string>腿部</string>
           <key>muscles</key>
-          <string></string>
+          <string>股四头肌、臀大肌、股二头肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -1402,7 +1402,7 @@
           <key>sportPart</key>
           <string>腿部</string>
           <key>muscles</key>
-          <string></string>
+          <string>股四头肌、臀大肌、股二头肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -1418,7 +1418,7 @@
           <key>sportPart</key>
           <string>腿部</string>
           <key>muscles</key>
-          <string></string>
+          <string>股四头肌、臀大肌、股二头肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -1434,7 +1434,7 @@
           <key>sportPart</key>
           <string>腿部</string>
           <key>muscles</key>
-          <string></string>
+          <string>股四头肌、臀大肌、股二头肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -1450,7 +1450,7 @@
           <key>sportPart</key>
           <string>腿部</string>
           <key>muscles</key>
-          <string></string>
+          <string>股四头肌、臀大肌、股二头肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -1466,7 +1466,7 @@
           <key>sportPart</key>
           <string>腿部</string>
           <key>muscles</key>
-          <string></string>
+          <string>股四头肌、臀大肌、股二头肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -1482,7 +1482,7 @@
           <key>sportPart</key>
           <string>腿部</string>
           <key>muscles</key>
-          <string></string>
+          <string>股四头肌、臀大肌、股二头肌</string>
           <key>sportEquipment</key>
           <string>史密斯机</string>
           <key>sportType</key>
@@ -1498,7 +1498,7 @@
           <key>sportPart</key>
           <string>腿部</string>
           <key>muscles</key>
-          <string></string>
+          <string>股四头肌、臀大肌、股二头肌</string>
           <key>sportEquipment</key>
           <string>杠铃</string>
           <key>sportType</key>
@@ -1514,7 +1514,7 @@
           <key>sportPart</key>
           <string>腿部</string>
           <key>muscles</key>
-          <string></string>
+          <string>股四头肌、臀大肌、股二头肌</string>
           <key>sportEquipment</key>
           <string>史密斯机</string>
           <key>sportType</key>
@@ -1530,7 +1530,7 @@
           <key>sportPart</key>
           <string>腿部</string>
           <key>muscles</key>
-          <string></string>
+          <string>股四头肌、臀大肌、股二头肌</string>
           <key>sportEquipment</key>
           <string>哑铃</string>
           <key>sportType</key>
@@ -1546,7 +1546,7 @@
           <key>sportPart</key>
           <string>腿部</string>
           <key>muscles</key>
-          <string></string>
+          <string>股四头肌、臀大肌、股二头肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -1562,7 +1562,7 @@
           <key>sportPart</key>
           <string>腿部</string>
           <key>muscles</key>
-          <string></string>
+          <string>股四头肌、臀大肌、股二头肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -1578,7 +1578,7 @@
           <key>sportPart</key>
           <string>腿部</string>
           <key>muscles</key>
-          <string></string>
+          <string>股四头肌、臀大肌、股二头肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -1594,7 +1594,7 @@
           <key>sportPart</key>
           <string>腿部</string>
           <key>muscles</key>
-          <string></string>
+          <string>股四头肌、臀大肌、股二头肌</string>
           <key>sportEquipment</key>
           <string>史密斯机</string>
           <key>sportType</key>
@@ -1610,7 +1610,7 @@
           <key>sportPart</key>
           <string>腿部</string>
           <key>muscles</key>
-          <string></string>
+          <string>股四头肌、臀大肌、股二头肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -1626,7 +1626,7 @@
           <key>sportPart</key>
           <string>腿部</string>
           <key>muscles</key>
-          <string></string>
+          <string>股四头肌、臀大肌、股二头肌</string>
           <key>sportEquipment</key>
           <string>杠铃</string>
           <key>sportType</key>
@@ -1642,7 +1642,7 @@
           <key>sportPart</key>
           <string>腿部</string>
           <key>muscles</key>
-          <string></string>
+          <string>股四头肌、臀大肌、股二头肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -1658,7 +1658,7 @@
           <key>sportPart</key>
           <string>腿部</string>
           <key>muscles</key>
-          <string></string>
+          <string>股四头肌、臀大肌、股二头肌</string>
           <key>sportEquipment</key>
           <string>哑铃</string>
           <key>sportType</key>
@@ -2602,7 +2602,7 @@
           <key>sportPart</key>
           <string>耐力</string>
           <key>muscles</key>
-          <string></string>
+          <string>臀大肌、股四头肌、腓肠肌、比目鱼肌</string>
           <key>sportEquipment</key>
           <string>无</string>
           <key>sportType</key>
@@ -2618,7 +2618,7 @@
           <key>sportPart</key>
           <string>耐力</string>
           <key>muscles</key>
-          <string></string>
+          <string>臀大肌、股四头肌、腓肠肌、比目鱼肌</string>
           <key>sportEquipment</key>
           <string>无</string>
           <key>sportType</key>
@@ -2634,7 +2634,7 @@
           <key>sportPart</key>
           <string>耐力</string>
           <key>muscles</key>
-          <string></string>
+          <string>臀大肌、股四头肌、腓肠肌、比目鱼肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -2650,7 +2650,7 @@
           <key>sportPart</key>
           <string>耐力</string>
           <key>muscles</key>
-          <string></string>
+          <string>全身肌肉</string>
           <key>sportEquipment</key>
           <string>无</string>
           <key>sportType</key>
@@ -2666,7 +2666,7 @@
           <key>sportPart</key>
           <string>耐力</string>
           <key>muscles</key>
-          <string></string>
+          <string>全身肌肉</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -2682,7 +2682,7 @@
           <key>sportPart</key>
           <string>核心</string>
           <key>muscles</key>
-          <string></string>
+          <string>腹直肌</string>
           <key>sportEquipment</key>
           <string>无</string>
           <key>sportType</key>
@@ -2698,7 +2698,7 @@
           <key>sportPart</key>
           <string>核心</string>
           <key>muscles</key>
-          <string></string>
+          <string>腹直肌</string>
           <key>sportEquipment</key>
           <string>健身球</string>
           <key>sportType</key>
@@ -2714,7 +2714,7 @@
           <key>sportPart</key>
           <string>核心</string>
           <key>muscles</key>
-          <string></string>
+          <string>腹直肌</string>
           <key>sportEquipment</key>
           <string>无</string>
           <key>sportType</key>
@@ -2730,7 +2730,7 @@
           <key>sportPart</key>
           <string>核心</string>
           <key>muscles</key>
-          <string></string>
+          <string>腹斜肌</string>
           <key>sportEquipment</key>
           <string>无</string>
           <key>sportType</key>
@@ -2746,7 +2746,7 @@
           <key>sportPart</key>
           <string>核心</string>
           <key>muscles</key>
-          <string></string>
+          <string>腹直肌、臀大肌</string>
           <key>sportEquipment</key>
           <string>器械</string>
           <key>sportType</key>
@@ -2762,7 +2762,7 @@
           <key>sportPart</key>
           <string>核心</string>
           <key>muscles</key>
-          <string></string>
+          <string>腹直肌、臀大肌</string>
           <key>sportEquipment</key>
           <string>无</string>
           <key>sportType</key>
@@ -2778,7 +2778,7 @@
           <key>sportPart</key>
           <string>核心</string>
           <key>muscles</key>
-          <string></string>
+          <string>全身肌肉</string>
           <key>sportEquipment</key>
           <string>无</string>
           <key>sportType</key>
@@ -2794,7 +2794,7 @@
           <key>sportPart</key>
           <string>综合</string>
           <key>muscles</key>
-          <string></string>
+          <string>全身肌肉</string>
           <key>sportEquipment</key>
           <string>TRX</string>
           <key>sportType</key>
@@ -2810,7 +2810,7 @@
           <key>sportPart</key>
           <string>综合</string>
           <key>muscles</key>
-          <string></string>
+          <string>全身肌肉</string>
           <key>sportEquipment</key>
           <string>无</string>
           <key>sportType</key>
@@ -2826,13 +2826,29 @@
           <key>sportPart</key>
           <string>综合</string>
           <key>muscles</key>
-          <string></string>
+          <string>全身肌肉</string>
           <key>sportEquipment</key>
           <string>无</string>
           <key>sportType</key>
           <string>0</string>
           <key>imageKey</key>
           <string>CrossFit</string>
+    </dict>
+    <dict>
+          <key>sportSerialNum</key>
+          <string>9_1</string>
+          <key>sportName</key>
+          <string>基础拉伸</string>
+          <key>sportPart</key>
+          <string>拉伸</string>
+          <key>muscles</key>
+          <string>全身肌肉</string>
+          <key>sportEquipment</key>
+          <string>无</string>
+          <key>sportType</key>
+          <string>2</string>
+          <key>imageKey</key>
+          <string>拉伸</string>
     </dict>
 </array>
 </plist>

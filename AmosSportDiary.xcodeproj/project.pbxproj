@@ -33,8 +33,14 @@
 		B048EF821B8D70EB00F01530 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B048EF811B8D70EB00F01530 /* libsqlite3.0.tbd */; };
 		B048EF841B8D70F700F01530 /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = B048EF831B8D70F700F01530 /* libc++.tbd */; };
 		B048EF861B8D720100F01530 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = B048EF851B8D720100F01530 /* Icon@2x.png */; };
+		B05771971C9E8E26003959CB /* AllSystemSportEvents.plist in Resources */ = {isa = PBXBuildFile; fileRef = B05771961C9E8E26003959CB /* AllSystemSportEvents.plist */; };
+		B057719A1C9E8E92003959CB /* inputGroupEvents.plist in Resources */ = {isa = PBXBuildFile; fileRef = B05771981C9E8E92003959CB /* inputGroupEvents.plist */; };
+		B057719B1C9E8E92003959CB /* inputGroupSets.plist in Resources */ = {isa = PBXBuildFile; fileRef = B05771991C9E8E92003959CB /* inputGroupSets.plist */; };
+		B05771A11C9F089D003959CB /* SummaryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B05771A31C9F089D003959CB /* SummaryViewController.xib */; };
+		B05771AA1C9F0A04003959CB /* DetailSummaryVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B05771AC1C9F0A04003959CB /* DetailSummaryVC.xib */; };
+		B05771B51C9FA527003959CB /* NewEventVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B05771B71C9FA527003959CB /* NewEventVC.xib */; };
+		B05771BE1C9FA80A003959CB /* NumberValuePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = B05771C01C9FA80A003959CB /* NumberValuePicker.xib */; };
 		B057F92E1C9190A900D72D89 /* SportImages.bundle in Resources */ = {isa = PBXBuildFile; fileRef = B057F92D1C9190A900D72D89 /* SportImages.bundle */; };
-		B057F9301C9190B600D72D89 /* AllSystemSportEvents.plist in Resources */ = {isa = PBXBuildFile; fileRef = B057F92F1C9190B600D72D89 /* AllSystemSportEvents.plist */; };
 		B057F9341C9196FF00D72D89 /* TypeDisplayCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B057F9321C9196FF00D72D89 /* TypeDisplayCell.m */; };
 		B057F9351C9196FF00D72D89 /* TypeDisplayCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B057F9331C9196FF00D72D89 /* TypeDisplayCell.xib */; };
 		B057F9381C9197D700D72D89 /* SportPartManageTV.m in Sources */ = {isa = PBXBuildFile; fileRef = B057F9371C9197D700D72D89 /* SportPartManageTV.m */; };
@@ -100,8 +106,6 @@
 		B085E2711BBA7E9E00F518A8 /* JKDBHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = B085E2691BBA7E9E00F518A8 /* JKDBHelper.m */; };
 		B085E2721BBA7E9E00F518A8 /* JKDBModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B085E26B1BBA7E9E00F518A8 /* JKDBModel.m */; };
 		B087E0291B76FFF2003D90B6 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B087E0281B76FFF2003D90B6 /* QuartzCore.framework */; };
-		B087E02E1B7716E8003D90B6 /* DetailSummaryVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B087E02C1B7716E8003D90B6 /* DetailSummaryVC.xib */; };
-		B08875E11B6F9AF3008DF5D4 /* SummaryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B08875DF1B6F9AF3008DF5D4 /* SummaryViewController.xib */; };
 		B09DB2811B84A396007458C1 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09DB2801B84A396007458C1 /* CoreTelephony.framework */; };
 		B09DB2831B84A3A2007458C1 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09DB2821B84A3A2007458C1 /* OpenGLES.framework */; };
 		B09DB2851B84A3AD007458C1 /* SceneKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B09DB2841B84A3AD007458C1 /* SceneKit.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -257,13 +261,11 @@
 		B0EAC5711C9048BD000DA444 /* SportRecordStore.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EAC5701C9048BD000DA444 /* SportRecordStore.m */; };
 		B0EAC5731C904A8F000DA444 /* SportParts.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0EAC5721C904A8F000DA444 /* SportParts.plist */; };
 		B0EAC57A1C905BC0000DA444 /* NewEventVC.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EAC5781C905BC0000DA444 /* NewEventVC.m */; };
-		B0EAC57B1C905BC0000DA444 /* NewEventVC.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0EAC5791C905BC0000DA444 /* NewEventVC.xib */; };
 		B0EAC5831C905C3E000DA444 /* JVFloatLabeledTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EAC57E1C905C3E000DA444 /* JVFloatLabeledTextField.m */; };
 		B0EAC5841C905C3E000DA444 /* JVFloatLabeledTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EAC5801C905C3E000DA444 /* JVFloatLabeledTextView.m */; };
 		B0EAC5851C905C3E000DA444 /* NSString+TextDirectionality.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EAC5821C905C3E000DA444 /* NSString+TextDirectionality.m */; };
 		B0EAC5891C911C57000DA444 /* ZVScrollSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EAC5881C911C57000DA444 /* ZVScrollSlider.m */; };
 		B0EAC58C1C911D13000DA444 /* NumberValuePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EAC58B1C911D13000DA444 /* NumberValuePicker.m */; };
-		B0EAC58E1C911D2D000DA444 /* NumberValuePicker.xib in Resources */ = {isa = PBXBuildFile; fileRef = B0EAC58D1C911D2D000DA444 /* NumberValuePicker.xib */; };
 		B0EAC5A31C912454000DA444 /* TYAlertController+TransitionAnimate.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EAC5901C912454000DA444 /* TYAlertController+TransitionAnimate.m */; };
 		B0EAC5A41C912454000DA444 /* TYAlertController.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EAC5921C912454000DA444 /* TYAlertController.m */; };
 		B0EAC5A51C912454000DA444 /* TYAlertDropDownAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = B0EAC5941C912454000DA444 /* TYAlertDropDownAnimation.m */; };
@@ -295,6 +297,7 @@
 		B0F42E161C9DA85200BF88DA /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0F42E151C9DA85200BF88DA /* CoreLocation.framework */; };
 		B0F42E181C9DA87000BF88DA /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B0F42E171C9DA87000BF88DA /* CFNetwork.framework */; };
 		B0F42E1B1C9DB05000BF88DA /* Event.m in Sources */ = {isa = PBXBuildFile; fileRef = B0F42E1A1C9DB05000BF88DA /* Event.m */; };
+		B0F42E201C9E4FAE00BF88DA /* EquipmentList.plist in Resources */ = {isa = PBXBuildFile; fileRef = B0F42E1F1C9E4FAE00BF88DA /* EquipmentList.plist */; };
 		B0FA58971B4678D400E3BE94 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FA58961B4678D400E3BE94 /* main.m */; };
 		B0FA589A1B4678D400E3BE94 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B0FA58991B4678D400E3BE94 /* AppDelegate.m */; };
 		B0FA58A01B4678D400E3BE94 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B0FA589E1B4678D400E3BE94 /* Main.storyboard */; };
@@ -387,8 +390,30 @@
 		B048EF811B8D70EB00F01530 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		B048EF831B8D70F700F01530 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		B048EF851B8D720100F01530 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		B05771961C9E8E26003959CB /* AllSystemSportEvents.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AllSystemSportEvents.plist; sourceTree = "<group>"; };
+		B05771981C9E8E92003959CB /* inputGroupEvents.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = inputGroupEvents.plist; sourceTree = "<group>"; };
+		B05771991C9E8E92003959CB /* inputGroupSets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = inputGroupSets.plist; sourceTree = "<group>"; };
+		B057719E1C9F0375003959CB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Main.strings; sourceTree = "<group>"; };
+		B05771A01C9F0379003959CB /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/Main.strings"; sourceTree = "<group>"; };
+		B05771A21C9F089D003959CB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/SummaryViewController.xib; sourceTree = "<group>"; };
+		B05771A51C9F089F003959CB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/SummaryViewController.strings; sourceTree = "<group>"; };
+		B05771A71C9F08A2003959CB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/SummaryViewController.strings"; sourceTree = "<group>"; };
+		B05771A91C9F08A3003959CB /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/SummaryViewController.strings"; sourceTree = "<group>"; };
+		B05771AB1C9F0A04003959CB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/DetailSummaryVC.xib; sourceTree = "<group>"; };
+		B05771AE1C9F0A06003959CB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/DetailSummaryVC.strings; sourceTree = "<group>"; };
+		B05771B01C9F0A0A003959CB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/DetailSummaryVC.strings"; sourceTree = "<group>"; };
+		B05771B21C9F0A0B003959CB /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/DetailSummaryVC.strings"; sourceTree = "<group>"; };
+		B05771B31C9F0B7A003959CB /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/AmosSportDiaryLocalizable.strings"; sourceTree = "<group>"; };
+		B05771B41C9F0B7D003959CB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/AmosSportDiaryLocalizable.strings; sourceTree = "<group>"; };
+		B05771B61C9FA527003959CB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/NewEventVC.xib; sourceTree = "<group>"; };
+		B05771B91C9FA52C003959CB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/NewEventVC.strings"; sourceTree = "<group>"; };
+		B05771BB1C9FA52E003959CB /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/NewEventVC.strings"; sourceTree = "<group>"; };
+		B05771BD1C9FA537003959CB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/NewEventVC.strings; sourceTree = "<group>"; };
+		B05771BF1C9FA80A003959CB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/NumberValuePicker.xib; sourceTree = "<group>"; };
+		B05771C21C9FA80C003959CB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/NumberValuePicker.strings; sourceTree = "<group>"; };
+		B05771C41C9FA80F003959CB /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/NumberValuePicker.strings"; sourceTree = "<group>"; };
+		B05771C61C9FA810003959CB /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/NumberValuePicker.strings"; sourceTree = "<group>"; };
 		B057F92D1C9190A900D72D89 /* SportImages.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SportImages.bundle; sourceTree = "<group>"; };
-		B057F92F1C9190B600D72D89 /* AllSystemSportEvents.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AllSystemSportEvents.plist; sourceTree = "<group>"; };
 		B057F9311C9196FF00D72D89 /* TypeDisplayCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TypeDisplayCell.h; path = TypeManage/TypeDisplayCell.h; sourceTree = "<group>"; };
 		B057F9321C9196FF00D72D89 /* TypeDisplayCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TypeDisplayCell.m; path = TypeManage/TypeDisplayCell.m; sourceTree = "<group>"; };
 		B057F9331C9196FF00D72D89 /* TypeDisplayCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = TypeDisplayCell.xib; path = TypeManage/TypeDisplayCell.xib; sourceTree = "<group>"; };
@@ -521,8 +546,6 @@
 		B085E26A1BBA7E9E00F518A8 /* JKDBModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKDBModel.h; sourceTree = "<group>"; };
 		B085E26B1BBA7E9E00F518A8 /* JKDBModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKDBModel.m; sourceTree = "<group>"; };
 		B087E0281B76FFF2003D90B6 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		B087E02C1B7716E8003D90B6 /* DetailSummaryVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DetailSummaryVC.xib; sourceTree = "<group>"; };
-		B08875DF1B6F9AF3008DF5D4 /* SummaryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SummaryViewController.xib; sourceTree = "<group>"; };
 		B09DB2801B84A396007458C1 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		B09DB2821B84A3A2007458C1 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		B09DB2841B84A3AD007458C1 /* SceneKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SceneKit.framework; path = System/Library/Frameworks/SceneKit.framework; sourceTree = SDKROOT; };
@@ -815,7 +838,6 @@
 		B0EAC5721C904A8F000DA444 /* SportParts.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = SportParts.plist; sourceTree = "<group>"; };
 		B0EAC5771C905BC0000DA444 /* NewEventVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NewEventVC.h; path = NewSport/NewEventVC.h; sourceTree = "<group>"; };
 		B0EAC5781C905BC0000DA444 /* NewEventVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NewEventVC.m; path = NewSport/NewEventVC.m; sourceTree = "<group>"; };
-		B0EAC5791C905BC0000DA444 /* NewEventVC.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NewEventVC.xib; path = NewSport/NewEventVC.xib; sourceTree = "<group>"; };
 		B0EAC57D1C905C3E000DA444 /* JVFloatLabeledTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVFloatLabeledTextField.h; sourceTree = "<group>"; };
 		B0EAC57E1C905C3E000DA444 /* JVFloatLabeledTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JVFloatLabeledTextField.m; sourceTree = "<group>"; };
 		B0EAC57F1C905C3E000DA444 /* JVFloatLabeledTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JVFloatLabeledTextView.h; sourceTree = "<group>"; };
@@ -826,7 +848,6 @@
 		B0EAC5881C911C57000DA444 /* ZVScrollSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZVScrollSlider.m; sourceTree = "<group>"; };
 		B0EAC58A1C911D13000DA444 /* NumberValuePicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = NumberValuePicker.h; path = NewSport/NumberValuePicker.h; sourceTree = "<group>"; };
 		B0EAC58B1C911D13000DA444 /* NumberValuePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = NumberValuePicker.m; path = NewSport/NumberValuePicker.m; sourceTree = "<group>"; };
-		B0EAC58D1C911D2D000DA444 /* NumberValuePicker.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NumberValuePicker.xib; sourceTree = "<group>"; };
 		B0EAC5901C912454000DA444 /* TYAlertController+TransitionAnimate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "TYAlertController+TransitionAnimate.m"; sourceTree = "<group>"; };
 		B0EAC5911C912454000DA444 /* TYAlertController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TYAlertController.h; sourceTree = "<group>"; };
 		B0EAC5921C912454000DA444 /* TYAlertController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TYAlertController.m; sourceTree = "<group>"; };
@@ -896,6 +917,7 @@
 		B0F42E171C9DA87000BF88DA /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		B0F42E191C9DB05000BF88DA /* Event.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Event.h; path = Model/Event.h; sourceTree = "<group>"; };
 		B0F42E1A1C9DB05000BF88DA /* Event.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Event.m; path = Model/Event.m; sourceTree = "<group>"; };
+		B0F42E1F1C9E4FAE00BF88DA /* EquipmentList.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = EquipmentList.plist; sourceTree = "<group>"; };
 		B0FA58921B4678D400E3BE94 /* AmosSportDiary.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AmosSportDiary.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B0FA58961B4678D400E3BE94 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B0FA58981B4678D400E3BE94 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1025,6 +1047,16 @@
 			);
 			name = UUChart;
 			path = vendor/UUChart;
+			sourceTree = "<group>";
+		};
+		B057719C1C9E8E97003959CB /* input */ = {
+			isa = PBXGroup;
+			children = (
+				B05771981C9E8E92003959CB /* inputGroupEvents.plist */,
+				B05771991C9E8E92003959CB /* inputGroupSets.plist */,
+				B05771961C9E8E26003959CB /* AllSystemSportEvents.plist */,
+			);
+			name = input;
 			sourceTree = "<group>";
 		};
 		B057F93B1C91A39200D72D89 /* Cell */ = {
@@ -1855,10 +1887,10 @@
 			children = (
 				B0C101071B7798C000E4204B /* SummaryViewController.h */,
 				B0C101081B7798C000E4204B /* SummaryViewController.m */,
-				B08875DF1B6F9AF3008DF5D4 /* SummaryViewController.xib */,
+				B05771A31C9F089D003959CB /* SummaryViewController.xib */,
 				B0C101031B7798C000E4204B /* DetailSummaryVC.h */,
 				B0C101041B7798C000E4204B /* DetailSummaryVC.m */,
-				B087E02C1B7716E8003D90B6 /* DetailSummaryVC.xib */,
+				B05771AC1C9F0A04003959CB /* DetailSummaryVC.xib */,
 				B057F94E1C92F43A00D72D89 /* summaryTypeCell.h */,
 				B057F94F1C92F43A00D72D89 /* summaryTypeCell.m */,
 				B057F9501C92F43A00D72D89 /* summaryTypeCell.xib */,
@@ -1911,10 +1943,10 @@
 			children = (
 				B0EAC5771C905BC0000DA444 /* NewEventVC.h */,
 				B0EAC5781C905BC0000DA444 /* NewEventVC.m */,
-				B0EAC5791C905BC0000DA444 /* NewEventVC.xib */,
+				B05771B71C9FA527003959CB /* NewEventVC.xib */,
 				B0EAC58A1C911D13000DA444 /* NumberValuePicker.h */,
 				B0EAC58B1C911D13000DA444 /* NumberValuePicker.m */,
-				B0EAC58D1C911D2D000DA444 /* NumberValuePicker.xib */,
+				B05771C01C9FA80A003959CB /* NumberValuePicker.xib */,
 				B057F9761C9A8FEA00D72D89 /* GroupNew */,
 			);
 			name = NewSport;
@@ -2111,11 +2143,12 @@
 			isa = PBXGroup;
 			children = (
 				B057F92D1C9190A900D72D89 /* SportImages.bundle */,
-				B057F92F1C9190B600D72D89 /* AllSystemSportEvents.plist */,
+				B057719C1C9E8E97003959CB /* input */,
 				B0EAC5721C904A8F000DA444 /* SportParts.plist */,
 				B057F9391C9199F800D72D89 /* SportImages.plist */,
 				B0EAC5631C901F3C000DA444 /* homePageShow.plist */,
 				B0F42E0B1C9CF72400BF88DA /* UsersChangeLists.plist */,
+				B0F42E1F1C9E4FAE00BF88DA /* EquipmentList.plist */,
 			);
 			name = SourcesPlist;
 			sourceTree = "<group>";
@@ -2378,8 +2411,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				B0DC6BEA1B7F2970009DFA5A /* FeedbackTVCell.xib in Resources */,
-				B057F9301C9190B600D72D89 /* AllSystemSportEvents.plist in Resources */,
 				B057F97C1C9A903100D72D89 /* NewGroupVC.xib in Resources */,
+				B057719A1C9E8E92003959CB /* inputGroupEvents.plist in Resources */,
 				B048EF861B8D720100F01530 /* Icon@2x.png in Resources */,
 				B057F92E1C9190A900D72D89 /* SportImages.bundle in Resources */,
 				B00317501BC10D2A00AFAD86 /* GroupDetailCell.xib in Resources */,
@@ -2387,6 +2420,7 @@
 				B0EAC5731C904A8F000DA444 /* SportParts.plist in Resources */,
 				B0F42E111C9DA7E900BF88DA /* Bugtags.bundle in Resources */,
 				B057F93A1C9199F800D72D89 /* SportImages.plist in Resources */,
+				B057719B1C9E8E92003959CB /* inputGroupSets.plist in Resources */,
 				B057F9351C9196FF00D72D89 /* TypeDisplayCell.xib in Resources */,
 				B0F42DF31C9BE87700BF88DA /* TOCropViewControllerLocalizable.strings in Resources */,
 				B0F42E061C9C54FE00BF88DA /* PersonalInfoCell.xib in Resources */,
@@ -2397,13 +2431,15 @@
 				B057F9431C91A47000D72D89 /* EventDisplayCell.xib in Resources */,
 				B0FA58A01B4678D400E3BE94 /* Main.storyboard in Resources */,
 				B0EAC5641C901F3C000DA444 /* homePageShow.plist in Resources */,
-				B0EAC58E1C911D2D000DA444 /* NumberValuePicker.xib in Resources */,
+				B05771BE1C9FA80A003959CB /* NumberValuePicker.xib in Resources */,
+				B0F42E201C9E4FAE00BF88DA /* EquipmentList.plist in Resources */,
 				B019BEFD1B9472D700D2D8F6 /* AmosSportDiaryLocalizable.strings in Resources */,
 				B057F9611C93067300D72D89 /* read_me.txt in Resources */,
 				B0F42E0C1C9CF72400BF88DA /* UsersChangeLists.plist in Resources */,
-				B087E02E1B7716E8003D90B6 /* DetailSummaryVC.xib in Resources */,
-				B08875E11B6F9AF3008DF5D4 /* SummaryViewController.xib in Resources */,
-				B0EAC57B1C905BC0000DA444 /* NewEventVC.xib in Resources */,
+				B05771AA1C9F0A04003959CB /* DetailSummaryVC.xib in Resources */,
+				B05771A11C9F089D003959CB /* SummaryViewController.xib in Resources */,
+				B05771B51C9FA527003959CB /* NewEventVC.xib in Resources */,
+				B05771971C9E8E26003959CB /* AllSystemSportEvents.plist in Resources */,
 				B061FA521B99FF300082FBA1 /* KVNProgressView.xib in Resources */,
 				B09DB2E81B857437007458C1 /* LeftMenuViewController.xib in Resources */,
 			);
@@ -2705,8 +2741,55 @@
 			children = (
 				B019BEFE1B9472D700D2D8F6 /* zh-Hans */,
 				B019BF001B9472DF00D2D8F6 /* Base */,
+				B05771B31C9F0B7A003959CB /* zh-Hant */,
+				B05771B41C9F0B7D003959CB /* en */,
 			);
 			name = AmosSportDiaryLocalizable.strings;
+			sourceTree = "<group>";
+		};
+		B05771A31C9F089D003959CB /* SummaryViewController.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B05771A21C9F089D003959CB /* Base */,
+				B05771A51C9F089F003959CB /* en */,
+				B05771A71C9F08A2003959CB /* zh-Hans */,
+				B05771A91C9F08A3003959CB /* zh-Hant */,
+			);
+			name = SummaryViewController.xib;
+			sourceTree = "<group>";
+		};
+		B05771AC1C9F0A04003959CB /* DetailSummaryVC.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B05771AB1C9F0A04003959CB /* Base */,
+				B05771AE1C9F0A06003959CB /* en */,
+				B05771B01C9F0A0A003959CB /* zh-Hans */,
+				B05771B21C9F0A0B003959CB /* zh-Hant */,
+			);
+			name = DetailSummaryVC.xib;
+			sourceTree = "<group>";
+		};
+		B05771B71C9FA527003959CB /* NewEventVC.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B05771B61C9FA527003959CB /* Base */,
+				B05771B91C9FA52C003959CB /* zh-Hans */,
+				B05771BB1C9FA52E003959CB /* zh-Hant */,
+				B05771BD1C9FA537003959CB /* en */,
+			);
+			name = NewEventVC.xib;
+			path = NewSport;
+			sourceTree = "<group>";
+		};
+		B05771C01C9FA80A003959CB /* NumberValuePicker.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B05771BF1C9FA80A003959CB /* Base */,
+				B05771C21C9FA80C003959CB /* en */,
+				B05771C41C9FA80F003959CB /* zh-Hans */,
+				B05771C61C9FA810003959CB /* zh-Hant */,
+			);
+			name = NumberValuePicker.xib;
 			sourceTree = "<group>";
 		};
 		B0F42DCD1C9BE87700BF88DA /* TOCropViewControllerLocalizable.strings */ = {
@@ -2738,6 +2821,8 @@
 			children = (
 				B0FA589F1B4678D400E3BE94 /* Base */,
 				B019BF021B9479A900D2D8F6 /* zh-Hans */,
+				B057719E1C9F0375003959CB /* en */,
+				B05771A01C9F0379003959CB /* zh-Hant */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";

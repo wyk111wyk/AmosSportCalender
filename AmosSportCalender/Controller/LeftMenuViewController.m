@@ -44,7 +44,7 @@
     _avatarImageView.layer.borderWidth = 1.3;
     _avatarImageView.layer.borderColor = MyWhite.CGColor;
     
-    self.menuName = [[NSArray alloc] initWithObjects:@"运动日历", @"完成列表", @"类型管理", @"设置", @"反馈", @"关于", nil];
+    self.menuName = [[NSArray alloc] initWithObjects:Local(@"Sport Cal"), Local(@"Finish List"), Local(@"Data"), Local(@"Setting"), Local(@"Feedback"), Local(@"About"), nil];
 
     _sportCalendarView.isSelected = YES;
     _sportCalendarView.titleLabel.text = _menuName[0];
@@ -80,7 +80,7 @@
     NSString *userName = [SettingStore sharedSetting].userName;
     NSString *userDataName = [SettingStore sharedSetting].userDataName;
     if (userName.length == 0) {
-        userName = @"默认用户";
+        userName = Local(@"Default User");
     }
     _nameLabel.text = userName;
     
@@ -102,7 +102,7 @@
     _avatarImageView.layer.masksToBounds = YES;
     
     NSInteger countNum = [DateEventStore findCounts:nil];
-    _totalSportCount.text = [NSString stringWithFormat:@"锻炼总天数：%@", @(countNum)];
+    _totalSportCount.text = [NSString stringWithFormat:Local(@"All exercise day：%@"), @(countNum)];
 }
 
 - (IBAction)clickTheButton:(UIButton *)sender {
@@ -166,12 +166,11 @@
 
 - (void)alertForChooseCreate
 {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"选择对头像的操作"
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:Local(@"Choose Avatar operation")
                                                                    message:nil
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"拍照"
-                                              style:UIAlertActionStyleDefault
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Take photo")                                              style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction * action) {
                                                 //拍照
                                                 if ([self isCameraAvailable] && [self doesCameraSupportTakingPhotos]) {
@@ -191,7 +190,7 @@
                                                 }
                                                 
                                             }]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"从相册中选取"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Choose from library")
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction * action) {
                                                 //从相册中选取
@@ -208,7 +207,7 @@
                                                 }
                                                 
                                             }]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"删除图片"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Delete the photo")
                                               style:UIAlertActionStyleDestructive
                                             handler:^(UIAlertAction * action) {
         //删除
@@ -220,7 +219,7 @@
                                                 
                                             }]];
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"取消"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Cancel")
                                               style:UIAlertActionStyleCancel
                                             handler:^(UIAlertAction * action) {}]];
     
@@ -280,11 +279,11 @@
 
 - (void)alertForCanNotDeleteImage
 {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"无法完成操作"
-                                                                   message:@"原因：系统自带的运动项目图片无法删除"
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:Local(@"Error operation")
+                                                                   message:Local(@"Reason：system image can’t be deleted")
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"确定"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Okay")
                                               style:UIAlertActionStyleCancel
                                             handler:^(UIAlertAction * action) {}]];
     

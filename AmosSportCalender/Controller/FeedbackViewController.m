@@ -33,7 +33,7 @@ static NSString *const cellID = @"feedbackcell";
 
 @property (weak, nonatomic) IBOutlet UITextView *feedbackTextField;
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
-@property (weak, nonatomic) IBOutlet UITextField *titleTextField;
+//@property (weak, nonatomic) IBOutlet UITextField *titleTextField;
 
 @property (weak, nonatomic) IBOutlet UIView *viewTop;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -53,6 +53,8 @@ static NSString *const cellID = @"feedbackcell";
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.navigationItem.title = Local(@"Feedback");
+    
     UINib *nib = [UINib nibWithNibName:@"FeedbackTVCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:cellID];
     _tableView.rowHeight = 50;
@@ -64,7 +66,6 @@ static NSString *const cellID = @"feedbackcell";
     
     _viewTop.layer.cornerRadius = 5;
     _feedbackTextField.layer.cornerRadius = 5;
-    _titleTextField.returnKeyType = UIReturnKeyDone;
     _emailTextField.returnKeyType = UIReturnKeyDone;
     
     _typeStr = _bugReportLabel.text;
@@ -76,6 +77,9 @@ static NSString *const cellID = @"feedbackcell";
         [_improveLabel setFont:font];
         [_otherLabel setFont:font];
     }
+    
+    _feedbackTextField.text = Local(@"Please type in your feedback( or shark the phone)." );
+    _emailTextField.placeholder = Local(@"My Email Address");
     
     [self.sideMenuViewController setPanFromEdge:NO];
 }
@@ -89,13 +93,13 @@ static NSString *const cellID = @"feedbackcell";
 }
 
 - (IBAction)sendTheFeedback:(UIBarButtonItem *)sender {
-    NSString *feedbackText = [NSString stringWithFormat:@"类型：%@ 内容：(%@)(%@) 联系方式：%@", _typeStr, _titleTextField.text, _feedbackTextField.text, _emailTextField.text];
-    if (_titleTextField.text.length == 0) {
-        [self alertForSampleWarning:@"标题不能为空"];
+    NSString *feedbackText = [NSString stringWithFormat:@"类型：%@ 内容：%@ 联系方式：%@", _typeStr,  _feedbackTextField.text, _emailTextField.text];
+    if (_feedbackTextField.text.length == 0 || [_feedbackTextField.text hasPrefix:Local(@"Please type in")]) {
+        [self alertForSampleWarning:Local(@"Got be something!")];
     }else {
         [Bugtags sendFeedback:feedbackText];
         [Bugtags setAfterSendingCallback:^{
-            [KVNProgress showSuccessWithStatus:@"反馈发送成功！"];
+            [KVNProgress showSuccessWithStatus:Local(@"Send success！")];
         }];
     }
 }
@@ -169,12 +173,9 @@ static NSString *const cellID = @"feedbackcell";
 
 - (void)textViewDidBeginEditing:(UITextView *)textView
 {
-    if (textView.text.length > 5) {
-    NSString *compStr = [textView.text substringToIndex:5];
-    
-    if ([compStr isEqualToString:@"请在此输入"]) {
-    textView.text = @"";
-    }}
+    if ([textView.text hasPrefix:Local(@"Please type in")]) {
+        textView.text = @"";
+    }
     
     textView.textColor = [UIColor darkGrayColor];
 }
@@ -191,7 +192,6 @@ static NSString *const cellID = @"feedbackcell";
     FeedbackTVCell *cell = [self.tableView dequeueReusableCellWithIdentifier:cellID];
     
     cell.clickToVoteBlock = ^(){
-        NSLog(@"点赞还是反对");
         [self alertForVote];
     };
     return cell;
@@ -205,7 +205,7 @@ static NSString *const cellID = @"feedbackcell";
                                                                    message:nil
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"确定"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Okay")
                                               style:UIAlertActionStyleCancel
                                             handler:^(UIAlertAction * action) {}]];
     
@@ -218,7 +218,7 @@ static NSString *const cellID = @"feedbackcell";
                                                                    message:@""
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"取消"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Cancel")
                                               style:UIAlertActionStyleCancel
                                             handler:^(UIAlertAction * action) {
                                             }]];

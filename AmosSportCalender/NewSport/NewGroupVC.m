@@ -39,13 +39,13 @@
     [super viewDidLoad];
     
     _isFirstIn = YES;
-    _levelArr = @[@"初级", @"中级", @"高级"];
+    _levelArr = @[Local(@"Beginner level"), Local(@"Middle level"), Local(@"High level")];
     _criStr = [NSString stringWithFormat:@" WHERE isGroupSet = '1' AND groupSetPK = '%d' ", _groupStore.pk];
     [self getTheFreshData];
     [self initTheFrameUI];
     [self updateButtonState];
     
-    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStyleDone target:self action:nil];
+    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithTitle:Local(@"Save") style:UIBarButtonItemStyleDone target:self action:nil];
     saveButton.tintColor = MyGreenColor;
     [saveButton setActionBlock:^(id _Nonnull sender) {
         if (_groupSetNameText.text.length == 0) {
@@ -73,11 +73,11 @@
     self.navigationItem.rightBarButtonItems = @[saveButton, addButton];
     
     if (_isNew) {
-        self.navigationItem.title = [NSString stringWithFormat:@"新建组合-%@", _groupStore.groupPart];
+        self.navigationItem.title = [NSString stringWithFormat:Local(@"New combin - %@"), _groupStore.groupPart];
 //        _groupSetNameText.text = @"";
         [_groupSetNameText becomeFirstResponder];
         
-        UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:nil];
+        UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:Local(@"Cancel") style:UIBarButtonItemStylePlain target:self action:nil];
         cancelButton.tintColor = MyGreenColor;
         [cancelButton setActionBlock:^(id _Nonnull sender) {
             [self alertForNotSave];
@@ -85,7 +85,7 @@
         self.navigationItem.leftBarButtonItem = cancelButton;
         
     }else {
-        self.navigationItem.title = [NSString stringWithFormat:@"修改组合-%@", _groupStore.groupPart];
+        self.navigationItem.title = [NSString stringWithFormat:Local(@"Modify combin - %@"), _groupStore.groupPart];
     }
     
 }
@@ -95,7 +95,7 @@
     if (!_isFirstIn) {
         [self getTheFreshData];
         NSInteger countNum = [_allRecordData count];
-        _eventNumberLabel.text = [NSString stringWithFormat:@"包含运动项目数量：%@项", @(countNum)];
+        _eventNumberLabel.text = [NSString stringWithFormat:Local(@"Include Sports：%@"), @(countNum)];
         [self.tableView reloadData];
     }
     _isFirstIn = NO;
@@ -151,6 +151,7 @@
         cell = [[[NSBundle mainBundle]loadNibNamed:cellIdentifier owner:nil options:nil] firstObject];
         cell.selectedBackgroundView = [[UIView alloc] initWithFrame:cell.frame];
         cell.selectedBackgroundView.backgroundColor = CellBackgoundColor;
+        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
         cell.sepView.hidden = YES;
         cell.couldBeDone = NO;
     }
@@ -161,39 +162,28 @@
     return cell;
 }
 
-//设置滑动后出现的选项
-- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    //删除的方法
-    UITableViewRowAction *deleteAction = [UITableViewRowAction
-                                          rowActionWithStyle:UITableViewRowActionStyleDestructive
-                                          title:Local(@"Delete")
-                                          handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    NewEventVC *newEvent = [[NewEventVC alloc] init];
+    SportRecordStore *recordStore = _allRecordData[indexPath.row];
+    newEvent.recordStore = recordStore;
+    newEvent.pageState = 4;
+    newEvent.isNew = NO;
+    newEvent.groupSetPK = _groupStore.pk;
+    UINavigationController *eventNav = [[UINavigationController alloc] initWithRootViewController:newEvent];
+    
+    [self presentViewController:eventNav animated:YES completion:nil];
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
         SportRecordStore *recordStore = _allRecordData[indexPath.row];
         if ([recordStore deleteObject]) {
-          [_allRecordData removeObject:recordStore];
-          [tableView deleteRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationAutomatic];
+            [_allRecordData removeObject:recordStore];
+            [tableView deleteRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationAutomatic];
         }
-                                          }];
-    
-    //修改内容的方法
-    UITableViewRowAction *editAction = [UITableViewRowAction
-                                        rowActionWithStyle:UITableViewRowActionStyleNormal
-                                        title:Local(@"Edit")
-                                        handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
-        NewEventVC *newEvent = [[NewEventVC alloc] init];
-        SportRecordStore *recordStore = _allRecordData[indexPath.row];
-        newEvent.recordStore = recordStore;
-        newEvent.pageState = 4;
-        newEvent.isNew = NO;
-        newEvent.groupSetPK = _groupStore.pk;
-        UINavigationController *eventNav = [[UINavigationController alloc] initWithRootViewController:newEvent];
-        
-        [self presentViewController:eventNav animated:YES completion:nil];
-                                        }];
-    editAction.backgroundColor = [UIColor colorWithRed:0.0000 green:0.4784 blue:1.0000 alpha:1];
-    
-    return @[deleteAction, editAction]; //与实际显示的顺序相反
+    }
 }
 
 #pragma mark - Helper Method
@@ -213,14 +203,14 @@
     _sepView.backgroundColor = partColor;
     if (_isNew) {
         NSString *levelStr = _levelArr[_groupStore.groupLevel-1];
-        NSString *groupSetName = [NSString stringWithFormat:@"%@%@运动组合", levelStr, _groupStore.groupPart];
+        NSString *groupSetName = [NSString stringWithFormat:Local(@"%@%@ Sport combination"), levelStr, _groupStore.groupPart];
         _groupStore.groupName = groupSetName;
     }
     _groupSetNameText.text = _groupStore.groupName;
     _groupSetNameText.delegate = self;
     
     NSInteger countNum = [_allRecordData count];
-    _eventNumberLabel.text = [NSString stringWithFormat:@"包含运动项目数量：%@项", @(countNum)];
+    _eventNumberLabel.text = [NSString stringWithFormat:Local(@"Include Sports：%@"), @(countNum)];
     _eventNumberLabel.textColor = partColor;
 }
 
@@ -253,11 +243,11 @@
 #pragma mark - Alert Method
 
 - (void)alertForNotSave {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"在编辑中退出"
-                                                                   message:@"这将清空所有未保存的数据"
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:Local(@"Exit without saving")
+                                                                   message:Local(@"This is going to clear all unsaved data")
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"确认"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Okay")
                                               style:UIAlertActionStyleDestructive
                                             handler:^(UIAlertAction * action) {
         if ([_groupStore deleteObject]) {
@@ -266,7 +256,7 @@
         }
                                             }]];
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"取消"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Cancel")
                                               style:UIAlertActionStyleCancel
                                             handler:^(UIAlertAction * action) {}]];
     
@@ -274,11 +264,11 @@
 }
 
 - (void)alertForNeedText {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"组合名称不可为空"
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:Local(@"Combination name cannot be blank")
                                                                    message:nil
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"确认"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Okay")
                                               style:UIAlertActionStyleCancel
                                             handler:^(UIAlertAction * action) {}]];
     

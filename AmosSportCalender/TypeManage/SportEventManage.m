@@ -99,9 +99,9 @@
     label.textColor = [[UIColor purpleColor] colorWithAlphaComponent:0.8];
     
     if (section == 0) {
-        label.text = @"★ 星标动作";
+        label.text = Local(@"★ Stared Sports");
     }else if (section == 1) {
-        label.text = @"其他";
+        label.text = Local(@"Others");
     }
     
     [header addSubview:sepView];
@@ -177,6 +177,37 @@
     UIColor *pickedColor = [UIColor colorWithRed:[oneColor[0] floatValue] green:[oneColor[1] floatValue] blue:[oneColor[2] floatValue] alpha:1];
     cell.themeColor = pickedColor;
     
+    if (eventStore.isSystemMade) {
+        NSString *bundlePath = [[NSBundle mainBundle].resourcePath stringByAppendingPathComponent:@"SportImages.bundle"];
+        NSBundle *bundle = [NSBundle bundleWithPath:bundlePath];
+        UIImage *(^getBundleImage)(NSString *) = ^(NSString *n) {
+            return [UIImage imageWithContentsOfFile:[bundle pathForResource:n ofType:@"jpg"]];
+        };
+        UIImage *myImg = getBundleImage(eventStore.imageKey);
+        if (myImg) {
+            cell.sportImageView.image = myImg;
+        }else {
+            cell.sportImageView.image = [UIImage imageNamed:@"funPic6"];
+        }
+    }else {
+        NSString *imageKey = eventStore.imageKey;
+        NSString *imageCacheCode = [NSString stringWithFormat:@"photo_%@", imageKey];
+        UIImage *photoImage = [[TMCache sharedCache] objectForKey:ATCacheKey(imageCacheCode)];
+        if (photoImage == nil) {
+            SportImageStore *imageStore = [SportImageStore findFirstWithFormat:@" WHERE imageKey = '%@' ", imageKey];
+            if (imageStore) {
+                NSString *avatarStr = imageStore.sportPhoto;
+                NSData *imageData = [[NSData alloc] initWithBase64EncodedString:avatarStr options:NSDataBase64DecodingIgnoreUnknownCharacters];
+                photoImage = [UIImage imageWithData:imageData];
+                [[TMCache sharedCache] setObject:photoImage forKey:ATCacheKey(imageCacheCode)];
+            }else {
+                cell.sportImageView.image = [UIImage imageNamed:@"funPic6"];
+            }
+        }else {
+            cell.sportImageView.image = photoImage;
+        }
+    }
+    
     return cell;
 }
 
@@ -225,7 +256,7 @@
     
     UITableViewRowAction *starColorAction = [UITableViewRowAction
                                              rowActionWithStyle:UITableViewRowActionStyleDefault
-                                             title:@"★星标"
+                                             title:Local(@"★Star")
                                              handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
      eventStore.isStar = !eventStore.isStar;
      if (eventStore.isStar) {
@@ -241,7 +272,7 @@
                                              }];
     UITableViewRowAction *deleteColorAction = [UITableViewRowAction
                                              rowActionWithStyle:UITableViewRowActionStyleDestructive
-                                             title:@"删除"
+                                             title:Local(@"Delete")
                                              handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
                                                  [self alertForDelete:eventStore indexPath:indexPath];
                                              }];
@@ -252,11 +283,11 @@
 
 - (void)alertForDelete: (SportEventStore *)eventStore indexPath:(NSIndexPath *)indexPath
 {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"删除这项运动"
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:Local(@"Delete this sport")
                                                                    message:nil
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"确认"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Okay")
                                               style:UIAlertActionStyleDestructive
                                             handler:^(UIAlertAction * action) {
     if ([eventStore deleteObject]){
@@ -270,7 +301,7 @@
     }
                                             }]];
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"取消"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Cancel")
                                               style:UIAlertActionStyleCancel
                                             handler:^(UIAlertAction * action) {}]];
     

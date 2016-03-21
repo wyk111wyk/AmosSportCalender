@@ -28,7 +28,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _isFirstIn = YES;
-    self.navigationItem.title = @"用户管理";
+    self.navigationItem.title = Local(@"User Manage");
     
     UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menuIcon"] style:UIBarButtonItemStylePlain target:self action:nil];
     menuButton.tintColor = MyGreenColor;
@@ -93,7 +93,7 @@
     NSMutableDictionary *tempDic = _allUserData[indexPath.row];
     NSString *userName = tempDic[@"userName"];
     if (userName.length == 0) {
-        cell.nameLabel.text = @"默认用户";
+        cell.nameLabel.text = Local(@"Default User");
     }else {
         cell.nameLabel.text = userName;
     }
@@ -140,7 +140,7 @@
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         if (indexPath.row == _mainIndex) {
             //不可删除正在使用的用户
-            [self alertForSampleWarning:@"不能删除正在使用的用户"];
+            [self alertForSampleWarning:Local(@"Can’t delete current user" )];
         }else {
             NSMutableDictionary *tempDic = _allUserData[indexPath.row];
             NSString *userName = tempDic[@"userName"];
@@ -154,12 +154,12 @@
 
 - (void)alertForDelete: (NSIndexPath *)indexPath userName: (NSString *)userName dataName:(NSString *)dataName
 {
-    NSString *title = [NSString stringWithFormat:@"确认删除用户：%@", userName];
+    NSString *title = [NSString stringWithFormat:Local(@"Confirm to delete this user ：%@" ), userName];
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:title
-                                                                   message:@"这将会删除该用户的所有数据，且无法还原！"
+                                                                   message:Local(@"This is going to clear all user’s data！")
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"确定"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Okay")
                                               style:UIAlertActionStyleDestructive
                                             handler:^(UIAlertAction * action) {
                                                 
@@ -176,7 +176,7 @@
                                                 
                                             }]];
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"取消"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Cancel")
                                               style:UIAlertActionStyleCancel
                                             handler:^(UIAlertAction * action) {}]];
     
@@ -185,12 +185,12 @@
 
 - (void)alertForExchangeUser: (NSString *)userName dataName:(NSString *)dataName
 {
-    NSString *title = [NSString stringWithFormat:@"切换到用户：%@", userName];
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"切换用户"
+    NSString *title = [NSString stringWithFormat:Local(@"Switch to user：%@"), userName];
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:Local(@"Switch user")
                                                                    message:title
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"确定"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Okay")
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction * action) {
         [[JKDBHelper shareInstance] changeDBWithDirectoryName:dataName];
@@ -198,10 +198,10 @@
         [[SettingStore sharedSetting] setUserName:userName];
         [[ASDataManage sharedManage] inputFirstData];
         [self.tableView reloadData];
-        [[TMCache sharedCache] removeAllObjects];
+        [KVNProgress showSuccessWithStatus:Local(@"Switch success！")];
                                             }]];
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"取消"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Cancel")
                                               style:UIAlertActionStyleCancel
                                             handler:^(UIAlertAction * action) {}]];
     
@@ -210,21 +210,21 @@
 
 - (void)alertForAddNewUser
 {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"新建用户档案"
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:Local(@"New User")
                                                                    message:nil
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
     [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
-        textField.placeholder = @"请输入用户姓名";
+        textField.placeholder = Local(@"Please type in user’s name");
         textField.tintColor = MyGreenColor;
     }];
     
     UITextField *alertTextField = alert.textFields[0];
-    [alert addAction:[UIAlertAction actionWithTitle:@"确定"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Okay")
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction * action) {
                                                 if (alertTextField.text.length == 0) {
-                                                    [self alertForSampleWarning:@"名称不可为空"];
+                                                    [self alertForSampleWarning:Local(@"User’s name can’t be blank")];
                                                 }else {
                                                     [self addNewUserData:alertTextField.text];
                                                 }
@@ -232,7 +232,7 @@
                                             }]];
     
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"取消"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Cancel")
                                               style:UIAlertActionStyleCancel
                                             handler:^(UIAlertAction * action) {}]];
     
@@ -254,7 +254,7 @@
     
     [_allUserData writeToFile:_userDataPath atomically:YES];
     //导入初始数据
-    [KVNProgress showSuccessWithStatus:@"初始化数据成功!"];
+    [KVNProgress showSuccessWithStatus:Local(@"Initialize success!")];
 }
 
 - (void)alertForSampleWarning: (NSString *)titleStr
@@ -263,7 +263,7 @@
                                                                    message:nil
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"确定"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Okay")
                                               style:UIAlertActionStyleCancel
                                             handler:^(UIAlertAction * action) {}]];
     

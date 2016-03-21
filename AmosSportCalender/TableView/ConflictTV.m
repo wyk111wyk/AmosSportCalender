@@ -7,6 +7,7 @@
 //
 
 #import "ConflictTV.h"
+#import "CommonMarco.h"
 
 @interface ConflictTV ()
 
@@ -78,8 +79,7 @@
     static NSDateFormatter *dateFormatterDisplay;
     if(!dateFormatterDisplay){
         dateFormatterDisplay = [NSDateFormatter new];
-        dateFormatterDisplay.dateFormat = @"yyyy年MM月dd日 EEEE H:mm";
-        [dateFormatterDisplay setTimeZone:[NSTimeZone timeZoneWithName:@"Asia/Shanghai"]];
+        dateFormatterDisplay.dateFormat = Local(@"yyyy-MM-dd EEEE H:mm");
     }
     
     return dateFormatterDisplay;

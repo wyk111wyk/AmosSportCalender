@@ -41,7 +41,10 @@
             }else if (setting.weightUnit == 1) {
                 unitText = Local(@"lb");
             }
-            self.sportPro.text = [NSString stringWithFormat:@"%d组 x %d次  %d%@", _recordStore.repeatSets, _recordStore.RM, _recordStore.weight, unitText];
+            self.sportPro.text = [NSString stringWithFormat:Local(@"%d sets x %d reps  %d%@"), _recordStore.repeatSets, _recordStore.RM, _recordStore.weight, unitText];
+            if (_recordStore.weight == 999) {
+                self.sportPro.text = [NSString stringWithFormat:Local(@"%d sets x %d reps  Self-weight"), _recordStore.repeatSets, _recordStore.RM];
+            }
         }else {
             //有氧或拉伸
             self.sportPro.text = @"Go！Go！Go！";

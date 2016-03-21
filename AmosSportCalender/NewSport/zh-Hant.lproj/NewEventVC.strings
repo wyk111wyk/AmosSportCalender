@@ -1,0 +1,33 @@
+
+/* Class = "UITextField"; placeholder = "部位"; ObjectID = "2WG-Gl-Rnf"; */
+"2WG-Gl-Rnf.placeholder" = "部位";
+
+/* Class = "UITextField"; placeholder = "運動日期"; ObjectID = "4Ua-5C-sMG"; */
+"4Ua-5C-sMG.placeholder" = "運動日期";
+
+/* Class = "UITextField"; placeholder = "負重"; ObjectID = "6hy-E4-Ev6"; */
+"6hy-E4-Ev6.placeholder" = "負重";
+
+/* Class = "UITextField"; placeholder = "重復組數"; ObjectID = "ITF-LS-UO3"; */
+"ITF-LS-UO3.placeholder" = "重復組數";
+
+/* Class = "UITextField"; placeholder = "項目"; ObjectID = "M67-9b-ebh"; */
+"M67-9b-ebh.placeholder" = "項目";
+
+/* Class = "UILabel"; text = "動作示意圖"; ObjectID = "Q1O-SK-Vaz"; */
+"Q1O-SK-Vaz.text" = "動作示意圖";
+
+/* Class = "UITextField"; placeholder = "參與肌肉"; ObjectID = "RQ7-pT-zhJ"; */
+"RQ7-pT-zhJ.placeholder" = "參與肌肉";
+
+/* Class = "UITextField"; placeholder = "編號"; ObjectID = "ctm-o2-jfA"; */
+"ctm-o2-jfA.placeholder" = "編號";
+
+/* Class = "UITextField"; placeholder = "預計時長"; ObjectID = "fph-Vt-jaS"; */
+"fph-Vt-jaS.placeholder" = "預計時長";
+
+/* Class = "UITextField"; placeholder = "器械"; ObjectID = "ijJ-bJ-erf"; */
+"ijJ-bJ-erf.placeholder" = "器械";
+
+/* Class = "UITextField"; placeholder = "每組次數"; ObjectID = "pBa-WF-h56"; */
+"pBa-WF-h56.placeholder" = "每組次數";

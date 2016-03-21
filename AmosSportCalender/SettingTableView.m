@@ -20,14 +20,18 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
 
 @interface SettingTableView ()
 
+@property (weak, nonatomic) IBOutlet UILabel *alertDaysLabel;
+@property (weak, nonatomic) IBOutlet UILabel *alertDayLabel;
 @property (weak, nonatomic) IBOutlet UILabel *passwordLabel;
 @property (weak, nonatomic) IBOutlet UILabel *imageTypeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *firstDayOfWeekLabel;
+
 @property (weak, nonatomic) IBOutlet UILabel *iconBadgeNumberLabel;
-@property (weak, nonatomic) IBOutlet UILabel *alertDayLabel;
+@property (weak, nonatomic) IBOutlet UILabel *firstDayOfWeekLabel;
+@property (weak, nonatomic) IBOutlet UILabel *weightUnit;
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *imageTypeSegment;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *firstDayOfWeekSegment;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *unitSegment;
 
 @property (weak, nonatomic) IBOutlet UISwitch *passwordSwitch;
 @property (weak, nonatomic) IBOutlet UISwitch *iconBadgeNumberSwitch;
@@ -54,6 +58,8 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
         _firstDayOfWeekSegment.selectedSegmentIndex = 1;
     }
     
+    _unitSegment.selectedSegmentIndex = setting.weightUnit;
+    
     if ([DMPasscode isPasscodeSet]) {
         _passwordLabel.textColor = [UIColor blackColor];
         _passwordSwitch.on = YES;
@@ -71,9 +77,9 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
     SettingStore *setting = [SettingStore sharedSetting];
     
     if (setting.alertForSport) {
-        self.alertDayLabel.text = [NSString stringWithFormat:@"%@天", @(setting.alertForDays)];
+        self.alertDayLabel.text = [NSString stringWithFormat:Local(@"%@ day"), @(setting.alertForDays)];
     }else{
-        self.alertDayLabel.text = [NSString stringWithFormat:@"当前没有提醒"];
+        self.alertDayLabel.text = [NSString stringWithFormat:Local(@"No alert")];
     }
     
     [self.alertDayLabel sizeToFit];
@@ -147,6 +153,11 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
     }else if(_firstDayOfWeekSegment.selectedSegmentIndex == 1){
         setting.firstDayOfWeek = NO;  //周一
     }
+    if (_unitSegment.selectedSegmentIndex == 0) {
+        setting.weightUnit = 0;
+    }else {
+        setting.weightUnit = 1;
+    }
 }
 
 #pragma mark -TableView
@@ -174,10 +185,9 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
 
 - (void)alertForClearAllData
 {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"警告"
-                                                                   message:@"你确定要清空所有的用户数据吗？"
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:Local(@"Warning")                                                                   message:Local(@"Confirm to delete all user data？")
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
-    [alert addAction:[UIAlertAction actionWithTitle:@"确定"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Okay")
                                               style:UIAlertActionStyleDestructive
                                             handler:^(UIAlertAction * action) {
                                                 if ([SportRecordStore clearTable]){
@@ -185,7 +195,7 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
                                                     [self alertForDataCleared];
                                                 }
                                             }]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"取消"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Cancel")
                                               style:UIAlertActionStyleCancel
                                             handler:^(UIAlertAction * action) {}]];
     
@@ -194,10 +204,10 @@ static const NSString* KEYCHAIN_NAME = @"passcode";
 
 - (void)alertForDataCleared
 {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"所有用户数据已被清空"
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:Local(@"All user data has been clear" )
                                                                    message:@""
                                                             preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"确定"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Okay")
                                               style:UIAlertActionStyleCancel
                                             handler:^(UIAlertAction * action) {}]];
     

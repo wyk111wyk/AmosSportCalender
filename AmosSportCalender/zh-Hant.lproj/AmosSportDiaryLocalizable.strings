@@ -1,0 +1,223 @@
+/*
+ AmosSportDiaryLocalizable.strings
+ AmosSportDiary
+ 
+ Created by Amos Wu on 15/8/31.
+ Copyright © 2015年 Amos Wu. All rights reserved.
+ */
+
+CFBundleDisplayName = "Amos運動日誌";
+
+"Today" = "今天";
+"Delete" = "刪除";
+"Edit" = "修改";
+"Cancel" = "取消";
+"Done" = "完成";
+"New" = "新建";
+"Save" = "保存";
+"Back" = "返回";
+"Okay" = "確定";
+
+"D" = "天";
+"H" = "時";
+"M" = "分";
+"Min" = "分鐘";
+"%d min" = "%d 分鐘";
+
+"Cal" = "日曆";
+"Sum" = "總結";
+
+"lb" = "磅";
+"Weight" = "負重";
+
+"What you wanna share with" = "您想要分享什麼";
+"Today's events(%@)" = "今日-運動項目(%@項)";
+"Start Now!" = "立即開始計劃運動吧！";
+"Summary" = "總結-運動概況";
+
+"%@，all %@ events，now %d done，%@ more left" = "%@，共有%@個項目，已完成%d項，還剩%@項";
+"all %@ events，now %@ done，%@ more left" = "共有%@個項目，已完成%d項，還剩%@項";
+"All events have done today，%@，well done!" = "今天的運動已經全部完成，%@，乾得好！";
+"All events have done today，well done!" = "今天的運動已經全部完成，乾得好！";
+
+"Mon" = "週一";
+"Tue" = "週二";
+"Wed" = "週三";
+"Thu" = "週四";
+"Fri" = "週五";
+"Sat" = "週六";
+"Sun" = "周日";
+
+"Review in Apple Store" = "請在Apple Store幫忙評分";
+"Read something from Amos" = "看看作者寫的運動心得，歡迎交流";
+
+"It’s been %@ days，sorry to say that you grow %.2f more fat~ Come on and make a plan！" = "%@天沒有運動了，很遺憾您又長了%.2f斤肉~趕快來做一個運動計劃吧！";
+"%@，It’s been %@ days，sorry to say that you grow %.2f more fat~ Come on and make a plan！" = "%@，%@天沒有運動了，很遺憾您又長了%.2f斤肉~趕快來做一個運動計劃吧！";
+
+"(%@ days ago)" = "(%@天前)";
+"(%@ days later)" = "(%@天後)";
+
+"Doing exercises part：%@" = "進行：%@鍛鍊";
+"Exercises：\n" = "鍛鍊內容：\n";
+
+"Transferring data，please wait..." = "正在遷移數據，請稍後...";
+"Data transfer success " = "已將所有數據遷移到新用戶！";
+
+"Change theme color" = "編輯顏色";
+"yyyy-MM-dd EEEE H:mm" = "yyyy年MM月dd日 EEEE H:mm";
+"Detail" = "項目詳情";
+
+"Keep going！" = "繼續努力吧！";
+"Not started yet" = "還未開始此項運動";
+"No records of this part" = "還沒有該項運動類型的任何記錄";
+
+"From yyyy/MM/dd" = "從yyyy年MM月dd日起";
+"No password" = "沒有設置密碼";
+"Please put finger on the HOME button" = "通過Home鍵驗證已有手機指紋";
+"Set new password" = "請輸入新的密碼";
+"Type in the password to unlock" = "請輸入密碼以解鎖";
+
+"Pease repeat" = "請重復輸入";
+"Your password is not right\nPlease try again" = "你的密碼並不符合\n請重新嘗試";
+"1 chance to try" = "剩餘1次嘗試機會";
+"%i chances to try" = "剩餘%i次嘗試機會";
+
+"Please type in" = "請在此輸入";
+"Please type in your feedback( or shark the phone)." = "請在此輸入反饋的具體內容(或直接搖晃手機)。\n一起讓軟件更好的改善我們的運動生活。";
+
+"Got be something!" = "請不要發送空內容";
+"Send success！" = "反饋發送成功！";
+
+"Choose %@ Comb" = "挑選%@組合";
+"Include Sports：%@" = "包含運動項目數量：%@項";
+"Can not choose this combination" = "無法挑選該組合";
+"Reason：this combination does not include any sport，please add one first" = "原因：該組合內沒有任何運動項目，請在編輯中添加";
+"Choose date to adding combination" = "選擇需要添加該組合的日期";
+"Choose date to exercise" = "選擇運動的日期";
+
+"Default sport record" = "默認運動記錄";
+"%@’s sport record" = "%@的運動記錄";
+"Bucking up data..." = "正在備份數據...";
+"Back up success！" = "數據備份成功！";
+"Back up fail！" = "數據備份失敗！";
+"Pull to refresh" = "下拉進行刷新";
+"Refreshing..." = "正在進行刷新...";
+"Last time refresh: %@" = "上次刷新時間: %@";
+"Restore all data to \n(%@)？" = "恢復所有數據為\n(%@)？";
+"It’s going to clear all (%@)’s data！" = "這將覆蓋現有用戶(%@)的所有數據！";
+"Start to restore..." = "開始還原數據...";
+"Restore data success！" = "數據還原成功！";
+
+"A little problem" = "出了個小問題";
+"You have not set iCloud，iCloud cannot work" = "您並沒有設置iCloud，所以無法使用iCloud進行數據備份";
+"Jump to setting" = "跳轉到設置";
+
+"Sport Cal" = "運動日曆";
+"Finish List" = "完成列表";
+"Data" = "類型管理";
+"Setting" = "設置";
+"Feedback" = "反饋";
+"About" = "關於";
+"Default User" = "默認用戶";
+"All exercise day：%@" = "鍛鍊總天數：%@";
+
+"Choose Avatar operation" = "選擇對頭像的操作";
+"Choose Image operation" = "選擇對圖片的操作";
+"Take photo" = "拍照";
+"Choose from library" = "從相冊中選取";
+"Delete the photo" = "刪除圖片";
+"Error operation" = "無法完成操作";
+"Reason：system image can’t be deleted" = "原因：系統自帶的運動項目圖片無法刪除";
+
+"Aerobic" = "有氧";
+"Resistance" = "抗阻";
+"Stretch" = "拉伸";
+"Add Sport" = "添加項目";
+"Edit Sport" = "編輯項目";
+"Set Sport" = "預置項目";
+"New Sport" = "新建項目";
+"Modify Sport" = "修改項目";
+
+"Self-weight" = "自身重量";
+"%d sets" = "%d 組";
+"%d reps" = "%d 次/組";
+"%@ reps" = "%@次";
+"reps" = "次/組";
+"sets" = "組";
+
+"\n1.Lose fat\n Do some medium weight compound action training on bigger muscle group first, such as deep squat, squat jump. Do HIIT after anaerobic exercise, both the strength and the time are relatively long。\n\n2.Compact line\n May use circle strength training, multiple sets (more than 20 sets), multiple times (more than 20 times per set) and medium weight (50% of biggest negative heavy). Together with HIIT, greater strength, medium time. \n\n3.Increase certain muscle\n Heavier weight, less sets, slow down while put down, which means mind the centrifugal contraction." = "\n1.減脂\n先做些大肌群的中等重量復合動作訓練，比如空桿的深蹲，蹲跳等。無氧後採用強度和時間都相對長的HIIT。\n\n2.緊致的線條\n可以採用多組數（20組以上），多次數（每組20次以上），中等重量（最大負重的50%）的循環力量訓練。搭配強度較大，時間中等的HIIT。\n\n3.增加某部位肌肉\n大重量小組數，下落時候要有控制的非常慢，也就是注意離心收縮。";
+"Tips" = "動作要領";
+
+"Choose the equipment" = "挑選運動器械";
+"Choose sport part" = "挑選運動部位";
+"Sport part and name are necessary" = "運動項目和部位是必填的";
+
+"Beginner level" = "初級";
+"Middle level" = "中級";
+"High level" = "高級";
+
+"New combin - %@" = "新建組合-%@";
+"Modify combin - %@" = "修改組合-%@";
+"%@%@ Sport combination" = "%@%@運動組合";
+"Exit without saving" = "在編輯中退出";
+"Type in combination name" = "請輸入組合名稱";
+"This is going to clear all unsaved data" = "這將清空所有未保存的數據";
+"Combination name cannot be blank" = "組合名稱不可為空";
+"Create new combin with all sports of today" = "將當天所有運動新建為預置組合";
+"Name already exist！" = "該名稱已存在！";
+
+"User Manage" =	"用戶管理";
+"Can’t delete current user" = "不能刪除正在使用的用戶";
+"Confirm to delete this user ：%@" = "確認刪除用戶：%@";
+"This is going to clear all user’s data！" = "這將會刪除該用戶的所有數據，且無法還原！";
+"Switch to user：%@" = "切換到用戶：%@";
+"Switch user" = "切換用戶";
+"Switch success！" = "已成功切換用戶數據！";
+"New User" = "新建用戶檔案";
+"Please type in user’s name" = "請輸入用戶姓名";
+"User’s name can’t be blank" = "名稱不可為空";
+"Initialize success!" = "初始化數據成功!";
+
+"%@ day" = "%@天";
+"No alert" = "當前沒有提醒";
+"Warning" = "警告";
+"Confirm to delete all user data？" = "你確定要清空所有的用戶數據嗎？";
+"All user data has been clear" = "所有用戶數據已被清空";
+
+"★ Stared Sports" = "★ 星標動作";
+"Others" = "其他";
+"★Star" = "★星標";
+"Delete this sport" = "刪除這項運動";
+
+"Sports Manage" = "運動項目管理";
+"Preset Combination" = "預置組合";
+"Choose the part" = "挑選部位";
+"Include：%@" = "包含數目：%@項";
+"%@- combination" = "%@-組合";
+"In total：%@" = "共計：%@組";
+
+"%d sets x %d reps  %d%@" = "%d組 x %d次  %d%@";
+"%d sets x %d reps  Self-weight" = "%d組 x %d次  自身重量";
+"No additional info" = "無額外屬性";
+"%d min" = "%d分鐘";
+
+"FinishList (%@ day)" = "完成列表（共計%@天）";
+"There is no finished sport" = "沒有已完成的運動項目";
+"%@-%@ - Days / Every week" = "%@年%@月-每周運動天數";
+
+"Hello，%@！\n please use finger to unluck" = "你好，%@！\n請使用指紋進行解鎖。";
+"Please don't always try" = "不知道密碼請不要輕易嘗試，萬一髮生不好的事情就不好了。\n少俠請過幾分鐘再來嘗試吧。";
+
+"Choose to Add Sports" = "選擇新建項目";
+"One Sport" = "一項運動";
+"My Email Address" = "聯繫方式(選填)";
+
+"Chest" = "胸部";
+"Back" = "背部";
+"Shoulders" = "肩部";
+"Legs" = "腿部";
+"Arms" = "手臂";
+"Stamina" = "耐力";
+"Abdominals" = "核心";
+"Synthesize" = "綜合";
+"Stretch" = "拉伸";

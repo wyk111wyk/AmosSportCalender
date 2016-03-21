@@ -51,6 +51,7 @@
 @property (weak, nonatomic) IBOutlet UIView *weightSepView;
 @property (weak, nonatomic) IBOutlet UIView *repeatSepView;
 @property (weak, nonatomic) IBOutlet UIView *RMSelView;
+@property (weak, nonatomic) IBOutlet UIImageView *editableMarkImageView;
 
 @property (nonatomic, strong) NSDate *selectedDateForMark;
 @property (nonatomic) BOOL initDone; ///<刚开始是不是完成
@@ -77,7 +78,7 @@
 }
 
 - (void)initTheNav {
-    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:nil];
+    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:Local(@"Cancel") style:UIBarButtonItemStylePlain target:self action:nil];
     cancelButton.tintColor = MyGreenColor;
     [cancelButton setActionBlock:^(id _Nonnull sender) {
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -87,7 +88,7 @@
         self.navigationItem.leftBarButtonItem = cancelButton;
     }
     
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStyleDone target:self action:nil];
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithTitle:Local(@"Save") style:UIBarButtonItemStyleDone target:self action:nil];
     [addButton setActionBlock:^(id _Nonnull sender) {
         if (_sportNameField.text.length == 0 || _partField.text.length == 0) {
             [self alertForNotChooseAnyEvent];
@@ -174,9 +175,9 @@
         [self.view endEditing:YES];
     }];
     
-    [self.segmentedControl insertSegmentWithTitle:@"有氧" atIndex:0];
-    [self.segmentedControl insertSegmentWithTitle:@"抗阻" atIndex:1];
-    [self.segmentedControl insertSegmentWithTitle:@"拉伸" atIndex:2];
+    [self.segmentedControl insertSegmentWithTitle:Local(@"Aerobic") atIndex:0];
+    [self.segmentedControl insertSegmentWithTitle:Local(@"Resistance") atIndex:1];
+    [self.segmentedControl insertSegmentWithTitle:Local(@"Stretch") atIndex:2];
     
     self.segmentedControl.backgroundColor = [UIColor colorWithWhite:0.9f alpha:1.0f];
     self.segmentedControl.segmentIndicatorBackgroundColor = MyWhite;
@@ -210,11 +211,11 @@
         _RMSelView.backgroundColor = MYBlueColor;
         
         if (_pageState == 0) {
-            titleStr = @"添加项目";
+            titleStr = Local(@"Add Sport");
         }else if (_pageState == 1) {
-            titleStr = @"编辑项目";
+            titleStr = Local(@"Edit Sport");
         }else if (_pageState == 4) {
-            titleStr = @"预置项目";
+            titleStr = Local(@"Set Sport");
             _actionDateField.enabled = NO;
             _actionSepView.backgroundColor = MyLightGray;
             _doneButton.enabled = NO;
@@ -224,10 +225,12 @@
         //新建
         [self updateEventDataAndUI];
         if (_pageState == 2) {
-            titleStr = @"新建项目";
+            titleStr = Local(@"New Sport");
         }else if (_pageState == 3) {
-            titleStr = @"修改项目";
+            titleStr = Local(@"Modify Sport");
         }
+        
+        _editableMarkImageView.hidden = NO;
         _actionDateField.enabled = NO;
         _doneButton.hidden = YES;
         _doneImageView.hidden = YES;
@@ -270,16 +273,16 @@
         
         if (_pageState == 1 || _pageState == 4) {
             if (_recordStore.timeLast > 0) {
-                _timeLastField.text = [NSString stringWithFormat:@"%d 分钟", _recordStore.timeLast];
+                _timeLastField.text = [NSString stringWithFormat:Local(@"%d min"), _recordStore.timeLast];
             }
             
             if (_recordStore.weight == 999) {
-                _weightField.text = @"自身重量";
+                _weightField.text = Local(@"Self-weight");
             }else {
                 _weightField.text = [NSString stringWithFormat:@"%d %@", _recordStore.weight, _unitText];
             }
-            _repeatTimesField.text = [NSString stringWithFormat:@"%d 组", _recordStore.repeatSets];
-            _RMField.text = [NSString stringWithFormat:@"%d 次/组", _recordStore.RM];
+            _repeatTimesField.text = [NSString stringWithFormat:Local(@"%d sets"), _recordStore.repeatSets];
+            _RMField.text = [NSString stringWithFormat:Local(@"%d reps"), _recordStore.RM];
             [_segmentedControl setSelectedSegmentIndex:_recordStore.sportType animated:YES];
         }
         
@@ -334,7 +337,11 @@
             return [UIImage imageWithContentsOfFile:[bundle pathForResource:n ofType:@"jpg"]];
         };
         UIImage *myImg = getBundleImage(ImageKey);
-        _actionImageView.image = myImg;
+        if (myImg) {
+            _actionImageView.image = myImg;
+        }else {
+            self.actionImageView.image = [UIImage imageNamed:@"funPic4"];
+        }
     }else {
         NSString *imageKey = _eventStore?_eventStore.imageKey:_recordStore.imageKey;
         NSString *imageCacheCode = [NSString stringWithFormat:@"photo_%@", imageKey];
@@ -395,11 +402,11 @@
             if (_timeLastField.text.length > 0) {
                 initNum = [_timeLastField.text intValue];
             }else {
-                _timeLastField.text = [NSString stringWithFormat:@"%d 分钟", initNum];
+                _timeLastField.text = [NSString stringWithFormat:Local(@"%d min"), initNum];
             }
             [numPicker configUITitle:textField.placeholder unit:Local(@"Min") min:0 max:90 step:1 initNum:initNum];
             numPicker.valueChangeBlock = ^(int value) {
-                _timeLastField.text = [NSString stringWithFormat:@"%d 分钟", value];
+                _timeLastField.text = [NSString stringWithFormat:Local(@"%d min"), value];
             };
             numPicker.clearBlock = ^{
                 _timeLastField.text = @"";
@@ -433,7 +440,7 @@
                 [self dismissValuePicker];
             };
             numPicker.selfWeghtBlock = ^{
-                _weightField.text = @"自身重量";
+                _weightField.text = Local(@"Self-weight");
                 _recordStore.weight = 999;
                 [self dismissValuePicker];
             };
@@ -444,11 +451,12 @@
             if (_repeatTimesField.text.length > 0) {
                 initNum = [_repeatTimesField.text intValue];
             }else {
-                _repeatTimesField.text = [NSString stringWithFormat:@"%d 组", initNum];
+                _repeatTimesField.text = [NSString stringWithFormat:Local(@"%d sets"), initNum];
             }
-            [numPicker configUITitle:textField.placeholder unit:@"组" min:0 max:20 step:1 initNum:initNum];
+            [numPicker configUITitle:textField.placeholder unit:Local(@"sets") min:0 max:20 step:1 initNum:initNum];
             numPicker.valueChangeBlock = ^(int value) {
-                _repeatTimesField.text = [NSString stringWithFormat:@"%d 组", value];
+                _repeatTimesField.text = [NSString stringWithFormat:Local(@"%d sets"), value];
+                [self updateTheTimeLast:0 repeats:value];
             };
             numPicker.clearBlock = ^{
                 _repeatTimesField.text = @"";
@@ -461,11 +469,12 @@
             if (_RMField.text.length > 0) {
                 initNum = [_RMField.text intValue];
             }else {
-                _RMField.text = [NSString stringWithFormat:@"%d 次/组", initNum];
+                _RMField.text = [NSString stringWithFormat:Local(@"%d reps"), initNum];
             }
-            [numPicker configUITitle:textField.placeholder unit:@"次/组" min:0 max:90 step:1 initNum:initNum];
+            [numPicker configUITitle:textField.placeholder unit:Local(@"reps") min:0 max:90 step:1 initNum:initNum];
             numPicker.valueChangeBlock = ^(int value) {
-                _RMField.text = [NSString stringWithFormat:@"%d 次/组", value];
+                _RMField.text = [NSString stringWithFormat:Local(@"%d reps"), value];
+                [self updateTheTimeLast:value repeats:0];
             };
             numPicker.clearBlock = ^{
                 _RMField.text = @"";
@@ -543,11 +552,24 @@
     int repests = [[ASDataManage sharedManage] timesValuedata:tempDic];
     
     _weightField.text = [NSString stringWithFormat:@"%d %@", weight, _unitText];
-    _repeatTimesField.text = [NSString stringWithFormat:@"%d 组", times];
-    _RMField.text = [NSString stringWithFormat:@"%d 次/组", repests];
+    _repeatTimesField.text = [NSString stringWithFormat:Local(@"%d sets"), times];
+    _RMField.text = [NSString stringWithFormat:Local(@"%d reps"), repests];
     
-    int mins = times * repests * 5 / 60;
-    _timeLastField.text = [NSString stringWithFormat:@"%d 分钟", mins];
+    [self updateTheTimeLast:times repeats:repests];
+}
+
+- (void)updateTheTimeLast: (int)times repeats:(int)repeats {
+    if (times == 0) {
+        times = [_RMField.text intValue];
+    }
+    if (repeats == 0) {
+        repeats = [_repeatTimesField.text intValue];
+    }
+    
+    if (times > 0 && repeats > 0) {
+        int mins = times * repeats * 10 / 60;
+        _timeLastField.text = [NSString stringWithFormat:Local(@"%d min"), mins];
+    }
 }
 
 - (void)dismissValuePicker {
@@ -571,13 +593,13 @@
 - (IBAction)infoButtonClicked:(UIBarButtonItem *)sender {
     NSString *messStr = _eventStore?_eventStore.sportTips:_recordStore.sportTips;
     if (messStr.length == 0) {
-        messStr = @"\n1.减脂\n先做些大肌群的中等重量复合动作训练，比如空杆的深蹲，蹲跳等。无氧后采用强度和时间都相对长的HIIT。\n\n2.紧致的线条\n可以采用多组数（20组以上），多次数（每组20次以上），中等重量（最大负重的50%）的循环力量训练。搭配强度较大，时间中等的HIIT。\n\n3.增加某部位肌肉\n大重量小组数，下落时候要有控制的非常慢，也就是注意离心收缩。";
+        messStr = Local(@"\n1.Lose fat\n Do some medium weight compound action training on bigger muscle group first, such as deep squat, squat jump. Do HIIT after anaerobic exercise, both the strength and the time are relatively long。\n\n2.Compact line\n May use circle strength training, multiple sets (more than 20 sets), multiple times (more than 20 times per set) and medium weight (50% of biggest negative heavy). Together with HIIT, greater strength, medium time. \n\n3.Increase certain muscle\n Heavier weight, less sets, slow down while put down, which means mind the centrifugal contraction.");
     }
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"动作要领"
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:Local(@"Tips")
                                                                    message:messStr
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"确定"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Okay")
                                               style:UIAlertActionStyleCancel
                                             handler:^(UIAlertAction * action) {}]];
     
@@ -586,7 +608,7 @@
 
 - (void)clickToChangeDate:(UITextField *)sender {
     [self.view endEditing:YES];
-    AbstractActionSheetPicker *newDatePicker = [[ActionSheetDatePicker alloc] initWithTitle:@"选择运动日期" datePickerMode:UIDatePickerModeDate selectedDate:_selectedDateForMark doneBlock:^(ActionSheetDatePicker *picker, id selectedDate, id origin) {
+    AbstractActionSheetPicker *newDatePicker = [[ActionSheetDatePicker alloc] initWithTitle: Local (@"Choose date to exercise")datePickerMode:UIDatePickerModeDate selectedDate:_selectedDateForMark doneBlock:^(ActionSheetDatePicker *picker, id selectedDate, id origin) {
         _selectedDateForMark = selectedDate;
         NSString *newStr = [[ASBaseManage dateFormatterForDMYE] stringFromDate:selectedDate];
         NSString *compareStr = [[ASBaseManage dateFormatterForDMYE] stringFromDate:[NSDate date]];
@@ -614,8 +636,14 @@
 - (void)clickToChangeSportAttribute:(UITextField *)sender {
     [self.view endEditing:YES];
     ActionSheetStringPicker *newPicker;
+    
     if (sender == _equipField) {
-        newPicker = [[ActionSheetStringPicker alloc] initWithTitle:@"挑选运动器械" rows:@[@"无",@"弹力绳"] initialSelection:0 doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
+        NSArray *equipmentArr = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"EquipmentList" ofType:@"plist"]];
+        NSInteger initialIndex = 0;
+        if ([equipmentArr containsObject:_equipField.text]) {
+            initialIndex = [equipmentArr indexOfObject:_equipField.text];
+        }
+        newPicker = [[ActionSheetStringPicker alloc] initWithTitle:Local(@"Choose the equipment") rows:equipmentArr initialSelection:initialIndex doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
             _equipField.text = (NSString *)selectedValue;
         } cancelBlock:^(ActionSheetStringPicker *picker) {
             _equipField.text = @"";
@@ -626,7 +654,7 @@
         if ([partArray containsObject:_partField.text]) {
             initialIndex = [partArray indexOfObject:_partField.text];
         }
-        newPicker = [[ActionSheetStringPicker alloc] initWithTitle:@"挑选运动部位" rows:partArray initialSelection:initialIndex doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
+        newPicker = [[ActionSheetStringPicker alloc] initWithTitle:Local(@"Choose sport part") rows:partArray initialSelection:initialIndex doneBlock:^(ActionSheetStringPicker *picker, NSInteger selectedIndex, id selectedValue) {
             _partField.text = (NSString *)selectedValue;
         } cancelBlock:^(ActionSheetStringPicker *picker) {
             _partField.text = @"";
@@ -640,10 +668,10 @@
 #pragma mark - 图片编辑
 
 - (void)alertForNotChooseAnyEvent {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"运动项目和部位是必填的"
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:Local(@"Sport part and name are necessary")
                                                                    message:nil
                                                             preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"确定"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Okay")
                                               style:UIAlertActionStyleCancel
                                             handler:^(UIAlertAction * action) {}]];
     [self presentViewController:alert animated:YES completion:nil];
@@ -651,11 +679,11 @@
 
 - (void)alertForChooseCreate
 {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"选择对图片的操作"
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:Local(@"Choose Image operation")
                                                                    message:nil
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"拍照"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Take photo")
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction * action) {
         //拍照
@@ -676,7 +704,7 @@
         }
                                                 
                                             }]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"从相册中选取"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Choose from library")
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction * action) {
         //从相册中选取
@@ -693,7 +721,7 @@
         }
                                                 
                                             }]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"删除图片"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Delete the photo")
                                               style:UIAlertActionStyleDestructive
                                             handler:^(UIAlertAction * action) {
         //删除
@@ -708,7 +736,7 @@
                                                 
                                             }]];
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"取消"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Cancel")
                                               style:UIAlertActionStyleCancel
                                             handler:^(UIAlertAction * action) {}]];
     
@@ -774,11 +802,11 @@
 
 - (void)alertForCanNotDeleteImage
 {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"无法完成操作"
-                                                                   message:@"原因：系统自带的运动项目图片无法删除"
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:Local(@"Error operation")
+                                                                   message:Local(@"Reason：system image can’t be deleted")
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"确定"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Okay")
                                               style:UIAlertActionStyleCancel
                                             handler:^(UIAlertAction * action) {}]];
     

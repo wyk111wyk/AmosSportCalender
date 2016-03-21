@@ -30,7 +30,7 @@
     [super viewDidLoad];
     
     _isFirstIn = YES;
-    self.navigationItem.title = [NSString stringWithFormat:@"挑选%@组合", _groupPart];
+    self.navigationItem.title = [NSString stringWithFormat:Local(@"Choose %@ Comb"), _groupPart];
     [self setExtraCellLineHidden:self.tableView];
     
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"plus"] style:UIBarButtonItemStylePlain target:self action:nil];
@@ -115,7 +115,7 @@
     
     NSString *criStr = [NSString stringWithFormat:@" WHERE isGroupSet = '1' AND groupSetPK = '%d' ", groupStore.pk];
     NSInteger countNum = [SportRecordStore findCounts:criStr];
-    cell.numOfEvent.text = [NSString stringWithFormat:@"包含运动项目数量：%@项", @(countNum)];
+    cell.numOfEvent.text = [NSString stringWithFormat:Local(@"Include Sports：%@"), @(countNum)];
     
     return cell;
 }
@@ -161,7 +161,7 @@
                 
                 [self.navigationController pushViewController:newGroup animated:YES];
                                         }];
-    editAction.backgroundColor = [UIColor colorWithRed:0.0000 green:0.4784 blue:1.0000 alpha:1];
+    editAction.backgroundColor = [UIColor orangeColor];
     
     return @[deleteAction, editAction]; //与实际显示的顺序相反
 }
@@ -170,11 +170,11 @@
 
 - (void)alertForHaveNoEvent
 {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"无法挑选该组合"
-                                                                   message:@"原因：该组合内没有任何运动项目，请在编辑中添加"
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:Local(@"Can not choose this combination")
+                                                                   message:Local(@"Reason：this combination does not include any sport，please add one first")
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"确定"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Okay")
                                               style:UIAlertActionStyleCancel
                                             handler:^(UIAlertAction * action) {}]];
     
@@ -185,7 +185,7 @@
 {
     GroupSetStore *groupStore = _allGroupSets[indexPath.row];
     UIAlertController* alert = [UIAlertController alertControllerWithTitle:groupStore.groupName
-                                                                   message:@"选择需要添加该组合的日期"
+                                                                   message:Local(@"Choose date to adding combination")
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
     [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
@@ -203,7 +203,7 @@
     }];
     _selectedDate = [NSDate date];
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"确定"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Okay")
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction * action) {
         NSString *criStr = [NSString stringWithFormat:@" WHERE isGroupSet = '1' AND groupSetPK = '%d' ", groupStore.pk];
@@ -240,7 +240,7 @@
     }]];
                                             
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"取消"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Cancel")
                                               style:UIAlertActionStyleCancel
                                             handler:^(UIAlertAction * action) {}]];
     
@@ -252,7 +252,7 @@
 }
 
 - (void)clickToChangeDate {
-    AbstractActionSheetPicker *newDatePicker = [[ActionSheetDatePicker alloc]initWithTitle:@"选择运动的日期" datePickerMode:UIDatePickerModeDate selectedDate:[NSDate date] doneBlock:^(ActionSheetDatePicker *picker, id selectedDate, id origin) {
+    AbstractActionSheetPicker *newDatePicker = [[ActionSheetDatePicker alloc]initWithTitle:Local(@"Choose date to exercise") datePickerMode:UIDatePickerModeDate selectedDate:[NSDate date] doneBlock:^(ActionSheetDatePicker *picker, id selectedDate, id origin) {
         _selectedDate = selectedDate;
         NSString *newStr = [[ASBaseManage dateFormatterForDMYE] stringFromDate:selectedDate];
         NSString *compareStr = [[ASBaseManage dateFormatterForDMYE] stringFromDate:[NSDate date]];

@@ -14,6 +14,7 @@
                 <outlet property="actionSepView" destination="K4X-fU-nCq" id="QJ2-91-7VY"/>
                 <outlet property="doneButton" destination="NBm-4C-ZcZ" id="or1-uJ-vgZ"/>
                 <outlet property="doneImageView" destination="Q9f-fH-MHp" id="8M1-ue-VBg"/>
+                <outlet property="editableMarkImageView" destination="0H8-J1-M91" id="NSl-uk-8dg"/>
                 <outlet property="equipField" destination="ijJ-bJ-erf" id="B6N-zj-Ux8"/>
                 <outlet property="equipSepView" destination="M7J-pa-Xmb" id="VVK-eG-rUI"/>
                 <outlet property="imageButton" destination="Ehk-qp-4Lm" id="Doc-4z-Hcv"/>
@@ -341,6 +342,13 @@
                         <action selector="buttonClickedMethod:" destination="-1" eventType="touchUpInside" id="dU2-Y7-8Cn"/>
                     </connections>
                 </button>
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="SLR_camera_filled" translatesAutoresizingMaskIntoConstraints="NO" id="0H8-J1-M91">
+                    <rect key="frame" x="257" y="489" width="23" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="23" id="cfe-R3-f7Q"/>
+                        <constraint firstAttribute="height" constant="20" id="sCs-lT-odV"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
@@ -355,11 +363,13 @@
                 <constraint firstItem="Z2V-Ps-rHh" firstAttribute="top" secondItem="STV-3f-6fc" secondAttribute="bottom" constant="12" id="O10-k9-GiF"/>
                 <constraint firstItem="KVS-6z-jvY" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="PE9-YC-HDP"/>
                 <constraint firstItem="Ehk-qp-4Lm" firstAttribute="centerY" secondItem="STV-3f-6fc" secondAttribute="centerY" id="R7S-SL-ccf"/>
+                <constraint firstItem="0H8-J1-M91" firstAttribute="bottom" secondItem="STV-3f-6fc" secondAttribute="bottom" constant="-3" id="RXf-Ss-MVJ"/>
                 <constraint firstItem="Q1O-SK-Vaz" firstAttribute="top" secondItem="KVS-6z-jvY" secondAttribute="bottom" constant="12" id="VPq-qn-GgA"/>
                 <constraint firstItem="STV-3f-6fc" firstAttribute="top" secondItem="Q1O-SK-Vaz" secondAttribute="bottom" constant="6" id="Vi9-nP-wRe"/>
                 <constraint firstItem="NBm-4C-ZcZ" firstAttribute="height" secondItem="Q9f-fH-MHp" secondAttribute="height" id="bGO-mF-ud8"/>
                 <constraint firstAttribute="trailing" secondItem="KVS-6z-jvY" secondAttribute="trailing" constant="15" id="bzv-MM-IwE"/>
                 <constraint firstItem="Ehk-qp-4Lm" firstAttribute="height" secondItem="STV-3f-6fc" secondAttribute="height" id="eQw-zq-MXT"/>
+                <constraint firstItem="0H8-J1-M91" firstAttribute="trailing" secondItem="STV-3f-6fc" secondAttribute="trailing" constant="-25" id="gVI-mQ-07o"/>
                 <constraint firstItem="Ehk-qp-4Lm" firstAttribute="centerX" secondItem="STV-3f-6fc" secondAttribute="centerX" id="i6S-bY-7wF"/>
                 <constraint firstItem="KVS-6z-jvY" firstAttribute="top" secondItem="Q9f-fH-MHp" secondAttribute="bottom" constant="-49" id="kta-tl-htj"/>
                 <constraint firstItem="STV-3f-6fc" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="15" id="l5h-Sg-7gu"/>
@@ -374,6 +384,7 @@
     </objects>
     <resources>
         <image name="DonePicHorizontal-Right" width="175" height="125"/>
+        <image name="SLR_camera_filled" width="25" height="25"/>
         <image name="funPic4" width="178" height="134"/>
         <image name="info" width="25" height="25"/>
     </resources>

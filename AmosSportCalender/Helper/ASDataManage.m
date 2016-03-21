@@ -190,6 +190,53 @@
         }
     }
     
+    //导入预置组合
+    eventCount = [GroupSetStore findCounts:nil];
+    if (eventCount == 0) {
+        [KVNProgress showWithStatus:Local(@"Transferring data，please wait...")];
+        NSArray * setArray = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"inputGroupSets" ofType:@"plist"]];
+        
+        for (NSDictionary *tempDic in setArray){
+            GroupSetStore *newSet = [GroupSetStore new];
+            newSet.groupPart = [tempDic objectForKey:@"groupPart"];
+            newSet.groupName = [tempDic objectForKey:@"groupName"];
+            newSet.groupLevel = [[tempDic objectForKey:@"groupLevel"] integerValue];
+            [newSet save];
+        }
+        
+        NSArray * eventArray = [NSArray arrayWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"inputGroupEvents" ofType:@"plist"]];
+        for (NSDictionary *tempDic in eventArray){
+            NSString *setName = [tempDic objectForKey:@"groupSetName"];
+            NSString *sportName = [tempDic objectForKey:@"sportName"];
+            GroupSetStore *setStore = [GroupSetStore findFirstWithFormat:@" WHERE groupName = '%@' ", setName];
+            if (setStore) {
+                SportEventStore *eventStore = [SportEventStore findFirstWithFormat:@" WHERE sportName = '%@' ", sportName];
+                if (eventStore) {
+                    SportRecordStore *newRecord = [SportRecordStore new];
+                    newRecord.isGroupSet = YES;
+                    newRecord.groupSetPK = setStore.pk;
+                    
+                    newRecord.sportEquipment = eventStore.sportEquipment;
+                    newRecord.sportName = sportName;
+                    newRecord.sportSerialNum = eventStore.sportSerialNum;
+                    newRecord.sportPart = eventStore.sportPart;
+                    newRecord.muscles = eventStore.muscles;
+                    newRecord.timeLast = [[tempDic objectForKey:@"timeLast"] intValue];
+                    newRecord.repeatSets = [[tempDic objectForKey:@"repeats"] intValue];
+                    newRecord.RM = [[tempDic objectForKey:@"times"] intValue];
+                    newRecord.weight = [[tempDic objectForKey:@"weight"] intValue];
+                    newRecord.sportType = eventStore.sportType;
+                    newRecord.datePart = setStore.groupPart;
+                    newRecord.isSystemMade = eventStore.isSystemMade;
+                    newRecord.imageKey = eventStore.imageKey;
+                    
+                    [newRecord save];
+                }
+            }
+            [KVNProgress showSuccessWithStatus:Local(@"Data transfer success ")];
+        }
+    }
+    
     [self transferEventsData];
 }
 
@@ -200,7 +247,6 @@
     NSString *dataPath = [documentDirectory stringByAppendingPathComponent:@"event.archive"];
     
     if ([[NSFileManager defaultManager] fileExistsAtPath:dataPath]) {
-        [KVNProgress showWithStatus:@"正在迁移数据，请不要退出..."];
         NSDictionary *allOldEvents = [NSKeyedUnarchiver unarchiveObjectWithFile:dataPath];
         
         NSArray *allKeys = [allOldEvents allKeys];
@@ -216,7 +262,7 @@
                 newRecord.dateKey = dateKey;
                 newRecord.sportName = event.sportName;
                 newRecord.sportPart = event.sportType;
-                if ([newRecord.sportPart isEqualToString:@"体力"]) {
+                if ([newRecord.sportPart isEqualToString:@"耐力"]) {
                     newRecord.sportPart = @"耐力";
                 }
                 newRecord.weight = event.weight;
@@ -262,7 +308,6 @@
         [[SettingStore sharedSetting] setTypeColorArray:tempArr];
     }
     
-    [KVNProgress showSuccessWithStatus:@"已将所有数据迁移到新的格式！"];
 }
 
 #pragma mark - 智能推荐

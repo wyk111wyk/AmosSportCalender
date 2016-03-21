@@ -12,6 +12,7 @@
 
 @property (weak, nonatomic) IBOutlet UIImageView *starImageView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *starWeigh;
+@property (weak, nonatomic) IBOutlet UIImageView *sportImageView;
 @property (weak, nonatomic) IBOutlet UILabel *equipLabel;
 @property (weak, nonatomic) IBOutlet UILabel *sportNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *muscleLabel;

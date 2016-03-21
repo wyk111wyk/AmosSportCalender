@@ -27,7 +27,7 @@
     [super viewDidLoad];
     
     if (_pageState == 0) {
-        self.navigationItem.title = @"运动项目管理";
+        self.navigationItem.title = Local(@"Sports Manage");
         UIBarButtonItem *menuButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"menuIcon"] style:UIBarButtonItemStylePlain target:self action:nil];
         [menuButton setActionBlock:^(id _Nonnull sender) {
             [self.sideMenuViewController presentLeftMenuViewController];
@@ -35,15 +35,15 @@
         self.navigationItem.leftBarButtonItem = menuButton;
         menuButton.tintColor = MyGreenColor;
     }else if(_pageState == 1) {
-        self.navigationItem.title = @"预置组合";
-        UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:nil];
+        self.navigationItem.title = Local(@"Preset Combination");
+        UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:Local(@"Cancel") style:UIBarButtonItemStylePlain target:self action:nil];
         [cancelButton setActionBlock:^(id _Nonnull sender) {
             [self dismissViewControllerAnimated:YES completion:nil];
         }];
         self.navigationItem.leftBarButtonItem = cancelButton;
         cancelButton.tintColor = MyGreenColor;
     }else if (_pageState == 2) {
-        self.navigationItem.title = @"挑选部位";
+        self.navigationItem.title = Local(@"Choose the part");
     }
     
     
@@ -94,12 +94,12 @@
         cell.iconLabel.text = sportPart;
         NSString *criStr = [NSString stringWithFormat:@" WHERE sportPart = '%@' ", sportPart];
         NSInteger countNum = [SportEventStore findCounts:criStr];
-        cell.stateLabel.text = [NSString stringWithFormat:@"包含数目：%@项", @(countNum)];
+        cell.stateLabel.text = [NSString stringWithFormat:Local(@"Include：%@"), @(countNum)];
     }else if (_pageState == 1) {
-        cell.iconLabel.text = [NSString stringWithFormat:@"%@-组合", sportPart];
+        cell.iconLabel.text = [NSString stringWithFormat:Local(@"%@- combination"), sportPart];
         NSString *criStr = [NSString stringWithFormat:@" WHERE groupPart = '%@' ", sportPart];
         NSInteger countNum = [GroupSetStore findCounts:criStr];
-        cell.stateLabel.text = [NSString stringWithFormat:@"共计：%@组", @(countNum)];
+        cell.stateLabel.text = [NSString stringWithFormat:Local(@"In total：%@"), @(countNum)];
     }
     
     //字体颜色
@@ -148,7 +148,7 @@
     
     UITableViewRowAction *editColorAction = [UITableViewRowAction
                                              rowActionWithStyle:UITableViewRowActionStyleDestructive
-                                             title:@"改变颜色"
+                                             title:Local(@"Change theme color")
                                              handler:^(UITableViewRowAction *action, NSIndexPath *indexPath){
          NSArray *oneColor = [setting.typeColorArray objectAtIndex:indexPath.row];
          UIColor *pickedColor = [UIColor colorWithRed:[oneColor[0] floatValue] green:[oneColor[1] floatValue] blue:[oneColor[2] floatValue] alpha:1];

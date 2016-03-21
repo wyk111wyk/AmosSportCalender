@@ -55,7 +55,7 @@
     }
     
     //设置标题
-    self.navigationItem.title = [NSString stringWithFormat:@"完成列表（共计%@天）", @(allDates.count)];
+    self.navigationItem.title = [NSString stringWithFormat:Local(@"FinishList (%@ day)"), @(allDates.count)];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -69,7 +69,7 @@
     //这里是TableView的背景文字
     _tableViewBV = [[UIView alloc] initWithFrame:self.tableView.frame];
     _tableViewBV.backgroundColor = MyWhite;
-    NSMutableAttributedString *one = [[NSMutableAttributedString alloc] initWithString:@"没有已完成的运动项目"];
+    NSMutableAttributedString *one = [[NSMutableAttributedString alloc] initWithString:Local(@"There is no finished sport")];
     one.font = [UIFont systemFontOfSize:20];
     one.color = [UIColor colorWithWhite:0.85 alpha:1];;
     YYTextShadow *shadow = [YYTextShadow new];

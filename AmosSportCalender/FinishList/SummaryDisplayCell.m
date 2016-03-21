@@ -24,7 +24,7 @@
     [self.sportTypeLabel sizeToFit];
     
     self.sportNameLabel.text = _recordStore.sportName;
-    self.timelastLabel.text =[NSString stringWithFormat:@"%i分钟", _recordStore.timeLast];
+    self.timelastLabel.text =[NSString stringWithFormat:Local(@"%d min"), _recordStore.timeLast];
     self.sportAttributeLabel.text = [self setSportAttributeText];
     [self.sportAttributeLabel sizeToFit];
     
@@ -43,17 +43,21 @@
         //抗阻运动
         NSString *unitText = @"";
         SettingStore *setting = [SettingStore sharedSetting];
-        if (_recordStore.weight == 999){
-            //不变
-        }else if (setting.weightUnit == 0) {
+        if (setting.weightUnit == 0) {
             unitText = @"Kg";
         }else if (setting.weightUnit == 1) {
             unitText = Local(@"lb");
         }
-        return [NSString stringWithFormat:@"%d组 x %d次  %d%@", _recordStore.repeatSets, _recordStore.RM, _recordStore.weight, unitText];
+        
+        NSString *setLabel = [NSString stringWithFormat:Local(@"%d sets x %d reps  %d%@"), _recordStore.repeatSets, _recordStore.RM, _recordStore.weight, unitText];
+        if (_recordStore.weight == 999) {
+            setLabel = [NSString stringWithFormat:Local(@"%d sets x %d reps  Self-weight"), _recordStore.repeatSets, _recordStore.RM];
+        }
+        
+        return setLabel;
     }else {
         //有氧或拉伸
-        return @"无额外属性";
+        return Local(@"No additional info");
     }
 }
 

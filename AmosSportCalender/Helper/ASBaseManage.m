@@ -129,9 +129,9 @@
     NSString *dayStr;
     NSInteger days = [components day];
     if (days > 0) {
-        dayStr = [NSString stringWithFormat:@"(%@天前)",@(days)];
+        dayStr = [NSString stringWithFormat:Local(@"(%@ days ago)"),@(days)];
     }else {
-        dayStr = [NSString stringWithFormat:@"(%@天后)",@(-days)];
+        dayStr = [NSString stringWithFormat:Local(@"(%@ days later)"),@(-days)];
     }
     
     return dayStr;
@@ -331,7 +331,6 @@
     for (int i = 0; i < colors.count; ++i)
     {
         MGSwipeButton * button = [MGSwipeButton buttonWithTitle:@"" icon:icons[i] backgroundColor:colors[i] padding:15 callback:^BOOL(MGSwipeTableCell * sender){
-            //            if (DeBugMode) {NSLog(@"Cell滑动(Left)的简易回调");}
             return YES;
         }];
         
@@ -349,7 +348,6 @@
     for (int i = 0; i < colors.count; ++i)
     {
         MGSwipeButton * button = [MGSwipeButton buttonWithTitle:@"" icon:icons[i] backgroundColor:colors[i] padding:15 callback:^BOOL(MGSwipeTableCell * sender){
-            //            if (DeBugMode) {NSLog(@"Cell滑动(Left)的简易回调");}
             return YES;
         }];
         
@@ -514,10 +512,10 @@
     //设置创建日历的内容
     
     //设置事件标题
-    self.ekevent.title = [NSString stringWithFormat:@"进行：%@锻炼", dayPart];  //事件标题
+    self.ekevent.title = [NSString stringWithFormat:Local(@"Doing exercises part：%@"), dayPart];  //事件标题
     
     //设置事件内容
-    NSString *initStr = [NSString stringWithFormat:@"锻炼内容：\n"];
+    NSString *initStr = [NSString stringWithFormat:Local(@"Exercises：\n" )];
     NSMutableString *notesStr = [[NSMutableString alloc] initWithString:initStr];
     
     for (SportRecordStore *recordStore in allDayEvents){
@@ -533,7 +531,7 @@
         
         NSString *tempAttribute;
         if (recordStore.sportType == 1) {
-            tempAttribute = [NSString stringWithFormat:@"%d组 x %d次  %d%@", recordStore.repeatSets, recordStore.RM, recordStore.weight, unitText];
+            tempAttribute = [NSString stringWithFormat:Local(@"%d sets x %d reps  %d%@"), recordStore.repeatSets, recordStore.RM, recordStore.weight, unitText];
         }else {
             tempAttribute = [NSString stringWithFormat:Local(@"%d min"), recordStore.timeLast];
         }
@@ -573,7 +571,8 @@
     addController.event = self.ekevent;
     addController.eventStore = self.eventStore;
     addController.editViewDelegate = self;
-    [rootVC presentViewController:rootVC animated:YES completion:nil];
+    
+    [rootVC presentViewController:addController animated:YES completion:nil];
 }
 
 #pragma mark EKEventEditViewDelegate
@@ -584,17 +583,18 @@
 {
     
     // Dismiss the modal view controller
-//    [self dismissViewControllerAnimated:YES completion:^
-//     {
-//         if (action == EKEventEditViewActionCanceled)
-//         {
-//         }else if (action == EKEventEditViewActionSaved)
-//         {
-//             NSLog(@"事件创建成功");
-//         }else if (action == EKEventEditViewActionDeleted)
-//         {
-//         }
-//     }];
+    UIViewController *vc = [self getCurrentVC];
+    [vc dismissViewControllerAnimated:YES completion:^
+     {
+         if (action == EKEventEditViewActionCanceled)
+         {
+         }else if (action == EKEventEditViewActionSaved)
+         {
+             NSLog(@"事件创建成功");
+         }else if (action == EKEventEditViewActionDeleted)
+         {
+         }
+     }];
 }
 
 //删除一个日历事件

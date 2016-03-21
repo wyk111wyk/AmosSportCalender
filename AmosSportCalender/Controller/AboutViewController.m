@@ -32,17 +32,18 @@ static NSString *const cellID = @"aboutcell";
     [super viewDidLoad];
     [_aboutLabel sizeToFit];
     
+    self.navigationItem.title = Local(@"About");
+    
     NSDictionary *infoDictionary =[[NSBundle mainBundle]infoDictionary];
     NSString *infoStr = [NSString stringWithFormat:@"Amos Sport Diary  V %@.%@", [infoDictionary objectForKey:@"CFBundleShortVersionString"], [infoDictionary objectForKey:@"CFBundleVersion"]];
     
     _visionLabel.text = infoStr;
     [_visionLabel sizeToFit];
     
-    _tableArray = [[NSArray alloc] initWithObjects:@"去Apple Store评分", @"瞅瞅作者写的运动心得", nil];
+    _aboutLabel.text = @"欢迎使用Amos运动日记！\n这是一款强大的健身协助软件，通过记录、回顾、计划，清晰的了解自己的状态和已经完成的工作。\n欢迎大家在使用后给我反馈和心得，包括交流运动的经验等，一起让软件变得更好用和顺手。（摇晃屏幕即可“反馈”）";
+    _tableArray = [[NSArray alloc] initWithObjects:Local(@"Review in Apple Store"), Local(@"Read something from Amos"), nil];
     
     [self.sideMenuViewController setPanFromEdge:NO];
-//    [self.mm_drawerController setOpenDrawerGestureModeMask:MMOpenDrawerGestureModeAll];
-    
 }
 
 - (void)didReceiveMemoryWarning {

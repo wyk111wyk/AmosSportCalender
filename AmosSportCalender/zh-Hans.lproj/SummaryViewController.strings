@@ -1,0 +1,45 @@
+
+/* Class = "UILabel"; text = "分"; ObjectID = "5gl-3N-c7w"; */
+"5gl-3N-c7w.text" = "分";
+
+/* Class = "UILabel"; text = "总计天数"; ObjectID = "5tO-p7-ZiQ"; */
+"5tO-p7-ZiQ.text" = "总计天数";
+
+/* Class = "UILabel"; text = "LEAST"; ObjectID = "A8y-xC-zPY"; */
+"A8y-xC-zPY.text" = "LEAST";
+
+/* Class = "UILabel"; text = "天"; ObjectID = "CAS-yj-xOl"; */
+"CAS-yj-xOl.text" = "天";
+
+/* Class = "UILabel"; text = "MOST"; ObjectID = "VrG-cf-6Gc"; */
+"VrG-cf-6Gc.text" = "MOST";
+
+/* Class = "UILabel"; text = "61"; ObjectID = "Vzi-Pc-QlD"; */
+"Vzi-Pc-QlD.text" = "61";
+
+/* Class = "UILabel"; text = "平均每周"; ObjectID = "YcL-Df-8uZ"; */
+"YcL-Df-8uZ.text" = "平均每周";
+
+/* Class = "UILabel"; text = "4.4"; ObjectID = "Ycq-X6-Fdd"; */
+"Ycq-X6-Fdd.text" = "4.4";
+
+/* Class = "UILabel"; text = "天"; ObjectID = "Zll-7Q-NXK"; */
+"Zll-7Q-NXK.text" = "天";
+
+/* Class = "UILabel"; text = "平均每次"; ObjectID = "bv3-FI-c3b"; */
+"bv3-FI-c3b.text" = "平均每次";
+
+/* Class = "UILabel"; text = "99"; ObjectID = "eTA-pi-Gyj"; */
+"eTA-pi-Gyj.text" = "99";
+
+/* Class = "UILabel"; text = "34"; ObjectID = "iDw-aX-D7c"; */
+"iDw-aX-D7c.text" = "34";
+
+/* Class = "UILabel"; text = "总时间"; ObjectID = "lWf-29-k0a"; */
+"lWf-29-k0a.text" = "总时间";
+
+/* Class = "UILabel"; text = "时"; ObjectID = "mLx-he-s33"; */
+"mLx-he-s33.text" = "时";
+
+/* Class = "UILabel"; text = "37.1%"; ObjectID = "rNF-Zc-25k"; */
+"rNF-Zc-25k.text" = "37.1%";

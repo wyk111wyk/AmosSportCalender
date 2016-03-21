@@ -79,11 +79,11 @@
     
     NSMutableDictionary *tempDic = _allUserData[_mainIndex];
     
-    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStyleDone target:self action:nil];
+    UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithTitle:Local(@"Save") style:UIBarButtonItemStyleDone target:self action:nil];
     saveButton.tintColor = MyGreenColor;
     [saveButton setActionBlock:^(id _Nonnull sender) {
         if (_nameTextField.text.length == 0) {
-            [self alertForSampleWarning:@"姓名不可为空"];
+            [self alertForSampleWarning:Local(@"User’s name can’t be blank")];
         }else {
             [self saveAllUserData:tempDic];
             if (_mainIndex == 0) {
@@ -239,7 +239,7 @@
                                                                    message:nil
                                                             preferredStyle:UIAlertControllerStyleAlert];
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"确定"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Okay")
                                               style:UIAlertActionStyleCancel
                                             handler:^(UIAlertAction * action) {}]];
     

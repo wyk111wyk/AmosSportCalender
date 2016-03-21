@@ -43,7 +43,7 @@
 - (void)configUITitle:(NSString*)titleText unit:(NSString*)unitText min:(int)min max:(int)max step:(int)step initNum:(int)initNum {
     _titleLabel.text = titleText;
     _unitLabel.text = unitText;
-    if ([titleText isEqualToString:@"负重"]) {
+    if ([titleText isEqualToString:Local(@"Weight")]) {
         _selfWeghtButton.hidden = NO;
     }
     CGFloat sliderHeight = [ZVScrollSlider heightWithBoundingWidth:screenWidth Title:titleText];

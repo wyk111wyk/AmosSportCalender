@@ -96,7 +96,7 @@
         NSString *monthStr = [[ASBaseManage dateFormatterForMY] stringFromDate:[NSDate date]];
         NSString *subStr1 = [monthStr substringFromIndex:3];
         NSString *subStr2 = [monthStr substringToIndex:2];
-        NSString *labelStr = [NSString stringWithFormat:@"%@年%@月-每周运动天数",subStr1, subStr2];
+        NSString *labelStr = [NSString stringWithFormat:Local(@"%@-%@ - Days / Every week"),subStr1, subStr2];
         self.expLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.contantView.frame.size.width - 125, 105, 0, 0)];
         self.expLabel.text = labelStr;
         self.expLabel.font = [UIFont fontWithName:@"AvenirNext-Medium" size:12.0f];
@@ -356,7 +356,7 @@
     //更新title的月份显示
     NSString *subStrYear = [_monthAndYear substringFromIndex:3];
     NSString *subStrMonth = [_monthAndYear substringToIndex:2];
-    NSString *labelStr = [NSString stringWithFormat:@"%@年%@月-每周运动天数",subStrYear, subStrMonth];
+    NSString *labelStr = [NSString stringWithFormat:Local(@"%@-%@ - Days / Every week"),subStrYear, subStrMonth];
     self.expLabel.text = labelStr;
     
     //重绘chart图表
@@ -466,7 +466,7 @@
     cell.iconImageView.image = [UIImage imageNamed:imageName];
     
     if (self.isDay == YES) {
-        cell.daysOrPerLabel.text = [NSString stringWithFormat:@"%@ 天", @(tempArr.count)];
+        cell.daysOrPerLabel.text = [NSString stringWithFormat:Local(@"%@ day"), @(tempArr.count)];
     }else{
         float f = 0;
         if (_allCount > 0) {

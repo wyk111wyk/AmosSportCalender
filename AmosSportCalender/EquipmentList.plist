@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<string>无</string>
+	<string>哑铃</string>
+	<string>杠铃</string>
+	<string>器械</string>
+	<string>T杠</string>
+	<string>史密斯机</string>
+	<string>龙门架</string>
+	<string>弹力绳</string>
+	<string>高板</string>
+	<string>健身球</string>
+	<string>TRX</string>
+	<string>拉力器</string>
+	<string>壶铃</string>
+</array>
+</plist>

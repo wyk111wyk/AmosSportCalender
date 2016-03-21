@@ -11,6 +11,7 @@
 #import "HRColorMapView.h"
 #import "HRBrightnessSlider.h"
 
+#import "CommonMarco.h"
 #import "SettingStore.h"
 
 @interface ColorPickerViewController ()
@@ -37,7 +38,7 @@
     self.view = [[UIView alloc] init];
     self.view.backgroundColor = [UIColor whiteColor];
     
-    self.navigationItem.title = @"编辑颜色";
+    self.navigationItem.title = Local(@"Change theme color" );
     
     colorPickerView = [[HRColorPickerView alloc] init];
     colorPickerView.color = _color;
@@ -80,7 +81,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStyleDone target:self action:@selector(clickToChangeColor)];
+    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:Local(@"Save") style:UIBarButtonItemStyleDone target:self action:@selector(clickToChangeColor)];
     self.navigationItem.rightBarButtonItem = rightButton;
 }
 

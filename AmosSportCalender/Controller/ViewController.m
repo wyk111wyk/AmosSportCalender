@@ -44,6 +44,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *underTableLabel;
 @property (weak, nonatomic) IBOutlet UIButton *addEventButton;
 @property (weak, nonatomic) IBOutlet UIButton *addToCalendarButton;
+@property (weak, nonatomic) IBOutlet UIButton *addToCombiButton;
 
 //Data
 @property (nonatomic, strong) NSDate* selectedDate; ///<被选择的当天日期，用作key
@@ -166,8 +167,10 @@
     //设置添加日程的Button
     if (_calendarManager.settings.weekModeEnabled && eventCount > 0) {
         self.addToCalendarButton.hidden = NO;
+        self.addToCombiButton.hidden = NO;
     }else{
         self.addToCalendarButton.hidden = YES;
+        self.addToCombiButton.hidden = YES;
     }
     
     if (eventCount > 0) {
@@ -323,11 +326,11 @@
 
 - (void)alertForChooseCreate
 {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"选择新建项目"
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:Local(@"Choose to Add Sports")
                                                                    message:nil
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"一项运动"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"One Sport")
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction * action) {
                                                 
@@ -340,7 +343,7 @@
         UINavigationController *newNav = [[UINavigationController alloc] initWithRootViewController:newEvent];
         [self presentViewController:newNav animated:YES completion:nil];
                                             }]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"预置组合"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Preset Combination")
                                               style:UIAlertActionStyleDefault
                                             handler:^(UIAlertAction * action) {
                                                 
@@ -351,7 +354,7 @@
         [self presentViewController:partNav animated:YES completion:nil];
                                             }]];
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"取消"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Cancel")
                                               style:UIAlertActionStyleCancel
                                             handler:^(UIAlertAction * action) {}]];
     
@@ -380,6 +383,7 @@
         //设置添加日程的Button
         if (eventCount > 0) {
             self.addToCalendarButton.hidden = NO;
+            self.addToCombiButton.hidden = NO;
         }
     }else {
         //变为周视图
@@ -387,6 +391,7 @@
             [self transitionExample];
         }
         self.addToCalendarButton.hidden = YES;
+        self.addToCombiButton.hidden = YES;
     }
     [_calendarManager reload];
 }
@@ -427,7 +432,84 @@
 }
 
 - (IBAction)addToCalendar:(UIButton *)sender {
-    [[ASBaseManage sharedManage] checkEventStoreAccessForCalendarWithdayEvents:_allSelectDayEvents seDate:_selectedDate dayPart:_dayPartText view:self];
+    if (sender == _addToCalendarButton) {
+        [[ASBaseManage sharedManage] checkEventStoreAccessForCalendarWithdayEvents:_allSelectDayEvents seDate:_selectedDate dayPart:_dayPartText view:self];
+    }else if (sender == _addToCombiButton) {
+        if(_allSelectDayEvents.count > 0) {
+            [self alertForAddNewGroupCombin];
+        }
+    }
+}
+
+- (void)alertForAddNewGroupCombin
+{
+    NSString *titleStr = [NSString stringWithFormat:Local(@"New combin - %@"), _dayPartText];
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:titleStr
+                                                                   message:Local(@"Create new combin with all sports of today")
+                                                            preferredStyle:UIAlertControllerStyleAlert];
+    
+    [alert addTextFieldWithConfigurationHandler:^(UITextField * _Nonnull textField) {
+        textField.placeholder = Local(@"Type in combination name");
+        textField.tintColor = MyGreenColor;
+    }];
+    
+    UITextField *groupNameField = alert.textFields[0];
+    
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Okay")
+                                              style:UIAlertActionStyleDefault
+                                            handler:^(UIAlertAction * action) {
+                                                if (groupNameField.text.length == 0) {
+                                                    [KVNProgress showErrorWithStatus:Local(@"Combination name cannot be blank!")];
+                                                }else {
+         GroupSetStore *groupStore = [GroupSetStore findFirstWithFormat:@" WHERE groupName = '%@' ", groupNameField.text];
+        if (groupStore) {
+            [KVNProgress showErrorWithStatus:Local(@"Name already exist！")];
+        }else {
+            
+            GroupSetStore *newSet = [GroupSetStore new];
+            newSet.groupPart = _dayPartText;
+            newSet.groupName = groupNameField.text;
+            newSet.groupLevel = 2;
+            [newSet save];
+            
+            {
+                GroupSetStore *groupStore = [GroupSetStore findFirstWithFormat:@" WHERE groupName = '%@' ", groupNameField.text];
+                if (groupStore) {
+                    for (SportRecordStore *recordStore in _allSelectDayEvents){
+                        SportRecordStore *newRecord = [SportRecordStore new];
+                        newRecord.isGroupSet = YES;
+                        newRecord.groupSetPK = groupStore.pk;
+                        
+                        newRecord.sportEquipment = recordStore.sportEquipment;
+                        newRecord.sportName = recordStore.sportName;
+                        newRecord.sportSerialNum = recordStore.sportSerialNum;
+                        newRecord.sportPart = recordStore.sportPart;
+                        newRecord.muscles = recordStore.muscles;
+                        newRecord.timeLast = recordStore.timeLast;
+                        newRecord.repeatSets = recordStore.repeatSets;
+                        newRecord.RM = recordStore.RM;
+                        newRecord.weight = recordStore.weight;
+                        newRecord.sportType = recordStore.sportType;
+                        newRecord.datePart = _dayPartText;
+                        newRecord.isSystemMade = recordStore.isSystemMade;
+                        newRecord.imageKey = recordStore.imageKey;
+                        
+                        [newRecord save];
+                    }
+                    [KVNProgress showSuccess];
+                }
+            }
+                                                    }
+                                                }
+                                                
+                                            }]];
+    
+    
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Cancel")
+                                              style:UIAlertActionStyleCancel
+                                            handler:^(UIAlertAction * action) {}]];
+    
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 #pragma mark - 点击一个日期
@@ -664,6 +746,7 @@
                 if ([recordStore update]) {
                     [_calendarManager setDate:_selectedDate];
                     [self updateTableViewHeadTitle];
+                    [self updateBadgeNumber];
                     [[ASDataManage sharedManage] addNewDateEventRecord:recordStore];
                 }
             }
@@ -674,6 +757,7 @@
             if ([recordStore update]) {
                 [_calendarManager setDate:_selectedDate];
                 [self updateTableViewHeadTitle];
+                [self updateBadgeNumber];
                 [[ASDataManage sharedManage] addNewDateEventRecord:recordStore];
             }
         }
@@ -725,6 +809,7 @@
         }
         [_calendarManager setDate:_selectedDate];
         [self updateTableViewHeadTitle];
+        [self updateBadgeNumber];
         [self.tableView reloadRowAtIndexPath:indexPath withRowAnimation:UITableViewRowAnimationAutomatic];
     }else {
         if (index == 0) {
@@ -743,19 +828,38 @@
     return YES;
 }
 
+- (BOOL)swipeTableCell:(MGSwipeTableCell *)cell canSwipe:(MGSwipeDirection)direction fromPoint:(CGPoint)point {
+    if (point.x > 55) {
+        return YES;
+    }else{
+        return NO;
+    }
+}
+
+- (void)swipeTableCellWillBeginSwiping:(MGSwipeTableCell *)cell {
+    //侧边menu
+    [self.sideMenuViewController setPanGestureEnabled:NO];
+}
+
+- (void)swipeTableCellWillEndSwiping:(MGSwipeTableCell *)cell {
+    //侧边menu
+    [self.sideMenuViewController setPanGestureEnabled:YES];
+}
+
 - (void)alertForDelete:(SportRecordStore *)recordStore indexPath:(NSIndexPath *)indexPath
 {
-    UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"删除这项运动"
+    UIAlertController* alert = [UIAlertController alertControllerWithTitle:Local(@"Delete this sport")
                                                                    message:nil
                                                             preferredStyle:UIAlertControllerStyleActionSheet];
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"确认"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Okay")
                                               style:UIAlertActionStyleDestructive
                                             handler:^(UIAlertAction * action) {
             if ([recordStore deleteObject]) {
                 [_allSelectDayEvents removeObject:recordStore];
                 [[ASDataManage sharedManage] editDateEventRecord:recordStore];
                 [_calendarManager setDate:_selectedDate];
+                [self updateBadgeNumber];
                 [self updateTableViewHeadTitle];
                 if (indexPath.row == 0) {
                     [self.tableView reloadData];
@@ -765,7 +869,7 @@
             }
                                             }]];
     
-    [alert addAction:[UIAlertAction actionWithTitle:@"取消"
+    [alert addAction:[UIAlertAction actionWithTitle:Local(@"Cancel")
                                               style:UIAlertActionStyleCancel
                                             handler:^(UIAlertAction * action) {}]];
     

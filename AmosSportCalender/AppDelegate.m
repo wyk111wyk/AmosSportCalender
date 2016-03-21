@@ -100,12 +100,12 @@ NSArray *sportTypes;
             
             float i = arc4random() % 100;
                 i = (i+100)/100 * (int)ii/5;
-            NSString *str = [NSString stringWithFormat:@"%@天没有运动了，很遗憾您又长了%.2f斤肉~赶快来做一个运动计划吧！", @(ii), i];
+            NSString *str = [NSString stringWithFormat:Local(@"It’s been %@ days，sorry to say that you grow %.2f more fat~ Come on and make a plan！"), @(ii), i];
             if (setting.userName.length > 0) {
-                str = [NSString stringWithFormat:@"%@，%@天没有运动了，很遗憾您又长了%.2f斤肉~赶快来做一个运动计划吧！", setting.userName, @(ii), i];
+                str = [NSString stringWithFormat:Local(@"%@，It’s been %@ days，sorry to say that you grow %.2f more fat~ Come on and make a plan！" ), setting.userName, @(ii), i];
                 }
             localNotification.alertBody = str;
-            localNotification.alertAction = NSLocalizedString(@"立即开始计划运动吧！", nil);
+            localNotification.alertAction = Local(@"Start Now!");
             localNotification.soundName= UILocalNotificationDefaultSoundName;
             
             // 设定通知的userInfo，用来标识该通知:不会
@@ -154,11 +154,8 @@ NSArray *sportTypes;
     [Bugtags startWithAppKey:Bugtags_AppKey invocationEvent:BTGInvocationEventShake options:options];
     
     //向微信注册
-    BOOL weChatSuccess = [WXApi registerApp:WeiXin_AppKey withDescription:@"Amos运动日记"];
-    
-    if (DeBugMode) {
-        NSLog(@"%@", weChatSuccess ? @"weChat-微信注册成功" : @"weChat-微信注册Fail");}
-    
+    [WXApi registerApp:WeiXin_AppKey withDescription:@"Amos运动日记"];
+
     //注册微博
 //    [WeiboSDK enableDebugMode:YES];
 //    BOOL weiBoSuccess = [WeiboSDK registerApp:APP_KEY_WEIBO];

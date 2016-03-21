@@ -35,12 +35,12 @@
 #pragma mark - 初始化框架UI
 
 - (void)initFrameUI {
-    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"返回" style:UIBarButtonItemStyleDone target:self action:nil];
+    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:Local(@"Back") style:UIBarButtonItemStyleDone target:self action:nil];
     [rightButton setActionBlock:^(id _Nonnull sender) {
         [self dismissViewControllerAnimated:YES completion:nil];
     }];
     self.navigationItem.rightBarButtonItem = rightButton;
-    self.navigationItem.title = @"项目详情";
+    self.navigationItem.title = Local(@"Detail");
     
     //设置BackgroundView的属性
     self.backgroundView.layer.cornerRadius = 7;
@@ -83,17 +83,16 @@
     
     if (self.eventsByDateForTable.count > 0) {
         //总次数
-        self.timesLabel.text = [NSString stringWithFormat:@"%@次", @(self.eventsByDateForTable.count)];
+        self.timesLabel.text = [NSString stringWithFormat:Local(@"%@ reps"), @(self.eventsByDateForTable.count)];
         //开始日期
         DateEventStore *firstDateStore = [_eventsByDateForTable lastObject];
         NSDate *date = [[ASBaseManage dateFormatterForDMY] dateFromString:firstDateStore.dateKey];
-        NSString *titleStr = [[self dateFormatterStart] stringFromDate:date];
+        NSString *titleStr = [[ASBaseManage dateFormatterForDMYE] stringFromDate:date];
         self.startDateLabel.text = titleStr;
         //平均时间
         NSInteger timelastMin = 0;
         for (DateEventStore *dateStore in _eventsByDateForTable) {
-            timelastMin += dateStore.doneMins;
-        }
+            timelastMin += dateStore.doneMins;        }
         NSInteger avegmin = timelastMin / _eventsByDateForTable.count;
         self.avegTime.text = [NSString stringWithFormat:@"%@", @(avegmin)];
         
@@ -110,13 +109,13 @@
             self.avegSpaceLabel.text = [NSString stringWithFormat:@"%.1f", avgGapDays];
         }
         
-        self.belowTableViewLabel.text = @"继续努力吧！";
+        self.belowTableViewLabel.text = Local(@"Keep going！");
     }else{
         self.timesLabel.text = @"0次";
-        self.startDateLabel.text = @"还未开始此项运动";
+        self.startDateLabel.text = Local(@"Not started yet");
         self.avegTime.text = @"0";
         self.avegSpaceLabel.text = @"0";
-        self.belowTableViewLabel.text = @"还没有该项运动类型的任何记录";
+        self.belowTableViewLabel.text = Local(@"No records of this part");
     }
     
     if (screenWidth == WidthiPhone5) {
@@ -200,18 +199,6 @@
     cell.recordStore = recordStore;
     
     return cell;
-}
-
-- (NSDateFormatter *)dateFormatterStart
-{
-    static NSDateFormatter *dateFormatterDisplay;
-    if(!dateFormatterDisplay){
-        dateFormatterDisplay = [NSDateFormatter new];
-        dateFormatterDisplay.dateFormat = @"从yyyy年MM月dd日起";
-        [dateFormatterDisplay setTimeZone:[NSTimeZone timeZoneWithName:@"Asia/Shanghai"]];
-    }
-    
-    return dateFormatterDisplay;
 }
 
 @end
