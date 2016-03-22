@@ -213,7 +213,7 @@ CFBundleDisplayName = "Amos运动日记";
 "My Email Address" = "联系方式(选填)";
 
 "Chest" = "胸部";
-"Back" = "背部";
+"BACK" = "背部";
 "Shoulders" = "肩部";
 "Legs" = "腿部";
 "Arms" = "手臂";

@@ -263,7 +263,7 @@
                 
                 if (self.calendarManager.settings.weekModeEnabled) {
                     [self transitionExample];
-                    [self.calendarManager reload];
+//                    [self.calendarManager reload];
                     [self updateTableViewHeadTitle];
                 }
                 
@@ -393,7 +393,7 @@
         self.addToCalendarButton.hidden = YES;
         self.addToCombiButton.hidden = YES;
     }
-    [_calendarManager reload];
+//    [_calendarManager reload];
 }
 
 //改变日历视图的动画

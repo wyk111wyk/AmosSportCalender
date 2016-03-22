@@ -389,7 +389,7 @@
 		B048EF7F1B8D70E100F01530 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		B048EF811B8D70EB00F01530 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		B048EF831B8D70F700F01530 /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
-		B048EF851B8D720100F01530 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		B048EF851B8D720100F01530 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "../Icon@2x.png"; sourceTree = "<group>"; };
 		B05771961C9E8E26003959CB /* AllSystemSportEvents.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = AllSystemSportEvents.plist; sourceTree = "<group>"; };
 		B05771981C9E8E92003959CB /* inputGroupEvents.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = inputGroupEvents.plist; sourceTree = "<group>"; };
 		B05771991C9E8E92003959CB /* inputGroupSets.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = inputGroupSets.plist; sourceTree = "<group>"; };
@@ -556,7 +556,7 @@
 		B09DB2921B84E5E0007458C1 /* LeftMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LeftMenuView.h; path = Controller/LeftMenuView.h; sourceTree = "<group>"; };
 		B09DB2931B84E5E0007458C1 /* LeftMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LeftMenuView.m; path = Controller/LeftMenuView.m; sourceTree = "<group>"; };
 		B09DB2E71B857437007458C1 /* LeftMenuViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LeftMenuViewController.xib; path = View/LeftMenuViewController.xib; sourceTree = "<group>"; };
-		B0A084341B8F5A1D0054EA0F /* AmosSportDiary.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = AmosSportDiary.entitlements; sourceTree = "<group>"; };
+		B0A084341B8F5A1D0054EA0F /* AmosSportDiary.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = AmosSportDiary.entitlements; path = ../AmosSportDiary.entitlements; sourceTree = "<group>"; };
 		B0B548411B843F2400D42B33 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		B0B548431B843F2A00D42B33 /* LocalAuthentication.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = LocalAuthentication.framework; path = System/Library/Frameworks/LocalAuthentication.framework; sourceTree = SDKROOT; };
 		B0B973651B74808F0008640E /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
@@ -2195,8 +2195,6 @@
 		B0FA58891B4678D400E3BE94 = {
 			isa = PBXGroup;
 			children = (
-				B0A084341B8F5A1D0054EA0F /* AmosSportDiary.entitlements */,
-				B048EF851B8D720100F01530 /* Icon@2x.png */,
 				B0B548401B843EF300D42B33 /* FrameWork */,
 				B0FA58941B4678D400E3BE94 /* AmosSportCalender */,
 				B0FA58B11B4678D400E3BE94 /* AmosSportCalenderTests */,
@@ -2234,6 +2232,8 @@
 		B0FA58951B4678D400E3BE94 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B0A084341B8F5A1D0054EA0F /* AmosSportDiary.entitlements */,
+				B048EF851B8D720100F01530 /* Icon@2x.png */,
 				B019BEFF1B9472D700D2D8F6 /* AmosSportDiaryLocalizable.strings */,
 				B0FA58A91B4678D400E3BE94 /* Info.plist */,
 				B0FA58961B4678D400E3BE94 /* main.m */,
@@ -2847,8 +2847,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: yuke wu (BBLAS4A9A3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuke wu (BBLAS4A9A3)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: yuke wu (D3FXKEY64K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: yuke wu (D3FXKEY64K)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -2871,7 +2871,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "55c80013-95e7-4b27-ad02-dfcdfbce9c46";
+				PROVISIONING_PROFILE = "96465778-c9b8-4d0f-b6b1-28b669174808";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -2893,8 +2893,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: yuke wu (BBLAS4A9A3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuke wu (BBLAS4A9A3)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: yuke wu (D3FXKEY64K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: yuke wu (D3FXKEY64K)";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
@@ -2912,7 +2912,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
-				PROVISIONING_PROFILE = "55c80013-95e7-4b27-ad02-dfcdfbce9c46";
+				PROVISIONING_PROFILE = "96465778-c9b8-4d0f-b6b1-28b669174808";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -2923,8 +2923,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AmosSportDiary.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: yuke wu (BBLAS4A9A3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuke wu (BBLAS4A9A3)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: yuke wu (D3FXKEY64K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: yuke wu (D3FXKEY64K)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2950,7 +2950,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AKSocialLab.AmosSportDiary;
 				PRODUCT_NAME = AmosSportDiary;
-				PROVISIONING_PROFILE = "55c80013-95e7-4b27-ad02-dfcdfbce9c46";
+				PROVISIONING_PROFILE = "c031f6f7-5e66-49e5-b8a6-20fea4566c45";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2961,8 +2961,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = AmosSportDiary.entitlements;
-				CODE_SIGN_IDENTITY = "iPhone Developer: yuke wu (BBLAS4A9A3)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: yuke wu (BBLAS4A9A3)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: yuke wu (D3FXKEY64K)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: yuke wu (D3FXKEY64K)";
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2987,7 +2987,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.AKSocialLab.AmosSportDiary;
 				PRODUCT_NAME = AmosSportDiary;
-				PROVISIONING_PROFILE = "55c80013-95e7-4b27-ad02-dfcdfbce9c46";
+				PROVISIONING_PROFILE = "c031f6f7-5e66-49e5-b8a6-20fea4566c45";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

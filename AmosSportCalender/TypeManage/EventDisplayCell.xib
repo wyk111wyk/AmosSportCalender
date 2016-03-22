@@ -27,7 +27,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="uVa-PZ-pvO">
-                        <rect key="frame" x="54" y="33.5" width="258" height="17"/>
+                        <rect key="frame" x="54" y="33" width="258" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
@@ -64,11 +64,11 @@
                     <constraint firstItem="MIO-fo-shR" firstAttribute="leading" secondItem="LFl-VD-4RA" secondAttribute="trailing" constant="6" id="GcF-cj-auI"/>
                     <constraint firstItem="MIO-fo-shR" firstAttribute="centerY" secondItem="Ji8-Va-rrB" secondAttribute="centerY" id="I8a-Pl-ROF"/>
                     <constraint firstItem="uVa-PZ-pvO" firstAttribute="leading" secondItem="LFl-VD-4RA" secondAttribute="trailing" constant="6" id="LYm-44-Pgu"/>
+                    <constraint firstItem="Ji8-Va-rrB" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" constant="-10" id="NJk-xw-Z9R"/>
                     <constraint firstItem="uVa-PZ-pvO" firstAttribute="top" secondItem="zxh-9Y-DQA" secondAttribute="bottom" constant="5" id="Sct-er-cUz"/>
                     <constraint firstItem="Ji8-Va-rrB" firstAttribute="leading" secondItem="MIO-fo-shR" secondAttribute="trailing" constant="6" id="eOJ-dG-Cwm"/>
                     <constraint firstItem="LFl-VD-4RA" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="fq5-2w-2vQ"/>
                     <constraint firstItem="zxh-9Y-DQA" firstAttribute="centerY" secondItem="Ji8-Va-rrB" secondAttribute="centerY" id="gub-TD-WJr"/>
-                    <constraint firstItem="Ji8-Va-rrB" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="i8d-lr-MYf"/>
                     <constraint firstItem="LFl-VD-4RA" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="icF-lI-S77"/>
                     <constraint firstAttribute="trailing" secondItem="MRX-Pr-4qY" secondAttribute="trailing" constant="10" id="kUH-FT-R8e"/>
                     <constraint firstItem="MRX-Pr-4qY" firstAttribute="centerY" secondItem="Ji8-Va-rrB" secondAttribute="centerY" id="zss-Hk-cXq"/>
@@ -83,7 +83,7 @@
                 <outlet property="starImageView" destination="MIO-fo-shR" id="Lr2-KD-r3P"/>
                 <outlet property="starWeigh" destination="hKd-dM-vVc" id="0H9-r2-sYE"/>
             </connections>
-            <point key="canvasLocation" x="-113" y="315.5"/>
+            <point key="canvasLocation" x="-253" y="268.5"/>
         </tableViewCell>
     </objects>
     <resources>
